@@ -1,6 +1,6 @@
-package com.lazytravel.member;
+package com.lazytravel.customer;
 
-public class Member {
+public class Customer {
 	private int memID;
 	private String memACC;
 	private String memPassword;
