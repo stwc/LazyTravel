@@ -1,5 +1,5 @@
 package com.lazytravel.journey;
 
-public class journey {
+public class Journey {
 	private Integer journeyId;
 }
