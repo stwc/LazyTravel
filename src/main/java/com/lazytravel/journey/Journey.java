@@ -12,7 +12,7 @@ public class Journey implements Serializable {
 	private String content;
 	private Double avgScore;
 	private Integer scoreCount;
-	private Date days;
+	private Integer days;
 	private Integer buyCount;
 	private String journeyStatus;
 
@@ -20,7 +20,7 @@ public class Journey implements Serializable {
 	}
 
 	public Journey(Integer journeyId, String journeyName, Integer price, Timestamp createTime, String content,
-			       Double avgScore, Integer scoreCount, Date days, Integer buyCount, String journeyStatus) {
+			       Double avgScore, Integer scoreCount, Integer days, Integer buyCount, String journeyStatus) {
 		this.journeyId = journeyId;
 		this.journeyName = journeyName;
 		this.price = price;
@@ -89,11 +89,11 @@ public class Journey implements Serializable {
 		this.scoreCount = scoreCount;
 	}
 
-	public Date getDays() {
+	public Integer getDays() {
 		return days;
 	}
 
-	public void setDays(Date days) {
+	public void setDays(Integer days) {
 		this.days = days;
 	}
 
