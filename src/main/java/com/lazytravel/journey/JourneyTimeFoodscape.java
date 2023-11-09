@@ -8,7 +8,7 @@ public class JourneyTimeFoodscape implements Serializable {
 	private Integer foodscapeId;
 	private Timestamp startTime;
 	private Timestamp endTime;
-	private Integer day;
+	private Integer nthDay;
 	private Timestamp updateTime;
 
 	public JourneyTimeFoodscape() {
@@ -16,12 +16,12 @@ public class JourneyTimeFoodscape implements Serializable {
 	}
 
 	public JourneyTimeFoodscape(Integer journeyId, Integer foodscapeId, Timestamp startTime,
-		                        Timestamp endTime, Integer day, Timestamp updateTime) {
+		                        Timestamp endTime, Integer nthDay, Timestamp updateTime) {
 		this.journeyId = journeyId;
 		this.foodscapeId = foodscapeId;
 		this.startTime = startTime;
 		this.endTime = endTime;
-		this.day = day;
+		this.nthDay = nthDay;
 		this.updateTime = updateTime;
 	}
 
@@ -57,12 +57,12 @@ public class JourneyTimeFoodscape implements Serializable {
 		this.endTime = endTime;
 	}
 
-	public Integer getDay() {
-		return day;
+	public Integer getNthDay() {
+		return nthDay;
 	}
 
-	public void setDay(Integer day) {
-		this.day = day;
+	public void setNthDay(Integer nthDay) {
+		this.nthDay = nthDay;
 	}
 
 	public Timestamp getUpdateTime() {

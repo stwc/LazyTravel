@@ -3,7 +3,7 @@ package com.lazytravel.journey;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Group implements Serializable {
+public class TourGroup implements Serializable {
 	private Integer groupId;
 	private Integer journeyId;
 	private Timestamp startTime;
@@ -17,12 +17,12 @@ public class Group implements Serializable {
 	private Timestamp createTime;
 	private Timestamp updateTime;
 	
-	public Group() {
+	public TourGroup() {
 	}
 			
-	public Group(Integer groupId, Integer journeyId, Timestamp startTime, Timestamp endTime, Integer price,
-				 Integer signupNum, Integer minRequired, Integer maxRequired, Timestamp signupDate,
-  			     Timestamp dueDate, Timestamp createTime, Timestamp updateTime) {
+	public TourGroup(Integer groupId, Integer journeyId, Timestamp startTime, Timestamp endTime, Integer price,
+				     Integer signupNum, Integer minRequired, Integer maxRequired, Timestamp signupDate,
+  			         Timestamp dueDate, Timestamp createTime, Timestamp updateTime) {
 		this.groupId = groupId;
 		this.journeyId = journeyId;
 		this.startTime = startTime;

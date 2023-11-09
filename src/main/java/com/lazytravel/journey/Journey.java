@@ -6,31 +6,31 @@ import java.sql.Timestamp;
 
 public class Journey implements Serializable {
 	private Integer journeyId;
-	private String name;
+	private String journeyName;
 	private Integer price;
 	private Timestamp createTime;
 	private String content;
 	private Double avgScore;
 	private Integer scoreCount;
-	private Date date;
+	private Date days;
 	private Integer buyCount;
-	private String status;
+	private String journeyStatus;
 
 	public Journey() {
 	}
 
-	public Journey(Integer journeyId, String name, Integer price, Timestamp createTime, String content,
-			       Double avgScore, Integer scoreCount, Date date, Integer buyCount, String status) {
+	public Journey(Integer journeyId, String journeyName, Integer price, Timestamp createTime, String content,
+			       Double avgScore, Integer scoreCount, Date days, Integer buyCount, String journeyStatus) {
 		this.journeyId = journeyId;
-		this.name = name;
+		this.journeyName = journeyName;
 		this.price = price;
 		this.createTime = createTime;
 		this.content = content;
 		this.avgScore = avgScore;
 		this.scoreCount = scoreCount;
-		this.date = date;
+		this.days = days;
 		this.buyCount = buyCount;
-		this.status = status;
+		this.journeyStatus = journeyStatus;
 	}
 
 	public Integer getJourneyId() {
@@ -41,12 +41,12 @@ public class Journey implements Serializable {
 		this.journeyId = journeyId;
 	}
 
-	public String getName() {
-		return name;
+	public String getJourneyName() {
+		return journeyName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setJourneyName(String journeyName) {
+		this.journeyName = journeyName;
 	}
 
 	public Integer getPrice() {
@@ -89,12 +89,12 @@ public class Journey implements Serializable {
 		this.scoreCount = scoreCount;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDays() {
+		return days;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDays(Date days) {
+		this.days = days;
 	}
 
 	public Integer getBuyCount() {
@@ -105,12 +105,12 @@ public class Journey implements Serializable {
 		this.buyCount = buyCount;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getJourneyStatus() {
+		return journeyStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setJourneyStatus(String journeyStatus) {
+		this.journeyStatus = journeyStatus;
 	}
-
+	
 }
