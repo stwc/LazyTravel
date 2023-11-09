@@ -3,34 +3,35 @@ package com.lazytravel.admin;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class User implements Serializable {
+public class Users implements Serializable {
     private Integer userId;
     private String username;
-    private String password;
+    private String userPasswd;
     private Integer roleId;
-    private String status;
+    private String userStatus;
     private Timestamp createTime;
     private Timestamp updateTime;
 
-    public User() {
+    public Users() {
         super();
     }
 
-    public User(Integer userId, String username, String password, Integer roleId, String status, Timestamp createTime, Timestamp updateTime) {
+    public Users(Integer userId, String username, String userPasswd, Integer roleId, String userStatus,
+                 Timestamp createTime, Timestamp updateTime) {
         this.userId = userId;
         this.username = username;
-        this.password = password;
+        this.userPasswd = userPasswd;
         this.roleId = roleId;
-        this.status = status;
+        this.userStatus = userStatus;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
 
-    public User(String username, String password, Integer roleId, String status) {
+    public Users(String username, String userPasswd, Integer roleId, String userStatus) {
         this.username = username;
-        this.password = password;
+        this.userPasswd = userPasswd;
         this.roleId = roleId;
-        this.status = status;
+        this.userStatus = userStatus;
     }
 
     public Integer getUserId() {
@@ -49,12 +50,12 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPasswd() {
+        return userPasswd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserPasswd(String userPasswd) {
+        this.userPasswd = userPasswd;
     }
 
     public Integer getRoleId() {
@@ -65,12 +66,12 @@ public class User implements Serializable {
         this.roleId = roleId;
     }
 
-    public String getStatus() {
-        return status;
+    public String getUserStatus() {
+        return userStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
     }
 
     public Timestamp getCreateTime() {
@@ -94,9 +95,9 @@ public class User implements Serializable {
         return "User{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", userPasswd='" + userPasswd + '\'' +
                 ", roleId=" + roleId +
-                ", status='" + status + '\'' +
+                ", userStatus='" + userStatus + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

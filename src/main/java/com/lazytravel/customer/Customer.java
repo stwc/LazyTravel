@@ -13,21 +13,21 @@ public class Customer implements Serializable {
     private Date birth;
     private String address;
     private String email;
-    private String password;
-    private String status;
+    private String customerPasswd;
+    private String customerStatus;
     private String idno;
+    private Byte[] avatar;
     private Integer customerPoint;
     private Timestamp createTime;
     private Timestamp updateTime;
-    private Byte[] avatar;
 
     public Customer() {
         super();
     }
 
     public Customer(Integer customerId, String customerName, String nickname, String sex, String phone, Date birth,
-                    String address, String email, String password, String status, String idno, Integer customerPoint,
-                    Timestamp createTime, Timestamp updateTime, Byte[] avatar) {
+                    String address, String email, String customerPasswd, String customerStatus, String idno, Byte[] avatar,
+                    Integer customerPoint, Timestamp createTime, Timestamp updateTime) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.nickname = nickname;
@@ -36,8 +36,8 @@ public class Customer implements Serializable {
         this.birth = birth;
         this.address = address;
         this.email = email;
-        this.password = password;
-        this.status = status;
+        this.customerPasswd = customerPasswd;
+        this.customerStatus = customerStatus;
         this.idno = idno;
         this.customerPoint = customerPoint;
         this.createTime = createTime;
@@ -46,7 +46,7 @@ public class Customer implements Serializable {
     }
 
     public Customer(String customerName, String nickname, String sex, String phone, Date birth, String address,
-                    String email, String password, String status, String idno, Integer customerPoint) {
+                    String email, String customerPasswd, String customerStatus, String idno, Integer customerPoint) {
         this.customerName = customerName;
         this.nickname = nickname;
         this.sex = sex;
@@ -54,8 +54,8 @@ public class Customer implements Serializable {
         this.birth = birth;
         this.address = address;
         this.email = email;
-        this.password = password;
-        this.status = status;
+        this.customerPasswd = customerPasswd;
+        this.customerStatus = customerStatus;
         this.idno = idno;
         this.customerPoint = customerPoint;
     }
@@ -124,20 +124,20 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCustomerPasswd() {
+        return customerPasswd;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCustomerPasswd(String customerPasswd) {
+        this.customerPasswd = customerPasswd;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCustomerStatus() {
+        return customerStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCustomerStatus(String customerStatus) {
+        this.customerStatus = customerStatus;
     }
 
     public String getIdno() {
@@ -146,6 +146,14 @@ public class Customer implements Serializable {
 
     public void setIdno(String idno) {
         this.idno = idno;
+    }
+
+    public Byte[] getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Byte[] avatar) {
+        this.avatar = avatar;
     }
 
     public Integer getCustomerPoint() {
@@ -172,14 +180,6 @@ public class Customer implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Byte[] getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(Byte[] avatar) {
-        this.avatar = avatar;
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
@@ -191,8 +191,8 @@ public class Customer implements Serializable {
                 ", birth=" + birth +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", status='" + status + '\'' +
+                ", customerPasswd='" + customerPasswd + '\'' +
+                ", customerStatus='" + customerStatus + '\'' +
                 ", idno='" + idno + '\'' +
                 ", customerPoint=" + customerPoint +
                 '}';

@@ -2,19 +2,19 @@ package com.lazytravel.admin;
 
 import java.io.Serializable;
 
-public class Role implements Serializable {
+public class Roles implements Serializable {
     private Integer roleId;
     private String roleName;
-    private String description;
+    private String roleDescr;
 
-    public Role() {
+    public Roles() {
         super();
     }
 
-    public Role(Integer roleId, String roleName, String description) {
+    public Roles(Integer roleId, String roleName, String roleDescr) {
         this.roleId = roleId;
         this.roleName = roleName;
-        this.description = description;
+        this.roleDescr = roleDescr;
     }
 
     public Integer getRoleId() {
@@ -33,12 +33,12 @@ public class Role implements Serializable {
         this.roleName = roleName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRoleDescr() {
+        return roleDescr;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRoleDescr(String roleDescr) {
+        this.roleDescr = roleDescr;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Role implements Serializable {
         return "Role{" +
                 "roleId=" + roleId +
                 ", roleName='" + roleName + '\'' +
-                ", description='" + description + '\'' +
+                ", roleDescr='" + roleDescr + '\'' +
                 '}';
     }
 }

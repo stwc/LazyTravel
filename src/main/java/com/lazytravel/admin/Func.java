@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class Func implements Serializable {
     private Integer funcId;
     private String funcName;
-    private String description;
+    private String funcDescr;
 
     public Func() {
         super();
     }
 
-    public Func(Integer funcId, String funcName, String description) {
+    public Func(Integer funcId, String funcName, String funcDescr) {
         this.funcId = funcId;
         this.funcName = funcName;
-        this.description = description;
+        this.funcDescr = funcDescr;
     }
 
     public Integer getFuncId() {
@@ -33,12 +33,12 @@ public class Func implements Serializable {
         this.funcName = funcName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getFuncDescr() {
+        return funcDescr;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFuncDescr(String funcDescr) {
+        this.funcDescr = funcDescr;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Func implements Serializable {
         return "Func{" +
                 "funcId=" + funcId +
                 ", funcName='" + funcName + '\'' +
-                ", description='" + description + '\'' +
+                ", funcDescr='" + funcDescr + '\'' +
                 '}';
     }
 }
