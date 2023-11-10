@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface BlogLikeDAO {
 
-	void add(BlogLike bloglike);
-	void update(BlogLike bloglike);
-	void delete(Integer bloglikeid);
-	BlogLike getBlogLikeBybloglikeid(Integer bloglikeid);
+	void add(BlogLike blogLike);
+	void update(BlogLike blogLike);
+	void delete(Integer blogLikeId);
+	BlogLike getBlogLikeByBlogLikeId(Integer blogLikeId);
 	List<BlogLike>getAll();
 }

@@ -1,71 +1,71 @@
 package com.lazytravel.blog;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class BlogMsg implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer blogmsgid;
-	private Integer content;
-	private Integer blogid;
-	private Integer customerid;
-	private Integer createtime;
+	private Integer blogMsgId;
+	private String content;
+	private Integer blogId;
+	private Integer customerId;
+	private Timestamp createTime;
 
 	public BlogMsg() {
 		super();
 	}
 
-	public BlogMsg(Integer blogmsgid, Integer content, Integer blogid, Integer customerid, Integer createtime) {
+	public BlogMsg(Integer blogMsgId, String content, Integer blogId, Integer customerId, Timestamp createTime) {
 		super();
-		this.blogmsgid = blogmsgid;
+		this.blogMsgId = blogMsgId;
 		this.content = content;
-		this.blogid = blogid;
-		this.customerid = customerid;
-		this.createtime = createtime;
+		this.blogId = blogId;
+		this.customerId = customerId;
+		this.createTime = createTime;
 	}
 
-	public Integer getBlogmsgid() {
-		return blogmsgid;
+	public Integer getBlogMsgId() {
+		return blogMsgId;
 	}
 
-	public void setBlogmsgid(Integer blogmsgid) {
-		this.blogmsgid = blogmsgid;
+	public void setBlogMsgId(Integer blogMsgId) {
+		this.blogMsgId = blogMsgId;
 	}
 
-	public Integer getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(Integer content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
-	public Integer getBlogid() {
-		return blogid;
+	public Integer getBlogId() {
+		return blogId;
 	}
 
-	public void setBlogid(Integer blogid) {
-		this.blogid = blogid;
+	public void setBlogId(Integer blogId) {
+		this.blogId = blogId;
 	}
 
-	public Integer getCustomerid() {
-		return customerid;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomerid(Integer customerid) {
-		this.customerid = customerid;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
-	public Integer getCreatetime() {
-		return createtime;
+	public Timestamp getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatetime(Integer createtime) {
-		this.createtime = createtime;
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
-
 	public String toString() {
-		return "Blogmsg [blogmsgid=" + blogmsgid + ", content=" + content + ", blogid=" + blogid + ", customerid="
-				+ customerid + ", createtime=" + createtime + "]";
+		return "BlogMsg [blogMsgId=" + blogMsgId + ", content=" + content + ", blogId=" + blogId + ", customerId="
+				+ customerId + ", createTime=" + createTime + "]";
 	}
 	
 }

@@ -1,41 +1,44 @@
 package com.lazytravel.blog;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class Blog implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer blogId;
-	private String name;
-	private Integer customerid;
-	private Integer date;
+	private String title;
+	private Integer customerId;
+	private Timestamp blogDate;
 	private Integer content;
-	private Integer updatetime;
-	private Integer createtime;
-	private Integer likesum;
-	private Integer viewsum;
-	private Integer clsum;
-	private Integer img;
-	private String status;
+	private Timestamp upDateTime;
+	private Timestamp createTime;
+	private Integer likeSum;
+	private Integer viewSum;
+	private Integer clSum;
+	private byte[]  img;
+	private String blogStatus;
 
 	public Blog() {
 		super();
 	}
 
-	public Blog(Integer blogId, String name, Integer customerid, Integer date, Integer content, Integer updatetime,
-			Integer createtime, Integer likesum, Integer viewsum, Integer clsum, Integer img, String status) {
+	public Blog(Integer blogId, String title, Integer customerId, Timestamp blogDate, Integer content,
+			Timestamp upDateTime, Timestamp createTime, Integer likeSum, Integer viewSum, Integer clSum, byte[] img,
+			String blogStatus) {
 		super();
 		this.blogId = blogId;
-		this.name = name;
-		this.customerid = customerid;
-		this.date = date;
+		this.title = title;
+		this.customerId = customerId;
+		this.blogDate = blogDate;
 		this.content = content;
-		this.updatetime = updatetime;
-		this.createtime = createtime;
-		this.likesum = likesum;
-		this.viewsum = viewsum;
-		this.clsum = clsum;
+		this.upDateTime = upDateTime;
+		this.createTime = createTime;
+		this.likeSum = likeSum;
+		this.viewSum = viewSum;
+		this.clSum = clSum;
 		this.img = img;
-		this.status = status;
+		this.blogStatus = blogStatus;
 	}
 
 	public Integer getBlogId() {
@@ -46,28 +49,28 @@ public class Blog implements Serializable {
 		this.blogId = blogId;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public Integer getCustomerid() {
-		return customerid;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomerid(Integer customerid) {
-		this.customerid = customerid;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
-	public Integer getDate() {
-		return date;
+	public Timestamp getBlogDate() {
+		return blogDate;
 	}
 
-	public void setDate(Integer date) {
-		this.date = date;
+	public void setBlogDate(Timestamp blogDate) {
+		this.blogDate = blogDate;
 	}
 
 	public Integer getContent() {
@@ -78,65 +81,67 @@ public class Blog implements Serializable {
 		this.content = content;
 	}
 
-	public Integer getUpdatetime() {
-		return updatetime;
+	public Timestamp getUpDateTime() {
+		return upDateTime;
 	}
 
-	public void setUpdatetime(Integer updatetime) {
-		this.updatetime = updatetime;
+	public void setUpDateTime(Timestamp upDateTime) {
+		this.upDateTime = upDateTime;
 	}
 
-	public Integer getCreatetime() {
-		return createtime;
+	public Timestamp getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatetime(Integer createtime) {
-		this.createtime = createtime;
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 
-	public Integer getLikesum() {
-		return likesum;
+	public Integer getLikeSum() {
+		return likeSum;
 	}
 
-	public void setLikesum(Integer likesum) {
-		this.likesum = likesum;
+	public void setLikeSum(Integer likeSum) {
+		this.likeSum = likeSum;
 	}
 
-	public Integer getViewsum() {
-		return viewsum;
+	public Integer getViewSum() {
+		return viewSum;
 	}
 
-	public void setViewsum(Integer viewsum) {
-		this.viewsum = viewsum;
+	public void setViewSum(Integer viewSum) {
+		this.viewSum = viewSum;
 	}
 
-	public Integer getClsum() {
-		return clsum;
+	public Integer getClSum() {
+		return clSum;
 	}
 
-	public void setClsum(Integer clsum) {
-		this.clsum = clsum;
+	public void setClSum(Integer clSum) {
+		this.clSum = clSum;
 	}
 
-	public Integer getImg() {
+	public byte[] getImg() {
 		return img;
 	}
 
-	public void setImg(Integer img) {
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getBlogStatus() {
+		return blogStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setBlogStatus(String blogStatus) {
+		this.blogStatus = blogStatus;
 	}
 	public String toString() {
-		return "Blog [blogId=" + blogId + ", name=" + name + ", customerid=" + customerid + ", date=" + date
-				+ ", content=" + content + ", updatetime=" + updatetime + ", createtime=" + createtime + ", likesum="
-				+ likesum + ", viewsum=" + viewsum + ", clsum=" + clsum + ", img=" + img + ", status=" + status + "]";
+		return "Blog [blogId=" + blogId + ", title=" + title + ", customerId=" + customerId + ", blogDate=" + blogDate
+				+ ", content=" + content + ", upDateTime=" + upDateTime + ", createTime=" + createTime + ", likeSum="
+				+ likeSum + ", viewSum=" + viewSum + ", clSum=" + clSum + ", img=" + Arrays.toString(img)
+				+ ", blogStatus=" + blogStatus + "]";
 	}
-	
+
+
 }

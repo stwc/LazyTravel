@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface BlogClDAO {
 
-	void add(BlogCl blogcl);
-	void update(BlogCl blogcl);
-	void delete(Integer blogclid);
+	void add(BlogCl blogCl);
+	void update(BlogCl blogCl);
+	void delete(Integer blogClId);
 	
-	BlogClDAO getBlogClDAOByBlogClDAOid(Integer blogclid);
-	List<BlogClDAO>getAll();
+	BlogCl getBlogClByBlogClId(Integer blogClId);
+	List<BlogCl>getAll();
 }

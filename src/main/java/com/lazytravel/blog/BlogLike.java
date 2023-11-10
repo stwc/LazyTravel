@@ -1,73 +1,72 @@
 package com.lazytravel.blog;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class BlogLike implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer bloglikeid;
-	private Integer customerid;
-	private Integer createtime;
-	private Integer blogid;
-	private String status;
+	private Integer bloglikeId;
+	private Integer customerId;
+	private Timestamp createTime;
+	private Integer blogId;
+	private String blogLikeStatus;
 	
 	public BlogLike() {
 		super();
 	}
 
-	public BlogLike(Integer bloglikeid, Integer customerid, Integer createtime, Integer blogid, String status) {
+	public BlogLike(Integer bloglikeId, Integer customerId, Timestamp createTime, Integer blogId,
+			String blogLikeStatus) {
 		super();
-		this.bloglikeid = bloglikeid;
-		this.customerid = customerid;
-		this.createtime = createtime;
-		this.blogid = blogid;
-		this.status = status;
+		this.bloglikeId = bloglikeId;
+		this.customerId = customerId;
+		this.createTime = createTime;
+		this.blogId = blogId;
+		this.blogLikeStatus = blogLikeStatus;
 	}
 
-	public Integer getBloglikeid() {
-		return bloglikeid;
+	public Integer getBloglikeId() {
+		return bloglikeId;
 	}
 
-	public void setBloglikeid(Integer bloglikeid) {
-		this.bloglikeid = bloglikeid;
+	public void setBloglikeId(Integer bloglikeId) {
+		this.bloglikeId = bloglikeId;
 	}
 
-	public Integer getCustomerid() {
-		return customerid;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomerid(Integer customerid) {
-		this.customerid = customerid;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
-	public Integer getCreatetime() {
-		return createtime;
+	public Timestamp getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatetime(Integer createtime) {
-		this.createtime = createtime;
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 
-	public Integer getBlogid() {
-		return blogid;
+	public Integer getBlogId() {
+		return blogId;
 	}
 
-	public void setBlogid(Integer blogid) {
-		this.blogid = blogid;
+	public void setBlogId(Integer blogId) {
+		this.blogId = blogId;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getBlogLikeStatus() {
+		return blogLikeStatus;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setBlogLikeStatus(String blogLikeStatus) {
+		this.blogLikeStatus = blogLikeStatus;
 	}
-
-	@Override
 	public String toString() {
-		return "BlogLike [bloglikeid=" + bloglikeid + ", customerid=" + customerid + ", createtime=" + createtime
-				+ ", blogid=" + blogid + ", status=" + status + "]";
+		return "BlogLike [bloglikeId=" + bloglikeId + ", customerId=" + customerId + ", createTime=" + createTime
+				+ ", blogId=" + blogId + ", blogLikeStatus=" + blogLikeStatus + "]";
 	}
 	
-
 }

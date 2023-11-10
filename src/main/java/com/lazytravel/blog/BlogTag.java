@@ -5,36 +5,36 @@ import java.io.Serializable;
 public class BlogTag implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	private Integer blodid;
-	private Integer tagid;
+	private Integer blodId;
+	private Integer tagId;
 	
 	public BlogTag() {
 		super();
 	}
 
-	public BlogTag(Integer blodid, Integer tagid) {
+	public BlogTag(Integer blodId, Integer tagId) {
 		super();
-		this.blodid = blodid;
-		this.tagid = tagid;
+		this.blodId = blodId;
+		this.tagId = tagId;
 	}
 
-	public Integer getBlodid() {
-		return blodid;
+	public Integer getBlodId() {
+		return blodId;
 	}
 
-	public void setBlodid(Integer blodid) {
-		this.blodid = blodid;
+	public void setBlodId(Integer blodId) {
+		this.blodId = blodId;
 	}
 
-	public Integer getTagid() {
-		return tagid;
+	public Integer getTagId() {
+		return tagId;
 	}
 
-	public void setTagid(Integer tagid) {
-		this.tagid = tagid;
+	public void setTagId(Integer tagId) {
+		this.tagId = tagId;
 	}
 	public String toString() {
-		return "BlogTag [blodid=" + blodid + ", tagid=" + tagid + "]";
+		return "BlogTag [blodId=" + blodId + ", tagId=" + tagId + "]";
 	}
-
+	
 }

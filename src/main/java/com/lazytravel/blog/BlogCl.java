@@ -1,66 +1,72 @@
 package com.lazytravel.blog;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class BlogCl implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	private Integer blogclid;
-	private Integer customerid;
-	private Integer liketime;
-	private Integer blogid;
-	private String customerstatus;
+	private Integer blogClId;
+	private Integer customerId;
+	private Timestamp likeTime;
+	private Integer blogId;
+	private String customerStatus;
 	
 	public BlogCl() {
 		super();
 	}
 
-	public BlogCl(Integer blogclid, Integer customerid, Integer liketime, Integer blogid, String customerstatus) {
+	public BlogCl(Integer blogClId, Integer customerId, Timestamp likeTime, Integer blogId, String customerStatus) {
 		super();
-		this.blogclid = blogclid;
-		this.customerid = customerid;
-		this.liketime = liketime;
-		this.blogid = blogid;
-		this.customerstatus = customerstatus;
+		this.blogClId = blogClId;
+		this.customerId = customerId;
+		this.likeTime = likeTime;
+		this.blogId = blogId;
+		this.customerStatus = customerStatus;
 	}
 
-	public Integer getBlogclid() {
-		return blogclid;
+	public Integer getBlogClId() {
+		return blogClId;
 	}
 
-	public void setBlogclid(Integer blogclid) {
-		this.blogclid = blogclid;
+	public void setBlogClId(Integer blogClId) {
+		this.blogClId = blogClId;
 	}
 
-	public Integer getCustomerid() {
-		return customerid;
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomerid(Integer customerid) {
-		this.customerid = customerid;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
-	public Integer getLiketime() {
-		return liketime;
+	public Timestamp getLikeTime() {
+		return likeTime;
 	}
 
-	public void setLiketime(Integer liketime) {
-		this.liketime = liketime;
+	public void setLikeTime(Timestamp likeTime) {
+		this.likeTime = likeTime;
 	}
 
-	public Integer getBlogid() {
-		return blogid;
+	public Integer getBlogId() {
+		return blogId;
 	}
 
-	public void setBlogid(Integer blogid) {
-		this.blogid = blogid;
+	public void setBlogId(Integer blogId) {
+		this.blogId = blogId;
 	}
 
-	public String getCustomerstatus() {
-		return customerstatus;
+	public String getCustomerStatus() {
+		return customerStatus;
 	}
-	public void setCustomerstatus(String customerstatus) {
-		this.customerstatus = customerstatus;
+
+	public void setCustomerStatus(String customerStatus) {
+		this.customerStatus = customerStatus;
+	}
+	public String toString() {
+		return "BlogCl [blogClId=" + blogClId + ", customerId=" + customerId + ", likeTime=" + likeTime + ", blogId="
+				+ blogId + ", customerStatus=" + customerStatus + "]";
 	}
 	
 }

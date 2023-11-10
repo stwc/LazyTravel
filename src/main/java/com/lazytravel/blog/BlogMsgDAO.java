@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface BlogMsgDAO {
 
-	void add(BlogMsg blogmsg);
-	void update(BlogMsg blogmsg);
-	void delete(Integer Blogmsgid);
-	BlogMsg getBlogmsgByBlogmsgid(Integer Blogmsgid);
+	void add(BlogMsg blogMsg);
+	void update(BlogMsg blogMsg);
+	void delete(Integer blogMsgId);
+	BlogMsg getBlogMsgByBlogMsgId(Integer blogMsgId);
 	List<BlogMsg>gatALL();
 	
 }

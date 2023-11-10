@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface BlogImgDAO {
 	
-	void add(BlogImgDAO blogimgdao);
-	void update(BlogImgDAO blogimgdao);
-	void deledte(Integer blogimgid);
-	BlogImgDAO getBlogImgDAOByBlogImgid(Integer blogimgdaoid);
-	List<BlogImgDAO>getAll();
+	void add(BlogImg blogImg);
+	void update(BlogImg blogImg);
+	void deledte(Integer blogImgId);
+	BlogImg getBlogImgByBlogImgId(Integer blogImgId);
+	List<BlogImg>getAll();
 }

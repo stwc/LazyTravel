@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface BlogTagDAO {
 
-	void add(BlogTag blogtag);
-	void update(BlogTag blogtag);
-	void delete(Integer tagid);
-	BlogTag getBlogTagByTagid(Integer tagid);
+	void add(BlogTag blogTag);
+	void update(BlogTag blogTag);
+	void delete(Integer tagId);
+	BlogTag getBlogTagByTagId(Integer tagId);
 	List<BlogTag>getAll();
 }
