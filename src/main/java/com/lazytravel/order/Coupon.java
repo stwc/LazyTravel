@@ -7,8 +7,10 @@ import java.sql.Timestamp;
 public class Coupon implements Serializable{
 	
 	private Integer couponID;
+	private String serialNo;
 	private String couponName;
 	private Integer discount;
+	private Integer threshold;
 	private Timestamp startTime;
 	private Timestamp endTime;
 	private Integer stock;
@@ -20,12 +22,14 @@ public class Coupon implements Serializable{
 	}
 
 
-	public Coupon(Integer couponID, String couponName, Integer discount, Timestamp startTime, Timestamp endTime,
-			Integer stock, Integer total) {
+	public Coupon(Integer couponID, String serialNo, String couponName, Integer discount, Integer threshold,
+			Timestamp startTime, Timestamp endTime, Integer stock, Integer total) {
 		super();
 		this.couponID = couponID;
+		this.serialNo = serialNo;
 		this.couponName = couponName;
 		this.discount = discount;
+		this.threshold = threshold;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.stock = stock;
@@ -40,6 +44,16 @@ public class Coupon implements Serializable{
 
 	public void setCouponID(Integer couponID) {
 		this.couponID = couponID;
+	}
+
+
+	public String getSerialNo() {
+		return serialNo;
+	}
+
+
+	public void setSerialNo(String serialNo) {
+		this.serialNo = serialNo;
 	}
 
 
@@ -60,6 +74,16 @@ public class Coupon implements Serializable{
 
 	public void setDiscount(Integer discount) {
 		this.discount = discount;
+	}
+
+
+	public Integer getThreshold() {
+		return threshold;
+	}
+
+
+	public void setThreshold(Integer threshold) {
+		this.threshold = threshold;
 	}
 
 
@@ -105,13 +129,10 @@ public class Coupon implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Coupon [couponID=" + couponID + ", couponName=" + couponName + ", discount=" + discount + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", stock=" + stock + ", total=" + total + "]";
+		return "Coupon [couponID=" + couponID + ", serialNo=" + serialNo + ", couponName=" + couponName + ", discount="
+				+ discount + ", threshold=" + threshold + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", stock=" + stock + ", total=" + total + "]";
 	}
-	
-	
-	
-	
-	
+
 	
 }

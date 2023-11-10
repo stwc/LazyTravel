@@ -20,7 +20,7 @@ public class Orders implements Serializable {
 	private Integer customerPoint;
 	private Integer couponId;
 	private Integer tourist;
-	private byte[] content;
+	private String content;
 	private Timestamp contentTime;
 	private Double score;
 	private Integer orderNo;
@@ -33,7 +33,7 @@ public class Orders implements Serializable {
 
 	public Orders(Integer orderId, Integer customerId, Integer groupId, Timestamp createTime, Timestamp paidTime,
 			Integer totalAmt, String orderStatus, Integer customerPoint, Integer couponId, Integer tourist,
-			byte[] content, Timestamp contentTime, Double score, Integer orderNo) {
+			String content, Timestamp contentTime, Double score, Integer orderNo) {
 		super();
 		this.orderId = orderId;
 		this.customerId = customerId;
@@ -152,12 +152,12 @@ public class Orders implements Serializable {
 	}
 
 
-	public byte[] getContent() {
+	public String getContent() {
 		return content;
 	}
 
 
-	public void setContent(byte[] content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
@@ -197,9 +197,10 @@ public class Orders implements Serializable {
 		return "Orders [orderId=" + orderId + ", customerId=" + customerId + ", groupId=" + groupId + ", createTime="
 				+ createTime + ", paidTime=" + paidTime + ", totalAmt=" + totalAmt + ", orderStatus=" + orderStatus
 				+ ", customerPoint=" + customerPoint + ", couponId=" + couponId + ", tourist=" + tourist + ", content="
-				+ Arrays.toString(content) + ", contentTime=" + contentTime + ", score=" + score + ", orderNo="
-				+ orderNo + "]";
+				+ content + ", contentTime=" + contentTime + ", score=" + score + ", orderNo=" + orderNo + "]";
 	}
+
+
 	
 	
 	
