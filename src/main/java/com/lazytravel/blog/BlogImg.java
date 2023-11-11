@@ -8,13 +8,13 @@ public class BlogImg implements Serializable{
 	private Integer blogImgId;
 	private Integer blogId;
 	private Timestamp createTime;
-	private Integer img;
+	private byte[] img;
 	
 	public BlogImg() {
 		super();
 	}
 
-	public BlogImg(Integer blogImgId, Integer blogId, Timestamp createTime, Integer img) {
+	public BlogImg(Integer blogImgId, Integer blogId, Timestamp createTime, byte[] img) {
 		super();
 		this.blogImgId = blogImgId;
 		this.blogId = blogId;
@@ -46,11 +46,11 @@ public class BlogImg implements Serializable{
 		this.createTime = createTime;
 	}
 
-	public Integer getImg() {
+	public byte[] getImg() {
 		return img;
 	}
 
-	public void setImg(Integer img) {
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
 	public String toString() {

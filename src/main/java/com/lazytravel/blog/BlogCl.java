@@ -10,19 +10,19 @@ public class BlogCl implements Serializable{
 	private Integer customerId;
 	private Timestamp likeTime;
 	private Integer blogId;
-	private String customerStatus;
+	private String blogClStatus;
 	
 	public BlogCl() {
 		super();
 	}
 
-	public BlogCl(Integer blogClId, Integer customerId, Timestamp likeTime, Integer blogId, String customerStatus) {
+	public BlogCl(Integer blogClId, Integer customerId, Timestamp likeTime, Integer blogId, String blogClStatus) {
 		super();
 		this.blogClId = blogClId;
 		this.customerId = customerId;
 		this.likeTime = likeTime;
 		this.blogId = blogId;
-		this.customerStatus = customerStatus;
+		this.blogClStatus = blogClStatus;
 	}
 
 	public Integer getBlogClId() {
@@ -57,16 +57,16 @@ public class BlogCl implements Serializable{
 		this.blogId = blogId;
 	}
 
-	public String getCustomerStatus() {
-		return customerStatus;
+	public String getblogClStatus() {
+		return blogClStatus;
 	}
 
-	public void setCustomerStatus(String customerStatus) {
-		this.customerStatus = customerStatus;
+	public void setblogClStatus(String blogClStatus) {
+		this.blogClStatus = blogClStatus;
 	}
 	public String toString() {
 		return "BlogCl [blogClId=" + blogClId + ", customerId=" + customerId + ", likeTime=" + likeTime + ", blogId="
-				+ blogId + ", customerStatus=" + customerStatus + "]";
+				+ blogId + ", blogClStatus=" + blogClStatus + "]";
 	}
 	
 }
