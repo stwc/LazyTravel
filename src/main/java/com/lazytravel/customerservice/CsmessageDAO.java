@@ -2,10 +2,10 @@ package com.lazytravel.customerservice;
 
 import java.util.List;
 
-public interface CsmessageDAO{
-	void add(Csmessage csmessage);
-	void update(Csmessage csmessage);
+public interface CSMessageDAO{
+	void add(CSMessage csmessage);
+	void update(CSMessage csmessage);
 	void delete(Integer messageId);
-	Csmessage findByPK(Integer messageId);
-	List<Csmessage>getAll();
+	CSMessage findByPK(Integer messageId);
+	List<CSMessage>getAll();
 }

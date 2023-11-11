@@ -2,10 +2,11 @@ package com.lazytravel.customerservice;
 
 import java.util.List;
 
-public interface CsimgDAO {
-		void add(Csimg csimg);
-		void update(Csimg csimg);
+public interface CSImgDAO {
+		void add(CSImg csiImg);
+		void update(CSImg csimg);
 		void delete(Integer imgId);
-		Csimg findByPK(Integer imgId);
-		List<Csimg>getAll();
+		CSImg findByPK(Integer imgId);
+		List<CSImg>getAll();
+
 }

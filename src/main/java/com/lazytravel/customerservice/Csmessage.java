@@ -3,26 +3,26 @@ package com.lazytravel.customerservice;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Csmessage implements Serializable{
+public class CSMessage implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer messageId;
 	private Integer mailId;
 	private String  content;
 	private Timestamp createTime;
-	private String from;
+	private String messageFrom;
 	
-	public Csmessage() {
+	public CSMessage() {
 		super();
 		
 	}
 
-	public Csmessage(Integer messageid, Integer mailid, String content, Timestamp createtime, String from) {
+	public CSMessage(Integer messageid, Integer mailid, String content, Timestamp createtime, String from) {
 		super();
 		this.messageId = messageId;
 		this.mailId = mailId;
 		this.content = content;
 		this.createTime = createTime;
-		this.from = from;
+		this.messageFrom = from;
 	}
 
 	public Integer getMessageId() {
@@ -57,12 +57,12 @@ public class Csmessage implements Serializable{
 		this.createTime = createTime;
 	}
 
-	public String getFrom() {
-		return from;
+	public String getmessageFrom() {
+		return messageFrom;
 	}
 
-	public void setFrom(String from) {
-		this.from = from;
+	public void setmessageFrom(String from) {
+		this.messageFrom = from;
 	}
 
 	public static long getSerialversionuid() {

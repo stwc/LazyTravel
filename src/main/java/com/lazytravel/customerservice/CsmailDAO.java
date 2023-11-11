@@ -10,3 +10,8 @@ public interface CsmailDAO {
 	List<Csmail>getAll();
 	
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> refs/heads/master

@@ -3,7 +3,7 @@ package com.lazytravel.customerservice;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Csmail implements Serializable{
+public class CSMail implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer mailId;
 	private Integer customeId;
@@ -12,11 +12,11 @@ public class Csmail implements Serializable{
 	private Timestamp lastMsgTime;
 	private String  csMailStatus;
 	
-	public Csmail() {
+	public CSMailail() {
 		super();
 	}
 
-	public Csmail(Integer mailId, Integer customeId, String title, Timestamp createTime, Timestamp lastMsgTime,
+	public CSMail(Integer mailId, Integer customeId, String title, Timestamp createTime, Timestamp lastMsgTime,
 			String csMailStatus) {
 		super();
 		this.mailId = mailId;

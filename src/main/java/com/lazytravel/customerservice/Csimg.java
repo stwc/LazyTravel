@@ -2,19 +2,20 @@ package com.lazytravel.customerservice;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Arrays;
 
-public class Csimg implements Serializable{
+public class CSImg implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer imgId;
 	private Integer messageId;
-	private Byte  img;
+	private byte[]  img;
 	private Timestamp  createTime;
 	
-	public Csimg() {
+	public CSImg() {
 		super();
 	}
 
-	public Csimg(Integer imgId, Integer messageId, Byte img, Timestamp createTime) {
+	public CSImg(Integer imgId, Integer messageId, byte[] img, Timestamp createTime) {
 		super();
 		this.imgId = imgId;
 		this.messageId = messageId;
@@ -38,11 +39,11 @@ public class Csimg implements Serializable{
 		this.messageId = messageId;
 	}
 
-	public Byte getImg() {
+	public byte[] getImg() {
 		return img;
 	}
 
-	public void setImg(Byte img) {
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
 
@@ -57,4 +58,11 @@ public class Csimg implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	@Override
+	public String toString() {
+		return "Csimg [imgId=" + imgId + ", messageId=" + messageId + ", img=" + Arrays.toString(img) + ", createTime="
+				+ createTime + "]";
+	}
+	
 }
