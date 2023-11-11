@@ -16,7 +16,7 @@ public class Customer implements Serializable {
     private String customerPasswd;
     private String customerStatus;
     private String idno;
-    private Byte[] avatar;
+    private byte[] avatar;
     private Integer customerPoint;
     private Timestamp createTime;
     private Timestamp updateTime;
@@ -26,7 +26,7 @@ public class Customer implements Serializable {
     }
 
     public Customer(Integer customerId, String customerName, String nickname, String sex, String phone, Date birth,
-                    String address, String email, String customerPasswd, String customerStatus, String idno, Byte[] avatar,
+                    String address, String email, String customerPasswd, String customerStatus, String idno, byte[] avatar,
                     Integer customerPoint, Timestamp createTime, Timestamp updateTime) {
         this.customerId = customerId;
         this.customerName = customerName;
@@ -148,11 +148,11 @@ public class Customer implements Serializable {
         this.idno = idno;
     }
 
-    public Byte[] getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Byte[] avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
