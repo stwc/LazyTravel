@@ -6,7 +6,7 @@ public interface BlogTagDAO {
 
 	void add(BlogTag blogTag);
 	void update(BlogTag blogTag);
-	void delete(Integer tagId);
-	BlogTag getBlogTagByTagId(Integer tagId);
+	void delete(Integer blogId,Integer tagId);
+	BlogTag getBlogTagBy(Integer blogId,Integer tagId);
 	List<BlogTag>getAll();
 }

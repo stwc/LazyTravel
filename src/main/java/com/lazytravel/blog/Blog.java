@@ -10,7 +10,7 @@ public class Blog implements Serializable {
 	private String title;
 	private Integer customerId;
 	private Timestamp blogDate;
-	private Integer content;
+	private String content;
 	private Timestamp upDateTime;
 	private Timestamp createTime;
 	private Integer likeSum;
@@ -23,7 +23,7 @@ public class Blog implements Serializable {
 		super();
 	}
 
-	public Blog(Integer blogId, String title, Integer customerId, Timestamp blogDate, Integer content,
+	public Blog(Integer blogId, String title, Integer customerId, Timestamp blogDate, String content,
 			Timestamp upDateTime, Timestamp createTime, Integer likeSum, Integer viewSum, Integer clSum, byte[] img,
 			String blogStatus) {
 		super();
@@ -73,11 +73,11 @@ public class Blog implements Serializable {
 		this.blogDate = blogDate;
 	}
 
-	public Integer getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(Integer content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
