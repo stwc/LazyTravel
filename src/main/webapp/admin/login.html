@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>後臺登入</title>
+  <link rel="stylesheet" href="../static/vendors/bootstrap/css/bootstrap.min.css">
+
+  <style>
+    div.login {
+      /* border: 1px solid aqua; */
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 480px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login container-sm shadow p-3 mb-5 bg-body-tertiary rounded-4">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <div class="h1 mt-1 mb-3"">
+        後臺登入
+      </div>
+      <div class="w-75 mb-3">
+        <label for="inputUsername" class="form-label">Username</label>
+        <input type="text" class="form-control" id="inputUsername" placeholder="請輸入帳號...">
+      </div>
+      <div class="w-75 mb-3">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="請輸入密碼...">
+      </div>
+      <div class="w-75 d-grid gap-2 mt-3">
+        <button type="submit" class="btn btn-primary mb-3">登入</button>
+      </div>
+      <div class="w-75 text-center">
+        <a href="#" data-bs-toggle="tooltip" data-bs-title="請洽後臺管理人員" data-bs-placement="right"
+          class="text-decoration-none text-secondary">忘記密碼？</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../static/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  </script>
+</body>
+
+</html>
