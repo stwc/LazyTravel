@@ -2,23 +2,24 @@ package com.lazytravel.foodscape;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Time;
 
-public class OpenTimeList implements Serializable{
+public class OpenTime implements Serializable{
 	private Integer openTimeId;
 	private Integer foodScapeId;
-	private Date startTime;
-	private Date endTime;
-	private char week;
+	private Time startTime;
+	private Time endTime;
+	private String week;
 
 
 
-public OpenTimeList() {
+public OpenTime() {
 	
 }
 
 
 
-public OpenTimeList(Integer openTimeId, Integer foodScapeId, Date startTime, Date endTime, char week) {
+public OpenTime(Integer openTimeId, Integer foodScapeId, Time startTime, Time endTime, String week) {
 	super();
 	this.openTimeId = openTimeId;
 	this.foodScapeId = foodScapeId;
@@ -53,37 +54,37 @@ public void setFoodScapeId(Integer foodScapeId) {
 
 
 
-public Date getStartTime() {
+public Time getStartTime() {
 	return startTime;
 }
 
 
 
-public void setStartTime(Date startTime) {
+public void setStartTime(Time startTime) {
 	this.startTime = startTime;
 }
 
 
 
-public Date getEndTime() {
+public Time getEndTime() {
 	return endTime;
 }
 
 
 
-public void setEndTime(Date endTime) {
+public void setEndTime(Time endTime) {
 	this.endTime = endTime;
 }
 
 
 
-public char getWeek() {
+public String getWeek() {
 	return week;
 }
 
 
 
-public void setWeek(char week) {
+public void setWeek(String week) {
 	this.week = week;
 }
 

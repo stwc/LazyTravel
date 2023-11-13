@@ -2,18 +2,19 @@ package com.lazytravel.foodscape;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class FoodScape implements Serializable {
 	private Integer foodScapeId;
-	private char name;
-	private char phone;
+	private String foodScapeName;
+	private String phone;
 	private String address;
 	private String city;
 	private double lng;
 	private double lat;
 	private String intro;
-	private Date updateTime;
-	private char status;
+	private Timestamp updateTime;
+	private String foodScapeStatus;
 	private String category;
 	
 	
@@ -23,11 +24,11 @@ public  FoodScape() {
 
 
 
-public FoodScape(Integer foodScapeId, char name, char phone, String address, String city, double lng, double lat,
-		String intro, Date updateTime, char status, String category) {
+public FoodScape(Integer foodScapeId, String foodScapeName, String phone, String address, String city, double lng, double lat,
+		String intro, Timestamp updateTime, String foodScapeStatus, String category) {
 	super();
 	this.foodScapeId = foodScapeId;
-	this.name = name;
+	this.foodScapeName = foodScapeName;
 	this.phone = phone;
 	this.address = address;
 	this.city = city;
@@ -35,7 +36,7 @@ public FoodScape(Integer foodScapeId, char name, char phone, String address, Str
 	this.lat = lat;
 	this.intro = intro;
 	this.updateTime = updateTime;
-	this.status = status;
+	this.foodScapeStatus = foodScapeStatus;
 	this.category = category;
 }
 
@@ -51,22 +52,22 @@ public void setFoodScapeId(Integer foodScapeId) {
 }
 
 
-public char getName() {
-	return name;
+public String getName() {
+	return foodScapeName;
 }
 
 
-public void setName(char name) {
-	this.name = name;
+public void setName(String foodScapeName) {
+	this.foodScapeName = foodScapeName;
 }
 
 
-public char getPhone() {
+public String getPhone() {
 	return phone;
 }
 
 
-public void setPhone(char phone) {
+public void setPhone(String phone) {
 	this.phone = phone;
 }
 
@@ -121,23 +122,23 @@ public void setIntro(String intro) {
 }
 
 
-public Date getUpdateTime() {
+public Timestamp getUpdateTime() {
 	return updateTime;
 }
 
 
-public void setUpdateTime(Date updateTime) {
+public void setUpdateTime(Timestamp updateTime) {
 	this.updateTime = updateTime;
 }
 
 
-public char getStatus() {
-	return status;
+public String getStatus() {
+	return foodScapeStatus;
 }
 
 
-public void setStatus(char status) {
-	this.status = status;
+public void setStatus(String foodScapeStatus) {
+	this.foodScapeStatus = foodScapeStatus;
 }
 
 

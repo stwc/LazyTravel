@@ -2,11 +2,12 @@ package com.lazytravel.foodscape;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Tag implements Serializable {
 	private Integer tagId;
-	private String name;
-	private Date updateTime; 
+	private String tagName;
+	private Timestamp updateTime; 
 	
 
 public Tag() {
@@ -14,10 +15,10 @@ public Tag() {
 }
 
 
-public Tag(Integer tagId, String name, Date updateTime) {
+public Tag(Integer tagId, String name, Timestamp updateTime) {
 	super();
 	this.tagId = tagId;
-	this.name = name;
+	this.tagName = tagName;
 	this.updateTime = updateTime;
 }
 
@@ -33,21 +34,21 @@ public void setTagId(Integer tagId) {
 
 
 public String getName() {
-	return name;
+	return tagName;
 }
 
 
-public void setName(String name) {
-	this.name = name;
+public void setName(String tagName) {
+	this.tagName = tagName;
 }
 
 
-public Date getUpdateTime() {
+public Timestamp getUpdateTime() {
 	return updateTime;
 }
 
 
-public void setUpdateTime(Date updateTime) {
+public void setUpdateTime(Timestamp updateTime) {
 	this.updateTime = updateTime;
 }
 

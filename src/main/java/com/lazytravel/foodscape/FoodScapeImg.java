@@ -2,13 +2,14 @@ package com.lazytravel.foodscape;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class FoodScapeImg implements Serializable{
 	private Integer imgId;
 	private Integer foodScapeId;
-	private Date createTime;
+	private Timestamp createTime;
 	private byte[] blogImg;
-	public FoodScapeImg(Integer imgId, Integer foodScapeId, Date createTime, byte[] blogImg) {
+	public FoodScapeImg(Integer imgId, Integer foodScapeId, Timestamp createTime, byte[] blogImg) {
 		super();
 		this.imgId = imgId;
 		this.foodScapeId = foodScapeId;
@@ -36,11 +37,11 @@ public class FoodScapeImg implements Serializable{
 		this.foodScapeId = foodScapeId;
 	}
 
-	public Date getCreateTime() {
+	public Timestamp getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
 
