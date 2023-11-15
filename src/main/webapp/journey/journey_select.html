@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>篩選行程</title>
+    <style>
+        *{
+        box-sizing: border-box;
+        }
+
+        body{
+        margin: 0;
+        }
+
+        label {
+            margin-right: 15px; /* 調整標籤和輸入框之間的間距 */
+        }
+
+        main.main{
+            margin: 30px 80px;
+            font-size: 20px;
+            /* border: 1px solid red; */
+        }
+        
+        div.filter{
+            color: #000000;
+            display: flex;
+        }
+
+        div.filter input.input_loc,
+        div.filter input.input_foodscape,
+        div.filter input.input_budget{
+            width: 215px;
+            height: 37px;
+            border: 2.5px solid #CCD5AE;   
+        }
+
+        div.filter {
+            display: flex;
+            align-items: center;
+        }
+
+        .input_foodscape {
+            margin-right: 11%;
+        }
+
+        .label_foodscape {
+            margin-left: 11%;
+        }
+
+        button{
+            width: 150px;
+            height: 37px;
+            font-size: 20px ;
+            padding: 2px 20px;
+            border-radius: 90px;
+            color: white;
+        }
+
+        button.btn_reset{
+            border: 1px solid #9C6644;   
+            background: #9C6644;
+            margin-left: 71%;
+        }
+
+        button.btn_submit{
+            border: 1px solid #CCD5AE;   
+            background: #CCD5AE;
+            margin-left: 14px;
+        }
+
+        hr{
+            border: 1.3px solid rgba(0, 0, 0, 0.23);
+        }
+
+        div.selected_foodscape{
+            margin: 20px 0px;
+        }
+
+        ul.selected_foodscape{
+            list-style: none;
+            padding-left: 150px;
+            margin-top: 5px;
+        }
+
+        ul.selected_foodscape button.btn_x{
+            border: 1px solid #A5A58D;   
+            background: #A5A58D;
+            display: inline-block;
+            vertical-align: middle; /* 垂直居中對齊 */
+            
+            width: 30px;
+            height: 20px;
+            margin-left: 20px; /* 可以調整按鈕與文字之間的距離 */
+            margin-bottom: 5px;
+
+            padding: 0; /* 移除按鈕內邊距 */
+            font-size: 16px;
+        }
+
+        div.select_journey{
+            margin: 20px 0px;
+        }
+
+        span.keep_right {
+            margin-left: 72%;
+        }
+
+        li.journey{
+            box-sizing: border-box;
+            background: rgba(217, 217, 217, 0.42);
+            border-radius: 20px;
+            list-style: none;
+
+            height: 200px;
+            border: 2px dotted rgba(109, 109, 109, 0.737);
+            margin: 20px 0 0 -40px;
+            padding: 20px 0 0 40px;
+        }
+        
+        div.journey{
+            display: inline-block;
+
+            /* border: 1px solid blue; */
+            width: 515px;
+        }
+
+        span.journey{
+            display: inline-block;
+            /* border: 1px solid red; */
+            width: 240px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button.btn_more{
+            border: 1px solid #6B705C;   
+            background: #6B705C;
+            margin-left: calc(100% - 150px);
+        }
+
+        div.price{
+            display: inline-block;
+            /* border: 1px solid blue; */
+            width: 180px;
+            text-align: right;
+            margin-left: 230px;
+            margin-top: 40px;
+            color: #787878;
+        }
+        
+        div.price button.btn_submit{
+            margin-top: 10px;
+        }
+
+        li.journey div.journey,
+        li.journey div.price {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        header
+    </header>
+      
+    <main class="main">
+        <div class="filter">
+            
+            <label class="label_loc">地點</label>
+            <input type="text" class="input_loc">
+
+            <label class="label_foodscape">美食/景點</label>
+            <input type="text" class="input_foodscape">
+
+            <label class="label_budget">預算</label>
+            <input type="text" class="input_budget">
+        </div>
+        
+        <br><br>
+        <button type="reset" class="btn_reset">重新篩選</button>
+        <button type="submit" class="btn_submit">送出</button>
+    
+        <hr>
+        <div class="selected_foodscape">
+            已勾選的店家           
+            <ul class="selected_foodscape">
+                <li>店家1<button type="button" class="btn_x">x</button></li>
+                <li>店家2<button type="button" class="btn_x">x</button></li>
+                <li>店家3<button type="button" class="btn_x">x</button></li>
+                <li>店家4<button type="button" class="btn_x">x</button></li>
+                <li>店家5<button type="button" class="btn_x">x</button></li>
+            </ul>
+        </div>
+
+        <hr>
+        <div class="select_journey">
+            篩選行程
+            <span class="keep_right">常見問題</span>
+            <span> &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; </span>
+            <span>聯繫客服</span>
+
+            <ul>
+                <li class="journey">
+                    行程名稱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>行程1</span>
+                    <br><br>
+                    美食景點&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="journey">
+                        <span class="journey">店家1</span>
+                        <span class="journey">店家2</span>
+                        <span class="journey">店家3</span>
+                        <span class="journey">店家4</span>
+                        <button type="button" class="btn_more">查看更多</button>
+                    </div>
+                    <div class="price">
+                        <span>金額&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NT&nbsp;</span>
+                        <span>420</span>
+                        <span>&nbsp;&nbsp;</span>
+                        <button type="submit" class="btn_submit">預定</button>
+                    </div>
+                </li>
+
+                <li class="journey">
+                    行程名稱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>行程2</span>
+                    <br><br>
+                    美食景點&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="journey">
+                        <span class="journey">店家1</span>
+                        <span class="journey">店家2</span>
+                        <span class="journey">店家3</span>
+                        <span class="journey">店家4</span>
+                        <button type="button" class="btn_more">查看更多</button>
+                    </div>
+                    <div class="price">
+                        <span>金額&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NT&nbsp;</span>
+                        <span>420</span>
+                        <span>&nbsp;&nbsp;</span>
+                        <button type="submit" class="btn_submit">預定</button>
+                    </div>
+                </li>
+
+                <li class="journey">
+                    行程名稱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>行程3</span>
+                    <br><br>
+                    美食景點&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="journey">
+                        <span class="journey">店家1</span>
+                        <span class="journey">店家2</span>
+                        <span class="journey">店家3</span>
+                        <span class="journey">店家4</span>
+                        <button type="button" class="btn_more">查看更多</button>
+                    </div>
+                    <div class="price">
+                        <span>金額&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NT&nbsp;</span>
+                        <span>420</span>
+                        <span>&nbsp;&nbsp;</span>
+                        <button type="submit" class="btn_submit">預定</button>
+                    </div>
+                </li>
+
+                <li class="journey">
+                    行程名稱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span>行程4</span>
+                    <br><br>
+                    美食景點&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="journey">
+                        <span class="journey">店家1</span>
+                        <span class="journey">店家2</span>
+                        <span class="journey">店家3</span>
+                        <span class="journey">店家4</span>
+                        <button type="button" class="btn_more">查看更多</button>
+                    </div>
+                    <div class="price">
+                        <span>金額&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NT&nbsp;</span>
+                        <span>420</span>
+                        <span>&nbsp;&nbsp;</span>
+                        <button type="submit" class="btn_submit">預定</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+      
+    <footer class="footer">
+        footer
+    </footer>
+
+
+
+
+
+</body>
+</html>
