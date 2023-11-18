@@ -9,7 +9,7 @@
 
   <style>
     :root {
-      --header-height: 60px;
+      --header-height: 56.67px;
       --aside-width: 240px;
     }
 
@@ -25,25 +25,38 @@
       height: calc(100% - var(--header-height));
     }
 
-    
-    @media (max-width: 503.33px) {
+
+    @media (max-width: 768px) and (min-width: 478.33px) {
       #aside {
-        top: 102px;
-        height: calc(100% - 102px);
+        min-height: calc(100% - 102px);
         transition: all 1s;
         transform: translateX(-100%);
       }
-      
+
       #aside.-on {
         transform: translateX(0%);
       }
     }
 
+    @media (max-width: 478.33px) {
+      #aside {
+        top: 90px;
+        height: calc(100vh - 90px);
+        transition: all 1s;
+        transform: translateX(-100%);
+      }
+
+      #aside.-on {
+        transform: translateX(0%);
+      }
+    }
+
+
     #main {
       margin-left: var(--aside-width);
     }
 
-    @media (max-width: 503.33px) {
+    @media (max-width: 768px) {
       #main {
         margin-left: 0;
         width: 100%;
@@ -64,6 +77,7 @@
       color: white !important;
     }
   </style>
+
 </head>
 
 <body>
@@ -71,7 +85,7 @@
   <!-- header -->
   <nav class="navbar bg-body-tertiary sticky-top">
     <div class="container-fluid d-flex">
-      <button id="btn-hamburger" class="btn btn-outline-secondary d-sm-none" type="button">
+      <button id="btn-hamburger" class="btn btn-outline-secondary d-md-none" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
           viewBox="0 0 16 16">
           <path fill-rule="evenodd"
@@ -140,9 +154,8 @@
     </ul>
   </div>
 
-
   <!-- 主要內容 -->
-  <div id="main" class="border border-info p-3">
+  <div id="main" class="p-3">
     <h2 class="">前臺會員列表</h2>
     <div class="table-responsive">
       <table class="table table-bordered table-striped overflow-auto">
@@ -197,20 +210,52 @@
             <td>1</td>
             <td><button type="button" id="btn-modify" class="btn">修改</button></td>
           </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>王小明</td>
+            <td>0910096787</td>
+            <td>mrwang@gmail.com</td>
+            <td>1</td>
+            <td><button type="button" id="btn-modify" class="btn">修改</button></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>王小明</td>
+            <td>0910096787</td>
+            <td>mrwang@gmail.com</td>
+            <td>1</td>
+            <td><button type="button" id="btn-modify" class="btn">修改</button></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>王小明</td>
+            <td>0910096787</td>
+            <td>mrwang@gmail.com</td>
+            <td>1</td>
+            <td><button type="button" id="btn-modify" class="btn">修改</button></td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <script src="../static/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
   <script>
-    $(function () {
-      $("#btn-hamburger").on("click", function () {
-        $("#aside").toggleClass("-on");
-      });
+    // jquery version
+    // $(function () {
+    //   $("#btn-hamburger").on("click", function () {
+    //     $("#aside").toggleClass("-on");
+    //   });
+    // });
 
+    // javascript version
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("btn-hamburger").addEventListener("click", function () {
+        document.getElementById("aside").classList.toggle("-on");
+      })
     });
+
   </script>
 </body>
 
