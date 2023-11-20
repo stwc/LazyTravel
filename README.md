@@ -9,6 +9,11 @@
 - CSS
 - JavaScript
 
+### 資料庫
+
+- MySQL
+- Redis
+
 ### 函式庫和框架
 
 - Bootstrap 5
