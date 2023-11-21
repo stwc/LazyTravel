@@ -13,6 +13,13 @@ import java.util.List;
 
 @WebServlet(name = "CustomerServlet", value = "/example/customer.do")
 public class CustomerServlet extends HttpServlet {
+    private CustomerService customerService;
+
+    @Override
+    public void init() throws ServletException {
+        customerService = new CustomerService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         doPost(req, res);
@@ -70,7 +77,6 @@ public class CustomerServlet extends HttpServlet {
         if (!errorMsgs.isEmpty())
             return "/example/select_page.jsp";
 
-        CustomerService customerService = new CustomerService();
         Customer customer = customerService.getOneCustomer(customerId);
         if (customer == null)
             errorMsgs.add("查無資料");
@@ -84,7 +90,6 @@ public class CustomerServlet extends HttpServlet {
     private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
         Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
 
-        CustomerService customerService = new CustomerService();
         Customer customer = customerService.getOneCustomer(customerId);
 
         req.setAttribute("customer", customer);
@@ -183,11 +188,8 @@ public class CustomerServlet extends HttpServlet {
         }
 
         // 修改資料
-        CustomerService customerService = new CustomerService();
-        customer = customerService.updateCustomer(customerId, customerName, nickname, sex, phone, birth, address, email, customerPasswd,
-                customerStatus, idno, customerPoint);
-        customer = customerService.getOneCustomer(customerId);
-        req.setAttribute("customer", customer);
+        customerService.updateCustomer(customer);
+        req.setAttribute("customer", customerService.getOneCustomer(customerId));
 
         return "/example/listOneEmp.jsp";
     }
@@ -270,9 +272,7 @@ public class CustomerServlet extends HttpServlet {
         }
 
         // 新增資料
-        CustomerService customerService = new CustomerService();
-        customer = customerService.addCustomer(customerName, nickname, sex, phone, birth, address, email, customerPasswd,
-                customerStatus, idno);
+        customerService.addCustomer(customer);
 
         return "/example/listAllEmp.jsp";
     }
