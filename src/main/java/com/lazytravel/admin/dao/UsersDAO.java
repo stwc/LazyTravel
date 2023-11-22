@@ -1,4 +1,6 @@
-package com.lazytravel.admin;
+package com.lazytravel.admin.dao;
+
+import com.lazytravel.admin.entity.Users;
 
 import java.util.List;
 
@@ -6,8 +8,6 @@ public interface UsersDAO {
     void add(Users users);
 
     void update(Users users);
-
-    void delete(Integer userId);
 
     Users getUserByUserId(Integer userId);
 

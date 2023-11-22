@@ -1,24 +1,43 @@
-package com.lazytravel.customer;
+package com.lazytravel.customer.entity;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.sql.Date;
 
-public class Customer implements Serializable {
+@Entity
+@Table(name = "customer")
+public class Customer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id", updatable = false)
     private Integer customerId;
+    @Column(name = "customer_name")
     private String customerName;
+    @Column(name = "nickname")
     private String nickname;
+    @Column(name = "sex", columnDefinition = "char")
     private String sex;
+    @Column(name = "phone", columnDefinition = "char")
     private String phone;
+    @Column(name = "birth")
     private Date birth;
+    @Column(name = "address")
     private String address;
+    @Column(name = "email")
     private String email;
+    @Column(name = "customer_passwd")
     private String customerPasswd;
+    @Column(name = "customer_status", columnDefinition = "char")
     private String customerStatus;
+    @Column(name = "idno", columnDefinition = "char")
     private String idno;
+    @Column(name = "avatar", columnDefinition = "longblob")
     private byte[] avatar;
+    @Column(name = "customer_point", insertable = false)
     private Integer customerPoint;
+    @Column(name = "create_time", insertable = false, updatable = false)
     private Timestamp createTime;
+    @Column(name = "update_time", insertable = false, updatable = false)
     private Timestamp updateTime;
 
     public Customer() {
@@ -39,10 +58,10 @@ public class Customer implements Serializable {
         this.customerPasswd = customerPasswd;
         this.customerStatus = customerStatus;
         this.idno = idno;
+        this.avatar = avatar;
         this.customerPoint = customerPoint;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.avatar = avatar;
     }
 
     public Customer(String customerName, String nickname, String sex, String phone, Date birth, String address,
@@ -191,10 +210,11 @@ public class Customer implements Serializable {
                 ", birth=" + birth +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
-                ", customerPasswd='" + customerPasswd + '\'' +
                 ", customerStatus='" + customerStatus + '\'' +
                 ", idno='" + idno + '\'' +
                 ", customerPoint=" + customerPoint +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

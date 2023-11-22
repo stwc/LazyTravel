@@ -1,10 +1,17 @@
-package com.lazytravel.admin;
+package com.lazytravel.admin.entity;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class Roles implements Serializable {
+@Entity
+@Table(name = "roles")
+public class Roles {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id", updatable = false)
     private Integer roleId;
+    @Column(name = "role_name")
     private String roleName;
+    @Column(name = "role_descr")
     private String roleDescr;
 
     public Roles() {

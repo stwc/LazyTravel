@@ -1,10 +1,17 @@
-package com.lazytravel.admin;
+package com.lazytravel.admin.entity;
 
-import java.io.Serializable;
+import javax.persistence.*;
 
-public class Func implements Serializable {
+@Entity
+@Table(name = "func")
+public class Func {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "func_id", updatable = false)
     private Integer funcId;
+    @Column(name = "func_name")
     private String funcName;
+    @Column(name = "func_descr")
     private String funcDescr;
 
     public Func() {
