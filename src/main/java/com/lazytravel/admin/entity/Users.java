@@ -1,15 +1,26 @@
-package com.lazytravel.admin;
+package com.lazytravel.admin.entity;
 
-import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-public class Users implements Serializable {
+@Entity
+@Table(name = "users")
+public class Users {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", updatable = false)
     private Integer userId;
+    @Column(name = "username")
     private String username;
+    @Column(name = "user_passwd")
     private String userPasswd;
+    @Column(name = "role_id")
     private Integer roleId;
+    @Column(name = "user_status", columnDefinition = "char")
     private String userStatus;
+    @Column(name = "create_time", insertable = false, updatable = false)
     private Timestamp createTime;
+    @Column(name = "update_time", insertable = false, updatable = false)
     private Timestamp updateTime;
 
     public Users() {
@@ -25,6 +36,12 @@ public class Users implements Serializable {
         this.userStatus = userStatus;
         this.createTime = createTime;
         this.updateTime = updateTime;
+    }
+
+    public Users(String username, String userPasswd, Integer roleId) {
+        this.username = username;
+        this.userPasswd = userPasswd;
+        this.roleId = roleId;
     }
 
     public Users(String username, String userPasswd, Integer roleId, String userStatus) {

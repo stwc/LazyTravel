@@ -1,4 +1,6 @@
-package com.lazytravel.admin;
+package com.lazytravel.admin.dao;
+
+import com.lazytravel.admin.entity.RoleFunc;
 
 import java.util.List;
 
