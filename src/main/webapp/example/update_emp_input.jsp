@@ -56,7 +56,7 @@
 	</td></tr>
 </table>
 
-<h3>資料新增:</h3>
+<h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
