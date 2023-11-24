@@ -18,13 +18,4 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 	
-	<servlet>
-		<servlet-name>JourneyServlet</servlet-name>
-	    <servlet-class>com.lazytravel.journey.controller.JourneyServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	    <servlet-name>JourneyServlet</servlet-name>
-	    <url-pattern>/journey/journey.do</url-pattern>
-	</servlet-mapping>
-	
 </web-app>
