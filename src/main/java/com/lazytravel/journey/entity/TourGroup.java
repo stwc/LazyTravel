@@ -1,4 +1,4 @@
-package com.lazytravel.journey;
+package com.lazytravel.journey.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -132,5 +132,13 @@ public class TourGroup implements Serializable {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "TourGroup [groupId=" + groupId + ", journeyId=" + journeyId + ", startTime=" + startTime + ", endTime="
+				+ endTime + ", price=" + price + ", signupNum=" + signupNum + ", minRequired=" + minRequired
+				+ ", maxRequired=" + maxRequired + ", signupDate=" + signupDate + ", dueDate=" + dueDate
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
+	}
+
 }

@@ -1,7 +1,6 @@
-package com.lazytravel.journey;
+package com.lazytravel.journey.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Journey implements Serializable {
@@ -112,5 +111,13 @@ public class Journey implements Serializable {
 	public void setJourneyStatus(String journeyStatus) {
 		this.journeyStatus = journeyStatus;
 	}
+
+	@Override
+	public String toString() {
+		return "Journey [journeyId=" + journeyId + ", journeyName=" + journeyName + ", price=" + price + ", createTime="
+				+ createTime + ", content=" + content + ", avgScore=" + avgScore + ", scoreCount=" + scoreCount
+				+ ", days=" + days + ", buyCount=" + buyCount + ", journeyStatus=" + journeyStatus + "]";
+	}
+	
 	
 }

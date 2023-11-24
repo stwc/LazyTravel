@@ -1,4 +1,4 @@
-package com.lazytravel.journey;
+package com.lazytravel.journey.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -72,5 +72,11 @@ public class JourneyTimeFoodscape implements Serializable {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
+
+	@Override
+	public String toString() {
+		return "JourneyTimeFoodscape [journeyId=" + journeyId + ", foodscapeId=" + foodscapeId + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", nthDay=" + nthDay + ", updateTime=" + updateTime + "]";
+	}	
 
 }
