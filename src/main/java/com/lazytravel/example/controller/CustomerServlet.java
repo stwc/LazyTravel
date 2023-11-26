@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "CustomerServlet", value = "/example/customer.do")
+//@WebServlet(name = "CustomerServlet", value = "/example/customer.do")
 public class CustomerServlet extends HttpServlet {
     private CustomerService customerService;
 

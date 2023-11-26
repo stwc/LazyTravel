@@ -87,12 +87,14 @@
 				<td>${customer.customerId}</td>
 				<td>${customer.customerName}</td>
 				<td>${customer.nickname}</td>
-				<td>${(customer.sex.equals("0")) ? "男" : "女"}</td>
+<%--				<td>${(customer.sex.equals("0")) ? "男" : "女"}</td>--%>
+				<td>${customer.sex}</td>
 				<td>${customer.phone}</td>
 				<td>${customer.birth}</td>
 				<td>${customer.address}</td>
 				<td>${customer.email}</td>
-				<td>${(customer.customerStatus.equals("0")) ? "停權" : "啟用"}</td>
+<%--				<td>${(customer.customerStatus.equals("0")) ? "停權" : "啟用"}</td>--%>
+				<td>${customer.customerStatus}</td>
 				<td>${customer.idno}</td>
 				<td>${customer.customerPoint}</td>
 				<td>${customer.createTime}</td>
