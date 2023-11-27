@@ -25,44 +25,55 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public void add(Customer customer) {
-        Session session = getSession();
-        session.beginTransaction();
+//        Session session = getSession();
+//        session.beginTransaction();
+//
+//        session.save(customer);
+//
+//        session.getTransaction().commit();
 
-        session.save(customer);
-
-        session.getTransaction().commit();
+        getSession().save(customer);
     }
 
     @Override
     public void update(Customer customer) {
-        Session session = getSession();
-        session.beginTransaction();
+//        Session session = getSession();
+//        session.beginTransaction();
 
-        session.update(customer);
+//        session.update(customer);
 
-        session.getTransaction().commit();
+        // 測試native query
+//        session.createNativeQuery("update customer set update_time='1990-09-01 09:01:15' where customer_id = 11001").executeUpdate();
+
+//        session.getTransaction().commit();
+
+        getSession().update(customer);
     }
 
     @Override
     public Customer findByPK(Integer customerId) {
-        Session session = getSession();
-        session.beginTransaction();
+//        Session session = getSession();
+//        session.beginTransaction();
+//
+//        Customer customer = session.get(Customer.class, customerId);
+//        session.getTransaction().commit();
+//
+//        return customer;
 
-        Customer customer = session.get(Customer.class, customerId);
-        session.getTransaction().commit();
-
-        return customer;
+        return getSession().get(Customer.class, customerId);
     }
 
     @Override
     public List<Customer> getAll() {
-        Session session = getSession();
-        session.beginTransaction();
+//        Session session = getSession();
+//        session.beginTransaction();
+//
+//        List<Customer> list = session.createQuery("from Customer", Customer.class).list();
+//        session.getTransaction().commit();
+//
+//        return list;
 
-        List<Customer> list = session.createQuery("from Customer", Customer.class).list();
-        session.getTransaction().commit();
-
-        return list;
+        return getSession().createQuery("from Customer", Customer.class).list();
     }
 
     /*
@@ -77,8 +88,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         // 新增單筆資料
 //        customer = new Customer();
-//        customer.setCustomerName("黃孟允");
-//        customer.setNickname("孟子");
+//        customer.setCustomerName("林文浩");
+//        customer.setNickname("文文");
 //        customer.setSex("0");
 //        customer.setPhone("0911145566");
 //        customer.setBirth(Date.valueOf("2003-11-20"));
@@ -91,9 +102,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 //        System.out.println("[SQL] 新增單筆資料成功\n");
 
         // 查詢單筆
-        customer = dao.findByPK(11013);
-        System.out.println(customer);
-        System.out.println("[SQL] 查詢單筆成功\n");
+//        customer = dao.findByPK(11008);
+//        System.out.println(customer);
+//        System.out.println("[SQL] 查詢單筆成功\n");
 
         // 查詢全部筆數
 //        List<Customer> customerList = dao.getAll();
@@ -103,10 +114,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 //        System.out.println("[SQL] 查詢全部筆數成功\n");
 
         // 更新單筆(測試更新狀態)
-//        customer = dao.findByPK(11013);
+        customer = dao.findByPK(11001);
 //        customer.setCustomerStatus("1");
-//        dao.update(customer);
-//        System.out.println("[SQL] 更新單筆成功\n");
+        dao.update(customer);
+        System.out.println("[SQL] 更新單筆成功\n");
     }
     */
 }
