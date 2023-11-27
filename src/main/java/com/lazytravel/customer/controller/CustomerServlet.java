@@ -1,17 +1,21 @@
-package com.lazytravel.example.controller;
+package com.lazytravel.customer.controller;
 
-import com.lazytravel.example.dao.CustomerService;
-import com.lazytravel.example.entity.Customer;
+import com.google.gson.Gson;
+import com.lazytravel.customer.service.CustomerService;
+import com.lazytravel.customer.entity.Customer;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-//@WebServlet(name = "CustomerServlet", value = "/example/customer.do")
+@WebServlet(name = "CustomerServlet", value = "/admin/customer.do")
 public class CustomerServlet extends HttpServlet {
     private CustomerService customerService;
 
@@ -32,6 +36,11 @@ public class CustomerServlet extends HttpServlet {
         String action = req.getParameter("action");
         String forwardPath = "";
         switch (action) {
+            case "getall":
+                String jsonStr = new Gson().toJson(customerService.getAll());
+                res.setContentType("application/json; charset=UTF-8");
+                res.getWriter().write(jsonStr);
+                return;
             case "getOne_For_Display":
                 // // 來自select_page.jsp的請求
                 forwardPath = getOneDisplay(req, res);
@@ -124,9 +133,9 @@ public class CustomerServlet extends HttpServlet {
 
         Date birth = null;
         try {
-            birth = java.sql.Date.valueOf(req.getParameter("birth").trim());
+            birth = Date.valueOf(req.getParameter("birth").trim());
         } catch (IllegalArgumentException e) {
-            birth = new java.sql.Date(System.currentTimeMillis());
+            birth = new Date(System.currentTimeMillis());
             errorMsgs.add("請輸入日期!");
         }
 
@@ -151,7 +160,7 @@ public class CustomerServlet extends HttpServlet {
         if (address == null || address.trim().isEmpty())
             errorMsgs.add("請輸入地址");
 
-        String str =  req.getParameter("customer_point");
+        String str = req.getParameter("customer_point");
         if (str == null || str.trim().isEmpty())
             errorMsgs.add("請輸入會員金");
         Integer customerPoint = null;
@@ -222,9 +231,9 @@ public class CustomerServlet extends HttpServlet {
 
         Date birth = null;
         try {
-            birth = java.sql.Date.valueOf(req.getParameter("birth").trim());
+            birth = Date.valueOf(req.getParameter("birth").trim());
         } catch (IllegalArgumentException e) {
-            birth = new java.sql.Date(System.currentTimeMillis());
+            birth = new Date(System.currentTimeMillis());
             errorMsgs.add("請輸入日期!");
         }
 
