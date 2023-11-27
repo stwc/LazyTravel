@@ -1,4 +1,4 @@
-package com.lazytravel.order;
+package com.lazytravel.order.entity;
 
 import java.sql.Timestamp;
 
