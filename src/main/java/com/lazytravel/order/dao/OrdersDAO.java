@@ -1,14 +1,17 @@
-package com.lazytravel.order;
+package com.lazytravel.order.dao;
 
 import java.util.List;
+
+import com.lazytravel.order.entity.Orders;
 
 
 public interface OrdersDAO {
 
 	void add(Orders orders);
 	void update(Orders orders);
-	void delete(Integer orderId);  //刪除需要條件
 	Orders getOrdersByOrdersId(Integer orderId);
+	Orders getOrdersByOrdersNo(Integer orderNo);
+
 	List<Orders> getAll(); 
 	
 }

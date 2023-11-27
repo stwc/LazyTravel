@@ -1,8 +1,9 @@
-package com.lazytravel.order;
+package com.lazytravel.order.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 
@@ -24,6 +25,7 @@ public class Orders implements Serializable {
 	private Timestamp contentTime;
 	private Double score;
 	private Integer orderNo;
+	private Timestamp updateTime;
 	
 	
 	public Orders() {
@@ -33,7 +35,7 @@ public class Orders implements Serializable {
 
 	public Orders(Integer orderId, Integer customerId, Integer groupId, Timestamp createTime, Timestamp paidTime,
 			Integer totalAmt, String orderStatus, Integer customerPoint, Integer couponId, Integer tourist,
-			String content, Timestamp contentTime, Double score, Integer orderNo) {
+			String content, Timestamp contentTime, Double score, Integer orderNo, Timestamp updateTime) {
 		super();
 		this.orderId = orderId;
 		this.customerId = customerId;
@@ -49,6 +51,7 @@ public class Orders implements Serializable {
 		this.contentTime = contentTime;
 		this.score = score;
 		this.orderNo = orderNo;
+		this.updateTime = updateTime;
 	}
 
 
@@ -192,13 +195,28 @@ public class Orders implements Serializable {
 	}
 
 
+	public Timestamp getUpdateTime() {
+		return updateTime;
+	}
+
+
+	public void setUpdateTime(Timestamp updateTime) {
+		this.updateTime = updateTime;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", customerId=" + customerId + ", groupId=" + groupId + ", createTime="
 				+ createTime + ", paidTime=" + paidTime + ", totalAmt=" + totalAmt + ", orderStatus=" + orderStatus
 				+ ", customerPoint=" + customerPoint + ", couponId=" + couponId + ", tourist=" + tourist + ", content="
-				+ content + ", contentTime=" + contentTime + ", score=" + score + ", orderNo=" + orderNo + "]";
+				+ content + ", contentTime=" + contentTime + ", score=" + score + ", orderNo=" + orderNo
+				+ ", updateTime=" + updateTime + "]";
 	}
+
+
+	
+	
 
 
 	

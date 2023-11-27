@@ -3,7 +3,7 @@
             box-sizing: border-box;
         }
 
-        div.container-fluid {
+        div .container-fluid {
             margin: 0;
             padding: 0;       
         }

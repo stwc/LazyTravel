@@ -1,6 +1,8 @@
-package com.lazytravel.order;
+package com.lazytravel.order.dao;
 
 import java.util.List;
+
+import com.lazytravel.order.entity.Passenger;
 
 public interface PassengerDAO {
 	
