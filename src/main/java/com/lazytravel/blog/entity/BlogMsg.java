@@ -1,27 +1,42 @@
-package com.lazytravel.blog;
+package com.lazytravel.blog.entity;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class BlogMsg implements Serializable{
-	private static final long serialVersionUID = 1L;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.lazytravel.customer.entity.Customer;
+
+@Entity
+@Table(name="blog_msg")
+public class BlogMsg {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "BLOG_MSG_ID")
 	private Integer blogMsgId;
+	
+	@Column(name= "CONTENT",columnDefinition = "LONGTEXT")
 	private String content;
-	private Integer blogId;
-	private Integer customerId;
+	
+	@ManyToOne
+	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
+	private Blog blog;
+	
+	@ManyToOne
+	@JoinColumn(name="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
+	private Customer customer;
+	
+	@Column(name ="CREATE_TIME")
 	private Timestamp createTime;
 
 	public BlogMsg() {
-		super();
-	}
-
-	public BlogMsg(Integer blogMsgId, String content, Integer blogId, Integer customerId, Timestamp createTime) {
-		super();
-		this.blogMsgId = blogMsgId;
-		this.content = content;
-		this.blogId = blogId;
-		this.customerId = customerId;
-		this.createTime = createTime;
 	}
 
 	public Integer getBlogMsgId() {
@@ -40,20 +55,20 @@ public class BlogMsg implements Serializable{
 		this.content = content;
 	}
 
-	public Integer getBlogId() {
-		return blogId;
+	public Blog getBlog() {
+		return blog;
 	}
 
-	public void setBlogId(Integer blogId) {
-		this.blogId = blogId;
+	public void setBlog(Blog blog) {
+		this.blog = blog;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Timestamp getCreateTime() {
@@ -63,9 +78,12 @@ public class BlogMsg implements Serializable{
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
+
+	@Override
 	public String toString() {
-		return "BlogMsg [blogMsgId=" + blogMsgId + ", content=" + content + ", blogId=" + blogId + ", customerId="
-				+ customerId + ", createTime=" + createTime + "]";
+		return "BlogMsg [blogMsgId=" + blogMsgId + ", content=" + content + ", blog=" + blog + ", customer=" + customer
+				+ ", createTime=" + createTime + "]";
 	}
+
 	
 }

@@ -1,25 +1,39 @@
-package com.lazytravel.blog;
+package com.lazytravel.blog.entity;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Arrays;
 
-public class BlogImg implements Serializable{
-	private static final long serialVersionUID = 1L;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "blog_img")
+public class BlogImg {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name ="BLOG_IMG_ID")
 	private Integer blogImgId;
-	private Integer blogId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
+	private BlogImg blogId;
+	
+	@Column(name = "CREATE_TIME")
 	private Timestamp createTime;
+	
+	@Column(name = "IMG" ,columnDefinition = "longblob")
 	private byte[] img;
 	
 	public BlogImg() {
-		super();
-	}
 
-	public BlogImg(Integer blogImgId, Integer blogId, Timestamp createTime, byte[] img) {
-		super();
-		this.blogImgId = blogImgId;
-		this.blogId = blogId;
-		this.createTime = createTime;
-		this.img = img;
 	}
 
 	public Integer getBlogImgId() {
@@ -30,11 +44,11 @@ public class BlogImg implements Serializable{
 		this.blogImgId = blogImgId;
 	}
 
-	public Integer getBlogId() {
+	public BlogImg getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(Integer blogId) {
+	public void setBlogId(BlogImg blogId) {
 		this.blogId = blogId;
 	}
 
@@ -53,9 +67,11 @@ public class BlogImg implements Serializable{
 	public void setImg(byte[] img) {
 		this.img = img;
 	}
+
+	@Override
 	public String toString() {
-		return "BlogImg [blogImgId=" + blogImgId + ", blogId=" + blogId + ", createTime=" + createTime + ", img=" + img
-				+ "]";
+		return "BlogImg [blogImgId=" + blogImgId + ", blogId=" + blogId + ", img=" + Arrays.toString(img) + "]";
 	}
+
 	
 }

@@ -1,13 +1,23 @@
-package com.lazytravel.blog;
+package com.lazytravel.blog.dao;
 
 import java.util.List;
 
+import com.lazytravel.blog.entity.BlogLike;
+import com.lazytravel.blog.entity.BlogMsg;
+
 public interface BlogMsgDAO {
 
-	void add(BlogMsg blogMsg);
-	void update(BlogMsg blogMsg);
+	void insert(BlogMsg entity);
+	
+	void update(BlogMsg entity);
+	
 	void delete(Integer blogMsgId);
-	BlogMsg getBlogMsgByBlogMsgId(Integer blogMsgId);
+	
+	BlogMsg getByPK(Integer blogMsgId);
+	
 	List<BlogMsg>gatALL();
 	
+	List<BlogMsg> getAll(int currentPage);
+
+	long getTotal();
 }

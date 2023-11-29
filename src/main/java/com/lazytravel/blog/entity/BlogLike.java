@@ -1,28 +1,43 @@
-package com.lazytravel.blog;
+package com.lazytravel.blog.entity;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class BlogLike implements Serializable {
-	private static final long serialVersionUID = 1L;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.lazytravel.example.entity.Customer;
+
+@Entity
+@Table(name = "blog_like")
+public class BlogLike  {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "BLOG_LIKE_ID")
 	private Integer bloglikeId;
-	private Integer customerId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
+	private Customer customer;
+	
+	@Column(name = "CREATE_TIME")
 	private Timestamp createTime;
-	private Integer blogId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
+	private Blog blogId;
+	
+	@Column(name = "BLOG_LIKE_STATUS",columnDefinition = "char")
 	private String blogLikeStatus;
 	
 	public BlogLike() {
-		super();
-	}
-
-	public BlogLike(Integer bloglikeId, Integer customerId, Timestamp createTime, Integer blogId,
-			String blogLikeStatus) {
-		super();
-		this.bloglikeId = bloglikeId;
-		this.customerId = customerId;
-		this.createTime = createTime;
-		this.blogId = blogId;
-		this.blogLikeStatus = blogLikeStatus;
 	}
 
 	public Integer getBloglikeId() {
@@ -33,12 +48,12 @@ public class BlogLike implements Serializable {
 		this.bloglikeId = bloglikeId;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Timestamp getCreateTime() {
@@ -49,11 +64,11 @@ public class BlogLike implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public Integer getBlogId() {
+	public Blog getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(Integer blogId) {
+	public void setBlogId(Blog blogId) {
 		this.blogId = blogId;
 	}
 
@@ -64,9 +79,11 @@ public class BlogLike implements Serializable {
 	public void setBlogLikeStatus(String blogLikeStatus) {
 		this.blogLikeStatus = blogLikeStatus;
 	}
+
+	@Override
 	public String toString() {
-		return "BlogLike [bloglikeId=" + bloglikeId + ", customerId=" + customerId + ", createTime=" + createTime
+		return "BlogLike [bloglikeId=" + bloglikeId + ", customer=" + customer + ", createTime=" + createTime
 				+ ", blogId=" + blogId + ", blogLikeStatus=" + blogLikeStatus + "]";
 	}
-	
+
 }
