@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>後臺 - 平臺會員</title>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+  <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+</head>
+
+<body>
+<div id="header"></div>
+
+<div id="main" class="p-3">
+  <h3 class="mx-3 mb-4">訂單總覽</h3>
+  <div class="card mx-5 my-5">
+    <div class="card-header">
+        總覽查詢
+    </div>
+    <div class="card-body mx-5">
+        <table class="my-5">
+            <tbody>
+                <tr class="d-inline me-3">
+                    <td>訂單時間：</td>
+                    <td><input type="date" id="min" name="min"></td>
+                </tr>
+                <tr class="d-inline">
+                    <td></td>
+                    <td><input type="date" id="max" name="max"></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <table id="123" class="display mb-5">
+            <thead>
+                <tr>
+                    <th>訂單日期</th>
+                    <th>訂單編號</th>
+                    <th>旅客人數</th>
+                    <th>訂單狀態</th>
+                    <th>查詢訂單明細</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2023-11-28</td>
+                    <td>Row 1 Data 2</td>
+                    <td>Row 1 Data 3</td>
+                    <td>Row 1 Data 4</td>
+                    <td><a href="#" class="order-details-link">查看詳細</a></td>
+                </tr>
+                <tr>
+                    <td>2024-11-28</td>
+                    <td>Row 2 Data 2</td>
+                    <td>Row 2 Data 3</td>
+                    <td>Row 2 Data 4</td>
+                    <td><a href="#" class="order-details-link">查看詳細</a></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+  
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script>
+  
+       
+let table = new DataTable('#123');
+
+  
+
+  $(function () {
+    $("#header").load("../admin/header.html");
+    // new DataTable('#example');
+
+    init()
+  });
+</script>
+</body>
+
+</html>

@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
 
@@ -118,28 +117,22 @@ div.container1 {
       background-color: #fff;
     }
 
-    #customButton, #payButton{
+    #customButton {
       background-color: #ffffff; /* 初始背景色 */
       color: #9C6644; /* 初始文字與框線色 */
       border: 2px solid #9C6644; /* 初始邊框色 */
       padding: 10px 20px;
       cursor: pointer;
       border-radius: 10px;
-      width: 150px;
+      width: 120px;
       height: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    #customButton, #payButton{
+    #customButton.clicked {
       background-color: #9C6644; /* 點擊後背景色 */
       color: #ffffff; /* 點擊後文字色 */
       border-radius: 10px;   
     }
-
-    
-
-
-
-  
