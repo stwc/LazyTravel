@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>後臺-行程(新增修改)</title>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+  <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+
+  <style>
+    button.btn-modify {
+    background-color: #9C6644;
+    color: white;
+    }
+
+    a#add {
+    background-color: #B7B7A4;
+    color: white;
+    }
+    
+    a#add:hover {
+    background-color: #6B705C;
+    color: white;
+    }
+
+   *{
+        box-sizing: border-box;
+    }
+
+    body{
+        margin: 0;
+    }
+
+    main#main{
+        padding: 50px 80px;
+    }
+
+    input, textarea{
+        border: 1px solid #CCD5AE;   
+    }
+
+    input:focus, textarea:focus{
+        outline: 2px solid #CCD5AE;
+        box-shadow: 0 0 8px #a1a397
+    }
+
+    select {
+        border: 1px solid #CCD5AE;
+        height: 27px;
+    }
+
+    select:focus {
+        border:2px solid #CCD5AE;
+        box-shadow: 0 0 8px #a1a397;
+    }
+
+    button.journey_detail_add, 
+    button.journey_detail_dalete{
+        width: 23px;
+        height: 23px;
+        line-height: 10px;
+        border-radius: 90px;
+        border-color: transparent;
+        background-color: #CCCCCC;
+        color: white;
+    }
+
+    button.journey_detail_add{
+        padding-left: 3.5px;
+    }
+
+    button.journey_detail_add:active, 
+    button.journey_detail_dalete:active{
+        outline: 2px solid #CCCCCC;
+        box-shadow: 0 0 8px #a1a397
+    }
+
+    button.btn_submit{
+        width: 100px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #CCD5AE;
+        
+        margin-right: 15px;
+    }
+
+    button.btn_submit:active {
+        outline: 2px solid #CCD5AE;
+        box-shadow: 0 0 8px #a1a397
+    }
+    
+    button.btn_reset{
+        width: 100px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #9C6644;
+    }
+
+    button.btn_reset:active {
+        outline: 2px solid #9C6644;
+        box-shadow: 0 0 8px #a1a397
+    }
+
+    div.div_btn{
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    div.div_journeyId label, div.div_journeyId div{
+        display: inline-block;
+    }
+
+    div.div_journeyId label{
+        margin-right: 30px;
+    }
+
+    /* div.div_journeyId select{
+        width: 181px;
+    } */
+
+    div.div_journeyName label, 
+    div.div_days label, 
+    div.div_journeyStatus label,
+    div.div_detal_joyrneyId label,
+    div.div_detal_time label
+    {
+        margin-right: 15px;
+    }
+    
+    div.div_price label{
+        margin-right: 47px;
+    }
+
+    div.div_nthDay label{
+        margin-right: 31px;
+    }
+
+    div.div_detal_joyrneyId input[type="number"]{
+        width: 90px;
+        margin-right: 5px;
+    }
+
+    div.div_detal_joyrneyId select{
+        width: 181px;
+        margin-right: 5px;
+    }
+
+    div.div_detal_time input{
+        margin-right: 25px;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 10px;
+    }
+
+
+    
+</style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    
+    <main id="main">
+          
+      <p style="font-size: 20px;"<b>新增或修改行程</b></p>
+
+      <br>
+      <div class="div_journeyId">
+          <label>行程ID :</label>
+          <div>23001</div>
+          <!-- <select>
+              <option value="22001" selected>22001</option>
+          </select> -->
+      </div>
+      <br>
+
+      <div class="div_journeyName">
+          <label>行程名稱 :</label>
+          <input type="text">
+      </div>
+
+      <div class="div_price">
+          <label>價格 :</label>
+          <input type="number">
+      </div>
+
+      <div class="div_days">
+          <label>行程天數 :</label>
+          <input type="number">
+      </div>
+
+      <div class="div_journeyStatus">
+          <label>行程狀態 :</label>
+          <select>
+              <option value="0" selected>未上架</option>
+              <option value="1">已上架</option>
+          </select>
+      </div>
+
+
+      <br>
+      <br>
+      <p>行程細項</p>
+
+      <div>
+          <div class="div_nthDay">
+              <label>第幾天 :</label>
+              <input type="number">
+          </div>
+          <div class="div_detal_joyrneyId">
+              <label>美食景點ID / 名稱 :</label>
+              <input type="number">
+              <input type="text">
+              <select>
+                  <option value="22001" selected>陽明山一日遊</option>
+                  <option value="22002">台北三天兩夜美食旅</option>
+              </select>
+          </div>
+          <div class="div_detal_time">
+              <label>開始時間 :</label>
+              <input type="time">
+              <label>結束時間 :</label>
+              <input type="time">
+              <button class="journey_detail_add"><b>+</b></button>
+          </div>
+      </div>
+
+      <br>
+      <table>
+          <tr>
+              <th>第幾天</th>
+              <th>美食景點名稱</th>
+              <th>時間起訖<th>
+              <th>地址</th>
+              <th></th>
+          </tr>
+          <tr>
+              <td>1</td>
+              <td>xxx美食景點</td>
+              <td>10:00~15:00<td>
+              <td>104台北市中山區南京東路三段219號</td>
+              <td><button class="journey_detail_dalete"><b>-</b></button></td>
+          </tr>
+          <tr>
+              <td>2</td>
+              <td>ooo美食景點</td>
+              <td>16:00~22:00<td>
+              <td>104台北市中山區南京東路三段219號</td>
+              <td><button class="journey_detail_dalete"><b>-</b></button></td>
+          </tr>
+      </table>
+
+      <br>
+      <br>
+      <div>
+          <label>行程介紹 :</label>
+          <textarea style="height: 150px; width: 100%;"></textarea>
+      </div>
+
+      <br>
+      <div class="div_btn">
+          <button type="submit" class="btn_submit">送出</button>
+          <button type="reset" class="btn_reset">取消</button>
+      </div>
+
+  </main>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(function () {
+      $("#header").load("header.html");
+      new DataTable('#example');
+    });
+  </script>
+</body>
+
+</html>

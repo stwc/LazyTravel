@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後臺-旅行團(新增修改)</title>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+  
+    <style>
+       *{
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+        }
+
+        main#main{
+            padding: 50px 80px;
+        }
+
+        input{
+            border: 1px solid #CCD5AE;   
+        }
+
+        input:focus{
+            outline: 2px solid #CCD5AE;
+            box-shadow: 0 0 8px #a1a397
+        }
+
+        select {
+            border: 1px solid #CCD5AE;
+            height: 27px;
+        }
+
+        select:focus {
+            border:2px solid #CCD5AE;
+            box-shadow: 0 0 8px #a1a397;
+        }
+
+
+        button.btn_submit{
+            width: 100px;
+            height: 30px;
+            border-radius: 90px;
+            border-color: transparent;
+            color: white;
+            background: #CCD5AE;
+            
+            margin-right: 15px;
+        }
+
+        button.btn_submit:active {
+            outline: 2px solid #CCD5AE;
+            box-shadow: 0 0 8px #a1a397
+        }
+        
+        button.btn_reset{
+            width: 100px;
+            height: 30px;
+            border-radius: 90px;
+            border-color: transparent;
+            color: white;
+            background: #9C6644;
+        }
+
+        button.btn_reset:active {
+            outline: 2px solid #9C6644;
+            box-shadow: 0 0 8px #a1a397
+        }
+
+        div.div_btn{
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        div.div_groupId label, div.div_groupId div{
+            display: inline-block;
+        }
+
+        div.div_groupId label{
+            margin-right: 35px;
+        }
+
+        div.div_groupId select{
+            width: 181px;
+        }
+
+        div.div_tourGroup_journey label{
+            margin-right: 5px;
+        }
+
+        div.div_tourGroup_journey input[type="number"]{
+            width: 90px;
+            margin-right: 5px;
+        }
+
+        div.div_tourGroup_journey select{
+            width: 181px;
+            margin-right: 5px;
+        }
+
+        div.div_tourGroup_date label{
+            margin-right: 4px;
+        }
+        
+        div.div_tourGroup_date input{
+            margin-right: 100px;
+        }
+
+        div.div_price label{
+            margin-right: 68px;
+        }
+
+        div.div_requiredMin label{
+            margin-right: 36px;
+        }
+
+        div.div_requiredMax label{
+            margin-right: 4px;
+        }
+
+        div.div_signDate label{
+            margin-right: 20px;
+        }
+
+        div.div_signDate input{
+            margin-right: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+
+
+    <main id="main">
+        
+        <p style="font-size: 20px;"<b>新增或修改旅行團</b></p>
+
+        <br>
+        <div class="div_groupId">
+            <label>旅行團ID :</label>
+            <div>24001</div>
+            <select>
+                <option value="24001" selected>24001</option>
+            </select>
+        </div>
+        <br>
+
+
+        <div class="div_tourGroup_journey">
+            <label>行程ID / 名稱 :</label>
+            <input type="number">
+            <!-- <input type="text"> -->
+            <select>
+                <option value="24001" selected>000行程</option>
+                <option value="24002">xxx行程</option>
+            </select>
+        </div>
+
+        <div class="div_tourGroup_date">
+            <label>旅行團開始日 :</label>
+            <input type="date">
+            <label>旅行團結束日 :</label>
+            <input type="date">
+            <!-- <button class="btn_tourGroup_add"><b>+</b></button> -->
+        </div>
+
+        <div class="div_price">
+            <label>價格 :</label>
+            <input type="number">
+        </div>
+
+        <div class="div_requiredMin">
+            <label>成團人數 :</label>
+            <input type="number">
+        </div>
+
+        <div class="div_requiredMax">
+            <label>報名人數上限 :</label>
+            <input type="number">
+        </div>
+
+        <div class="div_signDate">
+            <label>報名開始日 :</label>
+            <input type="datetime-local">
+            <label>報名截止日 :</label>
+            <input type="datetime-local">
+        </div>
+
+        <br>
+        <div class="div_btn">
+            <button type="submit" class="btn_submit">送出</button>
+            <button type="reset" class="btn_reset">取消</button>
+        </div>
+
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(function () {
+            $("#header").load("header.html");
+            new DataTable('#example');
+        });
+    </script>
+</body>
+  
+</html>
