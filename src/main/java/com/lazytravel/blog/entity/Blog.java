@@ -12,12 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.lazytravel.customer.entity.Customer;
 
 @Entity
 @Table(name = "blog")
 public class Blog {
-	
-	@Id
+	//UK的話要新增 unique=true
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="BLOG_ID",updatable = false)
 	private Integer blogId;
@@ -25,9 +26,9 @@ public class Blog {
 	@Column(name="TITLE")
 	private String title;
 	
-	@ManyToOne(fetch =FetchType.LAZY)
+	@ManyToOne(fetch =FetchType.LAZY) //自增主鍵
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Integer customerId;
+	private Customer customerId;
 	
 	private Timestamp blogDate;
 	
@@ -74,11 +75,11 @@ public class Blog {
 		this.title = title;
 	}
 
-	public Integer getCustomerId() {
+	public Customer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Integer customerId) {
+	public void setCustomerId(Customer customerId) {
 		this.customerId = customerId;
 	}
 
