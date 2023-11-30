@@ -1,0 +1,128 @@
+
+        * {
+            box-sizing: border-box;
+        }
+
+        div.container-fluid {
+            margin: 0;
+            padding: 0;       
+        }
+
+        /* ===========  Header  ===========  */
+
+        nav * {
+            margin: 0;
+            padding: 0;
+            background-color: #6B705C;
+
+        }
+
+        nav.navbar {
+            /* border: 1px solid red; */
+            width: 100%;
+            padding: 0;
+            position: fixed;
+            top: 0;  
+            flex-wrap: none;
+        }
+
+        .navbar-brand {
+            /* border: 1px solid red; */
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            padding-left: 16px;
+        }
+
+        div.container-fluid div.nav-item-area{
+            margin-right: 30px;
+            /* border: 2px solid black; */
+            display: flex;
+        }
+
+        div.container-fluid li.nav-item{
+            margin-right: 50px;
+            /* border: 1px solid blue; */
+            display: flex;
+        }
+
+        div.container-fluid li.nav-item:nth-child(6){
+            margin-right: 60px;
+        }
+
+       
+        .nav-link {
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+
+        .nav-link:hover {
+            color: #CB997E;
+            transition: color 0.4s;
+            display: block;
+        }
+
+        .nav-link:focus {
+            color: white;
+            transition: color 0.4s
+        }
+
+        .logo_link_trasition:hover {
+            color: #CB997E;
+            transition: color 0.4s;
+            vertical-align: baseline;
+        }
+
+        i.nav-link {
+            font-size: 30px;
+        }
+
+        .dropdown-item{
+            background-color: white;
+          
+        }
+   
+
+        div.container-fluid li.nav-item ul.dropdown-menu{
+           padding: 0;
+        }
+
+
+        div.container-fluid li.nav-item ul.dropdown-menu  li a.dropdown-item{
+            margin: 0;
+            width: 250px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+        }
+
+        div.container-fluid li.nav-item ul.dropdown-menu  li a.dropdown-item:hover{
+            background-color: lightgray;
+            color: black;
+        }
+
+
+        /* ===========  Content ===========  */
+
+        div.container-fluid div.content{
+            /* border: 1px solid red; */
+            margin-top: 80px;
+            height: 2000px;
+        }
+
+        /* ===========  footer ===========  */
+
+        div.container-fluid footer.py-5{
+            margin: 10px 100px;
+            border-top: 1px solid rgb(231, 231, 231);
+            /* border: 1px solid red; */
+        }
+
+
+      
+
