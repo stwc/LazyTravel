@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>後臺 - 訂單管理</title>
+    <title>後臺 - 優惠券管理</title>
     <link
         href="https://cdn.datatables.net/v/dt/dt-1.13.8/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/kt-2.11.0/r-2.5.0/rr-1.4.1/sc-2.3.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.css"
         rel="stylesheet">
@@ -18,7 +18,7 @@
     <div id="header"></div>
 
     <div id="main" class="p-3">
-        <h3 class="mx-3 mb-4">訂單總覽</h3>
+        <h3 class="mx-3 mb-4">優惠券總覽</h3>
         <div class="card mx-5 my-5">
             <div class="card-header">
                 總覽查詢
@@ -27,7 +27,7 @@
                 <table class="my-5">
                     <tbody>
                         <tr class="d-inline me-3">
-                            <td>訂單時間：</td>
+                            <td>上架時間：</td>
                             <td><input type="date" id="min" name="min"></td>
                         </tr>
                         <tr class="d-inline">
@@ -41,21 +41,15 @@
                 <table id="order" class="display mb-5">
                     <thead>
                         <tr>
-                            <th>訂單Id</th>
-                            <th>訂單編號</th>
-                            <th>顧客編號</th>
-                            <th>團編號</th>
-                            <th>旅客人數</th>
-                            <th>會員金</th>
                             <th>優惠券Id</th>
-                            <th>總金額</th>
-                            <th>創建日期</th>
-                            <th>付款日期</th>
-                            <th>訂單狀態</th>
-                            <th>評價分數</th>
-                            <th>評價內容</th>
-                            <th>評價時間</th>
-
+                            <th>優惠碼</th>
+                            <th>優惠名稱</th>
+                            <th>折扣金額</th>
+                            <th>折扣門檻</th>
+                            <th>創建時間</th>
+                            <th>結束時間</th>
+                            <th>剩餘數量</th>
+                            <th>總數量</th>
 
                         </tr>
                     </thead>
@@ -70,11 +64,6 @@
                             <td>Row 1 Data 4</td>
                             <td>Row 1 Data 4</td>
                             <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
 
                         </tr>
 
@@ -88,11 +77,7 @@
                             <td>Row 1 Data 4</td>
                             <td>Row 1 Data 4</td>
                             <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
+
 
                         </tr>
                         <tr>
@@ -105,11 +90,7 @@
                             <td>Row 1 Data 4</td>
                             <td>Row 1 Data 4</td>
                             <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
-                            <td>Row 1 Data 4</td>
+
                         </tr>
 
 
@@ -142,9 +123,9 @@
 
             DataTable.datetime('YYYY/MM/DD HH:mm:ss');
             const table = new DataTable('#order', {
-                select: true,
-                scrollX: true,
-               
+
+                select: true
+
             });
         });
     </script>

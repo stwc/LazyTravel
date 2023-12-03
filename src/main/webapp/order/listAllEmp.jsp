@@ -3,6 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.lazytravel.order.entity.*"%>
 <%@ page import="com.lazytravel.order.dao.*"%>
+<%@ page import="com.lazytravel.order.service.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%

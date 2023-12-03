@@ -5,26 +5,67 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.transaction.Transactional;
 
 
+@Entity
+@Table(name = "orders")
 public class Orders implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_id", updatable = false)
 	private Integer orderId;
+	
+	@Column(name = "customer_id" )
 	private Integer customerId;
+	
+	@Column(name = "group_id" )
 	private Integer groupId;
+	
+	@Column(name = "create_time", insertable = false, updatable = false)
 	private Timestamp createTime;
+	
+	@Column(name = "paid_time" )
 	private Timestamp paidTime;
+	
+	@Column(name = "total_amt" )
 	private Integer totalAmt;
+	
+	@Column(name = "order_status", columnDefinition = "char" )
 	private String orderStatus;
+	
+	@Column(name = "customer_point" )
 	private Integer customerPoint;
+	
+	@Column(name = "coupon_id" )
 	private Integer couponId;
+	
+	@Column(name = "tourist" )
 	private Integer tourist;
+	
+	@Column(name = "content", columnDefinition = "longtext")
 	private String content;
+	
+	@Column(name = "content_time" )
 	private Timestamp contentTime;
+	
+	@Column(name = "score" )
 	private Double score;
+	
+	@Column(name = "order_no" )
 	private Integer orderNo;
+	
+	@Column(name = "update_time", insertable = false, updatable = false)
 	private Timestamp updateTime;
 	
 	

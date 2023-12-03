@@ -3,17 +3,44 @@ package com.lazytravel.order.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "coupon")
 public class Coupon implements Serializable{
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "coupon_id", updatable = false)
 	private Integer couponID;
+	
+	@Column(name = "serial_no" )
 	private String serialNo;
+	
+	@Column(name = "coupon_name" )
 	private String couponName;
+	
+	@Column(name = "discount" )
 	private Integer discount;
+	
+	@Column(name = "threshold" )
 	private Integer threshold;
+	
+	@Column(name = "start_time" )
 	private Timestamp startTime;
+	
+	@Column(name = "end_time" )
 	private Timestamp endTime;
+	
+	@Column(name = "stock" )
 	private Integer stock;
+	
+	@Column(name = "total" )
 	private Integer total;
 	
 	

@@ -73,7 +73,7 @@
 
  
   
-  <jsp:useBean id="ordSvc" scope="page" class="com.lazytravel.order.dao.OrdersService" />
+  <jsp:useBean id="ordSvc" scope="page" class="com.lazytravel.order.service.OrdersService" />
    
   <li>
      <FORM METHOD="post" ACTION="order.do" >
@@ -93,7 +93,7 @@
        <b>¿ï¾Ü­q³æ No:</b>
        <select size="1" name="order_no">
          <c:forEach var="order" items="${ordSvc.all}" >
-          <option value="${order.orderNo}">${order.orderNo}
+          <option value="${order.orderId}">${order.orderNo}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_By_OrderNo">
