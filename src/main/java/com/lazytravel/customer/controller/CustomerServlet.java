@@ -15,7 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "CustomerServlet", value = "/admin/customer.do")
+@WebServlet(name = "CustomerServlet", urlPatterns = {"/customer/customer.do", "/admin/customer.do"})
 public class CustomerServlet extends HttpServlet {
     private CustomerService customerService;
 
