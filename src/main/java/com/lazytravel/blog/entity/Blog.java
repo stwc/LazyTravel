@@ -18,7 +18,7 @@ import com.lazytravel.customer.entity.Customer;
 @Table(name = "blog")
 public class Blog {
 	//UK的話要新增 unique=true
-	@Id 
+	@Id //自增主鍵
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="BLOG_ID",updatable = false)
 	private Integer blogId;
@@ -26,7 +26,7 @@ public class Blog {
 	@Column(name="TITLE")
 	private String title;
 	
-	@ManyToOne(fetch =FetchType.LAZY) //自增主鍵
+	@ManyToOne(fetch =FetchType.LAZY) 
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
 	private Customer customerId;
 	
@@ -53,7 +53,7 @@ public class Blog {
 	@Column(name = "IMG" ,columnDefinition = "longblob")
 	private byte[]  img;
 	
-	@Column(name = "BLOG_STATUS",columnDefinition = "char")
+	@Column(name = "BLOG_STATUS",columnDefinition = "CHAR")
 	private String blogStatus;
 
 	public Blog() {
@@ -163,4 +163,5 @@ public class Blog {
 				+ ", blogStatus=" + blogStatus + "]";
 	}
 
+	
 }
