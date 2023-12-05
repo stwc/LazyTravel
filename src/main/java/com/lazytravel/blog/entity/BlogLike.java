@@ -25,14 +25,14 @@ public class BlogLike  {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Customer customer;
+	private Integer customerId;
 	
 	@Column(name = "CREATE_TIME")
 	private Timestamp createTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
-	private Blog blogId;
+	private Integer blogId;
 	
 	@Column(name = "BLOG_LIKE_STATUS",columnDefinition = "char")
 	private String blogLikeStatus;
@@ -48,13 +48,6 @@ public class BlogLike  {
 		this.bloglikeId = bloglikeId;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 
 	public Timestamp getCreateTime() {
 		return createTime;
@@ -64,13 +57,6 @@ public class BlogLike  {
 		this.createTime = createTime;
 	}
 
-	public Blog getBlogId() {
-		return blogId;
-	}
-
-	public void setBlogId(Blog blogId) {
-		this.blogId = blogId;
-	}
 
 	public String getBlogLikeStatus() {
 		return blogLikeStatus;
@@ -80,10 +66,27 @@ public class BlogLike  {
 		this.blogLikeStatus = blogLikeStatus;
 	}
 
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public Integer getBlogId() {
+		return blogId;
+	}
+
+	public void setBlogId(Integer blogId) {
+		this.blogId = blogId;
+	}
+
 	@Override
 	public String toString() {
-		return "BlogLike [bloglikeId=" + bloglikeId + ", customer=" + customer + ", createTime=" + createTime
+		return "BlogLike [bloglikeId=" + bloglikeId + ", customerId=" + customerId + ", createTime=" + createTime
 				+ ", blogId=" + blogId + ", blogLikeStatus=" + blogLikeStatus + "]";
 	}
+
 
 }

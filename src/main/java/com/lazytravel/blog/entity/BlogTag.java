@@ -100,7 +100,7 @@ public class BlogTag {
 					return true;
 				}
 			}
-			return true;
+			return false;
 		}
 	}
 }

@@ -28,11 +28,12 @@ public class Blog {
 	
 	@ManyToOne(fetch =FetchType.LAZY) 
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Customer customerId;
+	private Integer customerId;
 	
+	@Column(name = "BLOG_DATE")
 	private Timestamp blogDate;
 	
-	@Column(name="CONTENT",columnDefinition = "LONGTEXT")
+	@Column(name="CONTENT",columnDefinition = "longtext")
 	private String content;
 	
 	@Column(name="UPDATE_TIME")
@@ -53,7 +54,7 @@ public class Blog {
 	@Column(name = "IMG" ,columnDefinition = "longblob")
 	private byte[]  img;
 	
-	@Column(name = "BLOG_STATUS",columnDefinition = "CHAR")
+	@Column(name = "BLOG_STATUS",columnDefinition = "char")
 	private String blogStatus;
 
 	public Blog() {
@@ -75,11 +76,11 @@ public class Blog {
 		this.title = title;
 	}
 
-	public Customer getCustomerId() {
+	public Integer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Customer customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 
