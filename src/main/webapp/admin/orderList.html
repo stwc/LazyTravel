@@ -2,93 +2,261 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>後臺 - 平臺會員</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>後臺 - 訂單管理</title>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+	<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-  <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-  <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+	<style>
+		button.btn-modify,
+		#filterBtn {
+			background-color: #9C6644;
+			color: white;
+		}
+
+		#order thead th {
+			white-space: nowrap;
+		}
+
+		#order thead th .dt-head-inner {
+			display: inline-block;
+		}
+	</style>
 </head>
 
 <body>
-<div id="header"></div>
+	<div id="header"></div>
 
-<div id="main" class="p-3">
-  <h3 class="mx-3 mb-4">訂單總覽</h3>
-  <div class="card mx-5 my-5">
-    <div class="card-header">
-        總覽查詢
-    </div>
-    <div class="card-body mx-5">
-        <table class="my-5">
-            <tbody>
-                <tr class="d-inline me-3">
-                    <td>訂單時間：</td>
-                    <td><input type="date" id="min" name="min"></td>
-                </tr>
-                <tr class="d-inline">
-                    <td></td>
-                    <td><input type="date" id="max" name="max"></td>
-                </tr>
-            </tbody>
-        </table>
+	<div id="main" class="p-3">
+		<h3 class="mx-3 mb-4">訂單總覽</h3>
+		<div class="card mx-5 my-5">
+			<div class="card-header">總覽查詢</div>
+			<div class="card-body mx-2">
+				<table class="my-5">
+					<tbody>
+						<tr class="d-inline me-3">
+							<td>訂單時間：</td>
+							<td><input type="date" id="min" name="min"></td>
+						</tr>
+						<tr class="d-inline">
+							<td></td>
+							<td><input type="date" id="max" name="max">
 
-
-        <table id="123" class="display mb-5">
-            <thead>
-                <tr>
-                    <th>訂單日期</th>
-                    <th>訂單編號</th>
-                    <th>旅客人數</th>
-                    <th>訂單狀態</th>
-                    <th>查詢訂單明細</th>
-                   
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>2023-11-28</td>
-                    <td>Row 1 Data 2</td>
-                    <td>Row 1 Data 3</td>
-                    <td>Row 1 Data 4</td>
-                    <td><a href="#" class="order-details-link">查看詳細</a></td>
-                </tr>
-                <tr>
-                    <td>2024-11-28</td>
-                    <td>Row 2 Data 2</td>
-                    <td>Row 2 Data 3</td>
-                    <td>Row 2 Data 4</td>
-                    <td><a href="#" class="order-details-link">查看詳細</a></td>
-                </tr>
+								<button id="filterBtn" class="btn mx-4">篩選</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 
 
-            </tbody>
-        </table>
 
-    </div>
-</div>
-  
+				<table id="order" class="table table-striped">
+					<thead>
+						<tr>
+							<th>訂單Id</th>
+							<th>訂單編號</th>
+							<th>顧客編號</th>
+							<th>團編號</th>
+							<th>旅客人數</th>
+							<th>會員金</th>
+							<th>優惠券Id</th>
+							<th>總金額</th>
+							<th>創建日期</th>
+							<th>更新日期</th>
+							<th>付款日期</th>
+							<th>訂單狀態</th>
+							<th>評價分數</th>
+							<th>評價內容</th>
+							<th>評價時間</th>
+							<th>修改</th>
 
-</div>
+						</tr>
+					</thead>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script>
-  
-       
-let table = new DataTable('#123');
+					</tbody>
+				</table>
 
-  
+			</div>
+		</div>
 
-  $(function () {
-    $("#header").load("../admin/header.html");
-    // new DataTable('#example');
+		<!-- 弹窗结构 -->
+		<div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modifyModalLabel">修改订单内容</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<!-- 在这里添加修改订单的表单元素 -->
+						<input type="text" id="modifiedContent">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" id="saveChangesBtn">保存修改</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    init()
-  });
-</script>
+	</div>
+
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+	<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+
+
+
+
+	<script>
+
+		$(function () {
+
+			$("#header").load("../admin/header.html");
+			init();
+
+
+		});
+
+		function init() {
+
+
+			$.ajax({
+				url: "http://localhost:8081/LazyTravel/order/order.do",
+				type: "GET",
+				data: { "action": "getall" },
+				dataType: "json",
+				beforeSend: function () {
+					$("ul.task_list").html(
+						'<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>'
+					);
+				},
+
+
+				success: function (data) {
+					let dataSet = [];
+					data.forEach((item) => {
+						let tmpArr = [];
+						let modifyBtn = `
+                    <td>
+	                  <form method="post" action="">
+	                    <button type="submit" class="btn-modify btn">修改</button>
+	                    <input type="hidden" name="order_id" value="${item.orderId}">
+	                    <input type="hidden" name="action" value="modify">
+	                  </form>
+                    </td>
+                    `;
+
+						let statusCell = '';
+						if (item.orderStatus == 0) {
+							statusCell = '<span class="status-unpaid">未付款</span>';
+						} else if (item.orderStatus == 1) {
+							statusCell = '<span class="status-paid">已付款</span>';
+						} else if (item.orderStatus == 2) {
+							statusCell = '<span class="status-canceled">已取消</span>';
+						}
+
+						let paidtimeCell = '';
+						if (item.paidTime == null) {
+							paidtimeCell = '<span class="status-unpaid">--</span>';
+						}
+
+
+
+						let scoreCell = '';
+						if (item.score == null) {
+							scoreCell = '<span>--</span>';
+						}
+
+						let contentCell = '';
+						if (item.content == null) {
+							contentCell = '<span>--</span>';
+						}
+
+						let contentTimeCell = '';
+						if (item.contentTime == null) {
+							contentTimeCell = '<span>--</span>';
+						}
+
+
+						function formatDateTime(timestamp) {
+							const options = {
+								year: 'numeric',
+								month: '2-digit',
+								day: '2-digit',
+								hour: '2-digit',
+								minute: '2-digit',
+								second: '2-digit',
+							};
+							return new Date(timestamp).toLocaleString('zh-TW', options).replace(',', '');
+						}
+
+						tmpArr.push(item.orderId);
+						tmpArr.push(item.orderNo);
+						tmpArr.push(item.customerId);
+						tmpArr.push(item.groupId);
+						tmpArr.push(item.tourist);
+						tmpArr.push(item.customerPoint);
+						tmpArr.push(item.couponId);
+						tmpArr.push(item.totalAmt);
+						tmpArr.push(formatDateTime(item.createTime));
+						tmpArr.push(formatDateTime(item.updateTime));
+						tmpArr.push(paidtimeCell);
+						tmpArr.push(statusCell);
+						tmpArr.push(scoreCell);
+						tmpArr.push(contentCell);
+						tmpArr.push(contentTimeCell);
+						tmpArr.push(modifyBtn);
+						dataSet.push(tmpArr)
+					});
+
+
+
+					new DataTable('#order', {
+						data: dataSet,
+						scrollX: true,
+
+						columns: [
+							{ data: 0 },
+							{ data: 1 },
+							{ data: 2 },
+							{ data: 3 },
+							{ data: 4 },
+							{ data: 5 },
+							{ data: 6 },
+							{ data: 7 },
+							{ data: 8 },
+							{ data: 9 },
+							{ data: 10 },
+							{ data: 11 },
+							{ data: 12 },
+							{ data: 13 },
+							{ data: 14 },
+							{ data: 15, orderable: false, searchable: false }
+						],
+
+						headerCallback: function (thead, data, start, end, display) {
+							$(thead).find('th').each(function (index) {
+								const text = $(this).text();
+								$(this).html('<div class="dt-head-inner">' + text + '</div>');
+							});
+						},
+					});
+				},
+
+				error: function () {
+					console.log("init error");
+				}
+
+			});
+		}
+
+
+	</script>
 </body>
 
 </html>

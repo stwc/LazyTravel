@@ -2,14 +2,35 @@ package com.lazytravel.order.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "passenger")
 public class Passenger {
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_id", updatable = false)
 	private Integer passengerId;
+	
+	@Column(name = "order_id" )
 	private Integer orderId;
+	
+	@Column(name = "idno" )
 	private String idno;
+	
+	@Column(name = "passenger_name" )
 	private String passengerName;
+	
+	@Column(name = "phone" )
 	private String phone;
+	
+	@Column(name = "birth" )
 	private Date birth;
 	
 		public Passenger() {
