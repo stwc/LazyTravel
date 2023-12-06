@@ -7,17 +7,13 @@ import com.lazytravel.blog.entity.BlogTag;
 
 public interface BlogTagDAO {
 
-	void insert(BlogTag entity);
+	void insert(BlogTag entity); //新增標籤
 	
-	void update(BlogTag entity);
+	void update(BlogTag entity); //修改標籤
 	
-	void delete(Integer blogId,Integer tagId);
+	void delete(Integer blogId,Integer tagId); //刪除標籤
 	
-	BlogTag getByPK(Integer blogId,Integer tagId);
+	BlogTag getByPK(Integer blogId,Integer tagId); //查單筆
 	
-	List<BlogTag>getAll();
-	
-	List<BlogTag> getAll(int currentPage);
-
-	long getTotal();
+	List<BlogTag>getAll(); //找全部
 }

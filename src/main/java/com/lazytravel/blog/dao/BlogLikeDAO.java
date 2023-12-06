@@ -7,17 +7,12 @@ import com.lazytravel.blog.entity.BlogLike;
 
 public interface BlogLikeDAO {
 
-	void insert(BlogLike entity);
+	void insert(BlogLike entity);  //新增文章按讚
 
-	void update(BlogLike entity);
+	void delete(Integer blogLikeId);  //刪除文章按讚
 
-	void delete(Integer blogLikeId);
+	BlogLike getByPK(Integer cusomterId); //查詢單筆
 
-	BlogLike getByPK(Integer blogLikeId);
+	List<BlogLike> getAll(); //查詢全部
 
-	List<BlogLike> getAll();
-
-	List<BlogLike> getAll(int currentPage);
-
-	long getTotal();
 }
