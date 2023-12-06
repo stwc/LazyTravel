@@ -6,6 +6,10 @@ target/
 .DS_Store
 *.idea
 *.iml
-/src/main/resources/hibernate.cfg.xml
-/src/main/webapp/META-INF/context.xml
+hibernate.cfg.xml
+context.xml
 .vscode/
+application.properties
+*.jar
+*.war
+*.class
