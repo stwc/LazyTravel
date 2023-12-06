@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>後臺 - 優惠券管理</title>
+    <link
+        href="https://cdn.datatables.net/v/dt/dt-1.13.8/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/kt-2.11.0/r-2.5.0/rr-1.4.1/sc-2.3.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <div id="main" class="p-3">
+        <h3 class="mx-3 mb-4">優惠券總覽</h3>
+        <div class="card mx-5 my-5">
+            <div class="card-header">
+                總覽查詢
+            </div>
+            <div class="card-body mx-2">
+                <table class="my-5">
+                    <tbody>
+                        <tr class="d-inline me-3">
+                            <td>上架時間：</td>
+                            <td><input type="date" id="min" name="min"></td>
+                        </tr>
+                        <tr class="d-inline">
+                            <td></td>
+                            <td><input type="date" id="max" name="max"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <table id="order" class="display mb-5">
+                    <thead>
+                        <tr>
+                            <th>優惠券Id</th>
+                            <th>優惠碼</th>
+                            <th>優惠名稱</th>
+                            <th>折扣金額</th>
+                            <th>折扣門檻</th>
+                            <th>創建時間</th>
+                            <th>結束時間</th>
+                            <th>剩餘數量</th>
+                            <th>總數量</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 3</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 3</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 2</td>
+                            <td>Row 1 Data 3</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+                            <td>Row 1 Data 4</td>
+
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script
+        src="https://cdn.datatables.net/v/dt/dt-1.13.8/af-2.6.0/b-2.4.2/b-colvis-2.4.2/b-html5-2.4.2/cr-1.7.0/date-1.5.1/fc-4.3.0/kt-2.11.0/r-2.5.0/rr-1.4.1/sc-2.3.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.js"></script>
+
+
+
+
+    <script>
+
+        $(function () {
+            $("#header").load("../admin/header.html");
+
+
+
+            DataTable.datetime('YYYY/MM/DD HH:mm:ss');
+            const table = new DataTable('#order', {
+
+                select: true
+
+            });
+        });
+    </script>
+</body>
+
+</html>

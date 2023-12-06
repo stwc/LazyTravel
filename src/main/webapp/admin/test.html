@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+        <thead>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Updated date</th>
+                <th>Registered date</th>
+            </tr>
+        </thead>
+    </table>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.5.1/js/dataTables.dateTime.min.js"></script>
+
+
+    <script>
+        // Register date formats to allow DataTables sorting of the dates
+        DataTable.datetime('M/D/YYYY');
+        DataTable.datetime('dddd D MMMM YYYY');
+
+        const editor = new $.fn.dataTable.Editor({
+            ajax: '../php/dates.php?format=custom',
+            fields: [
+                {
+                    label: 'First name:',
+                    name: 'first_name'
+                },
+                {
+                    label: 'Last name:',
+                    name: 'last_name'
+                },
+                {
+                    label: 'Updated date:',
+                    name: 'updated_date',
+                    type: 'datetime',
+                    def: () => new Date(),
+                    format: 'M/D/YYYY',
+                    fieldInfo: 'US style m/d/y format'
+                },
+                {
+                    label: 'Registered date:',
+                    name: 'registered_date',
+                    type: 'datetime',
+                    def: () => new Date(),
+                    format: 'dddd D MMMM YYYY',
+                    fieldInfo: 'Verbose date format',
+                    keyInput: false
+                }
+            ],
+            table: '#example'
+        });
+
+        const table = new DataTable('#example', {
+            ajax: '../php/dates.php?format=custom',
+            buttons: [
+                { extend: 'create', editor },
+                { extend: 'edit', editor },
+                { extend: 'remove', editor }
+            ],
+            columns: [
+                { data: 'first_name' },
+                { data: 'last_name' },
+                { data: 'updated_date' },
+                { data: 'registered_date' }
+            ],
+            dom: 'Bfrtip',
+            select: true
+        });
+    </script>
+</body>
+
+</html>

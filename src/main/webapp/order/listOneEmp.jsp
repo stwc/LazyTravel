@@ -72,6 +72,7 @@
 			<th>評價分數</th>
 			<th>評價時間</th>
 			<th>建立時間</th>
+			<th>更新時間</th>
 			<th>訂單狀態</th>
 		</tr>
 		
@@ -89,6 +90,7 @@
 			<td>${order.getScore()}</td>
 			<td>${order.getContentTime()}</td>
 			<td>${order.getCreateTime()}</td>
+			<td>${order.getUpdateTime()}</td>
 			<td>${order.getOrderStatus()}</td>
 			
 		</tr>
