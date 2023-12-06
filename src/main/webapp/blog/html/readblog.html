@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
+    <style>
+      /* .row > div,
+      .check {
+        background: #ccc;
+        border: 2px solid #aaa;
+        margin-bottom: 5px;
+      }  */
+      /* .title {
+        color: #6b705c;
+        font-feature-settings: "clig" off, "liga" off;
+        letter-spacing: -1.1px;
+        font: 700 55px/66px Inter, sans-serif;
+      } */
+      .thumds {
+        width: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header"></header>
+    <main>
+      <div class="container">
+        <div class="row my-3">
+          <div class="col">
+            <h1 class="title">文章列表</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-9 d-inline-flex">
+            <div class="dropdown my-auto">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                想來點甚麼嗎?
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">台南</a></li>
+                <li><a class="dropdown-item" href="#">拉麵</a></li>
+                <li><a class="dropdown-item" href="#">炒鱔魚</a></li>
+              </ul>
+            </div>
+            <div class="input-group w-50 h-auto m-1">
+              <input
+                type="text"
+                class="form-control my-lg-auto"
+                placeholder="輸入景點/美食"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+              />
+              <button
+                class="btn btn-outline-secondary my-auto"
+                type="button"
+                id="button-addon2"
+              >
+                搜尋看看吧
+              </button>
+            </div>
+          </div>
+
+          <div class="col-3 d-flex justify-content-end w-25 p-0">
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Basic radio toggle button group"
+            >
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnradio"
+                id="btnradio1"
+                autocomplete="off"
+                checked
+              />
+              <label class="btn btn-outline-primary" for="btnradio1"
+                >文章列表</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnradio"
+                id="btnradio2"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-primary" for="btnradio2"
+                >我的文章</label
+              >
+
+              <input
+                type="radio"
+                class="btn-check"
+                name="btnradio"
+                id="btnradio3"
+                autocomplete="off"
+              />
+              <label class="btn btn-outline-primary" for="btnradio3"
+                >文章收藏</label
+              >
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col">
+            <img src="./images.jpg" class="img-fluid" alt="文章大圖" />
+          </div>
+        </div>
+        <div class="row-cols-auto">
+          <div class="col">
+            <h5 class="display-6 lead my-2">
+              <strong>台中兩天一夜輕鬆旅遊趣</strong>
+            </h5>
+          </div>
+        </div>
+        <div class="row-cols-auto d-inline-flex d-flex justify-content-center">
+          <div class="col-7">
+            <p class="h6 p-2">2023年11月1號</p>
+          </div>
+
+          <div class="col d-inline-flex">
+            <p class="p-2">金城武</p>
+            <img
+              src="./下載.jpg"
+              class="img-fluid p-0"
+              style="height: 50px"
+              alt=""
+            />
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col my-2">
+            <p class="h3">
+              <strong>來了一趟說走就走的旅行。</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p class="h4">那天突然就想去一趟台中，於是就.....</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="h6 my-3">
+              座落於台中大度山的東海大學，校園風景相當優美，像是知名的路思義教堂、碧草如茵的文理大道等，都是東海大學必遊景點之一。
+              東海大學往東海湖及牧場的方向走，會經過東海大學乳品小棧，販售東海鮮奶及各式乳製品，是來東海大學旅遊必吃的美食。
+              依武家這次東海大學之旅，住在東海校友會館內，不管是到東海夜市或是校園趴趴走，都相當方便，東海大學景點怎麼玩？讓東海校友告訴你！
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <img src="./images.jpg" class="img-fluid" alt="文章大圖" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p class="h4 my-2">愜意的在東海裡散散步</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="h6 my-3">
+              東海大學校地廣闊，面積廣達135.65公頃，是私立大學中土地面積最大的學校，也是台灣最美麗的大學之一。
+              東海大學校園環境優美，建築頗具特色，已成為台中市著名景點，常出現在旅遊書當中，讓不少人都慕名而來一睹其風采。
+              著名的景點有路思義教堂、文理大道、東海大學實習農牧場等。依武媽精選東海大學7大必遊景點，讓東海校友帶你玩東海！
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p class="h1 my-5"><strong>留言區</strong></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="col d-inline-flex">
+              <p class="h5">吳康仁</p>
+              <p class="h5 text-black-50">－2023年11月7號發佈</p>
+            </div>
+            <div class="col">感覺很棒欸</div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col d-inline-flex p-2">
+            <p class="p-2">張震</p>
+            <img
+              src="./S0000134.png"
+              class="img-fluid p-0"
+              style="height: 50px"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                style="height: 200px"
+                id="exampleInput"
+                placeholder="來留個言吧"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button type="button" class="btn btn-success m-2 float-end">
+              Success
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+    </main>
+    <footer id="footer"></footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script>
+      $(function () {
+        $("#header").load("../components/html/header.html");
+        $("#footer").load("../components/html/footer.html");
+      });
+    </script>
+  </body>
+</html>
