@@ -26,9 +26,9 @@ public class Blog {
 	@Column(name="TITLE")
 	private String title;
 	
-	@ManyToOne(fetch =FetchType.LAZY) 
+	@ManyToOne(fetch =FetchType.EAGER) 
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Integer customerId;
+	private Customer customer;
 	
 	@Column(name = "BLOG_DATE")
 	private Timestamp blogDate;
@@ -76,12 +76,14 @@ public class Blog {
 		this.title = title;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
+	
+
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Timestamp getBlogDate() {
@@ -158,7 +160,7 @@ public class Blog {
 
 	@Override
 	public String toString() {
-		return "Blog [blogId=" + blogId + ", title=" + title + ", customerId=" + customerId + ", blogDate=" + blogDate
+		return "Blog [blogId=" + blogId + ", title=" + title + ", customer=" + customer+ ", blogDate=" + blogDate
 				+ ", content=" + content + ", upDateTime=" + upDateTime + ", createTime=" + createTime + ", likeSum="
 				+ likeSum + ", viewSum=" + viewSum + ", clSum=" + clSum + ", img=" + Arrays.toString(img)
 				+ ", blogStatus=" + blogStatus + "]";
