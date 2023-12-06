@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>後臺 - 新增或修改後臺功能</title>
+
+  <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div id="header"></div>
+
+  <div class="container">
+    <form method="post" action="user.do" class="row m-3 p-3">
+      <h2 class="mb-4">新增或修改後臺功能</h2>
+      <div class="col-12 mb-3">
+        <label for="staticId" class="col-md-6 col-form-label">功能ID</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticId" value="1">
+      </div>
+      <div class="col-md-12 mb-3">
+        <label for="InputName" class="form-label">功能名稱</label>
+        <input type="text" name="username" class="form-control" id="InputName" required>
+      </div>
+      <div class="col-12 mb-3">
+        <label for="FormControlTextarea1" class="form-label">說明</label>
+        <textarea class="form-control" id="FormControlTextarea1" rows="3"></textarea>
+      </div>
+      <div class="col-md-6 mt-3">
+        <input type="hidden" name="action" value="signup">
+        <button type="submit" id="btn-confirm" class="btn w-100" style="background-color: #6B705C;"><span
+            class="text-light">確認</span></button>
+      </div>
+      <div class="col-md-6 mt-3">
+        <input type="hidden" name="action" value="signup">
+        <button type="submit" id="btn-confirm" class="btn w-100" style="background-color: #B7B7A4;"><span
+            class="text-light">取消</span></button>
+      </div>
+    </form>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script>
+    $(function () {
+      $("#header").load("header.html");
+
+    });
+  </script>
+</body>
+
+</html>

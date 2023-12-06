@@ -1,0 +1,16 @@
+       * {
+           box-sizing: border-box;
+       }
+
+       div.container-fluid {
+           margin: 0;
+           padding: 0;
+       }
+
+       /* ===========  footer ===========  */
+
+       div.container-fluid footer.py-5 {
+           margin: 10px 100px;
+           border-top: 1px solid rgb(231, 231, 231);
+           /* border: 1px solid red; */
+       }
