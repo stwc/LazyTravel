@@ -55,6 +55,6 @@ public class BlogImgDAOImpl implements BlogImgDAO {
     @Override
     public List<BlogImg> getAll() {
         // 實際應用中需要根據實際情況從資料庫中獲取所有紀錄
-        return blogImgList;
+        return null;
     }
 }
