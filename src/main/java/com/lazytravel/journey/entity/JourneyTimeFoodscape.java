@@ -1,13 +1,13 @@
 package com.lazytravel.journey.entity;
 
-import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 
-public class JourneyTimeFoodscape implements Serializable {
+public class JourneyTimeFoodscape {
 	private Integer journeyId;
 	private Integer foodscapeId;
-	private Timestamp startTime;
-	private Timestamp endTime;
+	private Time startTime;
+	private Time endTime;
 	private Integer nthDay;
 	private Timestamp updateTime;
 
@@ -15,8 +15,8 @@ public class JourneyTimeFoodscape implements Serializable {
 
 	}
 
-	public JourneyTimeFoodscape(Integer journeyId, Integer foodscapeId, Timestamp startTime,
-		                        Timestamp endTime, Integer nthDay, Timestamp updateTime) {
+	public JourneyTimeFoodscape(Integer journeyId, Integer foodscapeId, Time startTime, Time endTime, Integer nthDay,
+			Timestamp updateTime) {
 		this.journeyId = journeyId;
 		this.foodscapeId = foodscapeId;
 		this.startTime = startTime;
@@ -41,19 +41,19 @@ public class JourneyTimeFoodscape implements Serializable {
 		this.foodscapeId = foodscapeId;
 	}
 
-	public Timestamp getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 
@@ -77,6 +77,6 @@ public class JourneyTimeFoodscape implements Serializable {
 	public String toString() {
 		return "JourneyTimeFoodscape [journeyId=" + journeyId + ", foodscapeId=" + foodscapeId + ", startTime="
 				+ startTime + ", endTime=" + endTime + ", nthDay=" + nthDay + ", updateTime=" + updateTime + "]";
-	}	
+	}
 
 }

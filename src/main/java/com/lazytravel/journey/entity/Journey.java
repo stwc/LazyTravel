@@ -1,20 +1,65 @@
 package com.lazytravel.journey.entity;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
-public class Journey implements Serializable {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.google.gson.annotations.Expose;
+
+@Entity
+@Table(name = "journey")
+public class Journey {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "journey_id")
 	private Integer journeyId;
+	
+	@Column(name = "journey_name")
 	private String journeyName;
+	
+	@Column(name = "price")
 	private Integer price;
+	
+	@CreationTimestamp
+	@Column(name = "create_time")
 	private Timestamp createTime;
+	
+	@Column(name = "content", columnDefinition = "longtext")
 	private String content;
+	
+	@Column(name = "avg_score", insertable = false)
 	private Double avgScore;
+	
+	@Column(name = "score_count", insertable = false)
 	private Integer scoreCount;
+	
+	@Column(name = "days")
 	private Integer days;
+	
+	@Column(name = "buy_count", insertable = false)
 	private Integer buyCount;
+	
+	@Column(name = "journey_status", columnDefinition = "char")
 	private String journeyStatus;
-
+	
+	// fetch 預設為 LAZY
+	@OneToMany(mappedBy = "journey", cascade = CascadeType.ALL)
+	@OrderBy("groupId asc")
+	private Set<TourGroup> tourGroup;
+	
 	public Journey() {
 	}
 
@@ -110,6 +155,14 @@ public class Journey implements Serializable {
 
 	public void setJourneyStatus(String journeyStatus) {
 		this.journeyStatus = journeyStatus;
+	}
+
+	public Set<TourGroup> getTourGroup() {
+		return tourGroup;
+	}
+
+	public void setTourGroup(Set<TourGroup> tourGroup) {
+		this.tourGroup = tourGroup;
 	}
 
 	@Override

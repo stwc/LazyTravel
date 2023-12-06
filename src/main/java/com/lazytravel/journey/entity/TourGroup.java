@@ -1,30 +1,74 @@
 package com.lazytravel.journey.entity;
 
-import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 
-public class TourGroup implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+@Entity
+@Table(name = "tour_group")
+public class TourGroup {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "group_id", updatable = false)
 	private Integer groupId;
-	private Integer journeyId;
-	private Timestamp startTime;
-	private Timestamp endTime;
+
+	// fetch 預設為 EAGER
+	@ManyToOne
+	@JoinColumn(name = "journey_id", referencedColumnName = "journey_id")
+	private Journey journey;
+
+	@Column(name = "start_time")
+	private Date startTime;
+
+	@Column(name = "end_time")
+	private Date endTime;
+
+	@Column(name = "price")
 	private Integer price;
+
+	@Column(name = "signup_num")
 	private Integer signupNum;
+
+	@Column(name = "min_required")
 	private Integer minRequired;
+
+	@Column(name = "max_required")
 	private Integer maxRequired;
+
+	@Column(name = "signup_date")
 	private Timestamp signupDate;
+
+	@Column(name = "due_date")
 	private Timestamp dueDate;
+
+	@CreationTimestamp
+	@Column(name = "create_time")
 	private Timestamp createTime;
+
+	@UpdateTimestamp
+	@Column(name = "update_time")
 	private Timestamp updateTime;
-	
+
 	public TourGroup() {
 	}
-			
-	public TourGroup(Integer groupId, Integer journeyId, Timestamp startTime, Timestamp endTime, Integer price,
-				     Integer signupNum, Integer minRequired, Integer maxRequired, Timestamp signupDate,
-  			         Timestamp dueDate, Timestamp createTime, Timestamp updateTime) {
+
+	public TourGroup(Integer groupId, Journey journey, Date startTime, Date endTime, Integer price,
+			Integer signupNum, Integer minRequired, Integer maxRequired, Timestamp signupDate, Timestamp dueDate,
+			Timestamp createTime, Timestamp updateTime) {
 		this.groupId = groupId;
-		this.journeyId = journeyId;
+		this.journey = journey;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.price = price;
@@ -45,27 +89,27 @@ public class TourGroup implements Serializable {
 		this.groupId = groupId;
 	}
 
-	public Integer getJourneyId() {
-		return journeyId;
+	public Journey getJourney() {
+		return journey;
 	}
 
-	public void setJourneyId(Integer journeyId) {
-		this.journeyId = journeyId;
+	public void setJourney(Journey journey) {
+		this.journey = journey;
 	}
 
-	public Timestamp getStartTime() {
+	public Date getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Timestamp startTime) {
+	public void setStartTime(Date startTime) {
 		this.startTime = startTime;
 	}
 
-	public Timestamp getEndTime() {
+	public Date getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Timestamp endTime) {
+	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
 
@@ -135,10 +179,11 @@ public class TourGroup implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TourGroup [groupId=" + groupId + ", journeyId=" + journeyId + ", startTime=" + startTime + ", endTime="
+		return "TourGroup [groupId=" + groupId + ", journey=" + journey+ ", startTime=" + startTime + ", endTime="
 				+ endTime + ", price=" + price + ", signupNum=" + signupNum + ", minRequired=" + minRequired
 				+ ", maxRequired=" + maxRequired + ", signupDate=" + signupDate + ", dueDate=" + dueDate
 				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
 	}
+	
 
 }
