@@ -9,7 +9,7 @@ public interface UsersDAO {
 
     void update(Users users);
 
-    Users getUserByUserId(Integer userId);
+    Users findByPK(Integer userId);
 
     List<Users> getAll();
 }

@@ -26,11 +26,16 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public void add(Customer customer) {
         Session session = getSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        session.save(customer);
+            session.save(customer);
 
-        session.getTransaction().commit();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
 
 //        getSession().save(customer);
     }
@@ -38,14 +43,16 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public void update(Customer customer) {
         Session session = getSession();
-        session.beginTransaction();
+        try {
+            session.beginTransaction();
 
-        session.update(customer);
+            session.update(customer);
 
-        // 測試native query
-//        session.createNativeQuery("update customer set update_time='1990-09-01 09:01:15' where customer_id = 11001").executeUpdate();
-
-        session.getTransaction().commit();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
 
 //        getSession().update(customer);
     }
@@ -53,10 +60,17 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public Customer findByPK(Integer customerId) {
         Session session = getSession();
-        session.beginTransaction();
+        Customer customer = null;
+        try {
+            session.beginTransaction();
 
-        Customer customer = session.get(Customer.class, customerId);
-        session.getTransaction().commit();
+            customer = session.get(Customer.class, customerId);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
 
         return customer;
 
@@ -66,10 +80,17 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public List<Customer> getAll() {
         Session session = getSession();
-        session.beginTransaction();
+        List<Customer> list = null;
+        try {
+            session.beginTransaction();
 
-        List<Customer> list = session.createQuery("from Customer", Customer.class).list();
-        session.getTransaction().commit();
+            list = session.createQuery("from Customer", Customer.class).list();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
 
         return list;
 

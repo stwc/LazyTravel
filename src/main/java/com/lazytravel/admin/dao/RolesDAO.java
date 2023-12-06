@@ -11,7 +11,7 @@ public interface RolesDAO {
 
     void delete(Integer roleId);
 
-    Roles getRoleByRoleId(Integer roleId);
+    Roles findByPK(Integer roleId);
 
     List<Roles> getAll();
 }

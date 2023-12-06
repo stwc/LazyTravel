@@ -1,31 +1,16 @@
 package com.lazytravel.customer.service;
 
-import com.lazytravel.customer.dao.CustomerDAO;
-import com.lazytravel.customer.dao.CustomerDAOImpl;
 import com.lazytravel.customer.entity.Customer;
 
 import java.util.List;
 
-public class CustomerService {
-    private final CustomerDAO dao;
+public interface CustomerService {
 
-    public CustomerService() {
-        dao = new CustomerDAOImpl();
-    }
+    void addCustomer(Customer customer);
 
-    public void addCustomer(Customer customer) {
-        dao.add(customer);
-    }
+    void updateCustomer(Customer customer);
 
-    public void updateCustomer(Customer customer) {
-        dao.update(customer);
-    }
+    Customer getOneCustomer(Integer customerId);
 
-    public Customer getOneCustomer(Integer customerId) {
-        return dao.findByPK(customerId);
-    }
-
-    public List<Customer> getAll() {
-        return dao.getAll();
-    }
+    List<Customer> getAll();
 }

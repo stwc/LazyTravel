@@ -11,7 +11,7 @@ public interface RoleFuncDAO {
 
     void delete(Integer roleId, Integer funcId);
 
-    RoleFunc getRoleFunc(Integer roleId, Integer funcId);
+    RoleFunc findByPK(Integer roleId, Integer funcId);
 
     List<RoleFunc> getAll();
 }
