@@ -18,7 +18,7 @@ import com.lazytravel.customer.entity.Customer;
 @Table(name = "blog")
 public class Blog {
 	//UK的話要新增 unique=true
-	@Id 
+	@Id //自增主鍵
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="BLOG_ID",updatable = false)
 	private Integer blogId;
@@ -26,13 +26,14 @@ public class Blog {
 	@Column(name="TITLE")
 	private String title;
 	
-	@ManyToOne(fetch =FetchType.LAZY) //自增主鍵
+	@ManyToOne(fetch =FetchType.LAZY) 
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Customer customerId;
+	private Integer customerId;
 	
+	@Column(name = "BLOG_DATE")
 	private Timestamp blogDate;
 	
-	@Column(name="CONTENT",columnDefinition = "LONGTEXT")
+	@Column(name="CONTENT",columnDefinition = "longtext")
 	private String content;
 	
 	@Column(name="UPDATE_TIME")
@@ -75,11 +76,11 @@ public class Blog {
 		this.title = title;
 	}
 
-	public Customer getCustomerId() {
+	public Integer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Customer customerId) {
+	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
 
@@ -163,4 +164,5 @@ public class Blog {
 				+ ", blogStatus=" + blogStatus + "]";
 	}
 
+	
 }

@@ -22,7 +22,7 @@ public class BlogMsg {
 	@Column(name = "BLOG_MSG_ID")
 	private Integer blogMsgId;
 	
-	@Column(name= "CONTENT",columnDefinition = "LONGTEXT")
+	@Column(name= "CONTENT",columnDefinition = "longtext")
 	private String content;
 	
 	@ManyToOne
@@ -31,7 +31,7 @@ public class BlogMsg {
 	
 	@ManyToOne
 	@JoinColumn(name="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Customer customer;
+	private Integer customerId;
 	
 	@Column(name ="CREATE_TIME")
 	private Timestamp createTime;
@@ -63,12 +63,13 @@ public class BlogMsg {
 		this.blog = blog;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+
+	public Integer getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	public Timestamp getCreateTime() {
@@ -81,8 +82,8 @@ public class BlogMsg {
 
 	@Override
 	public String toString() {
-		return "BlogMsg [blogMsgId=" + blogMsgId + ", content=" + content + ", blog=" + blog + ", customer=" + customer
-				+ ", createTime=" + createTime + "]";
+		return "BlogMsg [blogMsgId=" + blogMsgId + ", content=" + content + ", blog=" + blog + ", customerId="
+				+ customerId + ", createTime=" + createTime + "]";
 	}
 
 	

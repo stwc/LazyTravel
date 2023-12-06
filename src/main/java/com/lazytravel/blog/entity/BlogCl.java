@@ -15,28 +15,28 @@ import javax.persistence.Table;
 import com.lazytravel.customer.entity.Customer;
 
 @Entity
-@Table(name ="blog_d")
+@Table(name = "blog_d")
 public class BlogCl {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "BLOG_CL_ID",updatable = false)
+	@Column(name = "BLOG_CL_ID", updatable = false)
 	private Integer blogClId;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Customer customerId;
-	
+	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
+	private Integer customerId;
+
 	@Column(name = "LIKE_TIME")
 	private Timestamp likeTime;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BLOG_ID",referencedColumnName = "BLOG_ID")
-	private Integer blogId;
-	
-	@Column(name = "BLOG_CL_STATUS",columnDefinition = "char")
+	@JoinColumn(name = "BLOG_ID", referencedColumnName = "BLOG_ID")
+	private Blog blogId;
+
+	@Column(name = "BLOG_CL_STATUS", columnDefinition = "char")
 	private String blogClStatus;
-	
+
 	public BlogCl() {
 	}
 
@@ -48,13 +48,6 @@ public class BlogCl {
 		this.blogClId = blogClId;
 	}
 
-	public Customer getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(Customer customerId) {
-		this.customerId = customerId;
-	}
 
 	public Timestamp getLikeTime() {
 		return likeTime;
@@ -64,16 +57,24 @@ public class BlogCl {
 		this.likeTime = likeTime;
 	}
 
-	public Integer getBlogId() {
+	public Blog getBlogId() {
 		return blogId;
 	}
 
-	public void setBlogId(Integer blogId) {
+	public void setBlogId(Blog blogId) {
 		this.blogId = blogId;
 	}
 
 	public String getBlogClStatus() {
 		return blogClStatus;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
 	}
 
 	public void setBlogClStatus(String blogClStatus) {
@@ -86,5 +87,4 @@ public class BlogCl {
 				+ blogId + ", blogClStatus=" + blogClStatus + "]";
 	}
 
-	
 }
