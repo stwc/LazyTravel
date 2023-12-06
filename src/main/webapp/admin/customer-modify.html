@@ -78,7 +78,8 @@
         <input type="password" class="form-control" id="InputPassword2" aria-describedby="passwordHelp2">
         <div id="passwordHelp2" class="form-text">請再次輸入密碼</div>
       </div>
-      <div class="col-md-5 mb-3">
+
+      <div class="col-md-4 mb-3">
         <label for="inputName" class="form-label">姓名</label>
         <input type="text" name="customer_name" class="form-control" id="inputName" required>
         <div class="valid-feedback">
@@ -88,7 +89,7 @@
           請輸入姓名
         </div>
       </div>
-      <div class="col-md-5 mb-3">
+      <div class="col-md-4 mb-3">
         <label for="inputNickname" class="form-label">暱稱</label>
         <input type="text" name="nickname" class="form-control" id="inputNickname" required>
       </div>
@@ -99,6 +100,14 @@
           <option value="1">女</option>
         </select>
       </div>
+      <div class="col-md-2 mb-3">
+        <label for="inputStatus" class="form-label">狀態</label>
+        <select name="sex" id="inputStatus" class="form-select">
+          <option value="0" selected>啟用</option>
+          <option value="1">停用</option>
+        </select>
+      </div>
+
       <div class="col-md-4 mb-3">
         <label for="inputPhone" class="form-label">手機號碼</label>
         <input type="text" name="phone" class="form-control" id="inputPhone" required>

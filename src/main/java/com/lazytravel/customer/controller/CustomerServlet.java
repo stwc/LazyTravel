@@ -2,6 +2,7 @@ package com.lazytravel.customer.controller;
 
 import com.google.gson.Gson;
 import com.lazytravel.customer.service.CustomerService;
+import com.lazytravel.customer.service.CustomerServiceImpl;
 import com.lazytravel.customer.entity.Customer;
 
 import javax.servlet.RequestDispatcher;
@@ -21,7 +22,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        customerService = new CustomerService();
+        customerService = new CustomerServiceImpl();
     }
 
     @Override

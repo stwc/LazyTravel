@@ -1,17 +1,16 @@
 package com.lazytravel.admin.dao;
 
-import com.lazytravel.admin.entity.Users;
+import com.lazytravel.admin.entity.Func;
 import com.lazytravel.util.HibernateUtil;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-public class UsersDAOImpl implements UsersDAO {
+public class FuncDAOImpl implements FuncDAO {
     private final SessionFactory factory;
 
-    public UsersDAOImpl() {
+    public FuncDAOImpl() {
         factory = HibernateUtil.getSessionFactory();
     }
 
@@ -20,12 +19,12 @@ public class UsersDAOImpl implements UsersDAO {
     }
 
     @Override
-    public void add(Users users) {
+    public void add(Func func) {
         Session session = getSession();
         try {
             session.beginTransaction();
 
-            session.save(users);
+            session.save(func);
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -35,12 +34,12 @@ public class UsersDAOImpl implements UsersDAO {
     }
 
     @Override
-    public void update(Users users) {
+    public void update(Func func) {
         Session session = getSession();
         try {
             session.beginTransaction();
 
-            session.update(users);
+            session.update(func);
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -50,30 +49,30 @@ public class UsersDAOImpl implements UsersDAO {
     }
 
     @Override
-    public Users findByPK(Integer userId) {
+    public Func findByPK(Integer funcId) {
         Session session = getSession();
-        Users users = null;
+        Func func = null;
         try {
             session.beginTransaction();
 
-            users = session.get(Users.class, userId);
+            func = session.get(Func.class, funcId);
 
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             session.getTransaction().rollback();
         }
-        return users;
+        return func;
     }
 
     @Override
-    public List<Users> getAll() {
+    public List<Func> getAll() {
         Session session = getSession();
-        List<Users> list = null;
+        List<Func> list = null;
         try {
             session.beginTransaction();
 
-            list = session.createQuery("from Users", Users.class).list();
+            list = session.createQuery("from Func", Func.class).list();
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -84,7 +83,6 @@ public class UsersDAOImpl implements UsersDAO {
         return list;
     }
 
-
     /*
     public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
@@ -92,31 +90,32 @@ public class UsersDAOImpl implements UsersDAO {
 //        int userId = sc.nextInt();
 //        sc.close();
 
-        Users users = null;
-        UsersDAO dao = new UsersDAOImpl();
+        Func func = null;
+        FuncDAO dao = new FuncDAOImpl();
 
         // 新增單筆資料
-//        users = new Users("tibame", "123456", 1);
-//        users.setUserStatus("1");
-//        dao.add(users);
+//        func = new Func();
+//        func.setFuncName("部落格");
+//        func.setFuncDescr("管理部落格");
+//        dao.add(func);
 //        System.out.println("[SQL] 新增單筆資料成功\n");
 
         // 查詢單筆
-//        users = dao.findByPK(12001);
-//        System.out.println(users);
+//        func = dao.findByPK(1);
+//        System.out.println(func);
 //        System.out.println("[SQL] 查詢單筆成功\n");
 
         // 查詢全部筆數
-//        List<Users> usersList = dao.getAll();
-//        for (Users user : usersList) {
-//            System.out.println(user);
+//        List<Func> funcList = dao.getAll();
+//        for (Func func1 : funcList) {
+//            System.out.println(func1);
 //        }
 //        System.out.println("[SQL] 查詢全部筆數成功\n");
 
         // 更新單筆
-        users = dao.findByPK(12003);
-        users.setUserPasswd("089487");
-        dao.update(users);
+        func = dao.findByPK(3);
+        func.setFuncDescr("管理部落格文章、留言");
+        dao.update(func);
         System.out.println("[SQL] 更新單筆成功\n");
     }
     */
