@@ -15,6 +15,9 @@ public class OrdersService {
 	}
 	
 	public void addOrder(Orders order) {
+		order.setCreateTime(new Timestamp(System.currentTimeMillis()));
+        order.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        
 		dao.add(order);
 	}
 	
@@ -39,40 +42,7 @@ public class OrdersService {
 		return dao.getAll();
 	}
 	
-	
-//	public Orders addOrder(Integer orderNo, Integer customerId, Integer groupId, Integer tourist, Integer customerPoint, Integer couponId, Integer totalAmt, String orderStatus) {
-//	Orders order = new Orders();
-//	order.setOrderNo(orderNo);
-//	order.setCustomerId(customerId);
-//	order.setGroupId(groupId);
-//	order.setTourist(tourist);
-//	order.setCustomerPoint(customerPoint);
-//	order.setCouponId(couponId);
-//	order.setTotalAmt(totalAmt);
-//	order.setOrderStatus(orderStatus);
-//	
-//	dao.add(order);
-//	
-//	return order;
-//}
-//
-//public Orders updateOrder(Integer orderId, Integer orderNo, Integer customerId, Integer groupId, Integer tourist, Integer customerPoint, Integer couponId, Integer totalAmt, String orderStatus) {
-//	Orders order = new Orders();
-//	order.setOrderId(orderId);
-//	order.setOrderNo(orderNo);
-//	order.setCustomerId(customerId);
-//	order.setGroupId(groupId);
-//	order.setTourist(tourist);
-//	order.setCustomerPoint(customerPoint);
-//	order.setCouponId(couponId);
-//	order.setTotalAmt(totalAmt);
-//	order.setOrderStatus(orderStatus);
-//
-//	
-//	dao.update(order);
-//	return order;
-//
-//}
+
 	
 	
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.lazytravel.example.dao.CustomerService;
 import com.lazytravel.example.entity.Customer;
 import com.lazytravel.order.entity.Orders;
@@ -38,6 +39,14 @@ public class OrdersServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		String forwardPath = "";
 		switch (action) {
+		
+		case "getall":
+              String jsonStr = new Gson().toJson(ordersService.getAll());
+              res.setContentType("application/json; charset=UTF-8");
+              res.getWriter().write(jsonStr);
+              return;
+		
+		
 		case "getOne_For_Display":
 			// // 來自select_page.jsp的請求
 			forwardPath = getOneDisplay(req, res);
@@ -64,7 +73,7 @@ public class OrdersServlet extends HttpServlet {
 			forwardPath = "/order/select_page.jsp";
 		}
 
-		res.setContentType("text/htmll charset=UTF-8");
+		res.setContentType("text/html charset=UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 

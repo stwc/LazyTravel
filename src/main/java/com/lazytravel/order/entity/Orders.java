@@ -1,9 +1,9 @@
 package com.lazytravel.order.entity;
 
-import java.io.Serializable;
+
 import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
+
 
 
 @Entity
 @Table(name = "orders")
-public class Orders implements Serializable {
+public class Orders {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -244,6 +244,8 @@ public class Orders implements Serializable {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
+	
+	
 
 
 	@Override
