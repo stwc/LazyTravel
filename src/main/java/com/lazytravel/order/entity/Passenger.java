@@ -15,19 +15,19 @@ public class Passenger {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id", updatable = false)
+	@Column(name = "passenger_id", updatable = false)
 	private Integer passengerId;
 	
 	@Column(name = "order_id" )
 	private Integer orderId;
 	
-	@Column(name = "idno" )
+	@Column(name = "idno" , columnDefinition = "char")
 	private String idno;
 	
-	@Column(name = "passenger_name" )
+	@Column(name = "passenger_name" , columnDefinition = "varchar")
 	private String passengerName;
 	
-	@Column(name = "phone" )
+	@Column(name = "phone" , columnDefinition = "char")
 	private String phone;
 	
 	@Column(name = "birth" )
