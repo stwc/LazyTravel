@@ -2,8 +2,11 @@ package com.lazytravel.journey.dao;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.lazytravel.journey.entity.TourGroup;
 
@@ -31,7 +34,25 @@ public class TourGroupServiceImpl implements TourGroupService {
 
 	@Override
 	public List<TourGroup> getByTime(Map<String, String> map) {
-		return dao.getByTime(map);
+		Map<String, String> query = new HashMap<>();
+		Set<Map.Entry<String, String>> entry = map.entrySet();
+		
+		for(Map.Entry<String, String> row : entry) {
+			// 排除action
+			String key = row.getKey();
+			if("action".equals(key)) {
+				continue;
+			}
+			
+			// 過濾沒有查詢的欄位值
+			String value = row.getValue();
+			if(value == null || value.isEmpty()) {
+				continue;
+			}
+			
+			query.put(key, value);
+		}
+		return dao.getByTime(query);
 	}
 
 	

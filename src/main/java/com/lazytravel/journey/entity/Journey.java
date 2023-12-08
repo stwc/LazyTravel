@@ -1,6 +1,7 @@
 package com.lazytravel.journey.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,9 +15,6 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name = "journey")
@@ -172,5 +170,11 @@ public class Journey {
 				+ ", days=" + days + ", buyCount=" + buyCount + ", journeyStatus=" + journeyStatus + "]";
 	}
 	
+//    // for join (新增)
+//    public List<FoodScape> getAllFoodScape() {
+//    	FoodScapeService FoodScapeSvc = new FoodScapeService();
+//    	List<FoodScape> list = FoodScapeSvc.getAll();
+//		return list;
+//    }
 	
 }

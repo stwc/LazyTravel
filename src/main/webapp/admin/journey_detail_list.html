@@ -25,25 +25,6 @@
             margin-right: 20px;
         }
 
-        button.btn_adjust{
-            width: 70px;
-            height: 30px;
-            border-radius: 90px;
-            border-color: transparent;
-            color: white;
-            background: #CCD5AE;
-        }
-
-        button.btn_adjust:hover {
-            background-color: #6B705C;
-            color: white;
-        }
-
-        button.btn_adjust:active {
-            outline: 2px solid #6B705C;
-            box-shadow: 0 0 8px #a1a397
-        }
-
         button.btn_back{
             width: 70px;
             height: 30px;
@@ -79,11 +60,6 @@
         <div class="card-header mb-5">
             <span>行程明細</span>
             <form method="post" action="">
-                <button type="submit" class="btn_adjust">修改</button>
-                <input type="hidden" name="journey_id" value="" />
-                <input type="hidden" name="action" value="modify" />
-            </form>
-            <form method="post" action="">
                 <button type="submit" class="btn_back">返回</button>
                 <input type="hidden" name="journey_id" value="" />
                 <input type="hidden" name="action" value="back" />
@@ -100,7 +76,6 @@
                 <th>開始時間</th>
                 <th>結束時間</th>
                 <th>第幾天</th>
-                <th>更新時間</th>
               </tr>
             </thead>
 
@@ -111,7 +86,6 @@
                 <td>2023-09-28 10:00:00</td>
                 <td>2023-09-29 12:00:00</td>
                 <td>1</td>
-                <td>2023-11-25 10:47:42</td>
               </tr>
 
               <tr>
@@ -120,7 +94,6 @@
                 <td>2023-09-28 14:00:00</td>
                 <td>2023-09-29 17:00:00</td>
                 <td>1</td>
-                <td>2023-11-25 10:47:42</td>
               </tr>
             </table>
           </table>
