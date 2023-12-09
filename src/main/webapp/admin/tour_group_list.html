@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>後臺-旅行團(查詢)</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
+
+    <style>
+      h3 span {
+        margin-right: 10px;
+      }
+
+      a#add {
+        width: 70px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #ccd5ae;
+        padding-top: 3px;
+      }
+
+      a#add:hover {
+        background-color: #6b705c;
+        color: white;
+      }
+
+      a#add:active {
+        outline: 2px solid #6b705c;
+        box-shadow: 0 0 8px #a1a397;
+      }
+
+      button.btn_modify {
+        width: 70px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #9c6644;
+      }
+
+      button.btn_modify:active {
+        outline: 2px solid #9c6644;
+        box-shadow: 0 0 8px #a1a397;
+      }
+
+      button.btn_search {
+        width: 70px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #ccd5ae;
+      }
+
+      button.btn_search:hover {
+        background-color: #6b705c;
+        color: white;
+      }
+
+      button.btn_search:active {
+        outline: 2px solid #6b705c;
+        box-shadow: 0 0 8px #a1a397;
+      }
+
+      table.findByTime input,
+      table.findByTime button{
+        margin-left: 15px;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="header"></div>
+
+    <div id="main" class="p-3">
+      <h3 class="mx-3 mb-5">
+        <span>旅行團總覽</span>
+        <a href="./tour_group_on.html" id="add" class="btn">新增</a>
+      </h3>
+      <div class="card mx-4 my-4">
+        <div class="card-header">旅行團查詢</div>
+        <div class="card-body mx-3">
+          <table class="findByTime my-5">
+              <tr>
+                <td>行程時間：</td>
+                <td><input type="date" id="min" name="min" /></td>
+                <td><input type="date" id="max" name="max" /></td>
+                <td>
+                  <form method="post" action="">
+                    <button type="submit" class="btn_search">查詢</button>
+                    <input type="hidden" name="journey_id" value="" />
+                    <input type="hidden" name="action" value="modify" />
+                  </form>
+                </td>
+              </tr>
+          </table>
+
+          <table id="123" class="display mb-5">
+            <thead>
+              <tr>
+                <th>旅行團ID</th>
+                <th>行程<br />名稱</th>
+                <th>行程<br />起訖日</th>
+                <th>價格</th>
+                <th>報名人數</th>
+                <th>成團人數</th>
+                <th>人數上限</th>
+                <th>報名<br />起訖日</th>
+                <th>上架<br />時間</th>
+                <th>更新<br />時間</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>24001</td>
+                <td>陽明山一日遊</td>
+                <td>2023-11-30 ~ 2023/11/30</td>
+                <td>2000</td>
+                <td>20</td>
+                <td>15</td>
+                <td>30</td>
+                <td>2023-11-10 ~ 2023/11/29</td>
+                <td>2023-11-25 10:47:42</td>
+                <td>2023-11-25 10:47:42</td>
+                <td>
+                  <form method="post" action="">
+                    <button type="submit" class="btn_modify">修改</button>
+                    <input type="hidden" name="journey_id" value="" />
+                    <input type="hidden" name="action" value="modify" />
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>24002</td>
+                <td>陽明山一日遊</td>
+                <td>2023-11-30 ~ 2023/11/30</td>
+                <td>2000</td>
+                <td>20</td>
+                <td>15</td>
+                <td>30</td>
+                <td>2023-11-10 ~ 2023/11/29</td>
+                <td>2023-11-25 10:47:42</td>
+                <td>2023-11-25 10:47:42</td>
+                <td>
+                  <form method="post" action="">
+                    <button type="submit" class="btn_modify">修改</button>
+                    <input type="hidden" name="journey_id" value="" />
+                    <input type="hidden" name="action" value="modify" />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+      let table = new DataTable("#123");
+
+      $(function () {
+        $("#header").load("../admin/header.html");
+        // new DataTable('#example');
+
+        init();
+      });
+    </script>
+  </body>
+</html>
