@@ -7,7 +7,7 @@ import com.lazytravel.order.entity.Coupon;
 public interface CouponHibernateDAO {
 	
 	void add(Coupon coupon);
-	void delete(Coupon coupon);
+	void update(Coupon coupon);
 	Coupon getCouponByCouponId(Integer couponId);
 	List<Coupon> getAll();
 

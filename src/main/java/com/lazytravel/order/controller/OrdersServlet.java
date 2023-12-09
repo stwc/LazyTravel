@@ -156,7 +156,7 @@ public class OrdersServlet extends HttpServlet {
 
 		List<String> errorMsgs = new ArrayList<>();
 		Integer orderId = Integer.valueOf(req.getParameter("order_id"));
-		Integer orderNo = Integer.valueOf(req.getParameter("order_no"));
+		String orderNo = String.valueOf(req.getParameter("order_no"));
 		Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
 		Integer groupId = Integer.valueOf(req.getParameter("group_id"));
 		Integer tourist = Integer.valueOf(req.getParameter("tourist"));
@@ -190,7 +190,9 @@ public class OrdersServlet extends HttpServlet {
 
 	private String insert(HttpServletRequest req, HttpServletResponse res) {
 		List<String> errorMsgs = new ArrayList<>();
-		Integer orderNo = Integer.valueOf(req.getParameter("order_no"));
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		
 		Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
 		Integer groupId = Integer.valueOf(req.getParameter("group_id"));
 		Integer tourist = Integer.valueOf(req.getParameter("tourist"));
@@ -200,7 +202,7 @@ public class OrdersServlet extends HttpServlet {
 		String orderStatus = String.valueOf(req.getParameter("order_status"));
 
 		Orders order = new Orders();
-		order.setOrderNo(orderNo);
+
 		order.setCustomerId(customerId);
 		order.setGroupId(groupId);
 		order.setTourist(tourist);
@@ -215,6 +217,9 @@ public class OrdersServlet extends HttpServlet {
 		}
 
 		ordersService.addOrder(order);
+		
+		String orderNo = order.getOrderNo();
+	    req.setAttribute("orderNo", orderNo);
 		;
 		return "/order/listAllEmp.jsp";
 

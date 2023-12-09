@@ -62,8 +62,8 @@ public class Orders {
 	@Column(name = "score" )
 	private Double score;
 	
-	@Column(name = "order_no" )
-	private Integer orderNo;
+	@Column(name = "order_no" , columnDefinition = "varchar" )
+	private String orderNo;
 	
 	@Column(name = "update_time", insertable = false, updatable = false)
 	private Timestamp updateTime;
@@ -76,7 +76,7 @@ public class Orders {
 
 	public Orders(Integer orderId, Integer customerId, Integer groupId, Timestamp createTime, Timestamp paidTime,
 			Integer totalAmt, String orderStatus, Integer customerPoint, Integer couponId, Integer tourist,
-			String content, Timestamp contentTime, Double score, Integer orderNo, Timestamp updateTime) {
+			String content, Timestamp contentTime, Double score, String orderNo, Timestamp updateTime) {
 		super();
 		this.orderId = orderId;
 		this.customerId = customerId;
@@ -226,12 +226,12 @@ public class Orders {
 	}
 
 
-	public Integer getOrderNo() {
+	public String getOrderNo() {
 		return orderNo;
 	}
 
 
-	public void setOrderNo(Integer orderNo) {
+	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
 
