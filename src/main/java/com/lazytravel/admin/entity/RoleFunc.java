@@ -16,7 +16,7 @@ public class RoleFunc {
     @Id
     @Column(name = "func_id")
     private Integer funcId;
-    @Column(name = "create_time")
+    @Column(name = "create_time", insertable = false, updatable = false)
     private Timestamp createTime;
 
     public CompositeDetail getCompositeKey() {

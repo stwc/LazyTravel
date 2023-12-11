@@ -1,13 +1,11 @@
-package com.lazytravel.admin.dao;
+package com.lazytravel.admin.service;
 
 import com.lazytravel.admin.entity.RoleFunc;
 
 import java.util.List;
 
-public interface RoleFuncDAO {
-    void add(RoleFunc roleFunc);
-
-//    void update(RoleFunc roleFunc);
+public interface RoleFuncService {
+    void addRoleFunc(RoleFunc roleFunc);
 
     RoleFunc findByPK(Integer roleId, Integer funcId);
 
