@@ -123,17 +123,21 @@ public class RolesDAOImpl implements RolesDAO {
 //        System.out.println("[SQL] 查詢單筆成功\n");
 
         // 查詢全部筆數
-//        List<Roles> rolesList = dao.getAll();
-//        for (Roles role : rolesList) {
-//            System.out.println(role);
-//        }
-//        System.out.println("[SQL] 查詢全部筆數成功\n");
+        List<Roles> rolesList = dao.getAll();
+        for (Roles role : rolesList) {
+            System.out.println(role);
+        }
+        System.out.println("[SQL] 查詢全部筆數成功\n");
 
         // 更新單筆
-        roles = dao.findByPK(3);
-        roles.setRoleDescr("管理部落格文章、留言等資訊");
-        dao.update(roles);
-        System.out.println("[SQL] 更新單筆成功\n");
+//        roles = dao.findByPK(3);
+//        roles.setRoleDescr("管理部落格文章、留言等資訊");
+//        dao.update(roles);
+//        System.out.println("[SQL] 更新單筆成功\n");
+
+        // 刪除單筆
+//        dao.delete(1);
+//        System.out.println("[SQL] 刪除單筆成功\n");
     }
     */
 }

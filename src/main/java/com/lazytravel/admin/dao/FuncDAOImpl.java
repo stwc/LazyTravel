@@ -49,6 +49,23 @@ public class FuncDAOImpl implements FuncDAO {
     }
 
     @Override
+    public void delete(Integer funcId) {
+        Session session = getSession();
+        try {
+            session.beginTransaction();
+
+            Func func = session.get(Func.class, funcId);
+            if (func != null)
+                session.delete(func);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+    }
+
+    @Override
     public Func findByPK(Integer funcId) {
         Session session = getSession();
         Func func = null;
@@ -113,10 +130,14 @@ public class FuncDAOImpl implements FuncDAO {
 //        System.out.println("[SQL] 查詢全部筆數成功\n");
 
         // 更新單筆
-        func = dao.findByPK(3);
-        func.setFuncDescr("管理部落格文章、留言");
-        dao.update(func);
-        System.out.println("[SQL] 更新單筆成功\n");
+//        func = dao.findByPK(3);
+//        func.setFuncDescr("管理部落格文章、留言");
+//        dao.update(func);
+//        System.out.println("[SQL] 更新單筆成功\n");
+
+        // 刪除單筆
+//        dao.delete(2);
+//        System.out.println("[SQL] 刪除單筆成功\n");
     }
     */
 }

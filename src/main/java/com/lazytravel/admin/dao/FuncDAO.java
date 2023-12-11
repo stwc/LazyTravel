@@ -9,6 +9,8 @@ public interface FuncDAO {
 
     void update(Func func);
 
+    void delete(Integer funcId);
+
     Func findByPK(Integer funcId);
 
     List<Func> getAll();
