@@ -1,3 +1,5 @@
+<!-- <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%> -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,33 +17,62 @@
   <header id="header"></header>
 
   <div class="container d-flex justify-content-center mb-5">
-    <form method="post" action="customer.do" class="row border m-3 p-3 needs-validation rounded-3" novalidate>
+    <form method="post" action="customer.do" class="row border m-3 p-3 rounded-3">
       <h2 class="mb-4">註冊會員</h2>
       <div class="col-12 mb-3">
-        <label for="leInputEmail" class="form-label">Email 信箱</label>
-        <input type="email" name="email" class="form-control" id="leInputEmail" placeholder="name@gmail.com" required>
-        <div class="invalid-feedback">
+        <label for="inputEmail" class="form-label">Email 信箱</label>
+        <input type="email" name="email" class="form-control" id="inputEmail" placeholder="name@gmail.com"
+          aria-describedby="validationEmail" required>
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationEmail" class="invalid-feedback">
           請輸入正確的Email格式
         </div>
       </div>
       <div class="col-md-6 mb-3">
-        <label for="InputPassword1" class="form-label">密碼</label>
-        <input type="password" name="customer_passwd" class="form-control" id="InputPassword1"
-          aria-describedby="passwordHelp1" required>
-        <div id="passwordHelp1" class="form-text">密碼長度至少8碼以上</div>
+        <label for="inputPassword1" class="form-label">密碼</label>
+        <input type="password" name="customer_passwd" class="form-control" id="inputPassword1"
+          placeholder="密碼長度限制8~24位，只能用英文大寫、小寫或數字" aria-describedby="passwordHelp1 validationPassword1" required>
+        <!-- <div id="passwordHelp1" class="form-text">密碼長度至少8碼以上，只能用英文大寫、小寫或數字</div> -->
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationPassword1" class="invalid-feedback">
+          密碼長度限制8~24位，只能用英文大寫、小寫或數字
+        </div>
       </div>
       <div class="col-md-6 mb-3">
-        <label for="InputPassword2" class="form-label">確認密碼</label>
-        <input type="password" class="form-control" id="InputPassword2" aria-describedby="passwordHelp2" required>
-        <div id="passwordHelp2" class="form-text">請再次輸入密碼</div>
+        <label for="inputPassword2" class="form-label">確認密碼</label>
+        <input type="password" class="form-control" id="inputPassword2" placeholder="請再次輸入密碼"
+          aria-describedby="passwordHelp2 validationPassword2" required>
+        <!-- <div id="passwordHelp2 validationPassword2" class="form-text">請再次輸入密碼</div> -->
+        <div class="valid-feedback">
+          兩次輸入的密碼相符
+        </div>
+        <div id="validationPassword2" class="invalid-feedback">
+          兩次輸入的密碼不相符，請重新輸入
+        </div>
       </div>
       <div class="col-md-5 mb-3">
         <label for="inputName" class="form-label">姓名</label>
-        <input type="text" name="customer_name" class="form-control" id="inputName" required>
+        <input type="text" name="customer_name" class="form-control" id="inputName" aria-describedby="validationName" required>
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationName" class="invalid-feedback">
+          請輸入姓名
+        </div>
       </div>
       <div class="col-md-5 mb-3">
         <label for="inputNickname" class="form-label">暱稱</label>
-        <input type="text" name="nickname" class="form-control" id="inputNickname" required>
+        <input type="text" name="nickname" class="form-control" id="inputNickname" aria-describedby="validationNickname" required>
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationNickname" class="invalid-feedback">
+          請輸入暱稱
+        </div>
       </div>
       <div class="col-md-2 mb-3">
         <label for="inputSex" class="form-label">性別</label>
@@ -52,19 +83,44 @@
       </div>
       <div class="col-md-4 mb-3">
         <label for="inputPhone" class="form-label">手機號碼</label>
-        <input type="text" name="phone" class="form-control" id="inputPhone" required>
+        <input type="text" name="phone" class="form-control" id="inputPhone" aria-describedby="validationPhone"
+          required>
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationPhone" class="invalid-feedback">
+          請輸入正確的手機號碼格式
+        </div>
       </div>
       <div class="col-md-4 mb-3">
         <label for="inputIdno" class="form-label">身份證</label>
-        <input type="text" name="idno" class="form-control" id="inputIdno" required>
+        <input type="text" name="idno" class="form-control" id="inputIdno" aria-describedby="validationIdno" required>
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationIdno" class="invalid-feedback">
+          請輸入正確的身份證格式
+        </div>
       </div>
       <div class="col-md-4 mb-3">
-        <label for="inputDate" class="form-label">生日</label>
-        <input type="date" name="birth" class="form-control" id="inputDate" required>
+        <label for="inputBirth" class="form-label">生日</label>
+        <input type="date" name="birth" class="form-control" id="inputBirth" aria-describedby="validationBirth" required>
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationBirth" class="invalid-feedback">
+          請輸入生日
+        </div>
       </div>
       <div class="col-12 mb-3">
         <label for="inputAddress" class="form-label">地址</label>
-        <input type="textx" name="address" class="form-control" id="inputAddress" required>
+        <input type="textx" name="address" class="form-control" id="inputAddress" aria-describedby="validationAddress" required>
+        <div class="valid-feedback">
+          格式正確
+        </div>
+        <div id="validationAddress" class="invalid-feedback">
+          請輸入地址
+        </div>
       </div>
       <div class="col-12 mt-3">
         <input type="hidden" name="action" value="signup">
@@ -81,55 +137,8 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-  <script>
-    $(function () {
-      $("#header").load("../components/html/header.html");
-      $("#footer").load("../components/html/footer.html");
-    });
-
-    (() => {
-      'use strict'
-
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      const forms = document.querySelectorAll('.needs-validation');
-
-      // Loop over them and prevent submission
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          // console.log(form);
-
-          form.classList.add('was-validated')
-        }, false);
-      });
-    })();
-
-
-    $("#btn-signup").on("click", function () {
-      // Validate password
-      // let password1 = $("#InputPassword1").val();
-      // let password2 = $("#InputPassword2").val();
-      // if (password1.length < 8) {
-      //   alert("密碼長度不足");
-      //   return false;
-      // }
-      // if (password1 != password2) {
-      //   alert("確認密碼輸入不正確");
-      //   return false;
-      // }
-
-      // let phone = $("#inputPhone").val();
-      // if (!phone.match("/09[0-9]{8}/")) {
-      //   alert("請輸入正確的電話格式");
-      //   return false;
-      // }
-    });
-
-  </script>
+  <script src="./js/register.js"></script>
+  
 </body>
 
 </html>
