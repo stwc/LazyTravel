@@ -34,12 +34,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Integer login(String email, String passwd) {
+    public Customer login(String email, String passwd) {
         Customer customer = dao.findByEmail(email);
         if (customer != null && email.equals(customer.getEmail()) && passwd.equals(customer.getCustomerPasswd()))
-            return customer.getCustomerId();
+            return customer;
         else
-            return -1;
+            return null;
     }
 
     @Override
