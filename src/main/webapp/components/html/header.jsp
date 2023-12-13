@@ -65,7 +65,7 @@
               </li>
 
 
-              <li class="nav-item mx-4"><a class="nav-link link_trasition" href="<%=request.getContextPath()%>/customer/login.html"
+              <li class="nav-item mx-4"><a class="nav-link link_trasition" href="<%=request.getContextPath()%>/customer/login.jsp"
                   style="color: white;">登入/註冊</a></li>
               <li class="nav-item mx-4"><a class="fa-solid fa-envelope nav-link link_trasition" href="#"
                   style="color: white;"></a></li>

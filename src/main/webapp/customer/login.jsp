@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +9,7 @@
   <title>會員登入</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+  <link rel="icon" href="<%=request.getContextPath()%>/static/images/logo.ico" type="image/x-icon">
 
   <style>
     /* #box-login {
@@ -44,12 +46,12 @@
       </form>
 
       <div class="w-75 d-flex justify-content-around mb-2">
-        <a href="forgotpw.html" id="forget-pw" class="text-decoration-none text-secondary"><svg xmlns="http://www.w3.org/2000/svg"
-            width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
+        <a href="forgotpw.jsp" id="forget-pw" class="text-decoration-none text-secondary"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                                               width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
             <path
               d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z" />
           </svg> 忘記密碼</a>
-        <a href="register.html" id="signup" class="text-decoration-none text-secondary"><svg xmlns="http://www.w3.org/2000/svg"
+        <a href="<%=request.getContextPath()%>/customer/register.jsp" id="signup" class="text-decoration-none text-secondary"><svg xmlns="http://www.w3.org/2000/svg"
             width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
             <path
               d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -71,7 +73,7 @@
   <script>
     $(function () {
       $("#header").load("../components/html/header.jsp");
-      $("#footer").load("../components/html/footer.html");
+      $("#footer").load("../components/html/footer.jsp");
     });
 
     document.getElementById("btn-login").onclick = () => {
