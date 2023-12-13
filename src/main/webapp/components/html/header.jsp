@@ -22,7 +22,7 @@
           <a class="navbar-brand logo_link_trasition" href="#" style="color: white; font-weight: 600;">
             <img src="<%=request.getContextPath()%>/static/images/logo.png" width="70" height="70" id="header-logo"
               class="d-inline-block align-text-center" alt="logo">
-            LAZY_TRAVEL
+            LazyTravel
           </a>
 
           <div class="navbar nav-item-area">

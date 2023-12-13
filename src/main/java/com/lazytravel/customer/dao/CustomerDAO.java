@@ -12,4 +12,6 @@ public interface CustomerDAO {
     Customer findByPK(Integer customerId);
 
     List<Customer> getAll();
+
+    Customer findByEmail(String email);
 }
