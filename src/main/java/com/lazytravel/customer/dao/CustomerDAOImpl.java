@@ -97,6 +97,26 @@ public class CustomerDAOImpl implements CustomerDAO {
 //        return getSession().createQuery("from Customer", Customer.class).list();
     }
 
+    @Override
+    public Customer findByEmail(String email) {
+        Session session = getSession();
+        Customer customer = null;
+        try {
+            session.beginTransaction();
+
+            customer = session.createQuery("from Customer where email = :email", Customer.class)
+                    .setParameter("email", email)
+                    .uniqueResult();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+
+        return customer;
+    }
+
     /*
     public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);

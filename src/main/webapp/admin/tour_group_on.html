@@ -130,6 +130,16 @@
             margin-right: 15px;
         }
 
+        div.div_tourGroup_journey,
+        div.div_tourGroup_date,
+        div.div_price,
+        div.div_requiredMin,
+        div.div_requiredMax,
+        div.div_signDate,
+        div.div_btn{
+            margin-bottom: 2px;
+        }
+
     </style>
 </head>
 <body>
@@ -194,7 +204,7 @@
         <br>
         <div class="div_btn">
             <button type="submit" class="btn_submit">送出</button>
-            <button type="reset" class="btn_reset">取消</button>
+            <button type="reset" class="btn_reset" onclick="redirectToTourGroupList()">取消</button>
         </div>
 
 
@@ -207,6 +217,10 @@
             $("#header").load("header.html");
             new DataTable('#example');
         });
+
+        function redirectToTourGroupList() {
+            window.location.href = "./tour_group_list.html";
+        }
     </script>
 </body>
   

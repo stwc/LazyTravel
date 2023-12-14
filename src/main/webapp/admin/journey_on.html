@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>後臺-行程(新增修改)</title>
+  <title>後臺-行程(新增)</title>
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
   <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
@@ -38,7 +38,7 @@
     }
 
     input, textarea{
-        border: 1px solid #CCD5AE;   
+        border: 1px solid #CCD5AE;
     }
 
     input:focus, textarea:focus{
@@ -160,8 +160,17 @@
         border-spacing: 10px;
     }
 
+    div.div_journeyName,
+    div.div_price,
+    div.div_days,
+    div.div_journeyStatus,
+    div.div_nthDay,
+    div.div_detal_joyrneyId,
+    div.div_detal_time{
+            margin-bottom: 2px;
+    }
 
-    
+
 </style>
 </head>
 
@@ -171,12 +180,12 @@
     
     <main id="main">
           
-      <p style="font-size: 20px;"<b>新增或修改行程</b></p>
+      <p style="font-size: 20px;"<b>新增行程</b></p>
 
       <br>
       <div class="div_journeyId">
           <label>行程ID :</label>
-          <div>23001</div>
+          <!-- <div>23001</div> -->
           <!-- <select>
               <option value="22001" selected>22001</option>
           </select> -->
@@ -269,7 +278,7 @@
       <br>
       <div class="div_btn">
           <button type="submit" class="btn_submit">送出</button>
-          <button type="reset" class="btn_reset">取消</button>
+          <button type="reset" class="btn_reset" onclick="redirectToJourneyList()">取消</button>
       </div>
 
   </main>
@@ -283,6 +292,10 @@
       $("#header").load("header.html");
       new DataTable('#example');
     });
+
+    function redirectToJourneyList() {
+        window.location.href = "./journey_list.html";
+    }
   </script>
 </body>
 

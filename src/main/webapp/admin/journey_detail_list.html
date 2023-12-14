@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>後臺-行程明細(查詢)</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
+
+    <style>
+        div.card-header span,
+        div.card-header form{
+            display: inline-block;
+        }
+
+        div.card-header span{
+            margin-right: 20px;
+        }
+
+        button.btn_back{
+            width: 70px;
+            height: 30px;
+            border-radius: 90px;
+            border-color: transparent;
+            color: white;
+            background: #9C6644;
+            margin-left: 5px;
+        }
+
+        button.btn_back:active {
+            outline: 2px solid #9C6644;
+            box-shadow: 0 0 8px #a1a397
+        }
+
+        div.content{
+          margin: 0px 30px 40px 30px;
+        }
+
+        div.content div{
+          margin-bottom: 8px;
+        }
+
+    </style>
+  </head>
+  
+  <body>
+    <div id="header"></div>
+
+    <div id="main" class="p-3">
+      <h3 class="mx-3 mb-5">行程總覽</h3>
+      <div class="card mx-4 my-4">
+        <div class="card-header mb-5">
+            <span>行程明細</span>
+            <form method="post" action="">
+                <button type="submit" class="btn_back">返回</button>
+                <input type="hidden" name="journey_id" value="" />
+                <input type="hidden" name="action" value="back" />
+            </form>
+        </div>
+
+        <div class="card-body mx-3">
+
+          <table id="123" class="display">
+            <thead>
+              <tr>
+                <th>行程ID</th>
+                <th>美食/景點名稱</th>
+                <th>開始時間</th>
+                <th>結束時間</th>
+                <th>第幾天</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>23001</td>
+                <td>OOO景點</td>
+                <td>2023-09-28 10:00:00</td>
+                <td>2023-09-29 12:00:00</td>
+                <td>1</td>
+              </tr>
+
+              <tr>
+                <td>23001</td>
+                <td>xxx景點</td>
+                <td>2023-09-28 14:00:00</td>
+                <td>2023-09-29 17:00:00</td>
+                <td>1</td>
+              </tr>
+            </table>
+          </table>
+        </div>
+                
+        <div class="content">
+          <div><b>介紹文</b></div>
+          <textarea style="height: 120px; width: 100%;"></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+      let table = new DataTable("#123");
+
+      $(function () {
+        $("#header").load("../admin/header.html");
+        // new DataTable('#example');
+
+        init();
+      });
+    </script>
+  </body>
+</html>

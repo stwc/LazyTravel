@@ -42,6 +42,10 @@ public class CustomerServlet extends HttpServlet {
                 res.setContentType("application/json; charset=UTF-8");
                 res.getWriter().write(jsonStr);
                 return;
+            case "insert":
+                // 註冊，來自register.html的請求
+                forwardPath = insert(req, res);
+                break;
             case "getOne_For_Display":
                 // // 來自select_page.jsp的請求
                 forwardPath = getOneDisplay(req, res);
@@ -53,10 +57,6 @@ public class CustomerServlet extends HttpServlet {
             case "update":
                 // 來自update_emp_input.jsp的請求
                 forwardPath = update(req, res);
-                break;
-            case "insert":
-                // 來自addEmp.jsp的請求
-                forwardPath = insert(req, res);
                 break;
             default:
                 forwardPath = "/example/select_page.jsp";
@@ -209,81 +209,43 @@ public class CustomerServlet extends HttpServlet {
         List<String> errorMsgs = new ArrayList<>();
         req.setAttribute("errorMsgs", errorMsgs);
 
-        String customerName = req.getParameter("customer_name");
-        if (customerName == null || customerName.trim().isEmpty())
-            errorMsgs.add("請輸入會員姓名");
-
-        String nickname = req.getParameter("nickname");
-        if (nickname == null || nickname.trim().isEmpty())
-            errorMsgs.add("請輸入暱稱");
-
         String email = req.getParameter("email");
-        String emailRegex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        if (email == null || email.trim().isEmpty()) {
-            errorMsgs.add("Email: 請勿空白");
-        } else if (!email.trim().matches(emailRegex)) {
-            errorMsgs.add("請輸入正確的Email格式");
-        }
-
-        // 目前沒對密碼做加密處理
         String customerPasswd = req.getParameter("customer_passwd");
-        if (customerPasswd == null || customerPasswd.trim().isEmpty())
-            errorMsgs.add("請輸入密碼");
-
-        Date birth = null;
+        String customerName = req.getParameter("customer_name");
+        String nickname = req.getParameter("nickname");
+        String sex = req.getParameter("sex");
+        String phone = req.getParameter("phone");
+        String idno = req.getParameter("idno");
+        Date birth;
         try {
             birth = Date.valueOf(req.getParameter("birth").trim());
         } catch (IllegalArgumentException e) {
             birth = new Date(System.currentTimeMillis());
             errorMsgs.add("請輸入日期!");
         }
-
-        // 簡易驗證身份證字號，不嚴謹
-        String idno = req.getParameter("idno");
-        String idnoRegex = "^[A-Z][12][0-9]{8}$";
-        if (idno == null || idno.trim().isEmpty()) {
-            errorMsgs.add("身份證: 請勿空白");
-        } else if (!idno.trim().matches(idnoRegex)) {
-            errorMsgs.add("請輸入正確的身份證格式");
-        }
-
-        String phone = req.getParameter("phone");
-        String phoneRegex = "^09[0-9]{8}$";
-        if (phone == null || phone.trim().isEmpty()) {
-            errorMsgs.add("手機: 請勿空白");
-        } else if (!phone.trim().matches(phoneRegex)) {
-            errorMsgs.add("請輸入正確的手機格式");
-        }
-
         String address = req.getParameter("address");
-        if (address == null || address.trim().isEmpty())
-            errorMsgs.add("請輸入地址");
 
-        // 這兩個欄位不用做錯誤處理
-        String sex = req.getParameter("sex");
-        String customerStatus = req.getParameter("customer_status");
-
-        // 假如輸入格式錯誤的，備份選原使用者輸入過的資料
+        // 假如輸入格式錯誤的，備份還原使用者輸入過的資料
         Customer customer = new Customer();
+        customer.setEmail(email);
+        customer.setCustomerPasswd(customerPasswd);
         customer.setCustomerName(customerName);
         customer.setNickname(nickname);
         customer.setSex(sex);
         customer.setPhone(phone);
+        customer.setIdno(idno);
         customer.setBirth(birth);
         customer.setAddress(address);
-        customer.setEmail(email);
-        customer.setCustomerPasswd(customerPasswd);
-        customer.setCustomerStatus(customerStatus);
-        customer.setIdno(idno);
+        customer.setCustomerStatus("1"); // 先暫時讓註冊會員狀態起始值為1
 
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("customer", customer);
-            return "/example/addEmp.jsp";
+            return "/customer/register.html";
         }
 
         // 新增資料
         customerService.addCustomer(customer);
 
-        return "/example/listAllEmp.jsp";
+        return "/customer/register-success.jsp";
     }
 }

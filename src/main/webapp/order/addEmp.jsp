@@ -69,10 +69,10 @@
 
 <FORM METHOD="post" ACTION="order.do" name="form1">
 	<table>
-		<tr>
-			<td>訂單編號:</td>
-			<td><input type="TEXT" name="order_no" value= "${(order==null)? 2024112201 : order.getOrderNo()}" size="45"/></td>
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<td>訂單編號:</td> -->
+<%-- 			<td><input type="TEXT" name="order_no" value= "${(order==null)? 2024112201 : order.getOrderNo()}" size="45"/></td> --%>
+<!-- 		</tr> -->
 		<tr>
 			<td>會員Id:</td>
 			<td><input type="TEXT" name="customer_id" value= "${(order==null)? 11001 : order.getOrderId() }" size= "45" ></td>

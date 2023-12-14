@@ -25,7 +25,7 @@ public class CustomerCoupon {
 	@Column(name = "coupon_id")
 	private Integer couponId;
 	
-	@Column(name = "coupon_status")
+	@Column(name = "coupon_status" , columnDefinition = "char")
 	private String couponStatus;
 	
 	@Column(name = "create_time")
@@ -95,7 +95,7 @@ public class CustomerCoupon {
 		
 		
 	
-		static class CompositeDetail implements Serializable {
+		public static class CompositeDetail implements Serializable {
 			private static final long serialVersionUID = 1L;
 
 			private Integer customerId;
@@ -152,8 +152,23 @@ public class CustomerCoupon {
 
 				return false;
 			}
+			
+			
 
 		}
+		
+		
+		@Override
+	    public String toString() {
+	        return "CustomerCoupon{" +
+	                "customerId=" + customerId +
+	                ", couponId=" + couponId +
+	                ", couponStatus='" + couponStatus + '\'' +
+	                ", createTime=" + createTime +
+	                ", updateTime=" + updateTime +
+	                '}';
+	    }
+		
 
 	
 	

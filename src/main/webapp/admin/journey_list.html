@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>後臺-行程(查詢)</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
+    />
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
+
+    <style>
+      h3 span{
+        margin-right: 10px;
+      }
+
+      a#add {
+        width: 70px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #CCD5AE;
+        padding-top: 3px;
+      }
+      
+      a#add:hover {
+        background-color: #6B705C;
+        color: white;
+      }
+
+      a#add:active {
+        outline: 2px solid #6B705C;
+        box-shadow: 0 0 8px #a1a397
+      }
+
+      button.btn_modify{
+        width: 70px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #9C6644;
+      }
+
+      button.btn_modify:active {
+        outline: 2px solid #9C6644;
+        box-shadow: 0 0 8px #a1a397
+    }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="header"></div>
+
+    <div id="main" class="p-3">
+      <h3 class="mx-3 mb-5">
+        <span>行程總覽</span>
+        <a href="./journey_on.html" id="add" class="btn">新增</a>
+      </h3>
+      <div class="card mx-4 my-4">
+        <div class="card-header mb-5">行程查詢</div>
+        <div class="card-body mx-3">
+          <!-- <table class="my-5">
+            <tbody>
+              <tr class="d-inline me-3">
+                <td>行程時間：</td>
+                <td><input type="date" id="min" name="min" /></td>
+              </tr>
+              <tr class="d-inline">
+                <td></td>
+                <td><input type="date" id="max" name="max" /></td>
+              </tr>
+            </tbody>
+          </table> -->
+
+          <table id="123" class="display mb-5">
+            <thead>
+              <tr>
+                <th>行程ID</th>
+                <th>行程名稱</th>
+                <th>價格</th>
+                <th>建立時間</th>
+                <th>行程<br>天數</th>
+                <th>購買<br>次數</th>
+                <th>平均<br>評分</th>
+                <th>評分<br>次數</th>
+                <th>狀態</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>23001</td>
+                <td>陽明山一日遊</td>
+                <td>2000</td>
+                <td>2023-11-25 10:47:42</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0.0</td>
+                <td>0</td>
+                <td>未上架</td>
+                <td><a href="#" class="journey_details">查看行程明細</a></td>
+                <td>
+                  <form method="post" action="">
+                    <button type="submit" class="btn_modify">修改</button>
+                    <input type="hidden" name="journey_id" value="" />
+                    <input type="hidden" name="action" value="modify" />
+                  </form>
+                </td>
+              </tr>
+
+              <tr>
+                <td>23002</td>
+                <td>台北三天兩夜美食旅</td>
+                <td>15000</td>
+                <td>2023-11-25 10:47:42</td>
+                <td>3</td>
+                <td>10</td>
+                <td>4.1</td>
+                <td>6</td>
+                <td>已上架</td>
+                <td><a href="#" class="journey_details">查看行程明細</a></td>
+                <td>
+                  <form method="post" action="">
+                    <button type="submit" class="btn_modify">修改</button>
+                    <input type="hidden" name="journey_id" value="" />
+                    <input type="hidden" name="action" value="modify" />
+                  </form>
+                </td>
+              </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+      let table = new DataTable("#123");
+
+      $(function () {
+        $("#header").load("../admin/header.html");
+        // new DataTable('#example');
+
+        init();
+      });
+    </script>
+  </body>
+</html>
