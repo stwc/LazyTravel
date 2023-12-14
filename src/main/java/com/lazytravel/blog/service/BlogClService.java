@@ -2,17 +2,17 @@ package com.lazytravel.blog.service;
 
 import java.util.List;
 
-import com.lazytravel.blog.entity.Blog;
+import com.lazytravel.blog.dao.BlogClDAO;
+import com.lazytravel.blog.dao.BlogClDAOImpl;
 import com.lazytravel.blog.entity.BlogCl;
-import com.lazytravel.blog.entity.BlogLike;
 
 public interface BlogClService {
 
-	void addCl(BlogCl blogCl);
+	BlogCl addBlogCl(BlogCl blogCl);
 
-	void removeCl(BlogCl blogCl);
-	
-	 BlogCl getByPK(Integer customerId);
+	Integer  updateBlogCl(BlogCl blogCl) ;
+
+	 BlogCl getBlogClByBlogClId(Integer blogClId);
 	 
-	 List<BlogCl> getAllBlogCls();
+	 List<BlogCl>getAllBlogCls();
 }

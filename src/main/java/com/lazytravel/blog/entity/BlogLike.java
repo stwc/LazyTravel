@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.lazytravel.example.entity.Customer;
+import com.lazytravel.customer.entity.Customer;
 
 @Entity
 @Table(name = "blog_like")
@@ -21,18 +21,18 @@ public class BlogLike  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BLOG_LIKE_ID")
-	private Integer bloglikeId;
+	private Integer blogLikeId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Integer customerId;
+	private Customer customer;
 	
 	@Column(name = "CREATE_TIME")
 	private Timestamp createTime;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
-	private Integer blogId;
+	private Blog blog;
 	
 	@Column(name = "BLOG_LIKE_STATUS",columnDefinition = "char")
 	private String blogLikeStatus;
@@ -40,12 +40,14 @@ public class BlogLike  {
 	public BlogLike() {
 	}
 
-	public Integer getBloglikeId() {
-		return bloglikeId;
+
+	public Integer getBlogLikeId() {
+		return blogLikeId;
 	}
 
-	public void setBloglikeId(Integer bloglikeId) {
-		this.bloglikeId = bloglikeId;
+
+	public void setBlogLikeId(Integer blogLikeId) {
+		this.blogLikeId = blogLikeId;
 	}
 
 
@@ -66,26 +68,27 @@ public class BlogLike  {
 		this.blogLikeStatus = blogLikeStatus;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public Integer getBlogId() {
-		return blogId;
+	public Blog getBlog() {
+		return blog;
 	}
 
-	public void setBlogId(Integer blogId) {
-		this.blogId = blogId;
+	public void setBlog(Blog blog) {
+		this.blog = blog;
 	}
+
 
 	@Override
 	public String toString() {
-		return "BlogLike [bloglikeId=" + bloglikeId + ", customerId=" + customerId + ", createTime=" + createTime
-				+ ", blogId=" + blogId + ", blogLikeStatus=" + blogLikeStatus + "]";
+		return "BlogLike [blogLikeId=" + blogLikeId + ", customer=" + customer + ", createTime=" + createTime
+				+ ", blog=" + blog + ", blogLikeStatus=" + blogLikeStatus + "]";
 	}
 
 
