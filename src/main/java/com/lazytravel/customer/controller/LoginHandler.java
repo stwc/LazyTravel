@@ -1,5 +1,6 @@
 package com.lazytravel.customer.controller;
 
+import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
 
@@ -28,11 +29,11 @@ public class LoginHandler extends HttpServlet {
 
         final String email = req.getParameter("email");
         final String passwd = req.getParameter("customer_passwd");
-        Integer customerId = customerService.login(email, passwd);
-        if (customerId != -1) {
+        Customer customer = customerService.login(email, passwd);
+        if (customer != null) {
             // 登入成功
             HttpSession session = req.getSession();
-            session.setAttribute("customerId", customerId);
+            session.setAttribute("customer", customer);
 
             // 確認session id
             System.out.println("session id: " + session.getId());
