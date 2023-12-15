@@ -3,6 +3,8 @@ package com.lazytravel.customer.controller;
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
+import com.password4j.Hash;
+import com.password4j.Password;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,13 +49,19 @@ public class RegisterHandler extends HttpServlet {
         List<String> errorMsgs = new ArrayList<>();
         req.setAttribute("errorMsgs", errorMsgs);
 
+        // 抓前端送來的參數
         String email = req.getParameter("email");
+
         String customerPasswd = req.getParameter("customer_passwd");
+        Hash hash = Password.hash(customerPasswd).withBcrypt();
+        String hashedPw = hash.getResult();
+
         String customerName = req.getParameter("customer_name");
         String nickname = req.getParameter("nickname");
         String sex = req.getParameter("sex");
         String phone = req.getParameter("phone");
         String idno = req.getParameter("idno");
+
         Date birth;
         try {
             birth = Date.valueOf(req.getParameter("birth").trim());
@@ -61,12 +69,13 @@ public class RegisterHandler extends HttpServlet {
             birth = new Date(System.currentTimeMillis());
             errorMsgs.add("請輸入日期!");
         }
+
         String address = req.getParameter("address");
 
         // 假如輸入格式錯誤的，備份還原使用者輸入過的資料
         Customer customer = new Customer();
         customer.setEmail(email);
-        customer.setCustomerPasswd(customerPasswd);
+        customer.setCustomerPasswd(hashedPw);
         customer.setCustomerName(customerName);
         customer.setNickname(nickname);
         customer.setSex(sex);
@@ -76,14 +85,14 @@ public class RegisterHandler extends HttpServlet {
         customer.setAddress(address);
         customer.setCustomerStatus("1"); // 先暫時讓註冊會員狀態起始值為1
 
+        // 輸入資料錯誤，請重新輸入
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("customer", customer);
             return "/customer/register.jsp";
         }
 
-        // 新增資料
+        // 註冊成功
         customerService.addCustomer(customer);
-
         return "/customer/register-success.jsp";
     }
 }
