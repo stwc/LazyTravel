@@ -3,9 +3,10 @@ package com.lazytravel.journey.dao;
 import java.util.List;
 
 import com.lazytravel.journey.entity.Journey;
+import com.lazytravel.journey.entity.JourneyDetail;
 
 public interface JourneyService {
-	void addJourney(Journey journey);
+	Integer addJourneyAndDetail(Journey journey, List<JourneyDetail> list);
 	void updateJourney(Journey journey);
 	Journey getOneJourney(Integer journeyId);
 	List<Journey> getAll();

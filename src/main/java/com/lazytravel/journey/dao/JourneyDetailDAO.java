@@ -11,7 +11,8 @@ public interface JourneyDetailDAO {
 //	void delete(JourneyDetail.CompositeJourneyAndFoodscape compositeJourneyAndFoodscape);
 	void delete(Integer journeyId, Integer foodscapeId);
 	
-	JourneyDetail findByPk(Integer journeyId, Integer foodscapeId);
+//	JourneyDetail findByPk(Integer journeyId, Integer foodscapeId);
+	List<JourneyDetail> findByJourneyId(Integer journeyId);
 	
 	List<JourneyDetail> addList(List<JourneyDetail> journeyDetail);
 
