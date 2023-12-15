@@ -17,7 +17,7 @@
   <header id="header"></header>
 
   <div class="container d-flex justify-content-center mb-5">
-    <form method="post" action="<%=request.getContextPath()%>/customer/customer.do" class="row border m-3 p-3 rounded-3">
+    <form method="post" action="<%=request.getContextPath()%>/customer/register.do" class="row border m-3 p-3 rounded-3">
       <h2 class="mb-4">註冊會員</h2>
       <div class="col-12 mb-3">
         <label for="inputEmail" class="form-label">Email 信箱</label>
@@ -123,7 +123,7 @@
         </div>
       </div>
       <div class="col-12 mt-3">
-        <input type="hidden" name="action" value="insert">
+<%--        <input type="hidden" name="action" value="insert">--%>
         <button type="submit" id="btn-signup" class="btn w-100" style="background-color: #6B705C;"><span
             class="text-light">註冊</span></button>
       </div>

@@ -42,10 +42,10 @@ public class CustomerServlet extends HttpServlet {
                 res.setContentType("application/json; charset=UTF-8");
                 res.getWriter().write(jsonStr);
                 return;
-            case "insert":
-                // 註冊，來自register.html的請求
-                forwardPath = insert(req, res);
-                break;
+//            case "insert":
+//                // 註冊，來自register.jsp的請求
+//                forwardPath = insert(req, res);
+//                break;
             case "getOne_For_Display":
                 // // 來自select_page.jsp的請求
                 forwardPath = getOneDisplay(req, res);
@@ -240,7 +240,7 @@ public class CustomerServlet extends HttpServlet {
 
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("customer", customer);
-            return "/customer/register.html";
+            return "/customer/register.jsp";
         }
 
         // 新增資料
