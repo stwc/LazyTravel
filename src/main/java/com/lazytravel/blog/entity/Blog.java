@@ -160,11 +160,12 @@ public class Blog {
 
 	@Override
 	public String toString() {
-		return "Blog [blogId=" + blogId + ", title=" + title + ", customer=" + customer+ ", blogDate=" + blogDate
+		return "Blog [blogId=" + blogId + ", title=" + title + ", customer=" + customer + ", blogDate=" + blogDate
 				+ ", content=" + content + ", upDateTime=" + upDateTime + ", createTime=" + createTime + ", likeSum="
 				+ likeSum + ", viewSum=" + viewSum + ", clSum=" + clSum + ", img=" + Arrays.toString(img)
 				+ ", blogStatus=" + blogStatus + "]";
 	}
+	
 
 	
 }
