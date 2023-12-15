@@ -39,15 +39,16 @@ public class LoginHandler extends HttpServlet {
             System.out.println("session id: " + session.getId());
 
             // 重導回首頁
-            String url = req.getContextPath() + "/index.jsp";
-            res.sendRedirect(url);
+            String indexPath = req.getContextPath() + "/index.jsp";
+            res.sendRedirect(indexPath);
         } else {
             // 登入失敗
             req.setAttribute("loginFailed", true);
 
             // 重導回登入頁面
             res.setContentType("text/html; charset=UTF-8");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/customer/login.jsp");
+            String loginPath = "/customer/login.jsp";
+            RequestDispatcher dispatcher = req.getRequestDispatcher(loginPath);
             dispatcher.forward(req, res);
             return;
         }

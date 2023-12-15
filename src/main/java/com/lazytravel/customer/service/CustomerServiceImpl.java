@@ -3,6 +3,7 @@ package com.lazytravel.customer.service;
 import com.lazytravel.customer.dao.CustomerDAO;
 import com.lazytravel.customer.dao.CustomerDAOImpl;
 import com.lazytravel.customer.entity.Customer;
+import com.password4j.Password;
 
 import java.util.List;
 
@@ -36,7 +37,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer login(String email, String passwd) {
         Customer customer = dao.findByEmail(email);
-        if (customer != null && email.equals(customer.getEmail()) && passwd.equals(customer.getCustomerPasswd()))
+        if (customer == null)
+            return null;
+
+        boolean isEmailMatched = email.equals(customer.getEmail());
+        boolean isPasswdMatched = Password.check(passwd, customer.getCustomerPasswd()).withBcrypt();
+        if (isEmailMatched && isPasswdMatched)
             return customer;
         else
             return null;
