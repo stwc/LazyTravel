@@ -2,18 +2,18 @@ package com.lazytravel.blog.service;
 
 import java.util.List;
 
+import com.lazytravel.blog.dao.BlogLikeDAO;
+import com.lazytravel.blog.dao.BlogLikeDAOImpl;
 import com.lazytravel.blog.entity.BlogLike;
 
 public interface BlogLikeService {
-
-	void addBlogLike(BlogLike blogLike) ;
 	
-//    void updateBlogLike(BlogLike blogLike);
+	BlogLike addBlogLike(BlogLike blogLike);
+	
+     Integer updateBlogLike(BlogLike blogLike);
 
-    void deleteBlogLike(Integer blogLikeId);
+     BlogLike getBlogLikeByBlogLikeId(Integer blogLikeId);
 
-    BlogLike getByPK(Integer blogLikeId);
-
-    List<BlogLike> getAllBlogLikes();
+     List<BlogLike> getAllBlogLikes();
 
 }

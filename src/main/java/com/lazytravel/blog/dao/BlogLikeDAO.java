@@ -2,17 +2,16 @@ package com.lazytravel.blog.dao;
 
 import java.util.List;
 
-import com.lazytravel.blog.entity.BlogCl;
 import com.lazytravel.blog.entity.BlogLike;
 
 public interface BlogLikeDAO {
 
-	void insert(BlogLike entity);  //新增文章按讚
+	public Integer  add(BlogLike blogLike);  //新增文章按讚
 
-	void delete(Integer blogLikeId);  //刪除文章按讚
+	public Integer update(BlogLike blogLike);  //刪除文章按讚
 
-	BlogLike getByPK(Integer cusomterId); //查詢單筆
+	public BlogLike getByPK(Integer blogLikeId); //查詢單筆
 
-	List<BlogLike> getAll(); //查詢全部
+ 	public	List<BlogLike> getAll(); //查詢全部
 
 }

@@ -29,8 +29,8 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();;
+			return -1;
 		}
-		return -1;
 	}
 
 	@Override
@@ -44,23 +44,40 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+			return -1;
 		}
-		return -1;
 	}
-
+	
 	@Override
-	public List<TourGroup> getAll() {
+	public TourGroup findByPK(Integer groupId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		TourGroup tourGroup = null;
 		try {
 			session.beginTransaction();
-			List<TourGroup> list = session.createQuery("from TourGroup", TourGroup.class).list();
+			tourGroup = session.get(TourGroup.class, groupId);
 			session.getTransaction().commit();
-			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return null;
+		return tourGroup;
+	}
+
+	
+
+	@Override
+	public List<TourGroup> getAll() {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<TourGroup> list = null;
+		try {
+			session.beginTransaction();
+			list = session.createQuery("from TourGroup", TourGroup.class).list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return list;
 	}
 
 	@Override
@@ -70,6 +87,7 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 		}
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<TourGroup> list = null;
 		try {
 			session.beginTransaction();
 			
@@ -79,24 +97,24 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 			
 			List<Predicate> predicates = new ArrayList<>();
 			
-			if (map.containsKey("startTime") && map.containsKey("endTime")) {
+			if (map.containsKey("startTimeSearch") && map.containsKey("endTimeSearch")) {
 			    CriteriaBuilder builder1 = session.getCriteriaBuilder();
-			    Predicate startTimePredicate = builder1.greaterThanOrEqualTo(root.get("startTime"), Date.valueOf(map.get("startTime")));
-			    Predicate endTimePredicate = builder1.lessThanOrEqualTo(root.get("endTime"), Date.valueOf(map.get("endTime")));
+			    Predicate startTimePredicate = builder1.greaterThanOrEqualTo(root.get("startTime"), Date.valueOf(map.get("startTimeSearch")));
+			    Predicate endTimePredicate = builder1.lessThanOrEqualTo(root.get("endTime"), Date.valueOf(map.get("endTimeSearch")));
 			    Predicate timeBetweenPredicate = builder1.and(startTimePredicate, endTimePredicate);
 			    predicates.add(timeBetweenPredicate);
 			}
 
 			
 			for (Map.Entry<String, String> row : map.entrySet()) {
-				if("startTime".equals(row.getKey())) {
-					if(!map.containsKey("endTime")) {
+				if("startTimeSearch".equals(row.getKey())) {
+					if(!map.containsKey("endTimeSearch")) {
 						predicates.add(builder.greaterThanOrEqualTo(root.get("startTime"), Date.valueOf(row.getValue())));
 					}
 				}
 				
-				if("endTime".equals(row.getKey())){
-					if(!map.containsKey("startTime")) {
+				if("endTimeSearch".equals(row.getKey())){
+					if(!map.containsKey("startTimeSearch")) {
 						predicates.add(builder.lessThanOrEqualTo(root.get("endTime"), Date.valueOf(row.getValue())));
 					}
 				}
@@ -104,17 +122,16 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 			
 			critiria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
 			critiria.orderBy(builder.asc(root.get("groupId")));
-			List<TourGroup> list = session.createQuery(critiria).getResultList();
+			list = session.createQuery(critiria).getResultList();
 			
 			session.getTransaction().commit();
-			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return null;
+		return list;
 	}
-	
+
 	
 	
 // --------------------------------- JDBC -----------------------------------	
@@ -381,8 +398,8 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 
 //		// 查詢符合行程時間的筆數
 //		Map<String, String> map = new TreeMap<String, String>();
-//		map.put("startTime", "2023-09-29");
-//		map.put("endTime", "2023-11-20");
+//		map.put("startTimeSearch", "2023-09-29");
+//		map.put("endTimeSearch", "2023-11-20");
 //
 //		List<TourGroup> list2 = tourGroupDAO.getByTime(map);
 //		for(TourGroup l : list2) {

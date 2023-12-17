@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import com.lazytravel.customer.entity.Customer;
 
 @Entity
-@Table(name = "blog_d")
+@Table(name = "blog_cl")
 public class BlogCl {
 
 	@Id
@@ -25,14 +25,14 @@ public class BlogCl {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
-	private Integer customerId;
+	private Customer customer;
 
 	@Column(name = "LIKE_TIME")
 	private Timestamp likeTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BLOG_ID", referencedColumnName = "BLOG_ID")
-	private Blog blogId;
+	private Blog blog;
 
 	@Column(name = "BLOG_CL_STATUS", columnDefinition = "char")
 	private String blogClStatus;
@@ -57,24 +57,25 @@ public class BlogCl {
 		this.likeTime = likeTime;
 	}
 
-	public Blog getBlogId() {
-		return blogId;
+	public Blog getBlog() {
+		return blog;
 	}
 
-	public void setBlogId(Blog blogId) {
-		this.blogId = blogId;
+	public void setBlog(Blog blog) {
+		this.blog = blog;
 	}
 
 	public String getBlogClStatus() {
 		return blogClStatus;
 	}
 
-	public Integer getCustomerId() {
-		return customerId;
+
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public void setBlogClStatus(String blogClStatus) {
@@ -83,8 +84,8 @@ public class BlogCl {
 
 	@Override
 	public String toString() {
-		return "BlogCl [blogClId=" + blogClId + ", customerId=" + customerId + ", likeTime=" + likeTime + ", blogId="
-				+ blogId + ", blogClStatus=" + blogClStatus + "]";
+		return "BlogCl [blogClId=" + blogClId + ", customer=" + customer + ", likeTime=" + likeTime + ", blog="
+				+ blog + ", blogClStatus=" + blogClStatus + "]";
 	}
 
 }

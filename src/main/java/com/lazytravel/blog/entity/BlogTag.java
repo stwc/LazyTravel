@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "blog_tag")
-@IdClass(BlogTag.class)
+@IdClass(BlogTag.CompositeDetail.class)
 public class BlogTag {
 
 	@Id
@@ -49,7 +49,7 @@ public class BlogTag {
 		this.tagId = tagId;
 	}
 
-	static class CompositeDetail implements Serializable {
+	public static class CompositeDetail implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		private Integer blogId;
@@ -77,7 +77,7 @@ public class BlogTag {
 			return tagId;
 		}
 
-		public void setTagid(Integer tagId) {
+		public void setTagId(Integer tagId) {
 			this.tagId = tagId;
 		}
 
