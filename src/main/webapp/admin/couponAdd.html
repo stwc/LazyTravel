@@ -56,46 +56,47 @@
                 優惠券新增
             </div>
             <div class="card-body">
-                <form action="">
+                <form method="post" action="coupon.do" id="couponForm">
                     <div class="serialNo my-3">
                         <label>優惠號碼：</label>
-                        <input type="text">
+                        <input type="text" name="serialNo">
                     </div>
 
                     <div class="couponName my-3">
                         <label>優惠名稱： </label>
-                        <input type="text">
+                        <input type="text" name="couponName">
                     </div>
 
                     <div class="discount my-3">
                         <label>折扣金額： </label>
-                        <input type="text">
+                        <input type="text" name="discount">
                     </div>
 
                     <div class="threshold my-3">
                         <label>折扣門檻： </label>
-                        <input type="text">
+                        <input type="text" name="threshold">
                     </div>
 
                     <div class="startTime my-3">
                         <label>生效日期： </label>
-                        <input type="date">
+                        <input type="datetime-local" name="startTime">
                     </div>
 
                     <div class="endTime my-3">
                         <label>結束日期： </label>
-                        <input type="date">
+                        <input type="datetime-local" name="endTime">
                     </div>
 
                     <div class="total my-3">
                         <label>發放數量： </label>
-                        <input type="number">
+                        <input type="number" name="total">
                     </div>
 
 
                     <div class="div_btn d-flex justify-content-end">
+                    	<input type="hidden" name="action" value="insert">
                         <button type="submit" class="btn_submit mx-2">送出</button>
-                        <button type="reset" class="btn_reset mx-2">取消</button>
+                        <button type="reset" class="btn_reset mx-2" onclick="goBack()" >取消</button>
                     </div>
 
                 </form>
@@ -122,7 +123,11 @@
         $(function () {
             $("#header").load("../admin/header.html");
         });
-
+		
+        function goBack() {
+            // 使用 history 物件返回上一頁
+            window.history.go(-1);
+        }
 
     </script>
 

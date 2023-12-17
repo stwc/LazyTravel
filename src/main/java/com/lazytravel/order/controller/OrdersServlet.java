@@ -12,13 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 import com.lazytravel.example.dao.CustomerService;
 import com.lazytravel.example.entity.Customer;
 import com.lazytravel.order.entity.Orders;
 import com.lazytravel.order.service.OrdersService;
 
-@WebServlet(name = "OrdersServlet", value = "/order/order.do")
+@WebServlet(name = "OrdersServlet", urlPatterns = {"/order/order.do" , "/admin/order.do"})
 public class OrdersServlet extends HttpServlet {
 	private OrdersService ordersService;
 
@@ -45,8 +47,8 @@ public class OrdersServlet extends HttpServlet {
               res.setContentType("application/json; charset=UTF-8");
               res.getWriter().write(jsonStr);
               return;
-		
-		
+              
+
 		case "getOne_For_Display":
 			// // 來自select_page.jsp的請求
 			forwardPath = getOneDisplay(req, res);
@@ -68,6 +70,10 @@ public class OrdersServlet extends HttpServlet {
 		case "insert":
 			forwardPath = insert(req, res);
 			break;
+		
+		case "getJourneyNameByOrderId" :
+			getJourneyNameByOrderId(req, res);
+			return;
 
 		default:
 			forwardPath = "/order/select_page.jsp";
@@ -77,6 +83,30 @@ public class OrdersServlet extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 
+	}
+
+	private void getJourneyNameByOrderId(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			Integer orderId = Integer.parseInt(req.getParameter("orderId"));
+			System.out.println(orderId);
+			String journeyName = ordersService.getJourneyNameByOrderId(orderId);
+			System.out.println(journeyName);
+			
+			// 使用 Gson 格式化數據
+	        Gson gson = new Gson();
+	        String jsonResponse = gson.toJson(journeyName);
+	        
+	     // 設置響應類型為 JSON
+	        res.setContentType("application/json; charset=UTF-8");	
+	        res.getWriter().write(jsonResponse);
+		} catch (Exception e) {
+			try {
+	            res.setContentType("application/json; charset=UTF-8");
+	            res.getWriter().write("{\"error\": \"Error processing request\"}");
+	        } catch (IOException ioException) {
+	            ioException.printStackTrace();
+	        }
+		}
 	}
 
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
@@ -155,37 +185,18 @@ public class OrdersServlet extends HttpServlet {
 	private String update(HttpServletRequest req, HttpServletResponse res) {
 
 		List<String> errorMsgs = new ArrayList<>();
-		Integer orderId = Integer.valueOf(req.getParameter("order_id"));
-		String orderNo = String.valueOf(req.getParameter("order_no"));
-		Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
-		Integer groupId = Integer.valueOf(req.getParameter("group_id"));
-		Integer tourist = Integer.valueOf(req.getParameter("tourist"));
-		Integer customerPoint = Integer.valueOf(req.getParameter("customer_point"));
-		Integer couponId = Integer.valueOf(req.getParameter("coupon_id"));
-		Integer totalAmt = Integer.valueOf(req.getParameter("total_amt"));
-		String orderStatus = String.valueOf(req.getParameter("order_status"));
+		String orderStatus = req.getParameter("orderStatus");
+		String orderId = req.getParameter("orderId");
+		System.out.println(orderId);
+		System.out.println(orderStatus);
 
-		Orders order = new Orders();
-		order.setOrderId(orderId);
-		order.setOrderNo(orderNo);
-		order.setCustomerId(customerId);
-		order.setGroupId(groupId);
-		order.setTourist(tourist);
-		order.setCustomerPoint(customerPoint);
-		order.setCouponId(couponId);
-		order.setTotalAmt(totalAmt);
-		order.setOrderStatus(orderStatus);
+		Orders order = ordersService.getOneOrder(Integer.parseInt(orderId));
+	    order.setOrderStatus(orderStatus);
+	    ordersService.updateOrder(order);
 
-		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("order", order);
-			return "/example/addEmp.jsp";
-		}
-
-		ordersService.updateOrder(order);
-
-		req.setAttribute("order", ordersService.getOneOrder(orderId));
-
-		return "/order/listOneEmp.jsp";
+	    req.setAttribute("order", order);
+	    return "/admin/orderList.html"; // 这里可以根据你的业务逻辑进行跳转
+	
 	}
 
 	private String insert(HttpServletRequest req, HttpServletResponse res) {

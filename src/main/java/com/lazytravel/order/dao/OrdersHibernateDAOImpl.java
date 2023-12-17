@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 
 import com.lazytravel.order.entity.Orders;
 import com.lazytravel.util.HibernateUtil;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Order;
 
 public class OrdersHibernateDAOImpl implements OrdersHibernateDAO {
 
@@ -108,6 +110,28 @@ public class OrdersHibernateDAOImpl implements OrdersHibernateDAO {
 		return list;
 //		return getSession().createQuery("from orders", Orders.class).list();
     }
+	
+	
+	@Override
+	public String getJourneyNameByOrderId(Integer orderId) {
+		Session session = getSession();
+		String orderName = null;
+		String statement = "SELECT journey.journey_name FROM orders JOIN tour_group ON orders.group_id = tour_group.group_id "
+						 + "JOIN journey ON journey.journey_id = tour_group.journey_id where orders.order_id = :orderId";
+		try {
+			session.beginTransaction();
+			orderName = (String)session.createNativeQuery(statement)
+								.setParameter("orderId",orderId)
+								.uniqueResult();
+			
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		
+		return orderName;
+	}
 	
 
 }

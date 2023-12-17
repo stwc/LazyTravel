@@ -44,8 +44,9 @@ public class Coupon implements Serializable{
 	private Integer total;
 	
 	
-	@Column(name = "coupon_status" , columnDefinition = "char" )
-	private String couponStatus;
+	@Column(name = "coupon_status", columnDefinition = "char", nullable = false, length = 1)
+	private String couponStatus = "1";
+
 	
 	public Coupon() {
 		super();

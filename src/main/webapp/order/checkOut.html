@@ -91,7 +91,7 @@
           <hr class="mx-1 border-2">
           <p class="card-subtitle mb-4 fw-bold " style="color: #6B705C;">訂單小計：<span class="total_amt ms-2"></span></p>
 
-          <a href="#" class="btn btn-outline-info mt-3" tabindex="-1" role="button" aria-disabled="true">再考慮一下，回上一頁</a>
+          <a href="#" id="customButton" class="btn mt-3" tabindex="-1" role="button" aria-disabled="true">回上一頁</a>
 
         </div>
       </div>
@@ -106,13 +106,19 @@
           折扣使用
         </div>
         <div class="card-body">
-          <h5 class="card-title ms-5" style="font-size: 24px; font-weight: 600; color: gray;">會員金使用</h5>
+          <h5 class="card-title ms-5 my-3" style="font-size: 24px; font-weight: 600; color: gray;">會員金使用</h5>
           <div class="ms-5">
             <input type="text ms-5" style="font-size: 24px; font-weight: 600; color: gray;">
             <button type="button" class="btn btn-secondary btn-sm">使用</button>
             <span class="text-body-secondary ms-2 fw-bold"> ( 尚有會員金 xx 點 ) </span>
           </div>
 
+          <h5 class="card-title ms-5 my-3" style="font-size: 24px; font-weight: 600; color: gray;">新增優惠券</h5>
+          <div class="ms-5">
+            <input type="text ms-5" style="font-size: 24px; font-weight: 600; color: gray;">
+            <button type="button" class="btn btn-secondary btn-sm">新增</button>
+            <span id="errorMessage" class="ms-2 " style="color: red;"> 無效優惠券 </span>
+          </div>
 
           <div class="container mt-5">
             <p style="font-size: 24px; font-weight: 600; color: gray;">選擇優惠券：</p>
@@ -389,7 +395,7 @@
         // 在這裡可以添加其他點擊前後的處理邏輯
         window.location.href = 'paycheck.html';
       }
-      
+
     }
 
 
