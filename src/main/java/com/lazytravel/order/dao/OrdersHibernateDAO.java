@@ -11,6 +11,7 @@ public interface OrdersHibernateDAO {
 	void update(Orders orders);
 	Orders getOrdersByOrdersId(Integer orderId);
 	Orders getOrdersByOrdersNo(Integer orderNo);
+	String getJourneyNameByOrderId(Integer orderId);
 
 	List<Orders> getAll(); 
 	
