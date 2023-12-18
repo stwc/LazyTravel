@@ -1,4 +1,4 @@
-package com.lazytravel.order.dao;
+package com.lazytravel.order.dao.JDBC;
 
 import java.util.List;
 

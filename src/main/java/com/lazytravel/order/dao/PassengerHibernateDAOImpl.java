@@ -1,12 +1,11 @@
 package com.lazytravel.order.dao;
 
-import java.sql.Date;
+
 import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.lazytravel.order.entity.Coupon;
 import com.lazytravel.order.entity.Passenger;
 import com.lazytravel.util.HibernateUtil;
 
@@ -54,6 +53,24 @@ public class PassengerHibernateDAOImpl implements PassengerHibernateDAO{
 //		return getSession.get(Passenger.class, passengerId);
 	}
 	
+	
+	@Override
+    public List<Passenger> getByOrderId(Integer orderId) {
+        Session session = getSession();
+        List<Passenger> passengers = null;
+        try {
+            session.beginTransaction();
+            passengers = session.createQuery("FROM Passenger WHERE orderId = :orderId", Passenger.class)
+                    .setParameter("orderId", orderId)
+                    .getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        return passengers;
+    }
+	
 	@Override
 	public void update(Passenger passenger) {
 		Session session = getSession();
@@ -89,10 +106,11 @@ public class PassengerHibernateDAOImpl implements PassengerHibernateDAO{
 	}
 	
 	
-//	public static void main(String args[]) {
-//
+	public static void main(String args[]) {
+
 //	    PassengerHibernateDAO dao = new PassengerHibernateDAOImpl();
 //		Passenger passenger = null;
+//		List<Passenger> paslist = null;
 //
 //		passenger = new Passenger();
 //		passenger.setOrderId(31001);
@@ -114,8 +132,12 @@ public class PassengerHibernateDAOImpl implements PassengerHibernateDAO{
 //		dao.update(passenger);
 //		System.out.println("更新成功");
 //		
-//		
-//
-//	}
+//		//用orderId查單筆
+//		paslist = dao.getByOrderId(31001);
+//		System.out.println(paslist);
+	
+	
+
+	}
 
 }

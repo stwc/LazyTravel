@@ -81,7 +81,7 @@ public class CouponHibernateDAOImpl implements CouponHibernateDAO {
 		try {
 			session.beginTransaction();
 			
-			list = session.createQuery("form Coupon", Coupon.class).list();
+			list = session.createQuery("from Coupon", Coupon.class).list();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,7 +121,11 @@ public class CouponHibernateDAOImpl implements CouponHibernateDAO {
 //		dao.update(coupon);
 //		System.out.println("更新成功");
 		
-		
+//		查詢全部
+		List<Coupon> couponList = dao.getAll();
+		for(Coupon item : couponList) {
+			System.out.println(item);
+		}
 
 	}
 
