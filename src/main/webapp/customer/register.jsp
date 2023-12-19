@@ -1,4 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.lazytravel.customer.entity.Customer" %>
+
+<%
+  // 已經登入過就無法進來註冊頁面，重導回首頁
+  if (session.getAttribute("customer") != null) {
+    response.sendRedirect(request.getContextPath() + "/index.jsp");
+    return;
+  }
+
+  // 會員新增失敗
+  Boolean insertFailed = false;
+  if (request.getAttribute("insertFailed") != null)
+    insertFailed = (Boolean) request.getAttribute("insertFailed");
+  // 還原輸入過的資料
+  Customer customer = (Customer) request.getAttribute("customer");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,10 +35,13 @@
 <div class="container d-flex justify-content-center mb-5">
   <form method="post" action="<%=request.getContextPath()%>/customer/register.do" class="row border m-3 p-3 rounded-3">
     <h2 class="mb-4">註冊會員</h2>
+    <div class="alert alert-warning <%= (insertFailed) ? "" : "d-none" %>" role="alert">
+      此Email信箱已註冊過，請重新輸入！
+    </div>
     <div class="col-12 mb-3">
       <label for="inputEmail" class="form-label">Email 信箱</label>
       <input type="email" name="email" class="form-control" id="inputEmail" placeholder="name@gmail.com"
-             aria-describedby="validationEmail" required>
+             aria-describedby="validationEmail" value="<%= (customer==null)? "" : customer.getEmail()%>" required>
       <div class="valid-feedback">
         格式正確
       </div>
@@ -58,7 +77,7 @@
     <div class="col-md-5 mb-3">
       <label for="inputName" class="form-label">姓名</label>
       <input type="text" name="customer_name" class="form-control" id="inputName" aria-describedby="validationName"
-             required>
+             value="<%= (customer==null)? "" : customer.getCustomerName()%>" required>
       <div class="valid-feedback">
         格式正確
       </div>
@@ -69,7 +88,7 @@
     <div class="col-md-5 mb-3">
       <label for="inputNickname" class="form-label">暱稱</label>
       <input type="text" name="nickname" class="form-control" id="inputNickname" aria-describedby="validationNickname"
-             required>
+             value="<%= (customer==null)? "" : customer.getNickname()%>" required>
       <div class="valid-feedback">
         格式正確
       </div>
@@ -80,14 +99,14 @@
     <div class="col-md-2 mb-3">
       <label for="inputSex" class="form-label">性別</label>
       <select name="sex" id="inputSex" class="form-select">
-        <option value="0" selected>男</option>
-        <option value="1">女</option>
+        <option value="0" <%= (customer != null && customer.getSex().equals("0")) ? "selected" : ""%> >男</option>
+        <option value="1" <%= (customer != null && customer.getSex().equals("1")) ? "selected" : ""%> >女</option>
       </select>
     </div>
     <div class="col-md-4 mb-3">
       <label for="inputPhone" class="form-label">手機號碼</label>
       <input type="text" name="phone" class="form-control" id="inputPhone" aria-describedby="validationPhone"
-             required>
+             value="<%= (customer==null)? "" : customer.getPhone()%>" required>
       <div class="valid-feedback">
         格式正確
       </div>
@@ -97,7 +116,8 @@
     </div>
     <div class="col-md-4 mb-3">
       <label for="inputIdno" class="form-label">身份證</label>
-      <input type="text" name="idno" class="form-control" id="inputIdno" aria-describedby="validationIdno" required>
+      <input type="text" name="idno" class="form-control" id="inputIdno" aria-describedby="validationIdno"
+             value="<%= (customer==null)? "" : customer.getIdno()%>" required>
       <div class="valid-feedback">
         格式正確
       </div>
@@ -107,7 +127,8 @@
     </div>
     <div class="col-md-4 mb-3">
       <label for="inputBirth" class="form-label">生日</label>
-      <input type="date" name="birth" class="form-control" id="inputBirth" aria-describedby="validationBirth" required>
+      <input type="date" name="birth" class="form-control" id="inputBirth" aria-describedby="validationBirth"
+             value="<%= (customer==null)? "" : customer.getBirth()%>" required>
       <div class="valid-feedback">
         格式正確
       </div>
@@ -118,7 +139,7 @@
     <div class="col-12 mb-3">
       <label for="inputAddress" class="form-label">地址</label>
       <input type="text" name="address" class="form-control" id="inputAddress" aria-describedby="validationAddress"
-             required>
+             value="<%= (customer==null)? "" : customer.getAddress()%>" required>
       <div class="valid-feedback">
         格式正確
       </div>
@@ -128,8 +149,9 @@
     </div>
     <div class="col-12 mt-3">
       <%--        <input type="hidden" name="action" value="insert">--%>
-      <button type="submit" id="btn-signup" class="btn w-100" style="background-color: #6B705C;"><span
-              class="text-light">註冊</span></button>
+      <button type="submit" id="btn-signup" class="btn w-100" style="background-color: #6B705C;">
+        <span class="text-light">註冊</span>
+      </button>
     </div>
   </form>
 </div>
