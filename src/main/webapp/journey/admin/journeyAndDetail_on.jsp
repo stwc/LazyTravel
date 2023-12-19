@@ -293,25 +293,6 @@
 							<tr>
 								<td><input type="number" name="nth_day${journeyDetail.getIndex()}" value="${journeyDetail.getNthDay()}" class="nth_day_size"></td>
 								<td><input type="number" name="foodscape_id${journeyDetail.getIndex()}" value="${journeyDetail.getFoodScapeId()}" class="foodscape_id_size"></td>
-								
-<!-- 								<td> -->
-<%-- 								    <c:set var="startTimeStr" value="${journeyDetailList.getStartTime()}" /> --%>
-<%-- 									<c:set var="startTime" value="${dateFormat.parse(startTimeStr)}" /> --%>
-<%-- 									<c:set var="formattedStartTime" value="${outputFormat.format(startTime)}" /> --%>
-<%-- 								    <input type="time" name="start_time${journeyDetailList.getIndex()}" value="${formattedStartTime}" class="start_time_size">   --%>
-<!-- 								</td> -->
-<!-- 								<td> -->
-<%-- 								    <c:set var="endTimeStr" value="${journeyDetailList.getEndTime()}" /> --%>
-<%-- 									<c:set var="endTime" value="${dateFormat.parse(endTimeStr)}" /> --%>
-<%-- 									<c:set var="formattedEndTime" value="${outputFormat.format(endTime)}" /> --%>
-<%-- 								    <input type="time" name="end_time${journeyDetailList.getIndex()}" value="${formattedEndTime}" class="start_time_size">   --%>
-<!-- 								</td>								 -->
-								
-								
-								
-								
-								
-								
 						    	<td><input type="time" name="start_time${journeyDetail.getIndex()}" value="${journeyDetail.getStartTime()}" class="start_time_size"></td>
 						    	<td><input type="time" name="end_time${journeyDetail.getIndex()}" value="${journeyDetail.getEndTime()}" class="end_time_size"></td>
 						    	<td><button class="journey_detail_delete" onclick="deleteRow(this)"><b>-</b></button></td>
