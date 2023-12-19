@@ -51,6 +51,10 @@ public class RegisterHandler extends HttpServlet {
 
         // 抓前端送來的參數
         String email = req.getParameter("email");
+        if (customerService.isEmailExists(email)) {
+            req.setAttribute("insertFailed", true);
+            errorMsgs.add("此Email信箱已註冊過");
+        }
 
         String customerPasswd = req.getParameter("customer_passwd");
         Hash hash = Password.hash(customerPasswd).withBcrypt();
