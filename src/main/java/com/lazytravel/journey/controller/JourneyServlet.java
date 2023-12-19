@@ -27,6 +27,9 @@ import com.lazytravel.journey.dao.JourneyService;
 import com.lazytravel.journey.dao.JourneyServiceImpl;
 import com.lazytravel.journey.entity.Journey;
 import com.lazytravel.journey.entity.JourneyDetail;
+//import com.lazytravel.foodscape.entity.FoodScape;
+//import com.lazytravel.foodscape.dao.FoodScapeService;
+//import com.lazytravel.foodscape.dao.FoodScapeServiceImpl;
 
 @WebServlet(name = "JourneyServlet", value = "/journey/admin/journey.do")
 public class JourneyServlet extends HttpServlet {
@@ -91,136 +94,184 @@ public class JourneyServlet extends HttpServlet {
 
 	
 	private String addJourneyAndDetail(HttpServletRequest req, HttpServletResponse res) throws IOException {
-//		List<String> errorMsgs = new LinkedList<String>();
-//		req.setAttribute("errorMsgs", errorMsgs);
-//		
-//		// 1.接收請求參數 和 錯誤處理				
-//		String journeyName = req.getParameter("journey_name");
-//		String journeyNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,50}$";
-//		if (journeyName == null || journeyName.trim().length() == 0) {
-//			errorMsgs.add("請輸入行程名稱");
-//		} else if (!journeyName.matches(journeyNameReg)) {
-//			errorMsgs.add("行程名稱: 格式不符，僅限輸入中、英文字母、數字和_,長度範圍為2到50字");
-//		}
-//		
-//		Integer price = null;
-//		try {
-//			price = Integer.valueOf(req.getParameter("price").trim());
-//			if (price < 1) {
-//				errorMsgs.add("價格: 請輸入大於零的數字");
-//			}
-//		} catch (NumberFormatException e) {
-//			price = 0;
-//			errorMsgs.add("價格: 請輸入大於零的數字");
-//		}
-//		
-//		Integer days = null;
-//		try {
-//			days = Integer.valueOf(req.getParameter("days").trim());
-//			if (days < 1) {
-//				errorMsgs.add("行程天數: 請輸入大於零的數字");
-//			}
-//		} catch (NumberFormatException e) {
-//			days = 0;
-//			errorMsgs.add("行程天數: 請輸入大於零的數字");
-//		}
-//
-//		String journeyStatus = String.valueOf(req.getParameter("journey_status"));
-//		
-//		String content = req.getParameter("content"); 
-//		String contentReg = "^.{5,}$";
-//		if (content == null || content.trim().length() == 0) {
-//			errorMsgs.add("請輸入行程介紹");
-//		} else if (!content.matches(contentReg)) {
-//			errorMsgs.add("行程介紹: 長度最少5個字");
-//		}
-//		
-//		Journey journey = new Journey();
-//		journey.setJourneyName(journeyName);
-//		journey.setPrice(price);
-//		journey.setDays(days);
-//		journey.setJourneyStatus(journeyStatus);
-//		journey.setContent(content);
-//		
-//		
-////		List<JourneyDetail> journeyDetailList = new ArrayList<>();
-////		
-////		int journeyDetailListSize = (int) req.getAttribute("journeyDetailListSize");
-////		for (int i = 1; i < journeyDetailListSize+1; i++) {
-////			JourneyDetail detail = new JourneyDetail();
-//			
-//			Integer nthDay = null;
-//			try {
-//				nthDay = Integer.valueOf(req.getParameter("nth_day").trim());
-//				if(nthDay < 1) {
-////					errorMsgs.add("第" + i + "筆 行程細項-第幾天 : 請輸入大於零的數字");
-//				}
-//			} catch (NumberFormatException e) {
-//				nthDay = 0;
-////				errorMsgs.add("第" + i + "筆 行程細項-第幾天 : 請輸入大於零的數字");
-//			}
-//			
-//			Integer foodScapeId = Integer.valueOf(req.getParameter("foodscape_id"));
-//			String foodScapeIdStr = req.getParameter("foodscape_id");
-//			if (foodScapeIdStr == null || foodScapeIdStr.trim().length() == 0) {
-////				errorMsgs.add("第" + i + "筆 行程細項-美食景點ID : 欄位不可以為空");
-//			}
-//			
-//			String startTimeStr = req.getParameter("start_time");
-//			Time startTime = null;
-//			if (startTimeStr != null && !startTimeStr.trim().isEmpty()) {
-//			    try {
-//			        LocalTime localTime = LocalTime.parse(startTimeStr, DateTimeFormatter.ofPattern("HH:mm"));
-//			        startTime = Time.valueOf(localTime);
-//			    } catch (DateTimeParseException e) {
-////					errorMsgs.add("第" + i + "筆 行程細項-時間起訖 : 開始時間格式有誤");
-//			    }
-//			} else {
-////				errorMsgs.add("第" + i + "筆 行程細項-時間起訖 : 開始時間不可以為空");
-//			}
-//			
-//			String endTimeStr = req.getParameter("end_time");
-//			Time endTime = null;
-//			if (startTimeStr != null && !startTimeStr.trim().isEmpty()) {
-//			    try {
-//			        LocalTime localTime = LocalTime.parse(startTimeStr, DateTimeFormatter.ofPattern("HH:mm"));
-//			        startTime = Time.valueOf(localTime);
-//			    } catch (DateTimeParseException e) {
-////					errorMsgs.add("第" + i + "筆 行程細項-時間起訖 : 結束時間格式有誤");
-//			    }
-//			} else {
-////				errorMsgs.add("第" + i + "筆 行程細項-時間起訖 : 結束時間不可以為空");
-//			}
-//
-////			
-////			journeyDetailList.add(detail);
-////		}
-//			
-//			List<JourneyDetail> journeyDetailList = new ArrayList<>();
-//			
-//			JourneyDetail journeyDetail = new JourneyDetail();
-//			journeyDetail.setFoodScapeId(foodScapeId);
-//			journeyDetail.setNthDay(nthDay);
-//			journeyDetail.setStartTime(startTime);
-//			journeyDetail.setEndTime(endTime);
-//
-//			journeyDetailList.add(journeyDetail);
-//
-//
-//		
-//		
-//		if(!errorMsgs.isEmpty()) {
-//			req.setAttribute("journey", journey);    
-//			req.setAttribute("journeyDetailList", journeyDetailList);    
-//			return "/journey/admin/journeyAndDetail_on.jsp";
-//		}
-//		
-//		// 2.根據請求參數新增資料
-//		Integer journeyId = journeySvc.addJourneyAndDetail(journey, journeyDetailList);
-//		
-//		// 3.update後的journey物件,存入req
-//		req.setAttribute("journey", journeySvc.getOneJourney(journeyId));
-//		req.setAttribute("journeyDetailList", journeyDetailSvc.getByJourneyId(journeyId));
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		// 1.接收請求參數 和 錯誤處理				
+		String journeyName = req.getParameter("journey_name");
+		String journeyNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,50}$";
+		if (journeyName == null || journeyName.trim().length() == 0) {
+			errorMsgs.add("請輸入行程名稱");
+		} else if (!journeyName.matches(journeyNameReg)) {
+			errorMsgs.add("行程名稱: 格式不符，僅限輸入中、英文字母、數字和_,長度範圍為2到50字");
+		}
+		
+		Integer price = null;
+		try {
+			price = Integer.valueOf(req.getParameter("price").trim());
+			if (price < 1) {
+				errorMsgs.add("價格: 請輸入大於零的數字");
+			}
+		} catch (NumberFormatException e) {
+			price = 0;
+			errorMsgs.add("價格: 請輸入大於零的數字");
+		}
+		
+		Integer days = null;
+		try {
+			days = Integer.valueOf(req.getParameter("days").trim());
+			if (days < 1) {
+				errorMsgs.add("行程天數: 請輸入大於零的數字");
+			}
+		} catch (NumberFormatException e) {
+			days = 0;
+			errorMsgs.add("行程天數: 請輸入大於零的數字");
+		}
+
+		String journeyStatus = String.valueOf(req.getParameter("journey_status"));
+		
+		String content = req.getParameter("content"); 
+		String contentReg = "^.{5,}$";
+		if (content == null || content.trim().length() == 0) {
+			errorMsgs.add("請輸入行程介紹");
+		} else if (!content.matches(contentReg)) {
+			errorMsgs.add("行程介紹: 長度最少5個字");
+		}
+		
+		Journey journey = new Journey();
+		journey.setJourneyName(journeyName);
+		journey.setPrice(price);
+		journey.setDays(days);
+		journey.setJourneyStatus(journeyStatus);
+		journey.setContent(content);
+		
+
+		// 取得前端傳來的行程明細的index值
+		List<Integer> indexList = new ArrayList<>();
+		
+		Integer totalIndex = 0;	
+	    try {
+	    	totalIndex = Integer.valueOf(req.getParameter("totalIndex"));
+	    	if(totalIndex < 1) {
+	    		errorMsgs.add("請輸入行程細項");
+	    	}
+	    } catch (NumberFormatException e) {
+	    	errorMsgs.add("請輸入行程細項");
+	    }
+		
+
+		for (int i=1; i<=totalIndex; i++) {
+			String indexName = "index" + i;
+			
+			String indexStr = req.getParameter(indexName);
+			if(indexStr == null) {
+				continue;
+			}
+			
+			Integer index = Integer.valueOf(req.getParameter(indexName));
+			indexList.add(index);
+		}
+		
+		
+        // 使用迭代器，將行程明細對應的資料存入物件，再放入集合中
+		List<JourneyDetail> journeyDetailList = new ArrayList<JourneyDetail>();
+
+		Iterator<Integer> iterator = indexList.iterator();
+        while (iterator.hasNext()) {
+            Integer index = iterator.next();
+			String nthDayName = "nth_day" + index;
+			String foodScapeIdName = "foodscape_id" + index;
+			String startTimeName = "start_time" + index;
+			String endTimeName = "end_time" + index;
+			
+			
+			Integer nthDay = null;
+			try {
+				nthDay = Integer.valueOf(req.getParameter(nthDayName).trim());
+				if(nthDay < 1) {
+					errorMsgs.add("第" + index + "筆 行程細項: 第幾天 請輸入大於零的數字");
+				}
+			} catch (NumberFormatException e) {
+				nthDay = 0;
+				errorMsgs.add("第" + index + "筆 行程細項: 第幾天 請輸入大於零的數字");
+			}
+			
+			Integer foodScapeId = null;
+			String foodScapeIdStr = req.getParameter(foodScapeIdName);
+			if (foodScapeIdStr == null || foodScapeIdStr.trim().length() == 0) {
+				errorMsgs.add("第" + index + "筆 行程細項: 請輸入美食景點ID");
+			} else {
+			    try {
+			        foodScapeId = Integer.valueOf(req.getParameter(foodScapeIdName));
+			        
+//					// 判斷foodScapeId是否存在資料庫
+//					FoodScapeService foodScapeSvc = new FoodScapeServiceImpl();
+//					FoodScape foodScape = foodScapeSvc.getFoodScapeByFoodScapeId(foodScapeId);
+//					if(foodScape == null) {
+//						errorMsgs.add("第" + index + "筆 行程細項: 查無此美食景點ID");
+//					}
+			        
+			    } catch (NumberFormatException e) {
+			        errorMsgs.add("第" + index + "筆 行程細項: 美食景點ID 輸入格式錯誤");
+			    }
+			}
+			
+			Time startTime = null;
+			try {
+				String startTimeStr = req.getParameter(startTimeName).trim();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+		        java.util.Date parsedStartTime = dateFormat.parse(startTimeStr);
+		        startTime = new Time(parsedStartTime.getTime());
+			} catch (ParseException e) {
+			    errorMsgs.add("第" + index + "筆 行程細項: 請輸入開始時間");
+			}
+			
+			Time endTime = null;
+			try {
+				String endTimeStr = req.getParameter(endTimeName).trim();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+		        java.util.Date parsedEndTime = dateFormat.parse(endTimeStr);
+		        endTime = new Time(parsedEndTime.getTime());
+			} catch (ParseException e) {
+			    errorMsgs.add("第" + index + "筆 行程細項: 請輸入結束時間");
+			}
+			
+			
+			JourneyDetail journeyDetail = new JourneyDetail(); 
+			journeyDetail.setNthDay(nthDay);
+			journeyDetail.setFoodScapeId(foodScapeId);
+			journeyDetail.setStartTime(startTime);
+			journeyDetail.setEndTime(endTime);
+			journeyDetail.setIndex(index);
+			journeyDetailList.add(journeyDetail);
+			
+			req.setAttribute("index", index);
+			req.setAttribute("totalIndex", totalIndex);
+        }
+		
+//        for(JourneyDetail jdl : journeyDetailList) {
+//        	System.out.println(jdl.getNthDay());
+//        	System.out.println(jdl.getFoodScapeId());
+//        	System.out.println(jdl.getStartTime());
+//        	System.out.println(jdl.getEndTime());
+//        	System.out.println(jdl.getIndex());
+//        }
+        
+        
+		
+		if(!errorMsgs.isEmpty()) {
+			req.setAttribute("journey", journey);    
+			req.setAttribute("journeyDetailList", journeyDetailList);    
+			return "/journey/admin/journeyAndDetail_on.jsp";
+		}
+		
+		// 2.根據請求參數新增資料
+		Integer journeyId = journeySvc.addJourneyAndDetail(journey, journeyDetailList);
+		
+		// 3.update後的journey物件,存入req
+		req.setAttribute("journey", journeySvc.getOneJourney(journeyId));
+		req.setAttribute("journeyDetailList", journeyDetailList);    
+		
 		return "/journey/admin/journey_list.jsp";		
 	}
 	

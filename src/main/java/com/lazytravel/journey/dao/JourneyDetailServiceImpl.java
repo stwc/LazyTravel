@@ -38,8 +38,8 @@ public class JourneyDetailServiceImpl implements JourneyDetailService {
 	}
 
 	@Override
-	public List<JourneyDetail> addList(List<JourneyDetail> journeyDetail) {
-		return dao.addList(journeyDetail);
+	public List<JourneyDetail> addList(List<JourneyDetail> journeyDetail, Integer journeyId) {
+		return dao.addList(journeyDetail, journeyId);
 	}
 	
 
