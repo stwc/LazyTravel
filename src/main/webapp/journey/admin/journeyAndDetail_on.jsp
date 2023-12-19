@@ -4,6 +4,8 @@
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 
+<%@ page import="java.text.SimpleDateFormat" %>
+
 <%@ include file="/admin/header.html" %>
 
 <!DOCTYPE html>
@@ -167,12 +169,35 @@
     div.div_detal_time{
 		margin-bottom: 2px;
     }
+    
+    input.nth_day_size{
+        pointer-events: none;
+        width:70px;
+        border: none;
+    }
+
+    input.foodscape_id_size{
+        pointer-events: none;
+        width:110px;
+        border: none;
+    }
+
+    input.start_time_size,
+    input.end_time_size{
+        pointer-events: none;
+        width:110px;
+        border: none;
+    }
 </style>
 
 <% 
 	// 在JourneyServlet.java 存入req的Journey物件，並對journey的setAttribute 
 	Journey journey = (Journey) request.getAttribute("journey");
-	JourneyDetail journeyDetailList = (JourneyDetail) request.getAttribute("journeyDetailList");
+
+	List<JourneyDetail> journeyDetailList = (List<JourneyDetail>) request.getAttribute("journeyDetailList");
+
+	SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+	SimpleDateFormat outputFormat = new SimpleDateFormat("HH:mm");
 %>
 
 </head>
@@ -224,12 +249,12 @@
 			<div>
 				<div class="div_nthDay">
 					<label>第幾天 :</label>
-					<input type="number" id="day" name="nth_day" value="<%=(journeyDetailList == null) ? "0" : journeyDetailList.getNthDay()%>">
+					<input type="number" id="nth_day">
 				</div>
 				
 				<div class="div_detal_joyrneyId">
 					<label>美食景點ID / 名稱 :</label>
-					<input type="number" id="placeId" name="foodscape_id" value="<%=(journeyDetailList == null) ? "0" : journeyDetailList.getFoodScapeId()%>">
+					<input type="number" id="foodScope_Id">
 <!-- 					<select id="placeSelect"> -->
 <!-- 						<option value="22001" selected>陽明山一日遊</option> -->
 <!-- 						<option value="22002">台北三天兩夜美食旅</option> -->
@@ -238,9 +263,9 @@
 							  
 				<div class="div_detal_time">
 					<label>開始時間 :</label>
-					<input type="time" id="start_time" name="foodscape_id" value="<%=(journeyDetailList == null) ? "00:00" : journeyDetailList.getFoodScapeId()%>">
+					<input type="time" id="start_time">
 					<label>結束時間 :</label>
-					<input type="time" id="end_time" name="end_time" value="<%=(journeyDetailList == null) ? "00:00" : journeyDetailList.getEndTime()%>">
+					<input type="time" id="end_time">
 				</div>
 				
 				<button class="journey_detail_add" onclick="addRow(event)"><b>+</b></button>
@@ -248,16 +273,37 @@
 
 			<br>
 			<table id="journeyDetailsTable">
-				<tr>
-					<th>第幾天</th>
-					<th>美食景點ID</th>
-<!-- 					<th>美食景點名稱</th> -->
-					<th>時間起訖</th>
-<!-- 					<th>地址</th> -->
-					<th></th>
-				</tr>
-			</table>
-
+		        <thead>
+		            <tr>
+						<th>第幾天</th>
+						<th>美食景點ID</th>
+						<th>開始時間</th>
+						<th>結束時間</th>
+						<th></th>
+						<th></th>
+		            </tr>
+		        </thead>
+		        
+		        <tbody id="journeyDetailsBody">     
+		        	<!-- addRow()動態產生行程細項 -->
+		        	
+					<!-- 若有錯誤處理時，接收後端回傳數值並產生行程細項 -->					
+					<c:if test="${not empty errorMsgs}">
+						<c:forEach var="journeyDetail" items="${journeyDetailList}">
+							<tr>
+								<td><input type="number" name="nth_day${journeyDetail.getIndex()}" value="${journeyDetail.getNthDay()}" class="nth_day_size"></td>
+								<td><input type="number" name="foodscape_id${journeyDetail.getIndex()}" value="${journeyDetail.getFoodScapeId()}" class="foodscape_id_size"></td>
+						    	<td><input type="time" name="start_time${journeyDetail.getIndex()}" value="${journeyDetail.getStartTime()}" class="start_time_size"></td>
+						    	<td><input type="time" name="end_time${journeyDetail.getIndex()}" value="${journeyDetail.getEndTime()}" class="end_time_size"></td>
+						    	<td><button class="journey_detail_delete" onclick="deleteRow(this)"><b>-</b></button></td>
+						    	<td><input type="hidden" name="index${journeyDetail.getIndex()}" value="${journeyDetail.getIndex()}"></td>	
+							</tr>
+						</c:forEach>
+					</c:if>
+		
+		        </tbody>
+		    </table>
+		    
 
 			<br> <br>
 			<div>
@@ -269,6 +315,7 @@
 			<div class="div_btn">
 				<button type="submit" name="journeyAndDetail_add" class="btn_submit">送出</button>
 				<input type="hidden" name="action" value="journeyAndDetail_add">
+				<input type="hidden" id="totalIndex" name="totalIndex" value="0">
 				
 				<button type="reset" class="btn_reset" onclick="redirectToJourneyList()">取消</button>
 			</div>
@@ -290,57 +337,58 @@
 		function redirectToJourneyList() {
 			window.location.href = contextPath + "/journey/admin/journey_list.jsp";
 		}
+
 		
+		var index = 0;
+		var totalIndex = parseInt(document.getElementById("totalIndex").value);
+		
+		<c:if test="${not empty errorMsgs}">
+	        var index = <%= request.getAttribute("index") %>;
+	        var totalIndex = <%= request.getAttribute("totalIndex") %>;
+		</c:if>
 		
 		function addRow(event) {
-			event.preventDefault();
-
-		    var nthDay = document.getElementById("day").value;
-		    var foodScapeId = document.getElementById("placeId").value;
-		    var startTime = document.getElementById("start_time").value;
-		    var endTime = document.getElementById("end_time").value;
+		    event.preventDefault();
 		    
-		    // 新增一個row，並依序加入對應的值
-		    var table = document.getElementById("journeyDetailsTable");
-		    var newRow = table.insertRow(table.rows.length);
-		    var cell0 = newRow.insertCell(0);
-		    var cell1 = newRow.insertCell(1);
-		    var cell2 = newRow.insertCell(2);
-		    var cell3 = newRow.insertCell(3);
-
-		    cell0.innerHTML = nthDay;
-		    cell1.innerHTML = foodScapeId;
-		    cell2.innerHTML = startTime + " ~ " + endTime;
-		    cell3.innerHTML = '<button class="journey_detail_delete" onclick="deleteRow(this)"><b>-</b></button>';
+			index++;
+			totalIndex++;
+			document.getElementById("totalIndex").value = totalIndex;
+			
+		    var nthDayJS = document.getElementById("nth_day").value;
+		    var foodScapeIdJS = document.getElementById("foodScope_Id").value;
+		    var startTimeJS = document.getElementById("start_time").value;
+		    var endTimeJS = document.getElementById("end_time").value;
+			
+		    var nthDayName = "nth_day" + index;
+		    var foodScapeIdName = "foodscape_id" + index;
+		    var startTimeName = "start_time" + index;
+		    var endTimeName = "end_time" + index;
+		    var indexName = "index" + index;
 		    
-<%-- 			<% request.getParameter("nthDay"); %> --%>
-<%-- 			<% request.getParameter("foodScapeId"); %> --%>
-<%-- 			<% request.getParameter("startTime"); %> --%>
-<%-- 			<% request.getParameter("endTime"); %> --%>
+		    var newRow = document.createElement("tr");
+		    newRow.innerHTML = 
+		    	'<td><input type="number" name="' + nthDayName + '" value="' +　nthDayJS　+ '" class="nth_day_size"></td>' + 
+		    	'<td><input type="number" name="' + foodScapeIdName + '" value="' +　foodScapeIdJS　+ '" class="foodscape_id_size"></td>' + 
+		    	'<td><input type="time" name="' + startTimeName + '" value="' +　startTimeJS　+ '" class="start_time_size"></td>' + 
+		    	'<td><input type="time" name="' + endTimeName + '" value="' +　endTimeJS　+ '" class="end_time_size"></td>' + 
+		    	'<td><button class="journey_detail_delete" onclick="deleteRow(this)"><b>-</b></button></td>' + 
+		    	'<td><input type="hidden" name="' + indexName + '" value="' + index + '"></td>';
+		    
+			var journeyDetailsBody = document.getElementById("journeyDetailsBody");
+			journeyDetailsBody.appendChild(newRow);
 			
-<%-- 			<% request.setParameter("nthDay", nthDay); %> --%>
-<%-- 			<% request.setParameter("foodScapeId", foodScapeId); %> --%>
-<%-- 			<% request.setParameter("startTime", startTime); %> --%>
-<%-- 			<% request.setParameter("endTime", endTime); %> --%>
-			
-// 			var newRowData = {
-// 			nthDay: "${journeyDetailList.nthDay}",
-// 			foodScapeId: "${journeyDetailList.foodScapeId}",
-// 			startTime: "${journeyDetailList.startTime}",
-// 			endTime: "${journeyDetailList.endTime}"
-// 			};
-
-// 			journeyDetailList.add(newRowData);
+			console.log(nthDayName);
+			console.log(foodScapeIdName);
+			console.log(startTimeName);
+			console.log(endTimeName);
+			console.log(index);
+			console.log(totalIndex);
 		}
+
 		
 		function deleteRow(button) {
 		    var row = button.parentNode.parentNode;   // button的父節點tr
 		    row.remove();
-
-// 		    var rowIndex = row.rowIndex - 1;
-// 		    if (rowIndex >= 0) {
-// 		        journeyDetailList.splice(rowIndex, 1);
-// 		    }
 		}
 		
 	</script>

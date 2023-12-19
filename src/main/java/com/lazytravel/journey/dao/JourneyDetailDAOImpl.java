@@ -108,14 +108,26 @@ public class JourneyDetailDAOImpl implements JourneyDetailDAO {
 	}
 
 	@Override
-	public List<JourneyDetail> addList(List<JourneyDetail> journeyDetail) {
+	public List<JourneyDetail> addList(List<JourneyDetail> journeyDetail, Integer journeyId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		List<JourneyDetail> journeyDetailList = new ArrayList<JourneyDetail>();
 		try {
-			session.beginTransaction();
+			session.beginTransaction();		
 			
 			for(JourneyDetail object : journeyDetail) {
-				journeyDetailList.add((JourneyDetail) session.save(object));
+				object.setJourneyId(journeyId);
+				
+				// session.merge()
+			    JourneyDetail mergedDetail = (JourneyDetail) session.merge(object);
+			    journeyDetailList.add(mergedDetail);
+				
+//	            // 使用session.persist()
+//	            JourneyDetail persistentDetail = (JourneyDetail) object;
+//	            session.persist(persistentDetail);
+//	            journeyDetailList.add(persistentDetail);
+				
+//			    // 使用session.save()
+//				journeyDetailList.add((JourneyDetail) session.save(object));
 			}
 			
 			session.getTransaction().commit();
