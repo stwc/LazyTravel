@@ -17,4 +17,6 @@ public interface CustomerService {
     Customer login(String email, String passwd);
 
     Boolean isEmailExists(String email);
+
+    Boolean resetPassword(String email, String oldPassword, String newPassword);
 }
