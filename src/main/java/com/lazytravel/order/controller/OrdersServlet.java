@@ -1,7 +1,7 @@
 package com.lazytravel.order.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-
 import com.google.gson.Gson;
-import com.lazytravel.example.dao.CustomerService;
-import com.lazytravel.example.entity.Customer;
+import com.google.gson.JsonObject;
 import com.lazytravel.order.entity.Orders;
 import com.lazytravel.order.service.OrdersService;
 
@@ -48,6 +45,10 @@ public class OrdersServlet extends HttpServlet {
               res.getWriter().write(jsonStr);
               return;
               
+		case "cancelorder":
+			cancelorder(req , res);
+			return;
+              
 
 		case "getOne_For_Display":
 			// // 來自select_page.jsp的請求
@@ -70,9 +71,14 @@ public class OrdersServlet extends HttpServlet {
 		case "insert":
 			forwardPath = insert(req, res);
 			break;
+
 		
 		case "getJourneyNameByOrderId" :
 			getJourneyNameByOrderId(req, res);
+			return;
+			
+		case "getOrderByCustomerId" :
+			getOrderByCustomerId(req , res);
 			return;
 
 		default:
@@ -84,13 +90,37 @@ public class OrdersServlet extends HttpServlet {
 		dispatcher.forward(req, res);
 
 	}
+	
+	private void cancelorder(HttpServletRequest req, HttpServletResponse res) {
+		Integer orderId = Integer.parseInt(req.getParameter("orderId"));
+		ordersService.cancelOrder(orderId);
+		
+		// 傳回取消成功的回應給前端
+	    Gson gson = new Gson();
+	    JsonObject jsonResponse = new JsonObject();
+	    jsonResponse.addProperty("success", true);
+	    
+	    System.out.println(jsonResponse);
+	    
+	    res.setContentType("application/json");
+	    res.setCharacterEncoding("UTF-8");
+	    PrintWriter out;
+		try {
+			out = res.getWriter();
+			out.print(gson.toJson(jsonResponse));
+			out.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 
 	private void getJourneyNameByOrderId(HttpServletRequest req, HttpServletResponse res) {
 		try {
 			Integer orderId = Integer.parseInt(req.getParameter("orderId"));
-			System.out.println(orderId);
 			String journeyName = ordersService.getJourneyNameByOrderId(orderId);
-			System.out.println(journeyName);
 			
 			// 使用 Gson 格式化數據
 	        Gson gson = new Gson();
@@ -108,6 +138,32 @@ public class OrdersServlet extends HttpServlet {
 	        }
 		}
 	}
+	
+	private void getOrderByCustomerId(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			Integer customerId = Integer.parseInt(req.getParameter("customerId"));
+			List<Orders> orders = ordersService.getOrderByCustomerId(customerId);
+			Gson gson = new Gson();
+	        String jsonResponse = gson.toJson(orders);
+	     // 設置響應類型為 JSON
+	        res.setContentType("application/json; charset=UTF-8");	
+	        res.getWriter().write(jsonResponse);
+	        
+			
+		} catch (Exception e) {
+			try {
+	            res.setContentType("application/json; charset=UTF-8");
+	            res.getWriter().write("{\"error\": \"Error processing request\"}");
+	        } catch (IOException ioException) {
+	            ioException.printStackTrace();
+	        }
+		}
+		
+		
+		
+	}
+		
+	
 
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
 		List<String> errorMsgs = new ArrayList<>();
@@ -187,8 +243,6 @@ public class OrdersServlet extends HttpServlet {
 		List<String> errorMsgs = new ArrayList<>();
 		String orderStatus = req.getParameter("orderStatus");
 		String orderId = req.getParameter("orderId");
-		System.out.println(orderId);
-		System.out.println(orderStatus);
 
 		Orders order = ordersService.getOneOrder(Integer.parseInt(orderId));
 	    order.setOrderStatus(orderStatus);
@@ -234,6 +288,13 @@ public class OrdersServlet extends HttpServlet {
 		;
 		return "/order/listAllEmp.jsp";
 
+	}
+	
+	private boolean updateOrderStatus(String orderId, int newStatus) {
+	    // 執行資料庫更新操作，將訂單狀態更新為 newStatus
+	    // 如果成功，返回true，否則返回false
+	    // 在實際應用中，您需要使用您的資料庫訪問代碼來執行這個操作
+	    return true; // 這裡假設操作總是成功的
 	}
 
 }
