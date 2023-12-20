@@ -24,7 +24,7 @@ public class BlogImg {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
-	private Integer blogId;
+	private Blog blog;
 	
 	@Column(name = "CREATE_TIME")
 	private Timestamp createTime;
@@ -65,16 +65,16 @@ public class BlogImg {
 
 	@Override
 	public String toString() {
-		return "BlogImg [blogImgId=" + blogImgId + ", blogId=" + blogId + ", createTime=" + createTime + ", img="
+		return "BlogImg [blogImgId=" + blogImgId + ", blog=" + blog + ", createTime=" + createTime + ", img="
 				+ Arrays.toString(img) + "]";
 	}
 
-	public Integer getBlogId() {
-		return blogId;
+	public Blog getBlog() {
+		return blog;
 	}
 
-	public void setBlogId(Integer blogId) {
-		this.blogId = blogId;
+	public void setBlog(Blog blog) {
+		this.blog = blog;
 	}
-	
+
 }

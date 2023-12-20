@@ -2,23 +2,20 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>會員中心-歷史訂單</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/orderDetails.css">
-<link rel="stylesheet"
-	href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-<script src="https://kit.fontawesome.com/cb6bf56872.js"
-	crossorigin="anonymous"></script>
-<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
-<style>
-#goBackButton {
-	background-color: #9C6644;
-	color: white;
-}
-</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>會員中心-歷史訂單</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/orderDetails.css">
+	<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+	<script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
+	<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+	<style>
+		#goBackButton {
+			background-color: #9C6644;
+			color: white;
+		}
+	</style>
 </head>
 
 
@@ -67,12 +64,12 @@
 			<div class="d-flex justify-content-end mx-3 my-3">
 				<button class="btn mx-5" id="goBackButton" onclick="goBack()">回上一頁</button>
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-					data-bs-target="#exampleModal" id="cancelOrderButton">取消訂單</button>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+					id="cancelOrderButton">取消訂單</button>
 
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -82,8 +79,7 @@
 							</div>
 							<div class="modal-body">按下去就掰掰囉，想清楚了嗎?</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">再想想</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">再想想</button>
 								<button type="submit" class="btn btn-primary" onclick="cancelButton()">取消訂單</button>
 							</div>
 						</div>
@@ -107,10 +103,8 @@
 
 	<footer id="footer"></footer>
 	<script src="https://code.jquery.com/jquery-3.7.1.js"
-		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
 
@@ -121,7 +115,7 @@
 	</script>
 
 	<script>
-		$(function() {
+		$(function () {
 			$("#header").load("../components/html/header.html");
 			$("#footer").load("../components/html/footer.html");
 			const urlParams = new URLSearchParams(window.location.search);
@@ -140,91 +134,91 @@
 			} else if (orderStatus == 2) {
 				$("#orderStatus").text('已取消')
 				// 隐藏取消订单按钮
-		        $("#cancelOrderButton").hide();
+				$("#cancelOrderButton").hide();
 			}
-			
-			
+
+
 
 			getJourByOrderId();
 			getPasDetails();
 		});
-		
-		function getJourByOrderId(){
-	    	 const urlParams = new URLSearchParams(window.location.search);
-	         const orderId = urlParams.get('order_id');
-	    	
-	    	$.ajax({
-	    		url: "http://localhost:8081/LazyTravel/order/order.do" ,
-	    		type: 'GET',
-	    		data: {"action" : "getJourneyNameByOrderId" , "orderId" : orderId},
-	    		dataType: 'json',
-	    		success: function (data){
-	    			let journeyName = data;
-	    			
-	    			if(journeyName){
-	    				$('#orderName').text(journeyName);
-	    			}
-	    		},
-	    		error: function (xhr, status, error) {
-	                console.error("Error fetching journeyName:", status, error);
-	            }
-	    	});
-	    }
-		
-		function getPasDetails(){
-	    	const urlParams = new URLSearchParams(window.location.search);
-	        const orderId = urlParams.get('order_id');
-	        
-	        $.ajax({
-	        	url: "http://localhost:8081/LazyTravel/order/passenger.do",
-	        	type: 'GET',
-	        	data: {"action" : "getPasDetails" , "orderId" : orderId },
-	        	dataType: 'json',
-	        	success: function (passengers) {
-	        		let tbody = "";
-	        		passengers.forEach((item, index) => {
 
-	        			tbody += `<tr>
+		function getJourByOrderId() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const orderId = urlParams.get('order_id');
+
+			$.ajax({
+				url: "http://localhost:8081/LazyTravel/order/order.do",
+				type: 'GET',
+				data: { "action": "getJourneyNameByOrderId", "orderId": orderId },
+				dataType: 'json',
+				success: function (data) {
+					let journeyName = data;
+
+					if (journeyName) {
+						$('#orderName').text(journeyName);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching journeyName:", status, error);
+				}
+			});
+		}
+
+		function getPasDetails() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const orderId = urlParams.get('order_id');
+
+			$.ajax({
+				url: "http://localhost:8081/LazyTravel/order/passenger.do",
+				type: 'GET',
+				data: { "action": "getPasDetails", "orderId": orderId },
+				dataType: 'json',
+				success: function (passengers) {
+					let tbody = "";
+					passengers.forEach((item, index) => {
+
+						tbody += `<tr>
 			                        <th scope="row">${index + 1}</th>
 			                        <td>${item.idno}</td>
 			                        <td>${item.passengerName}</td>
 			                        <td>${item.birth}</td>
 			                        <td>${item.phone}</td>
-			                      	</tr>`;              	
-	        		});
-	        		 $("table.table.mt-5 tbody").html(tbody);
-	        	},
-	        	error: function (xhr, status, error) {
-	                console.error("Error fetching passenger details:", status, error);
-	            }
-	        });
-	    }
+			                      	</tr>`;
+					});
+					$("table.table.mt-5 tbody").html(tbody);
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching passenger details:", status, error);
+				}
+			});
+		}
 
 		function cancelButton() {
 			const urlParams = new URLSearchParams(window.location.search);
-	        const orderId = urlParams.get('order_id');
-	        
-	        $.ajax({
-	        	url: "http://localhost:8081/LazyTravel/order/order.do",
-	        	type: 'POST',
-	        	data: {"action" : "cancelorder" , "orderId" : orderId },
-	        	dataType: 'json',
-	        	 success: function (response) {
-	        		 if (response.success) {
+			const orderId = urlParams.get('order_id');
 
-	                     // 顯示成功消息
-	                     alert("訂單已成功取消！");
-	                     
-	                     // 重新載入訂單明細頁面
-	                     location.href = "/LazyTravel/customorCenter/orderList.html";
-	                 } else {
-	                     alert("取消訂單失敗，請稍後再試。");
-	                 }
-	             },
-	        	error: function (xhr, status, error) {
-	                console.error("Error fetching passenger details:", status, error);
-	            }
-	        });
+			$.ajax({
+				url: "http://localhost:8081/LazyTravel/order/order.do",
+				type: 'POST',
+				data: { "action": "cancelorder", "orderId": orderId },
+				dataType: 'json',
+				success: function (response) {
+					if (response.success) {
+
+						// 顯示成功消息
+						alert("訂單已成功取消！");
+
+						// 重新載入訂單明細頁面
+						location.href = "/LazyTravel/customorCenter/orderList.html";
+					} else {
+						alert("取消訂單失敗，請稍後再試。");
+					}
+				},
+				error: function (xhr, status, error) {
+					console.error("Error fetching passenger details:", status, error);
+				}
+			});
 		}
 
 		function goBack() {

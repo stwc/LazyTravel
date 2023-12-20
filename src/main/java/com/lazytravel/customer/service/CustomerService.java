@@ -13,4 +13,8 @@ public interface CustomerService {
     Customer getOneCustomer(Integer customerId);
 
     List<Customer> getAll();
+
+    Customer login(String email, String passwd);
+
+    Boolean isEmailExists(String email);
 }
