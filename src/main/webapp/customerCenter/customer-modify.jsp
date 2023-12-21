@@ -198,7 +198,7 @@
 
 
     $("#btn-cancel").on("click", function () {
-        history.back();
+        window.location.replace("<%=request.getContextPath()%>/customerCenter/customer-center.jsp");
     });
 
     function validateRequired() {

@@ -3,6 +3,7 @@ package com.lazytravel.customer.service;
 import com.lazytravel.customer.dao.CustomerDAO;
 import com.lazytravel.customer.dao.CustomerDAOImpl;
 import com.lazytravel.customer.entity.Customer;
+import com.password4j.Hash;
 import com.password4j.Password;
 
 import java.util.List;
@@ -56,5 +57,18 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Boolean isEmailExists(String email) {
         return (dao.findByEmail(email) != null);
+    }
+
+    @Override
+    public Boolean resetPassword(String email, String oldPassword, String newPassword) {
+        Customer customer = login(email, oldPassword);
+        if (customer == null)
+            return false;
+
+        Hash hash = Password.hash(newPassword).withBcrypt();
+        String hashedPw = hash.getResult();
+        customer.setCustomerPasswd(hashedPw);
+        dao.update(customer);
+        return true;
     }
 }

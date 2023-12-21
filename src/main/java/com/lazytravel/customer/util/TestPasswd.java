@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/TestPasswd")
+//@WebServlet("/TestPasswd")
 public class TestPasswd extends HttpServlet {
     private CustomerService customerService;
 
