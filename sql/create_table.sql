@@ -55,17 +55,17 @@ CREATE TABLE CUSTOMER(
 ) AUTO_INCREMENT=11001;
 
 INSERT INTO CUSTOMER (CUSTOMER_NAME, NICKNAME, SEX, PHONE, BIRTH, ADDRESS, EMAIL, CUSTOMER_PASSWD, IDNO) 
-    VALUES ('王小明', '小明', 0, '0913798893', '1990-01-01', '台北市中正區重慶南路一段122號', 'wang19000101@gmail.com', '123456', 'A123456789');
+    VALUES ('王小明', '小明', 0, '0913798893', '1990-01-01', '台北市中正區重慶南路一段122號', 'wang19000101@gmail.com', '$2b$10$R7npZfTD9vlUIQDns6NR2eOPwPGI1yZowYrOjuAMOSb3.lwiiolqi', 'A123456789');
 INSERT INTO CUSTOMER (CUSTOMER_NAME, NICKNAME, SEX, PHONE, BIRTH, ADDRESS, EMAIL, CUSTOMER_PASSWD, IDNO) 
-    VALUES ('李志豪', '阿豪', 0, '0975886190', '1989-05-11', '台中市梧棲區臺灣大道十段168號', 'haoge9487@gmail.com', '123456', 'K948710591');
+    VALUES ('李志豪', '阿豪', 0, '0975886190', '1989-05-11', '台中市梧棲區臺灣大道十段168號', 'haoge9487@gmail.com', '$2b$10$9.cdcyWHle3GqlBs3mLe7e/Bi3geOQ3PTvyKMq4JrZ8flA/jywsKy', 'K948710591');
 INSERT INTO CUSTOMER (CUSTOMER_NAME, NICKNAME, SEX, PHONE, BIRTH, ADDRESS, EMAIL, CUSTOMER_PASSWD, IDNO)
-    VALUES ('黃品誼', 'EE', 1, '0971753321', '1996-12-25', '台南市東區大學路1號', 'yeeeeeeee11111@gmail.com', '123456', 'K246456997');
+    VALUES ('黃品誼', 'EE', 1, '0971753321', '1996-12-25', '台南市東區大學路1號', 'yeeeeeeee11111@gmail.com', '$2b$10$IKnxYhhamnaLnVamiCEWUuv1g1gLynhdv4YWZGpE.m21ucnjVk5GK', 'K246456997');
 INSERT INTO CUSTOMER (CUSTOMER_NAME, NICKNAME, SEX, PHONE, BIRTH, ADDRESS, EMAIL, CUSTOMER_PASSWD, IDNO)
-    VALUES ('李淑芬', '芬姐', 1, '0910096323', '1968-09-03', '桃園市桃園區南平路303號', 'fannylee168@gmail.com', '123456', 'H223066223');
+    VALUES ('李淑芬', '芬姐', 1, '0910096323', '1968-09-03', '桃園市桃園區南平路303號', 'fannylee168@gmail.com', '$2b$10$8XbdpentIcewMzZCGch.qe3dCHOvATNp2fLtWl2RpTcLphToY/7dm', 'H223066223');
 INSERT INTO CUSTOMER (CUSTOMER_NAME, NICKNAME, SEX, PHONE, BIRTH, ADDRESS, EMAIL, CUSTOMER_PASSWD, IDNO)
-    VALUES ('白居易', '白白', 0, '0988878987', '1976-02-26', '臺北市中正區中山南路21號', 'whitecat@gmail.com', '123456', 'A123456987');
+    VALUES ('白居易', '白白', 0, '0988878987', '1976-02-26', '臺北市中正區中山南路21號', 'whitecat@gmail.com', '$2b$10$0yhvRzv4C6q6MhdJiePc.uZiPBJmeArymper3nP2BNKSIGOOriPsi', 'A123456987');
 INSERT INTO CUSTOMER (CUSTOMER_NAME, NICKNAME, SEX, PHONE, BIRTH, ADDRESS, EMAIL, CUSTOMER_PASSWD, IDNO)
-    VALUES ('柯阿文', '柯P', 0, '0907788191', '2022-11-18', '新竹縣竹北市六家六街1巷3號2樓', 'doctorkowj@gmail.com', '123456', 'Q123456987');
+    VALUES ('柯阿文', '柯P', 0, '0907788191', '2022-11-18', '新竹縣竹北市六家六街1巷3號2樓', 'doctorkowj@gmail.com', '$2b$10$gGOcpXpbv9X199OTJc5AuePJ3KkuQoOvd8BosjfYRcUh9aYbsJNpG', 'Q123456987');
 
 -- 客服訊息 --
 CREATE TABLE CS_MAIL (
