@@ -22,6 +22,9 @@ public class CouponHibernateDAOImpl implements CouponHibernateDAO {
 		return factory.getCurrentSession();
 	}
 
+	
+	
+	
 	@Override
 	public void add(Coupon coupon) {
 		Session session = getSession();
@@ -92,6 +95,27 @@ public class CouponHibernateDAOImpl implements CouponHibernateDAO {
 //		return getSession().createQuery("from Coupon", Coupon.class).list();
 
 	}
+	
+	@Override
+	public Coupon getCouponByCouponNo(String couponNo) {
+		Session session = getSession();
+		Coupon coupon = null;
+		try {
+			session.beginTransaction();
+			coupon = session.createQuery("from Coupon where serial_no = :couponNo" , Coupon.class)
+							.setParameter("couponNo",couponNo)
+							.uniqueResult();
+			session.getTransaction().commit();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		
+		return coupon;
+	}
+	
+	
 
 	public static void main(String args[]) {
 
@@ -122,11 +146,19 @@ public class CouponHibernateDAOImpl implements CouponHibernateDAO {
 //		System.out.println("更新成功");
 		
 //		查詢全部
-		List<Coupon> couponList = dao.getAll();
-		for(Coupon item : couponList) {
-			System.out.println(item);
-		}
+//		List<Coupon> couponList = dao.getAll();
+//		for(Coupon item : couponList) {
+//			System.out.println(item);
+//		}
+		
+//		查詢Serialno
+//		coupon = dao.getCouponByCouponNo("1111");
+//		System.out.println(coupon);
 
 	}
+
+	
+
+	
 
 }

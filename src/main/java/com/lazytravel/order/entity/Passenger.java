@@ -1,6 +1,7 @@
 package com.lazytravel.order.entity;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -108,6 +109,7 @@ public class Passenger {
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
+	
 
 
 	@Override

@@ -158,9 +158,9 @@
         	dataType: 'json',
         	success: function (passengers) {
         		let tbody = "";
-        		passengers.forEach((item) => {
+        		passengers.forEach((item , index) => {
         			tbody += `<tr>
-		                        <th scope="row">${item.passengerId}</th>
+		                        <th scope="row">${ index + 1 }</th>
 		                        <td>${item.idno}</td>
 		                        <td>${item.passengerName}</td>
 		                        <td>${item.birth}</td>
