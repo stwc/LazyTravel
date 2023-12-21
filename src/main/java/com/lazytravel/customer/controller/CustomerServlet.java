@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -58,6 +59,9 @@ public class CustomerServlet extends HttpServlet {
                 break;
             case "resetpw":
                 forwardPath = resetPw(req, res);
+                break;
+            case "logout":
+                forwardPath = logout(req, res);
                 break;
             default:
                 forwardPath = "/index.jsp";
@@ -173,5 +177,11 @@ public class CustomerServlet extends HttpServlet {
         } else {
             return "/customerCenter/customer-center.jsp";
         }
+    }
+
+    private String logout(HttpServletRequest req, HttpServletResponse res) {
+        HttpSession session = req.getSession();
+        session.removeAttribute("customer");
+        return "/customer/login.jsp";
     }
 }
