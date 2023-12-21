@@ -19,7 +19,7 @@
     <header class="justify-content-around">
       <nav class="navbar">
         <div class="container-fluid">
-          <a class="navbar-brand logo_link_trasition" href="#" style="color: white; font-weight: 600;">
+          <a class="navbar-brand logo_link_trasition" href="<%=request.getContextPath()%>/index.jsp" style="color: white; font-weight: 600;">
             <img src="<%=request.getContextPath()%>/static/images/logo.png" width="70" height="70" id="header-logo"
               class="d-inline-block align-text-center" alt="logo">
             LazyTravel
@@ -49,7 +49,7 @@
                 <a href="#" class="nav-link link_trasition dropdown-toggle" data-bs-toggle="dropdown"
                    style="color: white;">會員中心</a>
                 <ul class="dropdown-menu" style="position: absolute">
-                  <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customer/customorCenter/customer-center.html">會員資料</a></li>
+                  <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customorCenter/customer-center.jsp">會員資料</a></li>
                   <li><a class="dropdown-item" href="#">歷史訂單</a></li>
                   <li><a class="dropdown-item" href="#">優惠券</a></li>
                   <li><a class="dropdown-item" href="#">我的評價</a></li>

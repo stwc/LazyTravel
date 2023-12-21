@@ -1,7 +1,6 @@
 package com.lazytravel.journey.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;

@@ -17,7 +17,7 @@ public class JourneyServiceImpl implements JourneyService{
 	@Override
 	public Integer addJourneyAndDetail(Journey journey, List<JourneyDetail> list) {
 		Integer journeyId = dao.add(journey);
-		detailDao.addList(list);
+		detailDao.addList(list, journeyId);
 		return journeyId;
 	}
 	

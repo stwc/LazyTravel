@@ -12,6 +12,6 @@ public interface JourneyDetailService {
 //	JourneyDetail getOneJourneyDetail(Integer journeyId, Integer foodscapeId);
 	List<JourneyDetail> getByJourneyId(Integer journeyId);
 	
-	List<JourneyDetail> addList(List<JourneyDetail> journeyDetail);
+	List<JourneyDetail> addList(List<JourneyDetail> journeyDetail, Integer journeyId);
 
 }
