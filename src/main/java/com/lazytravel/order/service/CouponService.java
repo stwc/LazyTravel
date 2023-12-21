@@ -29,6 +29,20 @@ public class CouponService {
 		return dao.getAll();
 	}
 	
+	public Coupon getCouponByCouponNo(String couponNo) {
+		return dao.getCouponByCouponNo(couponNo);
+	}
+	
+	public Boolean checkCouponStock(String couponNo) {
+		Coupon coupon = dao.getCouponByCouponNo(couponNo);
+		Integer couponstock = coupon.getStock();
+		if(couponstock > 0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	
 	
 }

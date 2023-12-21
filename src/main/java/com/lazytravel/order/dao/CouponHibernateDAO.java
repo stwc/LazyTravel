@@ -9,6 +9,7 @@ public interface CouponHibernateDAO {
 	void add(Coupon coupon);
 	void update(Coupon coupon);
 	Coupon getCouponByCouponId(Integer couponId);
+	Coupon getCouponByCouponNo(String couponNo);
 	List<Coupon> getAll();
 
 
