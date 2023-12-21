@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +144,16 @@ public class CustomerServlet extends HttpServlet {
 
         String address = req.getParameter("address");
 
+        byte[] avatar = null;
+        try (InputStream in = req.getPart("avatar").getInputStream()) {
+            if (in.available() != 0)
+                avatar = in.readAllBytes();
+            else
+                avatar = customerService.getOneCustomer(customerId).getAvatar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // 假如輸入格式錯誤的，備份還原使用者輸入過的資料
         customer.setEmail(email);
         customer.setCustomerName(customerName);
@@ -152,6 +163,7 @@ public class CustomerServlet extends HttpServlet {
         customer.setIdno(idno);
         customer.setBirth(birth);
         customer.setAddress(address);
+        customer.setAvatar(avatar);
 
         // 輸入資料錯誤，請重新輸入
         if (!errorMsgs.isEmpty()) {
