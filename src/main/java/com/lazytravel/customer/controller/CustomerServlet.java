@@ -46,23 +46,23 @@ public class CustomerServlet extends HttpServlet {
                 res.setContentType("application/json; charset=UTF-8");
                 res.getWriter().write(jsonStr);
                 return;
-            case "getOne_For_Display":
-                // // 來自select_page.jsp的請求
-                forwardPath = getOneDisplay(req, res);
-                break;
-            case "getOne_For_Update":
-                // 來自listAllEmp.jsp的請求
-                forwardPath = getOneUpdate(req, res);
-                break;
             case "update":
-                // 來自update_emp_input.jsp的請求
+                // 來自customer-modify.jsp的請求
                 forwardPath = update(req, res);
                 break;
             case "resetpw":
+                // 來自customer-resetpw.jsp的請求
                 forwardPath = resetPw(req, res);
                 break;
             case "logout":
+                // 來自header.jsp的請求
                 forwardPath = logout(req, res);
+                break;
+            case "getOneModify":
+                forwardPath = getOneModify(req, res);
+                break;
+            case "changeStatus":
+                forwardPath = changeStatus(req, res);
                 break;
             default:
                 forwardPath = "/index.jsp";
@@ -71,45 +71,6 @@ public class CustomerServlet extends HttpServlet {
         res.setContentType("text/html; charset=UTF-8");
         RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
         dispatcher.forward(req, res);
-    }
-
-    private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
-        // 錯誤處理
-        List<String> errorMsgs = new ArrayList<>();
-        req.setAttribute("errorMsgs", errorMsgs);
-
-        String str = req.getParameter("customer_id");
-        if (str == null || str.trim().isEmpty())
-            errorMsgs.add("請輸入員工編號");
-        if (!errorMsgs.isEmpty())
-            return "/example/select_page.jsp";
-
-        Integer customerId = null;
-        try {
-            customerId = Integer.valueOf(str);
-        } catch (Exception e) {
-            errorMsgs.add("會員ID格式不正確");
-        }
-        if (!errorMsgs.isEmpty())
-            return "/example/select_page.jsp";
-
-        Customer customer = customerService.getOneCustomer(customerId);
-        if (customer == null)
-            errorMsgs.add("查無資料");
-        if (!errorMsgs.isEmpty())
-            return "/example/select_page.jsp";
-
-        req.setAttribute("customer", customer);
-        return "/example/listOneEmp.jsp";
-    }
-
-    private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
-        Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
-
-        Customer customer = customerService.getOneCustomer(customerId);
-
-        req.setAttribute("customer", customer);
-        return "/example/update_emp_input.jsp";
     }
 
     private String update(HttpServletRequest req, HttpServletResponse res) {
@@ -195,5 +156,23 @@ public class CustomerServlet extends HttpServlet {
         HttpSession session = req.getSession();
         session.removeAttribute("customer");
         return "/customer/login.jsp";
+    }
+
+    private String getOneModify(HttpServletRequest req, HttpServletResponse res) {
+        Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
+
+        Customer customer = customerService.getOneCustomer(customerId);
+
+        req.setAttribute("customer", customer);
+        return "/admin/customer-modify.jsp";
+    }
+
+    private String changeStatus(HttpServletRequest req, HttpServletResponse res) {
+        Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
+        String status = req.getParameter("customer_status");
+        Customer customer = customerService.getOneCustomer(customerId);
+        customer.setCustomerStatus(status);
+        customerService.updateCustomer(customer);
+        return "/admin/customer.jsp";
     }
 }

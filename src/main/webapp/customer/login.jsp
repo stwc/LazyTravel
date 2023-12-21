@@ -10,6 +10,10 @@
   Boolean loginFailed = false;
   if (request.getAttribute("loginFailed") != null)
     loginFailed = (Boolean) request.getAttribute("loginFailed");
+
+  Boolean isBanned = false;
+  if (request.getAttribute("isBanned") != null)
+    isBanned = (Boolean) request.getAttribute("isBanned");
 %>
 
 <!DOCTYPE html>
@@ -46,6 +50,9 @@
     <form method="post" action="<%=request.getContextPath()%>/customer/login.do" class="w-75">
       <div class="alert alert-warning <%= (loginFailed) ? "" : "d-none" %>" role="alert">
         Email信箱或密碼輸入錯誤，請重新輸入！
+      </div>
+      <div class="alert alert-danger <%= (isBanned) ? "" : "d-none" %>" role="alert">
+        該帳號已被停權！
       </div>
       <div class="mb-3">
         <label for="inputEmail" class="form-label">Email信箱</label>

@@ -3,6 +3,7 @@ package com.lazytravel.customer.controller;
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
+import com.lazytravel.customer.util.CustomerStatus;
 import com.password4j.Hash;
 import com.password4j.Password;
 
@@ -87,7 +88,7 @@ public class RegisterHandler extends HttpServlet {
         customer.setIdno(idno);
         customer.setBirth(birth);
         customer.setAddress(address);
-        customer.setCustomerStatus("1"); // 先暫時讓註冊會員狀態起始值為1
+        customer.setCustomerStatus(CustomerStatus.ACTIVE.getValue()); // 先暫時讓註冊會員狀態起始值為1
 
         // 輸入資料錯誤，請重新輸入
         if (!errorMsgs.isEmpty()) {
