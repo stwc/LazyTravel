@@ -56,6 +56,11 @@
                 <p>2023-12-22 10:00 AM</p>
             </div>
         </div>
+        
+         <div class="mb-3">
+                <label for="inputComment" class="form-label">回覆內容</label>
+                <textarea class="form-control" id="inputComment" rows="5" placeholder="請輸入回覆內容" required></textarea>
+            </div>
 
     </div>
     <div class="d-grid gap-1 col-1 mx-auto">

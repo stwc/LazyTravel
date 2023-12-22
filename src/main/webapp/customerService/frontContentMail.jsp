@@ -25,6 +25,7 @@
                         <th scope="col">發送日期</th>
                         <th scope="col">發送時間</th>
                         <th scope="col">信件標題</th>
+                        <th scope="col">信件狀態</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                         <td>2023-12-21</td>
                         <td>09:30 AM</td>
                         <td>標題內容。</td>
+                        <td>1</td>
                         <td><a href="#" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">查看詳情</a></td>
                     </tr>
                     <!-- 可以添加更多類似上面結構的表格行 -->

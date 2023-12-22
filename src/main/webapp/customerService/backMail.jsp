@@ -73,7 +73,7 @@ a#add:hover {
 							<td>${csMail.csMailStatus}</td>
 							<td>
 					<form method="post" ACTION="<%=request.getContextPath()%>/customerService/CSMail.do" style="margin-bottom: 0px;">
-                    <button type="submit" name="action" value="getOne_For_Update" class="btn-modify btn" class="btn-modify btn" style="background-color: #6B705C">修改</button>
+                    <button type="submit" name="action" value="getOne_For_Update" class="btn-modify btn" class="btn-modify btn" style="background-color: #6B705C">查看詳情</button>
                     <input type="hidden" name="mailId"  value="${csMail.getMailId()}">
                 </form>
 							</td>

@@ -34,11 +34,6 @@
                 <textarea class="form-control" id="inputComment" rows="5" placeholder="請輸入問題內容" required></textarea>
             </div>
 
-            <div class="mb-3">
-                <label for="inputImage" class="form-label">選擇圖片</label>
-                <input type="file" class="form-control" id="inputImage" accept="image/*">
-            </div>
-
             <div class="d-grid gap-1 col-1 mx-auto">
                 <button type="button" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">提交</button>
             </div>
