@@ -42,7 +42,7 @@
         <div class="col-6 col-md-2 mb-3">
           <h5>會員中心</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customorCenter/customer-center.jsp" class="nav-link p-0 text-muted">會員資料</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerCenter/customer-center.jsp" class="nav-link p-0 text-muted">會員資料</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">歷史訂單</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">優惠券</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">我的評價</a></li>
