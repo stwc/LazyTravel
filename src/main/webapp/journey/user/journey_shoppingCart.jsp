@@ -101,6 +101,7 @@
 	table thead th.cart_header_price,
 	table thead th.cart_header_amount,
 	table thead th.cart_header_total,
+	table thead th.cart_header_signData,
 	table thead th.cart_header_use {
 		text-align: center;
 	}
@@ -108,17 +109,33 @@
 	table tbody td.price,
 	table tbody td.amount,
 	table tbody td.total,
+	table tbody td.signData,
 	table tbody td.div_btn{
 		text-align: center;
 	}
 	
 	thead th, tbody td {
-		padding-bottom: 25px;
+        padding-bottom: 15px;
+		padding-top: 15px;
 	}
 	
  	th.cart_header_nameAndDate, td.name_and_date{
  		padding-left: 20px;
  	}
+ 	
+ 	table thead th.cart_header_total,
+ 	table tbody td.total{
+ 		padding-right: 20px;
+ 	}
+ 	
+ 	table thead th.cart_header_price,
+ 	table tbody td.price{
+ 		padding-left: 20px;
+ 	}
+ 	
+ 	form {
+        display: inline-block;
+    }
 </style>
 
 
@@ -130,56 +147,110 @@
     <main id="main">
         <div class="cart_title">購物車</div>
 		
-		<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do">
-	        <table class="table-responsive">
-				<thead>
-					<tr>
-						<th scope="col"></th>
-						<th scope="col" class="cart_header_nameAndDate">行程名稱 / 日期</th>
-						<th scope="col" class="cart_header_price">單價</th>
-						<th scope="col" class="cart_header_amount">數量</th>
-						<th scope="col" class="cart_header_total">總計</th>
-						<th scope="col" class="cart_header_use"></th>
-					</tr>
-				</thead>
-
-			
-				<tbody>
-	                <tr>
-						<td>
-							<img src="${pageContext.request.contextPath}/journey/images/journey1.jpg" alt="" class="img-fluid cart_main">
-						</td>
-						<td class="col-3 name_and_date">
-							<div class="name">陽明山一日遊111</div>
-							<div>113/01/01~113/01/01</div>
-						</td>
-						<td class="col-1 price">
-							<span>$</span>
-							<span>300</span></td>
-						<td class="col-2 amount">
-							<button class="amount_reduce" onclick="reduce(this)"><b>-</b></button>
-							<label class="count mx-3">1</label>
-							<button class="amount_plus"  onclick="plus(this)"><b>+</b></button>
-						</td>
-						<td class="col-1 total">
-							<span>$</span>
-							<span>300</span>
-						</td>
-						<td class="col-3 div_btn">
-							<button type="submit" class="btn_submit">結帳</button>
-							<button type="button" class="btn_delete" onclick="deleteJourney(this)">刪除</button>
-						</td>
-					</tr>
-			
-	            </tbody>
-        	</table>
+	    <table class="table-responsive">
+			<thead style="border-bottom: 1px dotted #a1a397;">
+				<tr>
+					<th scope="col" class="cart_header_nameAndDate">行程名稱 / 日期</th>
+					<th scope="col" class="cart_header_price">單價</th>
+					<th scope="col" class="cart_header_amount">數量</th>
+					<th scope="col" class="cart_header_total">總計</th>
+					<th scope="col" class="cart_header_signData">是否成團&nbsp;/&nbsp;剩餘報名人數</th>
+					<th scope="col" class="cart_header_use"></th>
+				</tr>
+			</thead>
 	
-	        <br>
-	        <br>
-	        <div class="btn_button">
-	            <button type="button" onclick="redirectToHome()">繼續逛逛</button>
-	        </div>
-		</form>
+			<tbody>
+			
+				<c:forEach var="tourGroup" items="${tourGroupList}" varStatus="loop">
+					<tr>
+						<td class="col-3 name_and_date">
+							<span>${tourGroup.journey.journeyName}</span>
+							<br>
+							<span>${tourGroup.startTime} ~ ${tourGroup.endTime}</span>
+						</td>
+						
+						<td class="col-1 price">
+							<span class="price">$ ${tourGroup.price}</span>
+						</td>
+						
+						<td class="col-2 amount">
+							<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
+							    <button class="amount_reduce" onclick="reduce(this)"><b>-</b></button>
+								<span class="count mx-3">${shoppingCartList[loop.index].quantity}</span>	
+							    <button class="amount_plus"  onclick="plus(this)"><b>+</b></button>
+							    <input type="hidden" name="action" value="shoppingCart_update" />
+							    <input type="hidden" name="${loop.index}" value="${loop.index}" />
+<%-- 							    <input type="hidden" name="groupId_${loop.index}" value="${shoppingCartList[loop.index].groupId}" /> --%>
+<%-- 							    <input type="hidden" id="quantityChange" name="quantityChange_${loop.index}" value="" /> --%>
+							</form>
+						</td>
+						
+						<td class="col-1 total">
+							<span>$ ${tourGroup.price * shoppingCartList[loop.index].quantity}</span>
+						</td>
+						
+						<td class="col-2 signData">
+							<span>${(tourGroup.signupNum < tourGroup.minRequired)?  "未成團" : "已成團"}</span>
+							<span>&nbsp;/&nbsp;</span>
+							<span>剩餘名額 ${(tourGroup.signupNum < tourGroup.minRequired) ? "" : (tourGroup.maxRequired - tourGroup.signupNum)} 名</span>
+						</td>
+						
+						<td class="col-3 div_btn">
+							<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
+							    <button type="submit" class="btn_submit">結帳</button>
+							    <input type="hidden" name="action" value="shoppingCart_order" />
+							</form>
+							
+							<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
+							    <button type="button" class="btn_delete" onclick="deleteJourney(this)">刪除</button>
+							    <input type="hidden" name="action" value="shoppingCart_delete" />
+							</form>
+							
+						</td>	
+					</tr>
+				</c:forEach>
+				
+				
+				<!-- 若購物車中無資料時，可維持表格寬高 -->
+				<tr>
+					<td class="col-3 name_and_date">
+						<span style="visibility: hidden;">陽明山一日遊111</span>
+						<br>
+						<span style="visibility: hidden;">113/01/01~113/01/01</span>
+					</td>
+					<td class="col-1 price">
+						<span class="price" style="visibility: hidden;">$&nbsp;3000</span>
+					</td>
+					<td class="col-2 amount">
+						<button class="amount_reduce" style="visibility: hidden;" onclick="reduce(this)"><b>-</b></button>
+						<span class="count mx-3" style="visibility: hidden;">1</span>
+						<button class="amount_plus" style="visibility: hidden;" onclick="plus(this)"><b>+</b></button>
+					</td>
+					<td class="col-1 total">
+						<span style="visibility: hidden;">$&nbsp;3000</span>
+					</td>
+					<td class="col-2 signData">
+						<span style="visibility: hidden;">已成團</span>
+						<span style="visibility: hidden;">/</span>
+						<span style="visibility: hidden;">剩餘名額 xx 名</span>
+					</td>
+					<td class="col-3 div_btn">
+						<button type="submit" class="btn_submit" style="visibility: hidden;">結帳</button>
+						<button type="button" class="btn_delete" style="visibility: hidden;" onclick="deleteJourney(this)">刪除</button>
+					</td>
+				</tr>
+				
+				
+	        </tbody>
+		</table>
+	
+	    <br><br>
+	    <div class="btn_button">
+	    	<button type="button" onclick="redirectToHome()">繼續逛逛</button>
+	    </div>
+
+	
+	
     </main>
     
 	<%@ include file="/components/html/footer.jsp" %>
@@ -190,25 +261,59 @@
  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<script>
  		$(function () {
-// 	        $("#header").load("../components/html/header.html");
-// 	        $("#footer").load("../components/html/footer.html");
+// 	        $("#header").load("../components/html/header.jsp");
+// 	        $("#footer").load("../components/html/footer.jsp");
         });
 
-        
+ 		var loopIndexValue = 0;
         function reduce(button) {
             var label = button.parentNode.querySelector(".count");
             var value = parseInt(label.innerText);
             if (value > 1) {
                 value--;
                 label.innerText = value;
+                document.getElementById('quantityChange').value = value;
+                
+//                 loopIndexValue = ${loop.index};
+                
+//                 var form = button.closest('form');
+//                 if (form) {
+//                     var inputGroupId = document.createElement("input");
+//                     inputGroupId.setAttribute("type", "hidden");
+//                     inputGroupId.setAttribute("name", "groupId_" + form.getAttribute('data-form-index')); // 使用属性来作为唯一的名称
+//                     inputGroupId.setAttribute("value", "your_group_id_here");
+//                     form.appendChild(inputGroupId);
+
+//                     var inputQuantityChange = document.createElement("input");
+//                     inputQuantityChange.setAttribute("type", "hidden");
+//                     inputQuantityChange.setAttribute("name", "quantityChange_" + form.getAttribute('data-form-index')); // 使用属性来作为唯一的名称
+//                     inputQuantityChange.setAttribute("value", value);
+//                     form.appendChild(inputQuantityChange);  
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            } else {
+            	alert("數量無法小於1");
+//             	return false;
             }
         }
-
+        
         function plus(button) {
             var label = button.parentNode.querySelector(".count");
             var value = parseInt(label.innerText);
             value++;
             label.innerText = value;
+            document.getElementById('quantityChange').value = value;
         }
         
         function deleteJourney(button) {
