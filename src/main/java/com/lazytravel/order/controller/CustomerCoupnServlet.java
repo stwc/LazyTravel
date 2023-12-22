@@ -83,8 +83,7 @@ public class CustomerCoupnServlet extends HttpServlet {
 
 	                responseDataList.add(responseData);
 				}
-				
-				
+
 			}
 			
 			

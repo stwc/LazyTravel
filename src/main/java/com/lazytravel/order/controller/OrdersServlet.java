@@ -2,6 +2,7 @@ package com.lazytravel.order.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,17 +14,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.lazytravel.journey.dao.JourneyService;
+import com.lazytravel.journey.dao.JourneyServiceImpl;
+import com.lazytravel.journey.dao.TourGroupService;
+import com.lazytravel.journey.dao.TourGroupServiceImpl;
+import com.lazytravel.journey.entity.Journey;
+import com.lazytravel.journey.entity.TourGroup;
+import com.lazytravel.order.dao.OrderDetailsResponseData;
 import com.lazytravel.order.entity.Orders;
 import com.lazytravel.order.service.OrdersService;
 
 @WebServlet(name = "OrdersServlet", urlPatterns = {"/order/order.do" , "/admin/order.do"})
 public class OrdersServlet extends HttpServlet {
 	private OrdersService ordersService;
+	private TourGroupService tourgroupService;
+	private JourneyService journeyService;
 
 	@Override
 	public void init() throws ServletException {
 		ordersService = new OrdersService();
+		tourgroupService = new TourGroupServiceImpl();
+		journeyService = new JourneyServiceImpl();
 	}
 
 	@Override
@@ -80,6 +93,10 @@ public class OrdersServlet extends HttpServlet {
 		case "getOrderByCustomerId" :
 			getOrderByCustomerId(req , res);
 			return;
+			
+		case "getOrderDetails" :
+			getOrderDetails(req , res);
+			return;
 
 		default:
 			forwardPath = "/order/select_page.jsp";
@@ -91,6 +108,53 @@ public class OrdersServlet extends HttpServlet {
 
 	}
 	
+	
+	
+	
+	
+	private void getOrderDetails(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			Integer groupId = Integer.parseInt(req.getParameter("groupId"));
+			System.out.println(groupId);
+			TourGroup tourgroup = tourgroupService.getOneTourGroup(groupId);
+			System.out.println(tourgroup);
+
+			List<OrderDetailsResponseData> responseDataList = new ArrayList<>();
+			Journey journey = tourgroup.getJourney();
+			System.out.println(journey);
+
+			OrderDetailsResponseData responseData = new OrderDetailsResponseData();
+			responseData.setJourneyName(journey.getJourneyName());
+			responseData.setPrice(tourgroup.getPrice());
+			responseData.setStartTime(tourgroup.getStartTime());
+			responseData.setEndTime(tourgroup.getEndTime());
+			
+			responseDataList.add(responseData);
+			
+			System.out.println(responseDataList);
+			
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			String dateFormatPattern = "yyyy" + " 年 " + "MM" +" 月 " + "dd" + " 日 ";
+			gsonBuilder.setDateFormat(dateFormatPattern);
+			
+
+			
+			Gson gson = gsonBuilder.create();
+	        String jsonResponse = gson.toJson(responseDataList);
+	     // 設置響應類型為 JSON
+	        res.setContentType("application/json; charset=UTF-8");	
+	        res.getWriter().write(jsonResponse);
+			
+		} catch (Exception e) {
+			try {
+	            res.setContentType("application/json; charset=UTF-8");
+	            res.getWriter().write("{\"error\": \"Error processing request\"}");
+	        } catch (IOException ioException) {
+	            ioException.printStackTrace();
+	        }
+		}
+	}
+
 	private void cancelorder(HttpServletRequest req, HttpServletResponse res) {
 		Integer orderId = Integer.parseInt(req.getParameter("orderId"));
 		ordersService.cancelOrder(orderId);
@@ -298,3 +362,5 @@ public class OrdersServlet extends HttpServlet {
 	}
 
 }
+
+
