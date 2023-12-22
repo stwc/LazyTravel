@@ -118,4 +118,18 @@ public String toString() {
 }
 
 
+
+public void setStartTime(String startTimeStr) {
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+public void setEndTime(String endTimeStr) {
+	// TODO Auto-generated method stub
+	
+}
+
+
 }

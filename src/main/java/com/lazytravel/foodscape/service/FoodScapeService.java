@@ -1,4 +1,4 @@
-package com.lazytravel.foodscape.dao;
+package com.lazytravel.foodscape.service;
 
 import java.util.List;
 
@@ -51,14 +51,16 @@ public interface FoodScapeService {
 //		return foodscape;
 //	}
 
-	FoodScape insertFoodScape(FoodScape foodscape);
+	void addFoodScape(FoodScape foodscape);
 	
-	FoodScape updateFoodScape(FoodScape foodscape);
+	void updateFoodScape(FoodScape foodscape);
 	
 //	void deleteFoodScape(Integer foodscapeId);
 	
-	FoodScape getFoodScapeByFoodScapeId(FoodScape foodScapeId);
+	FoodScape getFoodScapeByFoodScapeId(Integer foodScapeId);
 	
 	List<FoodScape> getAllFoodScapes(int currentPage);
+
+	
 	
 }
