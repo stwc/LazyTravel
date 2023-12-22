@@ -14,4 +14,6 @@ public interface BlogDAO {
 	
 	public List<Blog>getAll(); //找全部
 	
+	public Blog getBlogWithMsgs(Integer blogId);
+	
 }

@@ -39,5 +39,7 @@ public class BlogMsgServiceImpl implements BlogMsgService {
 	public List<BlogMsg> getAllBlogMsgs() {
 		return dao.gatAll();
 	}
-
+	public List<BlogMsg> getBlogMsgsByBlogId(Integer blogId){
+		return dao.getBlogMsgsByBlogId(blogId);
+	}
 }

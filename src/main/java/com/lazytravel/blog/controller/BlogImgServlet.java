@@ -1,14 +1,17 @@
 package com.lazytravel.blog.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +22,9 @@ import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.service.BlogImgService;
 import com.lazytravel.blog.service.BlogImgServiceImpl;
 import com.lazytravel.customer.entity.Customer;
-import com.mysql.cj.util.Base64Decoder;
 
 @WebServlet(value = "/blog/blogimg/blogImg.do")
+@MultipartConfig
 public class BlogImgServlet extends HttpServlet{
 	private BlogImgService blogImgService;
 	
@@ -102,7 +105,7 @@ public class BlogImgServlet extends HttpServlet{
     }
  // 2.修改
     private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
-    	Integer blogImgId = Integer.valueOf(req.getParameter("blog_img_id"));
+    	Integer blogImgId = Integer.valueOf(req.getParameter("blogImgId"));
         BlogImg blogImg = blogImgService.getBlogImgByBlogImgId(blogImgId);
 
         req.setAttribute("blogImg", blogImg);
@@ -113,73 +116,86 @@ public class BlogImgServlet extends HttpServlet{
         // 錯誤處理
         List<String> errorMsgs = new ArrayList<>();
         req.setAttribute("errorMsgs", errorMsgs);
-      //-------------------1.---------------------------------//
-        Integer blogImgId =Integer.parseInt(req.getParameter("blog_img_id"));
-        Integer blogId =Integer.valueOf(req.getParameter("blog_id"));
-        
-        String base64Img = req.getParameter("img");
-        byte[] decodedBytes = Base64.getDecoder().decode(base64Img);
-        
-        Timestamp createTime =null;
-        try {
-     	   createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
- 	} catch (Exception e) {
- 		createTime =new java.sql.Timestamp(System.currentTimeMillis());
- 		errorMsgs.add("請輸入發布時間");
- 	}
 
-        // 假如輸入格式錯誤的，備份選原使用者輸入過的資料
+        Integer blogImgId = Integer.parseInt(req.getParameter("blogImgId"));
+        Integer blogId = Integer.valueOf(req.getParameter("blog_id"));
+
         BlogImg blogImg = new BlogImg();
-        
+
+        byte[] upFiles = null;
+
+        try {
+            InputStream in = req.getPart("upFiles").getInputStream();
+            if (in.available() != 0) {
+                upFiles = new byte[in.available()];
+                in.read(upFiles);
+                in.close();
+            } else {
+                errorMsgs.add("文章圖片: 請上傳照片");
+            }
+        } catch (IOException | ServletException e) {
+            errorMsgs.add("圖片上傳失敗: " + e.getMessage());
+        }
+
+        Timestamp createTime = null;
+        try {
+            createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
+        } catch (Exception e) {
+            createTime = new java.sql.Timestamp(System.currentTimeMillis());
+            errorMsgs.add("請輸入發布時間");
+        }
+
         blogImg.setBlogImgId(blogImgId);
-        blogImg.setImg(decodedBytes);
         blogImg.setCreateTime(createTime);
-        
-        Blog blog =new Blog();
+
+        Blog blog = new Blog();
         blog.setBlogId(blogId);
         blogImg.setBlog(blog);
-        
-        
 
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("blogImg", blogImg);
             return "/blog/blogimg/update_blogImg_input.jsp";
         }
-        //-------------------2.---------------------------------//
-        // 修改資料
+
         blogImgService.updateBlogImg(blogImg);
         req.setAttribute("blogImg", blogImgService.getBlogImgByBlogImgId(blogImgId));
-
         return "/blog/blogimg/listOneBlogImg.jsp";
     }
-
     private String insert(HttpServletRequest req, HttpServletResponse res) {
         // 錯誤處理
-        List<String> errorMsgs = new ArrayList<>();
+    	List<String> errorMsgs = new ArrayList<>();
         req.setAttribute("errorMsgs", errorMsgs);
-      //-------------------1.---------------------------------//
-//        Integer blogImgId =Integer.parseInt(req.getParameter("blog_img_id"));
-        Integer blogId =Integer.valueOf(req.getParameter("blog_id"));
-        
-        String base64Img = req.getParameter("img");
-        byte[] decodedBytes = Base64.getDecoder().decode(base64Img);
-        	
-        Timestamp createTime =null;
-        try {
-     	   createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
- 	} catch (Exception e) {
- 		createTime =new java.sql.Timestamp(System.currentTimeMillis());
- 		errorMsgs.add("請輸入發布時間");
- 	}
 
-        // 假如輸入格式錯誤的，備份選原使用者輸入過的資料
+        Integer blogId = Integer.valueOf(req.getParameter("blog_id"));
+        
+        byte[] upFiles = null;
+
+        try {
+            InputStream in = req.getPart("upFiles").getInputStream();
+            if (in.available() != 0) {
+                upFiles = new byte[in.available()];
+                in.read(upFiles);
+                in.close();
+            } else {
+                errorMsgs.add("文章圖片: 請上傳照片");
+            }
+        } catch (IOException | ServletException e) {
+            errorMsgs.add("圖片上傳失敗: " + e.getMessage());
+        }
+
+        Timestamp createTime = null;
+        try {
+            createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
+        } catch (Exception e) {
+            createTime = new java.sql.Timestamp(System.currentTimeMillis());
+            errorMsgs.add("請輸入發布時間");
+        }
+
         BlogImg blogImg = new BlogImg();
-        
-//        blogImg.setBlogImgId(blogImgId);
-        blogImg.setImg(decodedBytes);
+        blogImg.setImg(upFiles);
         blogImg.setCreateTime(createTime);
-        
-        Blog blog =new Blog();
+
+        Blog blog = new Blog();
         blog.setBlogId(blogId);
         blogImg.setBlog(blog);
 
@@ -188,7 +204,6 @@ public class BlogImgServlet extends HttpServlet{
             return "/blog/blogimg/addBlogImg.jsp";
         }
 
-        // 新增資料
         blogImgService.addBlogImg(blogImg);
 
         return "/blog/blogimg/listAllBlogImg.jsp";

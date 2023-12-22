@@ -114,5 +114,24 @@ public class BlogMsgDAOImpl implements BlogMsgDAO {
         }
         return blogmsgs;
 	}
-	
+	public List<BlogMsg> getBlogMsgsByBlogId(Integer blogId) {
+	    Transaction transaction = null;
+	    List<BlogMsg> blogMsgs = null;
+	    
+	    try (Session session = getSession()) {
+	        transaction = session.beginTransaction();
+	        String hql = "FROM BlogMsg bm WHERE bm.blog.blogId = :blogId";
+	        blogMsgs = session.createQuery(hql, BlogMsg.class)
+	                .setParameter("blogId", blogId)
+	                .list();
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        e.printStackTrace(); // Handle the exception appropriately in your application
+	    }
+
+	    return blogMsgs;
+	}
 }

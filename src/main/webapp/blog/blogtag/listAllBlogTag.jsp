@@ -81,6 +81,13 @@ pageContext.setAttribute("list",list);
 					 <input type="hidden" name="tagId"  value="${blogTag.getTagId()}">
 					 <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 				</td>
+				<td>
+				  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/blog/blogtag/blogTag.do" style="margin-bottom: 0px;">
+					 <input type="submit" value="§R°£">
+					 <input type="hidden" name="blogId"  value="${blogTag.getBlogId()}">
+					 <input type="hidden" name="tagId"  value="${blogTag.getTagId()}">
+					 <input type="hidden" name="action"	value="delete"></FORM>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

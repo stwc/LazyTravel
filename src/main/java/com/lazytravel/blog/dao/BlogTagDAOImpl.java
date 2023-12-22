@@ -46,28 +46,36 @@ private SessionFactory factory;
         return newblogTag;
 	}
 
-	@Override
-	public Integer update(Integer blogId, Integer tagId) {
-		Transaction transaction = null;
-		Integer newblogTag =null;
-        try {
-            Session session = getSession();
-            transaction = session.beginTransaction();
-            BlogTag.CompositeDetail compositeKey = new BlogTag.CompositeDetail(blogId, tagId);
-            BlogTag blogTag = new BlogTag();
-            
-            session.update(compositeKey);
-            transaction.commit();
-            return 1;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace(); //
-            return -1;
-        }
-	}
+		@Override
+		public Integer update(Integer blogId, Integer tagId) {
+		    Transaction transaction = null;
+		    try {
+		        Session session = getSession();
+		        transaction = session.beginTransaction();
 
+		        // 使用複合主鍵檢索對應的 BlogTag 物件
+		        BlogTag.CompositeDetail compositeKey = new BlogTag.CompositeDetail(blogId, tagId);
+		        BlogTag blogTag = session.get(BlogTag.class, compositeKey);
+		        System.out.println(blogTag);
+		        System.out.println(compositeKey);
+
+		        if (blogTag != null) {
+		            // 對現有的物件進行修改
+		            session.update(compositeKey);
+		            transaction.commit();
+		            return 1; 	
+		        } else {
+		            transaction.commit();
+		            return 0; 
+		        }
+		    } catch (Exception e) {
+		        if (transaction != null) {
+		            transaction.rollback();
+		        }
+		        e.printStackTrace();
+		        return -1; // 表示發生異常
+		    }
+		}
 	@Override
 	public Integer delete(Integer blogId, Integer tagId) {
 	    Transaction transaction = null;

@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.lazytravel.blog.entity.Blog"%>
+<%@ page import="com.lazytravel.blog.entity.BlogImg"%>
 <%@ page import="com.lazytravel.customer.entity.Customer"%>
 
 <%
-	Blog blog = (Blog) request.getAttribute("blog");
+	BlogImg blogImg = (BlogImg) request.getAttribute("blogImg");
 %>
 
 <html>
@@ -53,7 +53,7 @@
 <table id="table-1">
 	<tr><td>
 		<h3>文章修改 - update_blog_input.jsp</h3></td><td>
-		<h4><a href="select_page.jsp"><img src="../static/images/logo.png" width="100" height="100" border="0" alt="">回首頁</a></h4>
+		<h4><a href="blogImg_select_page.jsp"><img src="../static/images/logo.png" width="100" height="100" border="0" alt="">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -69,44 +69,29 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="blog.do" name="form1">
+<FORM METHOD="post" ACTION="blogImg.do" name="form1" enctype="multipart/form-data">
 	<table>
 	<tr>
+			<td>圖片ID:</td>
+			<td><input type="TEXT" name="blogImgId" value="<%= blogImg.getBlogImgId()%>" size="45"/></td>
+		</tr>
+	<tr>
 			<td>文章ID:</td>
-			<td><input type="TEXT" name="blog_id" value="<%=  (blog==null)?"41001" : blog.getBlogId()%>" size="45"/></td>
+			<td><input type="TEXT" name="blog_id" value="<%=blogImg.getBlog().getBlogId()%>" size="45"/></td>
 		</tr>
 		<tr>
-			<td>文章標題:</td>
-			<td><input type="TEXT" name="title" value="<%=  (blog==null)?"寫下你的這段旅程吧" : blog.getTitle()%>" size="45"/></td>
+			<td>上傳時間:</td>
+			<td><input type="TEXT" name="createTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>" size="45"/></td>
 		</tr>
 		<tr>
-			<td>會員ID:</td>
-			<td><input type="TEXT" name="customer_id" value="<%=(blog==null)?"11001"  : blog.getCustomer().getCustomerId()%>" size="45"/></td>
-		</tr>
 		<tr>
-			<td>懶遊日期:</td>
-			<td><input type="TEXT" name="blog_date" value="<%=(blog ==null)? "2023/12/8 00:00:00" :  blog.getBlogDate()%>" size="45"/></td>
-		</tr>
-		<tr>
-			<td>內文:</td>
-			<td><input type="TEXT" name="content" value="<%= (blog==null)? "123456" : blog.getContent()%>" size="45"/></td>
-		</tr>
-		<tr>
-			<td>更新時間:</td>
-			<td><input type="TEXT" name="upDateTime" value="<%=  new java.sql.Timestamp(System.currentTimeMillis()) %>" size="45"/></td>
-		</tr>
-		<tr>
-			<td>發布時間:</td>
-			<td><input type="TEXT" name="createTime" value="<%=  new java.sql.Timestamp(System.currentTimeMillis()) %>" size="45"/></td>
-		</tr>
-		<tr>
-			<td>文章狀態:</td>
-			<td><input type="TEXT" name="blog_status" value="<%= (blog==null)?  "1"  :  blog.getBlogStatus() %>" size="45"/></td>
+			<td>內文圖片:</td>
+			<td><input type="file" name="upFiles" value="<%="${blogImg.img}" %>" size="45"/></td>
 		</tr>
 	</table>
 	<br>
 	<input type="hidden" name="action" value="update">
-	<input type="hidden" name="blogId" value="<%=blog.getBlogId()%>">
+	<input type="hidden" name="blogImgId" value="<%=blogImg.getBlogImgId()%>">
 	<input type="submit" value="送出修改">
 </FORM>
 

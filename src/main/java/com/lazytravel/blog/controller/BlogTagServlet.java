@@ -18,6 +18,8 @@ import com.lazytravel.blog.entity.BlogTag;
 import com.lazytravel.blog.entity.BlogTag.CompositeDetail;
 import com.lazytravel.blog.service.BlogClService;
 import com.lazytravel.blog.service.BlogClServiceImpl;
+import com.lazytravel.blog.service.BlogImgService;
+import com.lazytravel.blog.service.BlogImgServiceImpl;
 import com.lazytravel.blog.service.BlogTagService;
 import com.lazytravel.blog.service.BlogTagServiceImpl;
 import com.lazytravel.customer.entity.Customer;
@@ -59,6 +61,9 @@ public class BlogTagServlet extends HttpServlet{
 	                // 來自addEmp.jsp的請求
 	                forwardPath = insert(req, res);
 	                break;
+	            case "delete":
+	            	 forwardPath = delete(req, res);
+	                 break;
 	            default:
 	                forwardPath = "/blog/blogtag/blogTag_select_page.jsp";
 	        }
@@ -107,9 +112,11 @@ public class BlogTagServlet extends HttpServlet{
 	    	Integer tagId = Integer.valueOf(req.getParameter("tagId"));
 	    	CompositeDetail compositeDetail = new CompositeDetail(blogId, tagId);
 	    	BlogTag blogTag = blogTagService.getBlogTagByBlogTagId(compositeDetail);
-	    	
+	    	System.out.println("修改上"+blogTag);
+	    	System.out.println("修改上"+compositeDetail);
 	    	 
 	        req.setAttribute("blogTag", blogTag);
+	        
 	        return "/blog/blogtag/update_blogTag_input.jsp";
 	    }
 
@@ -121,11 +128,14 @@ public class BlogTagServlet extends HttpServlet{
 	        Integer blogId = Integer.valueOf(req.getParameter("blogId"));
 	        Integer tagId = Integer.valueOf(req.getParameter("tagId"));
 	        CompositeDetail compositeDetail = new CompositeDetail(blogId, tagId);
-
+	        BlogTag blogTag = blogTagService.getBlogTagByBlogTagId(compositeDetail);
+	        System.out.println("修改下"+blogTag);
+	        System.out.println("修改下"+compositeDetail);
+	        
 	        // 假如輸入格式錯誤的，備份選原使用者輸入過的資料
-	        BlogTag blogTag = new BlogTag();
-	        blogTag.setBlogId(blogId);
-	        blogTag.setTagId(tagId);
+//	        BlogTag blogTag = new BlogTag();
+//	        blogTag.setBlogId(blogId);
+//	        blogTag.setTagId(tagId);
 	        
 
 	        if (!errorMsgs.isEmpty()) {
@@ -162,6 +172,30 @@ public class BlogTagServlet extends HttpServlet{
 
 	        // 新增資料
 	        blogTagService.addBlogTag(compositeDetail);
+
+	        return "/blog/blogtag/listAllBlogTag.jsp";
+	    }
+	    private String delete(HttpServletRequest req, HttpServletResponse res) {
+	        // 錯誤處理
+	        List<String> errorMsgs = new ArrayList<>();
+	        req.setAttribute("errorMsgs", errorMsgs);
+	        
+	        Integer blogId = Integer.valueOf(req.getParameter("blogId"));
+	        Integer tagId = Integer.valueOf(req.getParameter("tagId"));
+	        CompositeDetail compositeDetail = new CompositeDetail(blogId, tagId);
+	        
+	        BlogTag blogTag = new BlogTag();
+	        blogTag.setBlogId(blogId);
+	        blogTag.setTagId(tagId);
+	        
+
+	        if (!errorMsgs.isEmpty()) {
+	            req.setAttribute("blogTag", blogTag);
+	            return "/blog/blogtag/update_blogTag_input.jsp";
+	        
+	        		
+	    }
+	        blogTagService.deleteBlogTag(compositeDetail);
 
 	        return "/blog/blogtag/listAllBlogTag.jsp";
 	    }
