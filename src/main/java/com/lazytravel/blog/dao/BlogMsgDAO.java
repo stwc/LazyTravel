@@ -17,4 +17,5 @@ public interface BlogMsgDAO {
 	
 	public List<BlogMsg>gatAll(); //找全部
 	  
+	public List<BlogMsg> getBlogMsgsByBlogId(Integer blogId);
 }

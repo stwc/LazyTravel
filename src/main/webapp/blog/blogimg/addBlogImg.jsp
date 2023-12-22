@@ -69,7 +69,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="blogImg.do" name="form1">
+<FORM METHOD="post" ACTION="blogImg.do" name="form1" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<td>文章ID:</td>
@@ -81,7 +81,7 @@
 		</tr>
 		<tr>
 			<td>內文圖片:</td>
-			<td><input type="TEXT" name="img" value="<%= (blogImg==null)? "321" : blogImg.getImg()%>" size="45"/></td>
+			<td><input type="file" name="upFiles" value="<%= (blogImg==null)? "321" : blogImg.getImg()%>" size="45"/></td>
 		</tr>
 	</table>
 	<br>

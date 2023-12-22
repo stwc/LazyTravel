@@ -91,5 +91,26 @@ public class BlogDAOImpl implements BlogDAO {
         }
         return blogs;
     }
+	public Blog getBlogWithMsgs(Integer blogId) {
+		Session session = getSession();
+		Transaction transaction = session.beginTransaction();
+        try {
+            // 使用 HQL 查詢，同時獲取部落格文章及其相關聯的留言
+            String hql = "FROM Blog b LEFT JOIN FETCH b.blogMsgs WHERE b.blogId = :blogId";
+            Blog blog = session.createQuery(hql, Blog.class)
+                    .setParameter("blogId", blogId)
+                    .uniqueResult();
 
-}
+            // 提交事務
+            transaction.commit();
+
+            return blog;
+        } catch (Exception e) {
+            // 發生異常時回滾事務
+            transaction.rollback();
+            throw e;
+        }
+    }
+		
+	}
+

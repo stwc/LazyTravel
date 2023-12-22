@@ -3,6 +3,8 @@ package com.lazytravel.blog.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.boot.jaxb.hbm.spi.JaxbHbmBaseVersionAttributeType;
-
-import com.lazytravel.blog.dao.BlogDAO;
-import com.lazytravel.blog.dao.BlogDAOImpl;
 import com.lazytravel.blog.entity.Blog;
+import com.lazytravel.blog.entity.BlogMsg;
+import com.lazytravel.blog.service.BlogMsgService;
+import com.lazytravel.blog.service.BlogMsgServiceImpl;
 import com.lazytravel.blog.service.BlogService;
 import com.lazytravel.blog.service.BlogServiceImpl;
 import com.lazytravel.customer.entity.Customer;
@@ -58,6 +59,9 @@ public class BlogServlet extends HttpServlet {
             case "insert":
                 // 來自addEmp.jsp的請求
                 forwardPath = insert(req, res);
+                break;
+            case "getBlogMsgsByBlogId":
+                forwardPath = getBlogMsgsByBlogId(req, res);
                 break;
             default:
                 forwardPath = "/blog/blog/select_page.jsp";
@@ -108,7 +112,7 @@ public class BlogServlet extends HttpServlet {
         
 
         req.setAttribute("blog", blog);
-        return "/blog/blog/update_blog_input.jsp";
+        return "/blog/blog/updateblog.jsp";
     }
 
     private String update(HttpServletRequest req, HttpServletResponse res) {
@@ -123,14 +127,10 @@ public class BlogServlet extends HttpServlet {
         Timestamp blogDate =Timestamp.valueOf(req.getParameter("blog_date"));
         String content =String.valueOf(req.getParameter("content"));
         String blogStatus =String.valueOf(req.getParameter("blog_status"));
+        Timestamp upDateTime =Timestamp.valueOf(req.getParameter("updateTime"));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
-        Timestamp upDateTime =null;
-        try {
-     	   upDateTime = java.sql.Timestamp.valueOf(req.getParameter("upDateTime").trim());
- 	} catch (Exception e) {
- 		upDateTime =new java.sql.Timestamp(System.currentTimeMillis());
- 		errorMsgs.add("請輸入更新時間");
- 	}
+        
         
         Timestamp createTime =null;
         try {
@@ -156,7 +156,7 @@ public class BlogServlet extends HttpServlet {
 
         if (!errorMsgs.isEmpty()) {
             req.setAttribute("blog", blog);
-            return "/blog/blog/update_blog_input.jsp";
+            return "/blog/blog/updateblog.jsp";
         }
       //-------------------2.---------------------------------//
         // 修改資料
@@ -218,4 +218,18 @@ public class BlogServlet extends HttpServlet {
 
         return "/blog/blog/listAllBlog.jsp";
     }
+    
+    private String getBlogMsgsByBlogId(HttpServletRequest req, HttpServletResponse res) {
+        Integer blogId = Integer.valueOf(req.getParameter("blogId"));
+        BlogMsgService blogMsgService = new BlogMsgServiceImpl();
+        
+        // 調用 BlogService 中的方法，根據 blogId 獲取相關的留言
+        List<BlogMsg> blogMsgs = blogMsgService.getBlogMsgsByBlogId(blogId);
+
+        // 將獲取的留言列表設置到 request 中，以便在 JSP 頁面中顯示
+        req.setAttribute("blogMsgs", blogMsgs);
+
+        return "/your-jsp-page.jsp";  // 將這裡的 "your-jsp-page.jsp" 替換為你想要顯示的 JSP 頁面
+    }
 }
+

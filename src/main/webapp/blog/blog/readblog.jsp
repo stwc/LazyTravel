@@ -1,6 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.lazytravel.blog.entity.*"%>
+<%@ page import="com.lazytravel.blog.dao.*"%>
+<%@ page import="com.lazytravel.blog.service.*"%>
+
+
+<%
+BlogService blogSvc = new BlogServiceImpl();
+List<Blog> list = blogSvc.getAllBlogs();
+pageContext.setAttribute("list",list);
+%>
+
+<html>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -32,45 +45,46 @@
   <body>
     <header id="header"></header>
     <main>
+    <c:forEach var="blog" items="${list}">
       <div class="container">
         <div class="row">
           <div class="col my-2">
             <img
-              src="../../static/blogimages/台中景點.jpg"
+              src="../../static/blogimages/�x�����I.jpg"
               class="img-fluid"
-              alt="文章大圖" />
+              alt="�峹�j��" />
           </div>
         </div>
         <div class="row">
           <div class="col">
             <h5 class="display-6 lead my-2">
-              <strong>台中兩天一夜輕鬆旅遊趣</strong>
+              <strong>${blog.getTitle()}</strong>
             </h5>
           </div>
           <div
             class="col-4 d-inline-flex justify-content-center align-items-center">
-            <img src="../../static/blogimages/按讚.svg" class="thumds" alt="" />
-            <p class="m-1 p-1">2</p>
+            <img src="../../static/blogimages/���g.svg" class="thumds" alt="" />
+            <p class="m-1 p-1">${blog.likeSum}</p>
             <img
-              src="../../static/blogimages/瀏覽數.svg"
+              src="../../static/blogimages/�s����.svg "
               class="thumds"
               alt="" />
-            <p class="m-1 p-1">2</p>
+            <p class="m-1 p-1">${blog.viewSum}</p>
             <img
-              src="../../static/blogimages/編輯筆.svg"
+              src="../../static/blogimages/UN����.svg"
               class="thumds"
               alt="" />
           </div>
         </div>
         <div class="row-cols-auto d-inline-flex d-flex justify-content-center">
           <div class="col-7">
-            <p class="h6 p-2">2023年11月1號</p>
+            <p class="h6 p-2">${blog.createTime}</p>
           </div>
 
           <div class="col d-inline-flex">
-            <p class="p-2">金城武</p>
+            <p class="p-2">${blog.customer.nickname}</p>
             <img
-              src="../../static/blogimages/金城武.jpg"
+              src="${blog.customer.avatar}" 
               class="img-fluid p-0 img-thumbnail"
               style="height: 50px"
               alt="" />
@@ -78,71 +92,33 @@
         </div>
         <hr />
         <div class="row">
-          <div class="col my-2">
-            <p class="h3">
-              <strong>來了一趟說走就走的旅行。</strong>
-            </p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <p class="h4">那天突然就想去一趟台中，於是就.....</p>
-          </div>
-        </div>
-        <div class="row">
           <div class="col">
             <p class="h6 my-3">
-              座落於台中大度山的東海大學，校園風景相當優美，像是知名的路思義教堂、碧草如茵的文理大道等，都是東海大學必遊景點之一。
-              東海大學往東海湖及牧場的方向走，會經過東海大學乳品小棧，販售東海鮮奶及各式乳製品，是來東海大學旅遊必吃的美食。
-              依武家這次東海大學之旅，住在東海校友會館內，不管是到東海夜市或是校園趴趴走，都相當方便，東海大學景點怎麼玩？讓東海校友告訴你！
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <img
-              src="../../static/blogimages/山景.jpg"
-              class="img-fluid"
-              alt="文章大圖" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <p class="h4 my-2">愜意的在東海裡散散步</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <p class="h6 my-3">
-              東海大學校地廣闊，面積廣達135.65公頃，是私立大學中土地面積最大的學校，也是台灣最美麗的大學之一。
-              東海大學校園環境優美，建築頗具特色，已成為台中市著名景點，常出現在旅遊書當中，讓不少人都慕名而來一睹其風采。
-              著名的景點有路思義教堂、文理大道、東海大學實習農牧場等。依武媽精選東海大學7大必遊景點，讓東海校友帶你玩東海！
+              ${blog.content}
             </p>
           </div>
         </div>
 
         <div class="row">
           <div class="col">
-            <p class="h1 my-5"><strong>留言區</strong></p>
+            <p class="h1 my-5"><strong>�d����</strong></p>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <div class="col d-inline-flex">
-              <p class="h5">吳康仁</p>
-              <p class="h5 text-black-50">－2023年11月7號發佈</p>
+              <p class="h5">�d�d��</p>
+              <p class="h5 text-black-50">��2023�~11��7���o�G</p>
             </div>
-            <div class="col">感覺很棒欸</div>
+            <div class="col">�Pı�ܴ���</div>
           </div>
         </div>
 
         <div class="row mt-3">
           <div class="col d-inline-flex p-2">
-            <p class="p-2">張震</p>
+            <p class="p-2">�i�_</p>
             <img
-              src="../../static/blogimages/張震.png"
+              src="../../static/blogimages/�i�_.png"
               class="img-fluid p-0"
               style="height: 50px"
               alt="" />
@@ -156,18 +132,19 @@
                 class="form-control"
                 style="height: 200px"
                 id="exampleInput"
-                placeholder="來留個言吧" />
+                placeholder="�ӯd�Ө��a" />
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <button type="button" class="btn btn-success m-2 float-end">
-              送出
+              Success
             </button>
           </div>
         </div>
       </div>
+      </c:forEach>
 
       <hr />
     </main>
@@ -180,9 +157,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
       $(function () {
-        $("#header").load("../../components/html/header.html");
-        $("#footer").load("../../components/html/footer.html");
+        $("#header").load("../../components/html/header.jsp");
+        $("#footer").load("../../components/html/footer.jsp");
       });
     </script>
   </body>
+</html>
+
 </html>
