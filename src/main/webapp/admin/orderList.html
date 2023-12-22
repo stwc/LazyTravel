@@ -10,18 +10,36 @@
 
 	<style>
 		button.btn-modify,
-		#filterBtn {
+		#filterBtn, a.btn-modify{
 			background-color: #9C6644;
 			color: white;
 		}
 
+		#order thead th div.dt-head-inner  {
+			white-space: nowrap;
+			display: inline-block; 
+		}
+		
 		#order thead th {
 			white-space: nowrap;
 		}
-
-		#order thead th .dt-head-inner {
-			display: inline-block;
-		}
+		
+		 /* 設置表格佈局為固定 */
+	    #order {
+	        table-layout: fixed;
+	        width: 100%; /* 根據需要調整 */
+	    }
+	
+	    /* 設置每列的寬度 */
+	    #order thead th {
+	        width: 100px; 
+	    }
+	    
+	    #order td {
+        text-align: center; /* 水平居中 */
+        vertical-align: middle; /* 垂直居中 */
+    }
+	
 	</style>
 </head>
 
@@ -32,71 +50,32 @@
 		<h3 class="mx-3 mb-4">訂單總覽</h3>
 		<div class="card mx-5 my-5">
 			<div class="card-header">總覽查詢</div>
-			<div class="card-body mx-2">
-				<table class="my-5">
-					<tbody>
-						<tr class="d-inline me-3">
-							<td>訂單時間：</td>
-							<td><input type="date" id="min" name="min"></td>
-						</tr>
-						<tr class="d-inline">
-							<td></td>
-							<td><input type="date" id="max" name="max">
-
-								<button id="filterBtn" class="btn mx-4">篩選</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-
-
-				<table id="order" class="table table-striped">
+				<div class="mx-5 my-5">
+					<table id="order" class="table table-striped">
 					<thead>
 						<tr>
-							<th>訂單Id</th>
-							<th>訂單編號</th>
-							<th>顧客編號</th>
-							<th>團編號</th>
-							<th>旅客人數</th>
-							<th>會員金</th>
-							<th>優惠券Id</th>
-							<th>總金額</th>
-							<th>創建日期</th>
-							<th>更新日期</th>
-							<th>付款日期</th>
-							<th>訂單狀態</th>
-							<th>評價分數</th>
-							<th>評價內容</th>
-							<th>評價時間</th>
-							<th>修改</th>
+							<th style = "text-align: center">修改</th>
+							<th style = "text-align: center">明細</th>
+							<th style = "text-align: center">訂單編號</th>
+							<th style = "text-align: center">訂單Id</th>
+							<th style = "text-align: center">顧客編號</th>
+							<th style = "text-align: center">團編號</th>
+							<th style = "text-align: center">旅客人數</th>
+							<th style = "text-align: center">會員金</th>
+							<th style = "text-align: center">優惠券Id</th>
+							<th style = "text-align: center">總金額</th>
+							<th style = "text-align: center">創建日期</th>
+							<th style = "text-align: center">更新日期</th>
+							<th style = "text-align: center">付款日期</th>
+							<th style = "text-align: center">訂單狀態</th>
+							<th style = "text-align: center">評價分數</th>
+							<th style = "text-align: center">評價內容</th>
+							<th style = "text-align: center">評價時間</th>
+							
 
 						</tr>
 					</thead>
-
-
-					</tbody>
 				</table>
-
-			</div>
-		</div>
-
-		<!-- 弹窗结构 -->
-		<div class="modal fade" id="modifyModal" tabindex="-1" aria-labelledby="modifyModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="modifyModalLabel">修改订单内容</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<!-- 在这里添加修改订单的表单元素 -->
-						<input type="text" id="modifiedContent">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" id="saveChangesBtn">保存修改</button>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -106,7 +85,6 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-
 	<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
 
@@ -135,22 +113,28 @@
 						'<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>'
 					);
 				},
+				
 
-
+				
 				success: function (data) {
 					let dataSet = [];
 					data.forEach((item) => {
 						let tmpArr = [];
 						let modifyBtn = `
-                    <td>
-	                  <form method="post" action="">
-	                    <button type="submit" class="btn-modify btn">修改</button>
-	                    <input type="hidden" name="order_id" value="${item.orderId}">
-	                    <input type="hidden" name="action" value="modify">
-	                  </form>
-                    </td>
-                    `;
-
+						    <td>
+						            <a href="orderEditor.html?order_id=${item.orderId}&order_no=${item.orderNo}&order_status=${item.orderStatus}" class="btn-modify btn" style="white-space: nowrap;">修改</a>
+						            <input type="hidden" name="action" value="update">
+						    </td>
+						`;
+						
+						let customerDetail = `
+							<td>
+						
+							
+				            <a class="customerDetail btn-modify btn" href="passengerDetails.html?order_id=${item.orderId}&order_no=${item.orderNo}&order_status=${item.orderStatus}&tourist=${item.tourist}" class="btn-modify btn" style="white-space: nowrap;">旅客明細</a>
+							
+							</td>
+						`;
 						let statusCell = '';
 						if (item.orderStatus == 0) {
 							statusCell = '<span class="status-unpaid">未付款</span>';
@@ -164,7 +148,6 @@
 						if (item.paidTime == null) {
 							paidtimeCell = '<span class="status-unpaid">--</span>';
 						}
-
 
 
 						let scoreCell = '';
@@ -194,9 +177,11 @@
 							};
 							return new Date(timestamp).toLocaleString('zh-TW', options).replace(',', '');
 						}
-
-						tmpArr.push(item.orderId);
+						
+						tmpArr.push(modifyBtn);
+						tmpArr.push(customerDetail);
 						tmpArr.push(item.orderNo);
+						tmpArr.push(item.orderId);
 						tmpArr.push(item.customerId);
 						tmpArr.push(item.groupId);
 						tmpArr.push(item.tourist);
@@ -210,19 +195,20 @@
 						tmpArr.push(scoreCell);
 						tmpArr.push(contentCell);
 						tmpArr.push(contentTimeCell);
-						tmpArr.push(modifyBtn);
+						
 						dataSet.push(tmpArr)
 					});
 
 
 
 					new DataTable('#order', {
+						autoWidth: false,
 						data: dataSet,
 						scrollX: true,
 
 						columns: [
-							{ data: 0 },
-							{ data: 1 },
+							{ data: 0 , orderable: false, searchable: false },
+							{ data: 1 , orderable: false, searchable: false },
 							{ data: 2 },
 							{ data: 3 },
 							{ data: 4 },
@@ -236,15 +222,9 @@
 							{ data: 12 },
 							{ data: 13 },
 							{ data: 14 },
-							{ data: 15, orderable: false, searchable: false }
+							{ data: 15 },
+							{ data: 16 }
 						],
-
-						headerCallback: function (thead, data, start, end, display) {
-							$(thead).find('th').each(function (index) {
-								const text = $(this).text();
-								$(this).html('<div class="dt-head-inner">' + text + '</div>');
-							});
-						},
 					});
 				},
 
@@ -253,6 +233,7 @@
 				}
 
 			});
+
 		}
 
 

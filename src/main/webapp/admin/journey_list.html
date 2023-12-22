@@ -36,7 +36,21 @@
       }
 
       a#add:active {
-        outline: 2px solid #6B705C;
+        outline: #6B705C;
+        box-shadow: 0 0 8px #a1a397
+      }
+
+      button.btn_journey_detail_search{
+        width: 90px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #9C6644;
+      }
+
+      button.btn_journey_detail_search:active {
+        outline: 2px solid #9C6644;
         box-shadow: 0 0 8px #a1a397
       }
 
@@ -52,8 +66,7 @@
       button.btn_modify:active {
         outline: 2px solid #9C6644;
         box-shadow: 0 0 8px #a1a397
-    }
-
+      }
     </style>
   </head>
 
@@ -68,18 +81,6 @@
       <div class="card mx-4 my-4">
         <div class="card-header mb-5">行程查詢</div>
         <div class="card-body mx-3">
-          <!-- <table class="my-5">
-            <tbody>
-              <tr class="d-inline me-3">
-                <td>行程時間：</td>
-                <td><input type="date" id="min" name="min" /></td>
-              </tr>
-              <tr class="d-inline">
-                <td></td>
-                <td><input type="date" id="max" name="max" /></td>
-              </tr>
-            </tbody>
-          </table> -->
 
           <table id="123" class="display mb-5">
             <thead>
@@ -93,7 +94,6 @@
                 <th>平均<br>評分</th>
                 <th>評分<br>次數</th>
                 <th>狀態</th>
-                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -109,12 +109,17 @@
                 <td>0.0</td>
                 <td>0</td>
                 <td>未上架</td>
-                <td><a href="#" class="journey_details">查看行程明細</a></td>
+                <!-- <td><a href="#" class="journey_details">查看行程明細</a></td> -->
                 <td>
-                  <form method="post" action="">
+                  <form method="post" action="" style="display: inline-block;">
+                    <button type="submit" class="btn_journey_detail_search">行程明細</button> 
+                    <input type="hidden" name="journey_id" value="${journey.journeyId}" />
+                    <input type="hidden" name="action" value="journey_detail_search" />             
+                  </form>
+                  <form method="post" action="" style="display: inline-block; margin-left: 4px;">
                     <button type="submit" class="btn_modify">修改</button>
-                    <input type="hidden" name="journey_id" value="" />
-                    <input type="hidden" name="action" value="modify" />
+                    <input type="hidden" name="journey_id" value="${journey.journeyId}" />
+                    <input type="hidden" name="action" value="journey_modify" />
                   </form>
                 </td>
               </tr>
@@ -129,15 +134,21 @@
                 <td>4.1</td>
                 <td>6</td>
                 <td>已上架</td>
-                <td><a href="#" class="journey_details">查看行程明細</a></td>
+                <!-- <td><a href="#" class="journey_details">查看行程明細</a></td> -->
                 <td>
-                  <form method="post" action="">
+                  <form method="post" action="" style="display: inline-block;">
+                    <button type="submit" class="btn_journey_details_search">行程明細</button> 
+                    <input type="hidden" name="journey_id" value="${journey.journeyId}" />
+                    <input type="hidden" name="action" value="journey_details_search" />             
+                  </form>
+                  <form method="post" action="" style="display: inline-block; margin-left: 4px;">
                     <button type="submit" class="btn_modify">修改</button>
                     <input type="hidden" name="journey_id" value="" />
-                    <input type="hidden" name="action" value="modify" />
+                    <input type="hidden" name="action" value="journey_modify" />
                   </form>
                 </td>
               </tr>
+            <tbody>
           </table>
         </div>
       </div>

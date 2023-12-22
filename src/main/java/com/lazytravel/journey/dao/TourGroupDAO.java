@@ -10,7 +10,7 @@ public interface TourGroupDAO {
 	int update(TourGroup tourGroup);
 //	void delete(Integer groupId);
 	
-//	TourGroup findByPK(Integer groupId);
+	TourGroup findByPK(Integer groupId);
 	List<TourGroup> getAll();
 	List<TourGroup> getByTime(Map<String, String> map);
 	

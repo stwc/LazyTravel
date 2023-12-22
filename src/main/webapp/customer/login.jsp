@@ -2,7 +2,7 @@
 
 <%
   // 已經登入過就無法進來登入頁面，重導回首頁
-  if (session.getAttribute("customerId") != null) {
+  if (session.getAttribute("customer") != null) {
     response.sendRedirect(request.getContextPath() + "/index.jsp");
     return;
   }

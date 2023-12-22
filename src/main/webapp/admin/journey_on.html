@@ -57,7 +57,7 @@
     }
 
     button.journey_detail_add, 
-    button.journey_detail_dalete{
+    button.journey_detail_delete{
         width: 23px;
         height: 23px;
         line-height: 10px;
@@ -69,10 +69,15 @@
 
     button.journey_detail_add{
         padding-left: 3.5px;
+        display: inline-block;
+    }
+
+    div.div_detal_time{
+        display: inline-block;
     }
 
     button.journey_detail_add:active, 
-    button.journey_detail_dalete:active{
+    button.journey_detail_delete:active{
         outline: 2px solid #CCCCCC;
         box-shadow: 0 0 8px #a1a397
     }
@@ -112,24 +117,11 @@
         justify-content: flex-end;
     }
 
-    div.div_journeyId label, div.div_journeyId div{
-        display: inline-block;
-    }
-
-    div.div_journeyId label{
-        margin-right: 30px;
-    }
-
-    /* div.div_journeyId select{
-        width: 181px;
-    } */
-
     div.div_journeyName label, 
     div.div_days label, 
     div.div_journeyStatus label,
     div.div_detal_joyrneyId label,
-    div.div_detal_time label
-    {
+    div.div_detal_time label{
         margin-right: 15px;
     }
     
@@ -180,18 +172,9 @@
     
     <main id="main">
           
-      <p style="font-size: 20px;"<b>新增行程</b></p>
+      <p style="font-size: 20px;"><b>新增行程</b></p>
 
       <br>
-      <div class="div_journeyId">
-          <label>行程ID :</label>
-          <!-- <div>23001</div> -->
-          <!-- <select>
-              <option value="22001" selected>22001</option>
-          </select> -->
-      </div>
-      <br>
-
       <div class="div_journeyName">
           <label>行程名稱 :</label>
           <input type="text">
@@ -223,13 +206,12 @@
       <div>
           <div class="div_nthDay">
               <label>第幾天 :</label>
-              <input type="number">
+              <input type="number" id="day">
           </div>
           <div class="div_detal_joyrneyId">
               <label>美食景點ID / 名稱 :</label>
-              <input type="number">
-              <input type="text">
-              <select>
+              <input type="number" id="placeId">
+              <select id="placeSelect">
                   <option value="22001" selected>陽明山一日遊</option>
                   <option value="22002">台北三天兩夜美食旅</option>
               </select>
@@ -239,33 +221,33 @@
               <input type="time">
               <label>結束時間 :</label>
               <input type="time">
-              <button class="journey_detail_add"><b>+</b></button>
           </div>
+          <button class="journey_detail_add" onclick="addRow()"><b>+</b></button>
       </div>
 
       <br>
-      <table>
+      <table id="journeyDetailsTable">
           <tr>
               <th>第幾天</th>
               <th>美食景點名稱</th>
-              <th>時間起訖<th>
+              <th>時間起訖</tr>
               <th>地址</th>
               <th></th>
           </tr>
-          <tr>
+          <!-- <tr>
               <td>1</td>
               <td>xxx美食景點</td>
               <td>10:00~15:00<td>
               <td>104台北市中山區南京東路三段219號</td>
-              <td><button class="journey_detail_dalete"><b>-</b></button></td>
+              <td><button class="journey_detail_delete"><b>-</b></button></td>
           </tr>
           <tr>
               <td>2</td>
               <td>ooo美食景點</td>
               <td>16:00~22:00<td>
               <td>104台北市中山區南京東路三段219號</td>
-              <td><button class="journey_detail_dalete"><b>-</b></button></td>
-          </tr>
+              <td><button class="journey_detail_delete"><b>-</b></button></td>
+          </tr> -->
       </table>
 
       <br>
@@ -289,14 +271,14 @@
   <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
   <script>
     $(function () {
-      $("#header").load("header.html");
-      new DataTable('#example');
+        $("#header").load("header.html");
+        new DataTable('#example');
+        
+        function redirectToJourneyList() {
+            window.location.href = "./journey_list.html";
+        }
     });
-
-    function redirectToJourneyList() {
-        window.location.href = "./journey_list.html";
-    }
-  </script>
+</script>
 </body>
 
 </html>

@@ -25,7 +25,7 @@
             margin-right: 20px;
         }
 
-        button.btn_back{
+        /* button.btn_back{
             width: 70px;
             height: 30px;
             border-radius: 90px;
@@ -38,6 +38,21 @@
         button.btn_back:active {
             outline: 2px solid #9C6644;
             box-shadow: 0 0 8px #a1a397
+        } */
+
+        a#add {
+          width: 70px;
+          height: 30px;
+          border-radius: 90px;
+          border-color: transparent;
+          color: white;
+          background: #9C6644;
+          padding-top: 3px;
+        }
+
+        a#add:active {
+          outline: #9C6644;
+          box-shadow: 0 0 8px #a1a397
         }
 
         div.content{
@@ -59,11 +74,12 @@
       <div class="card mx-4 my-4">
         <div class="card-header mb-5">
             <span>行程明細</span>
-            <form method="post" action="">
+            <a href="./journey_list.html" id="add" class="btn">返回</a>
+            <!-- <form method="post" action="">
                 <button type="submit" class="btn_back">返回</button>
                 <input type="hidden" name="journey_id" value="" />
                 <input type="hidden" name="action" value="back" />
-            </form>
+            </form> -->
         </div>
 
         <div class="card-body mx-3">
@@ -95,13 +111,13 @@
                 <td>2023-09-29 17:00:00</td>
                 <td>1</td>
               </tr>
-            </table>
+            </tbody>
           </table>
         </div>
                 
         <div class="content">
           <div><b>介紹文</b></div>
-          <textarea style="height: 120px; width: 100%;"></textarea>
+          <textarea style="height: 120px; width: 100%;" readonly></textarea>
         </div>
 
       </div>

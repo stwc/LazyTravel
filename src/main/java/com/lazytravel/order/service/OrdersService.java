@@ -5,18 +5,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.lazytravel.journey.dao.JourneyDAO;
 import com.lazytravel.journey.dao.JourneyDAOImpl;
+import com.lazytravel.journey.dao.TourGroupDAO;
+import com.lazytravel.journey.dao.TourGroupDAOImpl;
 import com.lazytravel.journey.entity.Journey;
+import com.lazytravel.journey.entity.TourGroup;
 import com.lazytravel.order.dao.OrdersHibernateDAO;
 import com.lazytravel.order.dao.OrdersHibernateDAOImpl;
 import com.lazytravel.order.entity.Orders;
 
 public class OrdersService {
-	private final OrdersHibernateDAO dao;
+	private final OrdersHibernateDAO orderdao;
+	private final TourGroupDAO tourgroupdao;
+	private final JourneyDAO journeydao;
 
 	
 	public OrdersService() {
-		dao = new OrdersHibernateDAOImpl();
+		orderdao = new OrdersHibernateDAOImpl();
+		tourgroupdao = new TourGroupDAOImpl();
+		journeydao = new JourneyDAOImpl();
 
 	}
 	
@@ -24,39 +32,54 @@ public class OrdersService {
 		order.setCreateTime(new Timestamp(System.currentTimeMillis()));
         order.setUpdateTime(new Timestamp(System.currentTimeMillis()));
 
-		dao.add(order);
-		
-		
-		// Generate orderNo based on create time and the obtained orderId
-		generateOrderNo(order);
-       
+        orderdao.add(order);
         
-        // Update the order with the generated orderNo
-        dao.update(order);
+        //新增訂單及增加JOURNEY表格BuyCount+1
+        // 获取订单所属的Group
+//         TourGroup tougroup = tourgroupdao.getGroupById(order.getGroupId());
+
+        // 更新Group的JourneyID
+//         int journeyId = tougroup.getJourneyId();
+
+        // 获取Journey
+//         Journey journey = journeydao.getJourneyById(journeyId);
+
+        //自動產生orderNo
+		generateOrderNo(order);
+		orderdao.update(order);
        
 		
 	}
 	
 	public void updateOrder(Orders order) {
 		
-		dao.update(order);
+		orderdao.update(order);
+	}
+	
+	public void cancelOrder(Integer orderId) {
+		orderdao.cancelOrder(orderId);
 	}
 	
 	
 
 	
 	public Orders getOneOrder(Integer orderId) {
-		return dao.getOrdersByOrdersId(orderId);
+		return orderdao.getOrdersByOrdersId(orderId);
 	}
 	
 	public Orders getOrderByOrderNo(Integer orderNo) {
-		return dao.getOrdersByOrdersNo(orderNo);
+		return orderdao.getOrdersByOrdersNo(orderNo);
 	}
+	
+	public List<Orders> getOrderByCustomerId(Integer customerId) {
+		return orderdao.getOrderByCustomerId(customerId);
+	}
+
 	
 	
 	
 	public List<Orders> getAll(){
-		return dao.getAll();
+		return orderdao.getAll();
 	}
 	
 	private void generateOrderNo(Orders order) {
@@ -78,7 +101,7 @@ public class OrdersService {
 	            order.setOrderNo(orderNoStr); // 設置生成的order_no到訂單對象中
 
 	            // 使用生成的orderNo更新訂單
-	            dao.update(order);
+	            orderdao.update(order);
 
 	        } catch (NumberFormatException e) {
 	            // 處理轉換錯誤
@@ -89,6 +112,13 @@ public class OrdersService {
 	        System.out.println("Invalid orderNoStr: " + orderNoStr);
 	    }
 	}
+	
+	public String getJourneyNameByOrderId(Integer orderId) {
+		return orderdao.getJourneyNameByOrderId(orderId);
+	}
+	
+	
+
 
 
 	

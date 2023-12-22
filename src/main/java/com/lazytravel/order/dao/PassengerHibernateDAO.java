@@ -9,5 +9,6 @@ public interface PassengerHibernateDAO {
 	void add(Passenger passenger);
 	void update(Passenger passenger);
 	Passenger getByPk(Integer passengerId);
+	List<Passenger> getByOrderId(Integer orderId);
 	List<Passenger> getAll();
 }

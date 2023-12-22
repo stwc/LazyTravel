@@ -14,7 +14,9 @@ public interface CustomerService {
 
     List<Customer> getAll();
 
-    Integer login(String email, String passwd);
+    Customer login(String email, String passwd);
 
     Boolean isEmailExists(String email);
+
+    Boolean resetPassword(String email, String oldPassword, String newPassword);
 }
