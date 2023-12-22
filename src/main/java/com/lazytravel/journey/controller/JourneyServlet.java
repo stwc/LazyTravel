@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lazytravel.foodscape.entity.FoodScape;
+import com.lazytravel.foodscape.service.FoodScapeService;
+import com.lazytravel.foodscape.service.FoodScapeServiceImpl;
 import com.lazytravel.journey.dao.JourneyDetailService;
 import com.lazytravel.journey.dao.JourneyDetailServiceImpl;
 import com.lazytravel.journey.dao.JourneyService;
@@ -204,12 +207,12 @@ public class JourneyServlet extends HttpServlet {
 			    try {
 			        foodScapeId = Integer.valueOf(req.getParameter(foodScapeIdName));
 			        
-//					// 判斷foodScapeId是否存在資料庫
-//					FoodScapeService foodScapeSvc = new FoodScapeServiceImpl();
-//					FoodScape foodScape = foodScapeSvc.getFoodScapeByFoodScapeId(foodScapeId);
-//					if(foodScape == null) {
-//						errorMsgs.add("第" + index + "筆 行程細項: 查無此美食景點ID");
-//					}
+					// 判斷foodScapeId是否存在資料庫
+					FoodScapeService foodScapeSvc = new FoodScapeServiceImpl();
+					FoodScape foodScape = foodScapeSvc.getFoodScapeByFoodScapeId(foodScapeId);
+					if(foodScape == null) {
+						errorMsgs.add("第" + index + "筆 行程細項: 查無此美食景點ID");
+					}
 			        
 			    } catch (NumberFormatException e) {
 			        errorMsgs.add("第" + index + "筆 行程細項: 美食景點ID 輸入格式錯誤");

@@ -25,26 +25,26 @@ public class Tag {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="TAG_ID",updatable = false)
 	private Integer tagId;
-	
+
 	@Column(name ="TAG_NAME")
 	private String tagName;
-	
+
 	@Column(name ="UPDATE_TIME")
-	private Timestamp updateTime; 
-	
-//	@ManyToMany
-//	@JoinTable(
-//				name = "foodscape_tag",
-//				joinColumns = { @JoinColumn(name = "TAG_ID", referencedColumnName = "TAG_ID")},
-//				inverseJoinColumns = { @JoinColumn(name = "FOODSCAPE_ID", referencedColumnName = "FOODSCAPE_ID")}
-//			)
-//	private Set<FoodScape> foodscapes;
-	
+	private Timestamp updateTime;
+
+	@ManyToMany
+	@JoinTable(
+				name = "foodscape_tag",
+				joinColumns = { @JoinColumn(name = "TAG_ID", referencedColumnName = "TAG_ID")},
+				inverseJoinColumns = { @JoinColumn(name = "FOODSCAPE_ID", referencedColumnName = "FOODSCAPE_ID")}
+			)
+	private Set<FoodScape> foodscapes;
+
 	@ManyToMany (mappedBy = "tags")
     private Set<Blog> blogs = new HashSet<>();
 
 public Tag() {
-	
+
 }
 
 public Integer getTagId() {
@@ -83,12 +83,12 @@ public void setFoodScapes(Set<FoodScape> foodscapes) {
 
 //public void getCreateTime(Timestamp timestamp) {
 //	return createTime;
-//	
+//
 //}
 //
 //public void setCreateTime(Timestamp timestamp) {
 //	this.createTime = createTime;
-//	
+//
 //}
 
 
