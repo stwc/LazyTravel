@@ -73,17 +73,17 @@
 	<table>
 	<tr>
 			<td>文章ID:</td>
-			<td><input type="TEXT" name="blogId" value="<%=  (blogTag==null)?"41001" : blogTag.getBlogId()%>" size="45"/></td>
+			<td><input type="TEXT" name="blogId" value="<%= blogTag.getBlogId()%>" size="45"/></td>
 		</tr>
 		<tr>
 			<td>標籤ID:</td>
-			<td><input type="TEXT" name="tagId" value="<%=  (blogTag==null)?"1" : blogTag.getTagId()%>" size="45"/></td>
+			<td><input type="TEXT" name="tagId" value="<%=blogTag.getTagId()%>" size="45"/></td>
 		</tr>
 	</table>
 	<br>
 	<input type="hidden" name="action" value="update">
 	<input type="hidden" name="blogId" value="<%=blogTag.getBlogId()%>">
-	<input type="hidden" name="bTagId" value="<%=blogTag.getTagId()%>">
+	<input type="hidden" name="tagId" value="<%=blogTag.getTagId()%>">
 	<input type="submit" value="送出修改">
 </FORM>
 

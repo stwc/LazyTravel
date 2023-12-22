@@ -14,4 +14,6 @@ public interface BlogMsgService {
 	BlogMsg getBlogMsgByBlogMsgId(Integer blogMsgId);
 	
 	List<BlogMsg> getAllBlogMsgs();
+	
+	public List<BlogMsg> getBlogMsgsByBlogId(Integer blogId);
 }
