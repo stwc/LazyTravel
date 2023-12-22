@@ -60,12 +60,12 @@ public void setTagId(Integer tagId) {
 }
 
 
-public String getName() {
+public String getTagName() {
 	return tagName;
 }
 
 
-public void setName(String tagName) {
+public void setTagName(String tagName) {
 	this.tagName = tagName;
 }
 
@@ -73,7 +73,6 @@ public void setName(String tagName) {
 public Timestamp getUpdateTime() {
 	return updateTime;
 }
-
 
 public void setUpdateTime(Timestamp updateTime) {
 	this.updateTime = updateTime;
@@ -85,6 +84,17 @@ public Set<FoodScape> getFoodScapes() {
 public void setFoodScapes(Set<FoodScape> foodscapes) {
 	this.foodscapes = foodscapes;
 }
+
+//public void getCreateTime(Timestamp timestamp) {
+//	return createTime;
+//	
+//}
+//
+//public void setCreateTime(Timestamp timestamp) {
+//	this.createTime = createTime;
+//	
+//}
+
 
 @Override
 public String toString() {

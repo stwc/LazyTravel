@@ -75,16 +75,16 @@ public class FoodScape  {
 			)
 	private Set<Tag> tags;
 	
-	@ManyToMany
-	@JoinTable(
-				name = "foodscape_blog",
-				joinColumns = { @JoinColumn(name = "FOODSCAPE_ID", referencedColumnName = "FOODSCAPE_ID")},
-				inverseJoinColumns = { @JoinColumn(name = "BLOG_ID", referencedColumnName = "BLOG_ID")}
-			)
-	private Set<Blog> blogs;
+//	@ManyToMany
+//	@JoinTable(
+//				name = "foodscape_blog",
+//				joinColumns = { @JoinColumn(name = "FOODSCAPE_ID", referencedColumnName = "FOODSCAPE_ID")},
+//				inverseJoinColumns = { @JoinColumn(name = "BLOG_ID", referencedColumnName = "BLOG_ID")}
+//			)
+//	private Set<Blog> blogs;
 	
 public  FoodScape() {
-	
+	super();
 }
 
 public FoodScape(Integer foodScapeId, String foodScapeName, String phone, String address, String city, double lng, double lat,
@@ -241,6 +241,11 @@ public String toString() {
 	return "FoodScape [foodScapeId=" + foodScapeId + ", foodScapeName=" + foodScapeName + ", phone=" + phone
 			+ ", address=" + address + ", city=" + city + ", lng=" + lng + ", lat=" + lat + ", intro=" + intro
 			+ ", updateTime=" + updateTime + ", foodScapeStatus=" + foodScapeStatus + ", category=" + category + "]";
+}
+
+public static FoodScape valueOf(String parameter) {
+
+	return null;
 }
 	
 

@@ -3,78 +3,90 @@ package com.lazytravel.foodscape.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import com.lazytravel.foodscape.entity.FoodScape;
+
 import com.lazytravel.foodscape.entity.Tag;
 import com.lazytravel.util.HibernateUtil;
 
 public class TagDAOImpl implements TagDAO{
 	
 	private TagDAO dao;
+	private SessionFactory factory;
+	
 	
 	public TagDAOImpl() {
-		dao = new TagDAOImpl();
+		factory = HibernateUtil.getSessionFactory();
+	}
+	private Session getSession() {
+		return factory.getCurrentSession();
 	}
 
 	@Override
-	public int insert(Tag tag) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public void add(Tag tag) {
+		Session session = getSession();
 		try {
 			session.beginTransaction();
+//			tag.setCreateTime(new java.sql.Timestamp(System.currentTimeMillis()));
+			tag.setUpdateTime(new java.sql.Timestamp(System.currentTimeMillis()));
 			Integer id = (Integer) session.save(tag);
 			session.getTransaction().commit();
-			return id;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return -1;
+
 	}
 
 	@Override
-	public int update(Tag tag) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public void update(Tag tag) {
+		Session session = getSession();
 		try {
 			session.beginTransaction();
+//			tag.setCreateTime(existingTag.getCreateTime()); // Set the existing create time
+			tag.setUpdateTime(new java.sql.Timestamp(System.currentTimeMillis()));
 			session.update(tag);
 			session.getTransaction().commit();
-			return 1;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return -1;
+
 		
 	}
 
 	@Override
 	public Tag getByPK(Integer tagId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+		Tag tag = null;
 		try {
 			session.beginTransaction();
-			Tag tag = session.get(Tag.class, tagId);
+			tag = getSession().get(Tag.class, tagId);
 			session.getTransaction().commit();
 			return tag;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return null ;
+		return tag ;
 	}
 
 	@Override
 	public List<Tag> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = getSession();
+		List<Tag> list = null;
 		try {
 			session.beginTransaction();
-			List<Tag> list = session.createQuery("from Tag", Tag.class).list();
+			list = session.createQuery("from Tag", Tag.class).list();
 			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return null;
+		return list;
 	}
 
 	@Override
