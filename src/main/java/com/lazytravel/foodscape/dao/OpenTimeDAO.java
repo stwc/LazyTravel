@@ -6,9 +6,9 @@ import com.lazytravel.foodscape.entity.OpenTime;
 
 public interface OpenTimeDAO {
 	
-	int insert(OpenTime opentime);
+	void add(OpenTime opentime);
 	
-	int update(OpenTime opentime);
+	void update(OpenTime opentime);
 	
 	//int delete(Integer openTimeId);
 	

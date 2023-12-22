@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美食/景點搜尋</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" href="./css/selectpage.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xr3m6W2+K7UreKck7jC+y2BxegjgUoeqgRN8dguLmOfiRSRtK5UeR8xRqjkFR0UW3yHwDvi6PKxdFiKA+Ai7Ow==" crossorigin="anonymous" />
+
+  <style>
+    *{
+         box-sizing: border-box;
+     }
+
+     body{
+         margin: 0;
+     }
+
+     main#main{
+         padding: 50px 80px;
+     }
+
+     input, textarea{
+         border: 1px solid #CCD5AE;   
+     }
+
+     input:focus, textarea:focus{
+         outline: 2px solid #CCD5AE;
+         box-shadow: 0 0 8px #a1a397
+     }
+
+     select {
+         border: 1px solid #CCD5AE;
+         height: 27px;
+     }
+
+     select:focus {
+         border:2px solid #CCD5AE;
+         box-shadow: 0 0 8px #a1a397;
+     }
+
+     
+     button.btn_submit{
+         width: 100px;
+         height: 30px;
+         border-radius: 90px;
+         border-color: transparent;
+         color: white;
+         background: #CCD5AE;
+     }
+
+     button.btn_submit:active {
+         outline: 2px solid #CCD5AE;
+         box-shadow: 0 0 8px #a1a397
+     }
+     
+     button.btn_reset{
+         width: 100px;
+         height: 30px;
+         border-radius: 90px;
+         border-color: transparent;
+         color: white;
+         background: #9C6644;
+
+         margin-right: 15px;
+     }
+
+     button.btn_reset:active {
+         outline: 2px solid #9C6644;
+         box-shadow: 0 0 8px #a1a397
+     }
+
+     button.btn_more{
+         width: 100px;
+         height: 30px;
+         border-radius: 90px;
+         border-color: transparent;
+         color: white;
+         background: #6B705C;
+     }
+
+     button.btn_more:active {
+         outline: 2px solid #6B705C;
+         box-shadow: 0 0 8px #a1a397
+     }
+
+     div.div_btn{
+         display: flex;
+         justify-content: flex-end;
+     }
+
+     hr:not([zzz]) {
+         height: 1.5px;
+         background: rgba(0, 0, 0, 0.863);
+         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.368);
+     }
+
+     div.list_group li{
+         list-style: none;
+         padding-left: 80px;
+     }
+
+     button.btn_x{
+         width: 19px;
+         height: 19px;
+         line-height: 10px;
+         border-radius: 90px;
+         border-color: transparent;
+         background-color: #CCCCCC;
+         color: white;
+
+         margin-left: 20px;
+         margin-bottom: 5px;
+         padding-left: 3.5px;
+     }
+     
+     button.btn_x:active{
+         outline: 2px solid #CCCCCC;
+         box-shadow: 0 0 8px #a1a397
+     }
+
+     
+     li.foodscape{
+         box-sizing: border-box;
+         background: rgba(217, 217, 217, 0.42);
+         border-radius: 20px;
+         list-style: none;
+         border: 1px dotted rgba(109, 109, 109, 0.737);
+         margin: 20px 0 0 -40px;
+         padding: 20px 40px 20px 40px;
+     }
+
+     
+     div.label span{
+         border-radius: 90px;
+         border-color: transparent;
+         color: white;
+         background: #6B705C;
+         padding: 4px 7px 4px 18px;
+         margin-right: 8px;
+
+         white-space: nowrap;   
+     }
+
+     div.label{
+         display: flex;
+         flex-wrap: wrap;
+         gap: 5px;     
+     }
+     
+     button.btn_label_x{
+         line-height: 10px;
+         border-radius: 90px;
+         border-color: transparent;
+         color: white;
+         background: #6B705C;
+
+         padding-left: 15px;
+     }
+     
+ </style>
+
+</head>
+
+<body>
+    <!-- <header id="header"></header>
+
+    <main class="main">
+<div class="container">
+    <div class="row align-items-center justify-content-end">
+        <div class="col-8">目的地/店家</div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary">常見問題</button>
+        </div>
+        <div class="col-auto">|</div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary">聯繫客服</button>
+        </div>
+    </div>
+        
+    <section class="sec1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-1">
+                    图片部分
+                    <div class="img_block">
+                        <img src="image/豬腳店.jpg" class="img-fluid" alt="富狀元豬腳">
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-2">
+                    文本部分
+                    <div class="items -right">
+                        <h1 class="title1">富狀元豬腳</h1>
+                        <ul class="desc_list">
+                            <li>電話：<span class="phone">27523678</span></li>
+                            <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                        </ul>
+                        <div class="item_block ">
+                            <span class="temp"></span>
+                            <button type="submit" class="btn btn-primary">查看更多</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-1"> -->
+                    <!-- 图片部分 -->
+                    <!-- <div class="img_block">
+                        <img src="image/鼎泰豐.jpg" class="img-fluid" alt="富狀元豬腳">
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-2"> -->
+                    <!-- 文本部分 -->
+                    <!-- <div class="items -right">
+                        <h1 class="title1">鼎泰豐</h1>
+                        <ul class="desc_list">
+                            <li>電話：<span class="phone">27528899</span></li>
+                            <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                        </ul>
+                        <div class="item_block">
+                            <span class="temp"></span>
+                            <button type="submit" class="btn btn-primary">查看更多</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-1"> -->
+                    <!-- 图片部分 -->
+                    <!-- <div class="img_block">
+                        <img src="image/扁食店.jpg" class="img-fluid" alt="富狀元豬腳">
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-2"> -->
+                    <!-- 文本部分 -->
+                    <!-- <div class="items -right">
+                        <h1 class="title1">液香扁食店</h1>
+                        <ul class="desc_list">
+                            <li>電話：<span class="phone">27523678</span></li>
+                            <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                        </ul>
+                        <div class="item_block">
+                            <span class="temp"></span>
+                            <button type="submit" class="btn btn-primary">查看更多</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sec1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 order-md-1"> -->
+                    <!-- 图片部分 -->
+                    <!-- <div class="img_block">
+                        <img src="image/麥當勞.jpg" class="img-fluid" alt="富狀元豬腳">
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-2"> -->
+                    <!-- 文本部分 -->
+                    <!-- <div class="items -right">
+                        <h1 class="title1">麥當勞</h1>
+                        <ul class="desc_list">
+                            <li>電話：<span class="phone">27523678</span></li>
+                            <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                        </ul>
+                        <div class="item_block ">
+                            <span class="temp"></span>
+                            <button type="submit" class="btn btn-primary">查看更多</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+    
+    <header id="header"></header>
+
+    <main id="main">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4  d-flex justify-content-start">
+                    <div class="row">
+                        <label class="col-3 d-flex justify-content-end ">地點</label>
+                        <input type="text" class="col-9">
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-start">
+                    <div class="row">
+                        <label class="col-4">美食/景點</label>
+                        <input type="text" class="col-8">
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <div class="row">
+                        <label class="col-3 d-flex justify-content-end">預算</label>
+                        <input type="text" class="col-9">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+        <div class="label">
+            <span>標籤AAAAA<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤BBBBB<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤CCCCC<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤DDDDD<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤EEEEE<button type="button" class="btn_label_x">x</button></span>
+        </div>
+            
+        <br>
+        <div class="div_btn">
+            <button type="reset" class="btn_reset">重新篩選</button>
+            <button type="submit" class="btn_submit">送出</button>
+        </div>
+        <hr>
+        <!-- <div style="border-top: 1px solid red; margin: 16px auto;"></div> -->
+
+
+        <div>
+            <div class="container">
+                <div class="row">
+                    <span class="col-8">篩選美食/景點</span>
+                    <div class="col-4 d-flex justify-content-end">
+                        <span class="mr-3">常見問題&nbsp;&nbsp;</span>
+                        <span class="mr-3">|&nbsp;&nbsp;</span>
+                        <span>聯繫客服</span>
+                    </div>
+                </div>
+            </div>
+            
+            <ul>
+                <li class="foodscape d-flex position-relative">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 order-md-1">
+                                <div class="img_block">
+                                    <img src="image/豬腳店.jpg" class="img-fluid" alt="富狀元豬腳">
+                                </div>
+                            </div>
+                            <div class="col-md-6 order-md-2 d-flex flex-column position-relative">
+                                <!-- 在右上方添加打勾符號 -->
+                                <i class="fas fa-check-circle position-absolute top-0 end-0"></i>
+                                <div class="items-right">
+                                    <span class="title1" style="font-size: 20px; margin-bottom: 10px;">富狀元豬腳</span>
+                                    <ul class="desc_list">
+                                        <li>電話：<span class="phone">27523678</span></li>
+                                        <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                                    </ul>
+                                </div>
+                                <button type="submit" class="btn_submit mt-auto">查看更多</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                
+                
+                
+                <li class="foodscape d-flex position-relative">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 order-md-1">
+                                
+                                    <div class="img_block">
+                                        <img src="image/鼎泰豐.jpg" class="img-fluid" alt="鼎泰豐">
+                                    </div>
+                            </div>
+                            <div class="col-md-6 order-md-2 d-flex flex-column position-relative">
+                                <i class="fas fa-check-circle position-absolute top-0 end-0"></i>
+                                    <div class="items-right">
+                                        <span class="title1" style="font-size: 20px; margin-bottom: 10px;">鼎泰豐</span>
+                                        <ul class="desc_list">
+                                            <li>電話：<span class="phone">27523678</span></li>
+                                            <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                                        </ul>
+                                    </div>
+    
+                                    <button type="submit" class="btn_submit mt-auto">查看更多</button>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <li class="foodscape d-flex position-relative">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 order-md-1">
+                                    
+                                        <div class="img_block">
+                                            <img src="image/麥當勞.jpg" class="img-fluid" alt="麥當勞">
+                                        </div>
+                                </div>
+                                <div class="col-md-6 order-md-2 d-flex flex-column position-relative">
+                                    <i class="fas fa-check-circle position-absolute top-0 end-0"></i>
+                                        <div class="items-right">
+                                            <span class="title1" style="font-size: 20px; margin-bottom: 10px;">麥當勞</span>
+                                            <ul class="desc_list">
+                                                <li>電話：<span class="phone">27523678</span></li>
+                                                <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                                            </ul>
+                                        </div>
+        
+                                        <button type="submit" class="btn_submit mt-auto">查看更多</button>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+
+                        <li class="foodscape d-flex position-relative">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-6 order-md-1">
+                                        
+                                            <div class="img_block">
+                                                <img src="image/扁食店.jpg" class="img-fluid" alt="扁食店">
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6 order-md-2 d-flex flex-column position-relative">
+                                        <i class="fas fa-check-circle position-absolute top-0 end-0"></i>
+                                            <div class="items-right">
+                                                <span class="title1" style="font-size: 20px; margin-bottom: 10px;">扁食店</span>
+                                                <ul class="desc_list">
+                                                    <li>電話：<span class="phone">27523678</span></li>
+                                                    <li>地址：<span class="address">台北市信義區松山路218號</span></li>
+                                                </ul>
+                                            </div>
+            
+                                            <button type="submit" class="btn_submit mt-auto">查看更多</button>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="div_btn">
+                                <button type="reset" class="btn_reset">全部取消</button>
+                                <button type="submit" class="btn_submit">送出</button>
+                            </div>
+
+
+        
+    </main>
+
+
+    <footer id="footer"></footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script>
+      $(function () {
+        $("#header").load("../components/html/header.html");
+        $("#footer").load("../components/html/footer.html");
+      });
+    </script>
+  
+  
+  
+  </body>
+  
+  </html>

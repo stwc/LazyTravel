@@ -4,6 +4,7 @@
 
 <%
   Customer customer = (Customer) session.getAttribute("customer");
+  String customerAvatar = request.getContextPath() + "/customer/ImageReader?id=" + customer.getCustomerId();
 %>
 
 
@@ -53,10 +54,11 @@
     <div class="col-md-4 mb-3">
       <h3>會員資料</h3>
       <div class="row mt-3">
-        <label for="" class="col-sm-4 col-form-label">大頭貼</label>
+        <label class="col-sm-4 col-form-label">大頭貼</label>
         <div class="col-sm-8">
           <div id="preview">
-            <span class="text">預覽圖</span>
+            <%--            <span class="text">預覽圖</span>--%>
+            <img src="<%= customerAvatar %>" class="preview_img" alt="avatar">
           </div>
         </div>
       </div>
@@ -92,14 +94,16 @@
     <div class="col-md-6">
       <h3>服務</h3>
       <ul class="nav flex-column mt-3">
-        <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerCenter/customer-modify.jsp" class="nav-link p-0 text-muted">
+        <li class="nav-item mb-2">
+          <a href="<%=request.getContextPath()%>/customerCenter/customer-modify.jsp" class="nav-link p-0 text-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                class="bi bi-person-fill" viewBox="0 0 16 16">
             <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
           </svg>
           修改會員資料</a>
         </li>
-        <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerCenter/customer-resetpw.jsp" class="nav-link p-0 text-muted">
+        <li class="nav-item mb-2">
+          <a href="<%=request.getContextPath()%>/customerCenter/customer-resetpw.jsp" class="nav-link p-0 text-muted">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill"
                viewBox="0 0 16 16">
             <path

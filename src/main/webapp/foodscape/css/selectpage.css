@@ -1,0 +1,8 @@
+.sec1 {
+    background-color: #f8f9fa; /* 添加背景颜色 */
+    padding: 20px; /* 添加内边距 */
+    border: 1px solid #dee2e6; /* 添加边框 */
+    border-radius: 8px; /* 添加边框圆角 */
+    margin-bottom: 15px; /* 为每个项目添加底部留白 */
+}
+

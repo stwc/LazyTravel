@@ -4,6 +4,7 @@
 
 <%
   Customer customer = (Customer) session.getAttribute("customer");
+  String customerAvatar = request.getContextPath() + "/customer/ImageReader?id=" + customer.getCustomerId();
 
   // 會員更新失敗
   Boolean updateFailed = false;
@@ -76,7 +77,8 @@
     </div>
     <div class="col-md-4 mb-3">
       <div id="preview">
-        <span class="text">預覽圖</span>
+        <%--        <span class="text">預覽圖</span>--%>
+        <img src="<%= customerAvatar %>" class="preview_img" alt="avatar">
       </div>
     </div>
     <div class="col-12 mb-3">
@@ -200,6 +202,30 @@
     $("#btn-cancel").on("click", function () {
         window.location.replace("<%=request.getContextPath()%>/customerCenter/customer-center.jsp");
     });
+
+
+    // 預覽圖
+    let preview_img = function (file) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.addEventListener("load", function () {
+            <%--let img_src = `<img src="${reader.result}" class="preview_img">`;--%>
+            let img_src = '<img src="' + reader.result + '" class="preview_img" alt="avatar">';
+            $("#preview").html(img_src);
+        })
+    };
+
+    // 選擇檔案上傳圖片
+    $("#inputAvatar").on("change", function (e) {
+        // console.log(this);
+        console.log(this.files);
+
+        if (this.files.length > 0)
+            preview_img(this.files[0]);
+        else
+            $("#preview").html('<span class="text">預覽圖</span>');
+    });
+
 
     function validateRequired() {
         let isRequired = true;

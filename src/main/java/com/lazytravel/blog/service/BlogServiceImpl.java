@@ -32,6 +32,11 @@ public class BlogServiceImpl implements BlogService {
     }
 
 	@Override
+	public Blog getBlogWithMsgs(Integer blogId) {
+		return null;
+	}
+
+	@Override
 	public Integer updateBlog(Blog blog) {
 		return dao.update(blog);
 	}
