@@ -1,0 +1,374 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@ include file="/components/html/header.jsp" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>篩選行程</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<style>
+	* {
+		box-sizing: border-box;
+	}
+	
+	body {
+		margin: 0;
+	}
+	
+	main#main {
+		padding: 50px 80px;
+	}
+	
+	input, textarea {
+		border: 1px solid #CCD5AE;
+	}
+	
+	input:focus, textarea:focus {
+		outline: 2px solid #CCD5AE;
+		box-shadow: 0 0 8px #a1a397
+	}
+	
+	select {
+		border: 1px solid #CCD5AE;
+		height: 27px;
+	}
+	
+	select:focus {
+		border: 2px solid #CCD5AE;
+		box-shadow: 0 0 8px #a1a397;
+	}
+	
+	button.btn_submit {
+		width: 100px;
+		height: 30px;
+		border-radius: 90px;
+		border-color: transparent;
+		color: white;
+		background: #CCD5AE;
+	}
+	
+	button.btn_submit:active {
+		outline: 2px solid #CCD5AE;
+		box-shadow: 0 0 8px #a1a397
+	}
+	
+	button.btn_reset {
+		width: 100px;
+		height: 30px;
+		border-radius: 90px;
+		border-color: transparent;
+		color: white;
+		background: #9C6644;
+		margin-right: 15px;
+	}
+	
+	button.btn_reset:active {
+		outline: 2px solid #9C6644;
+		box-shadow: 0 0 8px #a1a397
+	}
+	
+	button.btn_more {
+		width: 100px;
+		height: 30px;
+		border-radius: 90px;
+		border-color: transparent;
+		color: white;
+		background: #6B705C;
+	}
+	
+	button.btn_more:active {
+		outline: 2px solid #6B705C;
+		box-shadow: 0 0 8px #a1a397
+	}
+	
+	div.div_btn {
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	hr:not([zzz]) {
+		height: 1.5px;
+		background: rgba(0, 0, 0, 0.863);
+		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.368);
+	}
+	
+	div.list_group li {
+		list-style: none;
+		padding-left: 80px;
+	}
+	
+	button.btn_x {
+		width: 19px;
+		height: 19px;
+		line-height: 10px;
+		border-radius: 90px;
+		border-color: transparent;
+		background-color: #CCCCCC;
+		color: white;
+		margin-left: 20px;
+		margin-bottom: 5px;
+		padding-left: 3.5px;
+	}
+	
+	button.btn_x:active {
+		outline: 2px solid #CCCCCC;
+		box-shadow: 0 0 8px #a1a397
+	}
+	
+	div.select_journey {
+		margin: 20px 0px;
+	}
+	
+	li.journey {
+		box-sizing: border-box;
+		background: rgba(217, 217, 217, 0.42);
+		border-radius: 20px;
+		list-style: none;
+		border: 1px dotted rgba(109, 109, 109, 0.737);
+		margin: 20px 0 0 -40px;
+		padding: 20px 40px 20px 40px;
+	}
+	
+	div.journey_name {
+		margin-bottom: 10px;
+	}
+	
+	div.journey_name span {
+		margin-right: 5px;
+	}
+	
+	span.journey_title {
+		margin-right: 10px;
+	}
+	
+	span.journey_title, div.journey_store, div.journey_price {
+		/* border: 1px solid red; */
+		display: inline-block;
+		height: 132.5px;
+	}
+	
+	/* div.journey_store div{
+	            border: 1px solid red;
+	        } */
+	div.journey_store button {
+		margin-top: 7px;
+	}
+	
+	div.journey_price {
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	div.journey_price_div {
+		color: #787878;
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	span.journey_price_span {
+		margin-left: 5px;
+		margin-right: 5px;
+		margin-bottom: 10px;
+	}
+	
+	div.label span {
+		border-radius: 90px;
+		border-color: transparent;
+		color: white;
+		background: #6B705C;
+		padding: 4px 7px 4px 18px;
+		margin-right: 8px;
+		white-space: nowrap;
+	}
+	
+	div.label {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 5px;
+	}
+	
+	button.btn_label_x {
+		line-height: 10px;
+		border-radius: 90px;
+		border-color: transparent;
+		color: white;
+		background: #6B705C;
+		padding-left: 15px;
+	}
+	
+	a.a_page {
+		text-decoration: none;
+		color: black;
+	}
+
+	a.a_page:hover {
+   		color: #3b6481;
+    }
+</style>
+
+
+</head>
+<body>
+<!--     <header id="header"></header> -->
+
+    <main id="main">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4  d-flex justify-content-start">
+                    <div class="row">
+                        <label class="col-3 d-flex justify-content-end ">地點</label>
+                        <input type="text" class="col-9">
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-start">
+                    <div class="row">
+                        <label class="col-4">美食/景點</label>
+                        <input type="text" class="col-8">
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <div class="row">
+                        <label class="col-3 d-flex justify-content-end">預算</label>
+                        <input type="text" class="col-9">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <br>
+        <div class="label">
+            <span>標籤AAAAA<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤BBBBB<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤CCCCC<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤DDDDD<button type="button" class="btn_label_x">x</button></span>
+            <span>標籤EEEEE<button type="button" class="btn_label_x">x</button></span>
+        </div>
+            
+        <br>
+        <div class="div_btn">
+            <button type="reset" class="btn_reset">重新篩選</button>
+            <button type="submit" class="btn_submit">送出</button>
+        </div>
+        <hr>
+        <!-- <div style="border-top: 1px solid red; margin: 16px auto;"></div> -->
+                
+
+        <div class="list_group">
+            <label>已勾選的店家</label>
+            <ul>
+                <li>店家1<button type="button" class="btn_x">x</button></li>
+                <li>店家2<button type="button" class="btn_x">x</button></li>
+            </ul>  
+        </div>
+        <hr>
+
+
+        <div>
+            <div class="container">
+                <div class="row">
+                    <span class="col-8">篩選行程</span>
+                    <div class="col-4 d-flex justify-content-end">
+                        <span class="mr-3">常見問題&nbsp;&nbsp;</span>
+                        <span class="mr-3">|&nbsp;&nbsp;</span>
+                        <span>聯繫客服</span>
+                    </div>
+                </div>
+            </div>
+            
+            <ul>
+                <li class="journey">
+                    <div class="journey_name">
+                        <span>行程名稱 :</span>
+                        <span>行程1</span>
+                    </div>
+                    <div class="journey_detail d-flex justify-content-between align-items-start">
+                        <span class="journey_title">美食景點 :</span>
+                        <div class="journey_store d-flex flex-column align-items-start">
+                            <div>店家1111111111111</div>
+                            <div>店家2222222222222</div>
+                            <div>店家3333333333333</div>
+                            <div>店家4444444444444</div>
+<!--                             <button type="button" class="btn_more">查看更多</button> -->
+                        </div>
+                        <div class="journey_price d-flex flex-column ms-auto ">
+                            <div class="journey_price_div">
+                                <span>金額</span>
+                                <span class="journey_price_span">NT$420</span>
+                            </div>
+                            <button type="button" class="btn_more">查看更多</button>
+<!--                             <button type="submit" class="btn_submit">預定</button> -->
+                        </div>
+                    </div>
+                </li>
+
+                <li class="journey">
+                    <div class="journey_name">
+                        <span>行程名稱 :</span>
+                        <span>行程2</span>
+                    </div>
+                    <div class="journey_detail d-flex justify-content-between align-items-start">
+                        <span class="journey_title">美食景點 :</span>
+                        <div class="journey_store d-flex flex-column align-items-start">
+                            <div>店家1111111111111</div>
+                            <div>店家2222222222222</div>
+                            <div>店家3333333333333</div>
+                            <div>店家4444444444444</div>
+<!--                             <button type="button" class="btn_more">查看更多</button> -->
+                        </div>
+                        <div class="journey_price d-flex flex-column ms-auto ">
+                            <div class="journey_price_div">
+                                <span>金額</span>
+                                <span class="journey_price_span">NT$420</span>
+                            </div>
+                            <button type="button" class="btn_more">查看更多</button>
+<!--                             <button type="submit" class="btn_submit">預定</button> -->
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        
+
+        <br><br>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="pagination-sm">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">上一頁</a></li>
+                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">1</a></li>
+                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">2</a></li>
+                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">3</a></li>
+                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">下一頁</a></li>
+                        </ul>
+					</nav>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+    
+    <%@ include file="/components/html/footer.jsp" %>
+    
+<!--     <footer id="footer"></footer> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+// 	        $("#header").load("../components/html/header.html");
+// 	        $("#footer").load("../components/html/footer.html");
+        });
+    </script>
+</body>
+</html>

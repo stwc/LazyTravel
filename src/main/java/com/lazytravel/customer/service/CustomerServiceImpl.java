@@ -40,12 +40,17 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer == null)
             return null;
 
-        boolean isEmailMatched = email.equals(customer.getEmail());
-        boolean isPasswdMatched = Password.check(passwd, customer.getCustomerPasswd()).withBcrypt();
-        if (isEmailMatched && isPasswdMatched)
-            return customer;
-        else
+        try {
+            boolean isEmailMatched = email.equals(customer.getEmail());
+            boolean isPasswdMatched = Password.check(passwd, customer.getCustomerPasswd()).withBcrypt();
+            if (isEmailMatched && isPasswdMatched)
+                return customer;
+            else
+                return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
+        }
     }
 
     @Override

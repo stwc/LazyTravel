@@ -1,3 +1,11 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.lazytravel.customer.entity.Customer" %>
+
+<%
+  Customer customer = (Customer)session.getAttribute("customer");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +20,7 @@
 
 
   <style>
-
+    
   </style>
 
 </head>
@@ -23,6 +31,9 @@
   <div class="container d-flex justify-content-center mb-5">
     <form method="post" action="customer.do" class="row border m-3 p-3 needs-validation rounded-3" novalidate>
       <h2 class="mb-4">修改密碼</h2>
+      <div class="alert alert-warning <%= (isPwWrong) ? "" : "d-none" %>" role="alert">
+        舊密碼不正確，請重新輸入！
+      </div>
       <div class="col-12 mb-3">
         <label for="InputOldPassword" class="form-label">舊密碼</label>
         <input type="password" name="customer_old_passwd" class="form-control" id="InputOldPassword"
@@ -62,8 +73,8 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   <script>
     $(function () {
-    	$("#header").load("../components/html/header.html");
-        $("#footer").load("../components/html/footer.html");
+        $("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
+        $("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
     });
 
 
