@@ -6,9 +6,9 @@ import java.util.Map;
 import com.lazytravel.foodscape.entity.FoodScape;
 
 public interface FoodScapeDAO {
-	int insert(FoodScape foodscape);
+	void add(FoodScape foodscape);
 	
-	int update(FoodScape foodscape);
+	void update(FoodScape foodscape);
 	
 //	int delete(Integer foodScapeId);
 	

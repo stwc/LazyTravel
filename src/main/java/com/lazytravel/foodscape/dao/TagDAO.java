@@ -4,9 +4,9 @@ import java.util.List;
 import com.lazytravel.foodscape.entity.Tag;
 
 public interface TagDAO {
-	int insert(Tag tag);
+	void add(Tag tag);
 	
-	int update(Tag tag);
+	void update(Tag tag);
 	
 	//int delete(Integer tagId);
 	

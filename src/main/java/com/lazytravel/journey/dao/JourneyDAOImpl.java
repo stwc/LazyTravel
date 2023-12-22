@@ -21,8 +21,8 @@ public class JourneyDAOImpl implements JourneyDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+			return -1;
 		}
-		return -1;
 	}
 
 	@Override
@@ -36,38 +36,38 @@ public class JourneyDAOImpl implements JourneyDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+			return -1;
 		}
-		return -1;
 	}
 
 	@Override
 	public Journey findByPK(Integer journeyId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Journey journey = null;
 		try {
 			session.beginTransaction();
-			Journey journey = session.get(Journey.class, journeyId);
+			journey = session.get(Journey.class, journeyId);
 			session.getTransaction().commit();
-			return journey;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return null;
+		return journey;
 	}
 
 	@Override
 	public List<Journey> getAll() {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<Journey> list = null;
 		try {
 			session.beginTransaction();
-			List<Journey> list = session.createQuery("from Journey", Journey.class).list();
+			 list = session.createQuery("from Journey", Journey.class).list();
 			session.getTransaction().commit();
-			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return null;
+		return list;
 	}
 	
 

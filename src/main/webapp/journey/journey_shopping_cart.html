@@ -1,274 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>購物車</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
 
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
 
     <style>
-       *{
-            box-sizing: border-box;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
-        body{
-            margin: 0;
-        }
+      body {
+        margin: 0;
+      }
 
-        main#main{
-            padding: 50px 80px;
-            /* border: 1px solid red; */
-        }
+      main#main {
+        padding: 50px 80px;
+        /* border: 1px solid red; */
+      }
 
-        div.cart_header div{
-            /* border: 1px solid red; */
-            margin-bottom: 20px;
-        }
+      img.cart_main {
+        border-radius: 10px;
+      }
 
-        img.cart_main{
-            border-radius: 10px;
-        }
+      div.cart_title {
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
 
-        div.cart_title{
-            font-size: 26px;
-            margin-bottom: 20px;
-        }
-        
-        button.btn_submit{
-            width: 100px;
-            height: 30px;
-            border-radius: 90px;
-            border-color: transparent;
-            color: white;
-            background: #CCD5AE;
-            
-            margin-right: 15px;
-        }
+      button.btn_submit {
+        width: 100px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #ccd5ae;
 
-        button.btn_submit:active {
-            outline: 2px solid #CCD5AE;
-            box-shadow: 0 0 8px #a1a397
-        }
-        
-        button.btn_reset{
-            width: 100px;
-            height: 30px;
-            border-radius: 90px;
-            border-color: transparent;
-            color: white;
-            background: #9C6644;
-        }
+        margin-right: 15px;
+      }
 
-        button.btn_reset:active {
-            outline: 2px solid #9C6644;
-            box-shadow: 0 0 8px #a1a397
-        }
+      button.btn_submit:active {
+        outline: 2px solid #ccd5ae;
+        box-shadow: 0 0 8px #a1a397;
+      }
 
-        button.amount_plus,
-        button.amount_reduce{
-            width: 26px;
-            height: 26px;
-            line-height: 10px;
-            border-radius: 90px;
-            border-color: transparent;
-            background-color: #CCCCCC;
-            color: white;
-        }
+      button.btn_button {
+        width: 100px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #9c6644;
+      }
 
-        button.amount_plus:active,
-        button.amount_reduce:active{
-            outline: 2px solid #CCCCCC;
-            box-shadow: 0 0 8px #a1a397
-        }
+      button.btn_button:active {
+        outline: 2px solid #9c6644;
+        box-shadow: 0 0 8px #a1a397;
+      }
 
-        div.cart_header_price,
-        div.cart_header_amount,
-        div.cart_header_total,
-        div.cart_header_use{
-            display: flex;
-            justify-content: center;
-        }
+      button.amount_plus,
+      button.amount_reduce {
+        width: 26px;
+        height: 26px;
+        line-height: 10px;
+        border-radius: 90px;
+        border-color: transparent;
+        background-color: #cccccc;
+        color: white;
+      }
 
-        div.price,
-        div.amount,
-        div.total,
-        div.div_btn{
-            align-self: center;
-            display: flex;
-            justify-content: center;
-        }
+      button.amount_plus:active,
+      button.amount_reduce:active {
+        outline: 2px solid #cccccc;
+        box-shadow: 0 0 8px #a1a397;
+      }
 
-        div.name_and_date{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+      table thead th.cart_header_price,
+      table thead th.cart_header_amount,
+      table thead th.cart_header_total,
+      table thead th.cart_header_use {
+        text-align: center;
+      }
 
-        div.cart_main{
-            margin-bottom: 30px;
-        }
+      table tbody td.price,
+      table tbody td.amount,
+      table tbody td.total,
+      table tbody td.div_btn {
+        text-align: center;
+      }
 
-        div.btn_button{
-            display: flex;
-            justify-content: flex-end;
-        }
-        
-        div.btn_button button{
-            width: 100px;
-            height: 30px;
-            border-radius: 90px;
-            border-color: transparent;
-            color: white;
-            background: #6B705C;
-        }
+      div.btn_button {
+        display: flex;
+        justify-content: flex-end;
+      }
 
-        div.btn_button button:active{
-            outline: 2px solid #6B705C;
-            box-shadow: 0 0 8px #a1a397
-        }
-        
+      div.btn_button button {
+        width: 100px;
+        height: 30px;
+        border-radius: 90px;
+        border-color: transparent;
+        color: white;
+        background: #6b705c;
+      }
+
+      div.btn_button button:active {
+        outline: 2px solid #6b705c;
+        box-shadow: 0 0 8px #a1a397;
+      }
+
+      thead th,
+      tbody td {
+        padding-bottom: 15px;
+		    padding-top: 15px;
+      }
+
+      th.cart_header_nameAndDate,
+      td.name_and_date {
+        padding-left: 10px;
+      }
     </style>
-
-</head>
-<body>
+  </head>
+  <body>
     <header id="header"></header>
 
     <main id="main">
-        <div class="cart_title">購物車</div>
+      <div class="cart_title">購物車</div>
 
-        <div>
-            <div class="container">
-                <div class="row cart_header">
-                    <div class="col-2"></div>
-                    <div class="col-3">行程名稱 / 日期</div>
-                    <div class="col-1 cart_header_price">單價</div>
-                    <div class="col-2 cart_header_amount">數量</div> 
-                    <div class="col-1 cart_header_total">總計</div>
-                    <div class="col-3 cart_header_use"></div>
-                </div>
-            </div>
+      <table>
+        <thead style="border-bottom: 1px dotted #a1a397;">
+          <tr>
+            <th class="col-2"></th>
+            <th class="col-3 cart_header_nameAndDate">行程名稱 / 日期</th>
+            <th class="col-1 cart_header_price">單價</th>
+            <th class="col-2 cart_header_amount">數量</th>
+            <th class="col-1 cart_header_total">總計</th>
+            <th class="col-3 cart_header_use"></th>
+          </tr>
+        </thead>
 
-            <div>
+        <tbody>
+          <tr>
+            <td class="col-2">
+              <img
+                src="./images/journey1.jpg"
+                alt=""
+                class="img-fluid cart_main"
+              />
+            </td>
+            <td class="col-3 name_and_date">
+              <div class="name">陽明山一日遊</div>
+              <div>113/01/01~113/01/01</div>
+            </td>
+            <td class="col-1 price">
+              <span>$</span>
+              <span>300</span>
+            </td>
+            <td class="col-2 amount">
+              <button class="amount_reduce"><b>-</b></button>
+              <span class="mx-3">1</span>
+              <button class="amount_plus"><b>+</b></button>
+            </td>
+            <td class="col-1 total">
+              <span>$</span>
+              <span>300</span>
+            </td>
+            <td class="col-3 div_btn">
+              <button type="submit" class="btn_submit">結帳</button>
+              <button type="button" class="btn_button">刪除</button>
+            </td>
+          </tr>
 
+          <tr>
+            <td class="col-2">
+              <img
+                src="./images/journey1.jpg"
+                alt=""
+                class="img-fluid cart_main"
+              />
+            </td>
+            <td class="col-3 name_and_date">
+              <div class="name">陽明山一日遊</div>
+              <div>113/01/01~113/01/01</div>
+            </td>
+            <td class="col-1 price">
+              <span>$</span>
+              <span>300</span>
+            </td>
+            <td class="col-2 amount">
+              <button class="amount_reduce"><b>-</b></button>
+              <span class="mx-3">1</span>
+              <button class="amount_plus"><b>+</b></button>
+            </td>
+            <td class="col-1 total">
+              <span>$</span>
+              <span>300</span>
+            </td>
+            <td class="col-3 div_btn">
+              <button type="submit" class="btn_submit">結帳</button>
+              <button type="button" class="btn_button">刪除</button>
+            </td>
+          </tr>
 
-            <div class="container">
-                <div class="row cart_main">
-                    <div class="col-2">
-                        <img src="./images/journey1.jpg" alt="" class="img-fluid cart_main">
-                    </div>
-                    <div class="col-3 name_and_date">
-                        <div class="name">陽明山一日遊</div>
-                        <div>113/01/01~113/01/01</div>
-                    </div>
-                    <div class="col-1 price">
-                        <span>$</span>
-                        <span>300</span>
-                    </div>
-                    <div class="col-2 amount">
-                        <button class="amount_reduce"><b>-</b></button>
-                        <span class="mx-3">1</span>
-                        <button class="amount_plus"><b>+</b></button>
-                    </div>
-                    <div class="col-1 total">
-                        <span>$</span>
-                        <span>300</span>
-                    </div>
-                    <div class="col-3 div_btn">
-                        <button type="submit" class="btn_submit">結帳</button>
-                        <button type="reset" class="btn_reset">刪除</button>
-                    </div>
-                </div>
+          <tr>
+            <td class="col-2">
+              <img
+                src="./images/journey1.jpg"
+                alt=""
+                class="img-fluid cart_main"
+              />
+            </td>
+            <td class="col-3 name_and_date">
+              <div class="name">陽明山一日遊</div>
+              <div>113/01/01~113/01/01</div>
+            </td>
+            <td class="col-1 price">
+              <span>$</span>
+              <span>300</span>
+            </td>
+            <td class="col-2 amount">
+              <button class="amount_reduce"><b>-</b></button>
+              <span class="mx-3">1</span>
+              <button class="amount_plus"><b>+</b></button>
+            </td>
+            <td class="col-1 total">
+              <span>$</span>
+              <span>300</span>
+            </td>
+            <td class="col-3 div_btn">
+              <button type="submit" class="btn_submit">結帳</button>
+              <button type="button" class="btn_button">刪除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-
-                
-                <div class="row cart_main">
-                    <div class="col-2">
-                        <img src="./images/journey1.jpg" alt="" class="img-fluid cart_main">
-                    </div>
-                    <div class="col-3 name_and_date">
-                        <div class="name">陽明山一日遊</div>
-                        <div>113/01/01~113/01/01</div>
-                    </div>
-                    <div class="col-1 price">
-                        <span>$</span>
-                        <span>300</span>
-                    </div>
-                    <div class="col-2 amount">
-                        <button class="amount_reduce"><b>-</b></button>
-                        <span class="mx-3">1</span>
-                        <button class="amount_plus"><b>+</b></button>
-                    </div>
-                    <div class="col-1 total">
-                        <span>$</span>
-                        <span>300</span>
-                    </div>
-                    <div class="col-3 div_btn">
-                        <button type="submit" class="btn_submit">結帳</button>
-                        <button type="reset" class="btn_reset">刪除</button>
-                    </div>
-                </div>
-
-
-                
-                <div class="row cart_main">
-                    <div class="col-2">
-                        <img src="./images/journey1.jpg" alt="" class="img-fluid cart_main">
-                    </div>
-                    <div class="col-3 name_and_date">
-                        <div class="name">陽明山一日遊</div>
-                        <div>113/01/01~113/01/01</div>
-                    </div>
-                    <div class="col-1 price">
-                        <span>$</span>
-                        <span>300</span>
-                    </div>
-                    <div class="col-2 amount">
-                        <button class="amount_reduce"><b>-</b></button>
-                        <span class="mx-3">1</span>
-                        <button class="amount_plus"><b>+</b></button>
-                    </div>
-                    <div class="col-1 total">
-                        <span>$</span>
-                        <span>300</span>
-                    </div>
-                    <div class="col-3 div_btn">
-                        <button type="submit" class="btn_submit">結帳</button>
-                        <button type="reset" class="btn_reset">刪除</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <br>
-        <br>
-        <div class="btn_button">
-            <button type="button">繼續逛逛</button>
-        </div>
-
+      <br />
+      <br />
+      <div class="btn_button">
+        <button type="button">繼續逛逛</button>
+      </div>
     </main>
-    
 
     <footer id="footer"></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
-    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
-        $(function () {
+      $(function () {
         $("#header").load("../components/html/header.html");
         $("#footer").load("../components/html/footer.html");
-        });
+      });
     </script>
-
-    
-</body>
+  </body>
 </html>

@@ -3,6 +3,8 @@ package com.lazytravel.customer.service;
 import com.lazytravel.customer.dao.CustomerDAO;
 import com.lazytravel.customer.dao.CustomerDAOImpl;
 import com.lazytravel.customer.entity.Customer;
+import com.password4j.Hash;
+import com.password4j.Password;
 
 import java.util.List;
 
@@ -34,16 +36,39 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Integer login(String email, String passwd) {
+    public Customer login(String email, String passwd) {
         Customer customer = dao.findByEmail(email);
-        if (customer != null && email.equals(customer.getEmail()) && passwd.equals(customer.getCustomerPasswd()))
-            return customer.getCustomerId();
-        else
-            return -1;
+        if (customer == null)
+            return null;
+
+        try {
+            boolean isEmailMatched = email.equals(customer.getEmail());
+            boolean isPasswdMatched = Password.check(passwd, customer.getCustomerPasswd()).withBcrypt();
+            if (isEmailMatched && isPasswdMatched)
+                return customer;
+            else
+                return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Boolean isEmailExists(String email) {
         return (dao.findByEmail(email) != null);
+    }
+
+    @Override
+    public Boolean resetPassword(String email, String oldPassword, String newPassword) {
+        Customer customer = login(email, oldPassword);
+        if (customer == null)
+            return false;
+
+        Hash hash = Password.hash(newPassword).withBcrypt();
+        String hashedPw = hash.getResult();
+        customer.setCustomerPasswd(hashedPw);
+        dao.update(customer);
+        return true;
     }
 }

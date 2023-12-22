@@ -2,19 +2,25 @@ package com.lazytravel.journey.dao;
 
 import java.util.List;
 import com.lazytravel.journey.entity.Journey;
+import com.lazytravel.journey.entity.JourneyDetail;
 
 public class JourneyServiceImpl implements JourneyService{
 	private JourneyDAO dao;
+	private JourneyDetailDAO detailDao;
 
 	public JourneyServiceImpl() {
 		dao = new JourneyDAOImpl();
+		detailDao = new JourneyDetailDAOImpl();
 	}
 
+	
 	@Override
-	public void addJourney(Journey journey) {
-		dao.add(journey);
+	public Integer addJourneyAndDetail(Journey journey, List<JourneyDetail> list) {
+		Integer journeyId = dao.add(journey);
+		detailDao.addList(list, journeyId);
+		return journeyId;
 	}
-
+	
 	@Override
 	public void updateJourney(Journey journey) {
 		dao.update(journey);
@@ -29,7 +35,8 @@ public class JourneyServiceImpl implements JourneyService{
 	public List<Journey> getAll() {
 		return dao.getAll();
 	}
-	
+
+
 	
 	
 // --------------------------------------------- JDBC -----------------------------------------------

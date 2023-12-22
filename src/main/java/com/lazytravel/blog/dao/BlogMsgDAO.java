@@ -7,14 +7,15 @@ import com.lazytravel.blog.entity.BlogMsg;
 
 public interface BlogMsgDAO {
 
-	void insert(BlogMsg entity);  //新增留言
+	public Integer add(BlogMsg blogMsg);  //新增留言
 	
-	void update(BlogMsg entity);  //修改留言
+	public Integer update(BlogMsg blogMsg);  //修改留言
 	
-	void delete(Integer blogMsgId); //刪除留言
+	public Integer delete(Integer blogMsgId); //刪除留言
 	
-	BlogMsg getByPK(Integer customerId);  //查詢單筆
+	public BlogMsg getByPK(Integer blogMsgId);  //查詢單筆
 	
-	List<BlogMsg>gatALL(); //找全部
+	public List<BlogMsg>gatAll(); //找全部
 	  
+	public List<BlogMsg> getBlogMsgsByBlogId(Integer blogId);
 }

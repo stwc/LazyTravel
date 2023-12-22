@@ -1,8 +1,13 @@
 package com.lazytravel.blog.entity;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,9 +15,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.lazytravel.customer.entity.Customer;
+import com.lazytravel.foodscape.entity.Tag;
 
 @Entity
 @Table(name = "blog")
@@ -54,11 +64,33 @@ public class Blog {
 	@Column(name = "IMG" ,columnDefinition = "longblob")
 	private byte[]  img;
 	
+	@ManyToMany(fetch =FetchType.EAGER)
+	@JoinTable(
+			name = "blog_tag",
+	        joinColumns = @JoinColumn(name = "BLOG_ID"),
+	        inverseJoinColumns = @JoinColumn(name = "TAG_ID"))
+	private Set<Tag> tags = new HashSet<>();
+	
+	
 	@Column(name = "BLOG_STATUS",columnDefinition = "char")
 	private String blogStatus;
+	
+	@OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BlogMsg> blogMsgs = new ArrayList<>();
 
 	public Blog() {
 	}
+
+	
+	public List<BlogMsg> getBlogMsgs() {
+		return blogMsgs;
+	}
+
+
+	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
+		this.blogMsgs = blogMsgs;
+	}
+
 
 	public Integer getBlogId() {
 		return blogId;
@@ -72,11 +104,18 @@ public class Blog {
 		return title;
 	}
 
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	
 
 	public Customer getCustomer() {
 		return customer;
@@ -85,6 +124,7 @@ public class Blog {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
 
 	public Timestamp getBlogDate() {
 		return blogDate;
@@ -160,11 +200,12 @@ public class Blog {
 
 	@Override
 	public String toString() {
-		return "Blog [blogId=" + blogId + ", title=" + title + ", customer=" + customer+ ", blogDate=" + blogDate
+		return "Blog [blogId=" + blogId + ", title=" + title + ", customer=" + customer + ", blogDate=" + blogDate
 				+ ", content=" + content + ", upDateTime=" + upDateTime + ", createTime=" + createTime + ", likeSum="
 				+ likeSum + ", viewSum=" + viewSum + ", clSum=" + clSum + ", img=" + Arrays.toString(img)
 				+ ", blogStatus=" + blogStatus + "]";
 	}
+
 
 	
 }

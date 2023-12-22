@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import com.lazytravel.order.entity.CustomerCoupon;
@@ -24,22 +25,31 @@ public class CustomerCouponHibernateDAOImpl implements CustomerCouponHibernateDA
 		return factory.getCurrentSession();
 	}
 	
-	
 	@Override
-	public void add(CustomerCoupon customercoupon) {
+	public CustomerCoupon addCustomerCoupon(int customerId , int couponId) {
 		Session session = getSession();
 		try {
 			session.beginTransaction();
-			session.save(customercoupon);
-			session.getTransaction().commit();
-			
+			CustomerCoupon customercoupon = new CustomerCoupon();
+			CustomerCoupon.CompositeDetail compositeKey = new CustomerCoupon.CompositeDetail();
+			compositeKey.setcustomerId(customerId);
+			compositeKey.setcouponId(couponId);
+			customercoupon.setCompositeKey(compositeKey);
+			customercoupon.setCouponStatus("0");
+			customercoupon.setCreateTime(new Timestamp(System.currentTimeMillis()));
+	        customercoupon.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+	        
+	        session.save(customercoupon);
+	        session.getTransaction().commit();
+	        return customercoupon;
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+			return null;
 		}
-//		getSession().save(customercoupon);
 	}
 	
+
 	@Override
 	public List<CustomerCoupon> getByCustomerId(Integer customerId) {
 	    Session session = getSession();
@@ -133,10 +143,34 @@ public class CustomerCouponHibernateDAOImpl implements CustomerCouponHibernateDA
 		
 	}
 	
+	
+	public CustomerCoupon getByCustomerIdAndCouponId(int customerId, int couponId) {
+	    Session session = getSession();
+	    CustomerCoupon customercoupon = null;
+	    try {
+	        session.beginTransaction();
+	        Query<CustomerCoupon> query = session.createQuery(
+	            "from CustomerCoupon where customerId = :customerId and couponId = :couponId",
+	            CustomerCoupon.class
+	        );
+	        query.setParameter("customerId", customerId);
+	        query.setParameter("couponId", couponId);
+	        customercoupon = query.uniqueResult();
+	        session.getTransaction().commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        session.getTransaction().rollback();
+	    }
+	    return customercoupon;
+	}
+	
 	public static void main(String args[]) {
 		CustomerCouponHibernateDAO dao = new CustomerCouponHibernateDAOImpl();
 		CustomerCoupon customercoupon = null;
 		List<CustomerCoupon> customercouponlist = null;
+		
+//		dao.addCustomerCoupon(11001, 32002);
+		
 		
 //		customercoupon = new CustomerCoupon();
 //		customercoupon.setCustomerId(11001);

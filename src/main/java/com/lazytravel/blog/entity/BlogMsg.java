@@ -31,7 +31,7 @@ public class BlogMsg {
 	
 	@ManyToOne
 	@JoinColumn(name="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
-	private Integer customerId;
+	private Customer customer;
 	
 	@Column(name ="CREATE_TIME")
 	private Timestamp createTime;
@@ -63,13 +63,12 @@ public class BlogMsg {
 		this.blog = blog;
 	}
 
-
-	public Integer getCustomerId() {
-		return customerId;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(Integer customerId) {
-		this.customerId = customerId;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	public Timestamp getCreateTime() {
@@ -82,9 +81,8 @@ public class BlogMsg {
 
 	@Override
 	public String toString() {
-		return "BlogMsg [blogMsgId=" + blogMsgId + ", content=" + content + ", blog=" + blog + ", customerId="
-				+ customerId + ", createTime=" + createTime + "]";
+		return "BlogMsg [blogMsgId=" + blogMsgId + ", content=" + content + ", blog=" + blog + ", customer=" + customer
+				+ ", createTime=" + createTime + "]";
 	}
 
-	
 }

@@ -6,12 +6,14 @@ import com.lazytravel.blog.entity.Blog;
 
 public interface BlogDAO {
 
-	int insert(Blog entity); //新增文章
+	public Integer add(Blog blog); //新增文章
 	
-	int update(Blog entity); //修改文章
+	public Integer update(Blog blog); //修改文章
 	
-	Blog getByPK(Integer blogId); //查詢文章
+	public Blog getByPK(Integer blogId); //查詢文章
 	
-	List<Blog>getAll(); //找全部
+	public List<Blog>getAll(); //找全部
+	
+	public Blog getBlogWithMsgs(Integer blogId);
 	
 }

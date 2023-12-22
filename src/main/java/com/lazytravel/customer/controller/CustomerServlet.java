@@ -7,16 +7,20 @@ import com.lazytravel.customer.entity.Customer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "CustomerServlet", urlPatterns = {"/customer/customer.do", "/admin/customer.do"})
+@WebServlet(name = "CustomerServlet", urlPatterns = {"/customer/customer.do", "/customerCenter/customer.do", "/admin/customer.do"})
+@MultipartConfig(fileSizeThreshold = 0 * 1024 * 1024, maxFileSize = 1 * 1024 * 1024, maxRequestSize = 10 * 1024 * 1024)
 public class CustomerServlet extends HttpServlet {
     private CustomerService customerService;
 
@@ -42,24 +46,26 @@ public class CustomerServlet extends HttpServlet {
                 res.setContentType("application/json; charset=UTF-8");
                 res.getWriter().write(jsonStr);
                 return;
-            case "insert":
-                // 註冊，來自register.html的請求
-                forwardPath = insert(req, res);
-                break;
-            case "getOne_For_Display":
-                // // 來自select_page.jsp的請求
-                forwardPath = getOneDisplay(req, res);
-                break;
-            case "getOne_For_Update":
-                // 來自listAllEmp.jsp的請求
-                forwardPath = getOneUpdate(req, res);
-                break;
             case "update":
-                // 來自update_emp_input.jsp的請求
+                // 來自customer-modify.jsp的請求
                 forwardPath = update(req, res);
                 break;
+            case "resetpw":
+                // 來自customer-resetpw.jsp的請求
+                forwardPath = resetPw(req, res);
+                break;
+            case "logout":
+                // 來自header.jsp的請求
+                forwardPath = logout(req, res);
+                break;
+            case "getOneModify":
+                forwardPath = getOneModify(req, res);
+                break;
+            case "changeStatus":
+                forwardPath = changeStatus(req, res);
+                break;
             default:
-                forwardPath = "/example/select_page.jsp";
+                forwardPath = "/index.jsp";
         }
 
         res.setContentType("text/html; charset=UTF-8");
@@ -67,155 +73,28 @@ public class CustomerServlet extends HttpServlet {
         dispatcher.forward(req, res);
     }
 
-    private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
-        // 錯誤處理
-        List<String> errorMsgs = new ArrayList<>();
-        req.setAttribute("errorMsgs", errorMsgs);
-
-        String str = req.getParameter("customer_id");
-        if (str == null || str.trim().isEmpty())
-            errorMsgs.add("請輸入員工編號");
-        if (!errorMsgs.isEmpty())
-            return "/example/select_page.jsp";
-
-        Integer customerId = null;
-        try {
-            customerId = Integer.valueOf(str);
-        } catch (Exception e) {
-            errorMsgs.add("會員ID格式不正確");
-        }
-        if (!errorMsgs.isEmpty())
-            return "/example/select_page.jsp";
-
-        Customer customer = customerService.getOneCustomer(customerId);
-        if (customer == null)
-            errorMsgs.add("查無資料");
-        if (!errorMsgs.isEmpty())
-            return "/example/select_page.jsp";
-
-        req.setAttribute("customer", customer);
-        return "/example/listOneEmp.jsp";
-    }
-
-    private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
-        Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
-
-        Customer customer = customerService.getOneCustomer(customerId);
-
-        req.setAttribute("customer", customer);
-        return "/example/update_emp_input.jsp";
-    }
-
     private String update(HttpServletRequest req, HttpServletResponse res) {
         // 錯誤處理
         List<String> errorMsgs = new ArrayList<>();
         req.setAttribute("errorMsgs", errorMsgs);
 
-        String customerName = req.getParameter("customer_name");
-        if (customerName == null || customerName.trim().isEmpty())
-            errorMsgs.add("請輸入會員姓名");
+        String tmpStr = req.getParameter("customer_id");
+        Integer customerId = Integer.valueOf(tmpStr);
+        Customer customer = customerService.getOneCustomer(customerId);
 
-        String nickname = req.getParameter("nickname");
-        if (nickname == null || nickname.trim().isEmpty())
-            errorMsgs.add("請輸入暱稱");
-
+        // 抓前端傳來的參數
         String email = req.getParameter("email");
-        String emailRegex = "^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-        if (email == null || email.trim().isEmpty()) {
-            errorMsgs.add("Email: 請勿空白");
-        } else if (!email.trim().matches(emailRegex)) {
-            errorMsgs.add("請輸入正確的Email格式");
+        if (!customer.getEmail().equals(email) && customerService.isEmailExists(email)) {
+            req.setAttribute("updateFailed", true);
+            errorMsgs.add("此Email信箱已有人使用");
         }
 
-        // 目前沒對密碼做加密處理
-        String customerPasswd = req.getParameter("customer_passwd");
-        if (customerPasswd == null || customerPasswd.trim().isEmpty())
-            errorMsgs.add("請輸入密碼");
-
-        Date birth = null;
-        try {
-            birth = Date.valueOf(req.getParameter("birth").trim());
-        } catch (IllegalArgumentException e) {
-            birth = new Date(System.currentTimeMillis());
-            errorMsgs.add("請輸入日期!");
-        }
-
-        // 簡易驗證身份證字號，不嚴謹
-        String idno = req.getParameter("idno");
-        String idnoRegex = "^[A-Z][12][0-9]{8}$";
-        if (idno == null || idno.trim().isEmpty()) {
-            errorMsgs.add("身份證: 請勿空白");
-        } else if (!idno.trim().matches(idnoRegex)) {
-            errorMsgs.add("請輸入正確的身份證格式");
-        }
-
-        String phone = req.getParameter("phone");
-        String phoneRegex = "^09[0-9]{8}$";
-        if (phone == null || phone.trim().isEmpty()) {
-            errorMsgs.add("手機: 請勿空白");
-        } else if (!phone.trim().matches(phoneRegex)) {
-            errorMsgs.add("請輸入正確的手機格式");
-        }
-
-        String address = req.getParameter("address");
-        if (address == null || address.trim().isEmpty())
-            errorMsgs.add("請輸入地址");
-
-        String str = req.getParameter("customer_point");
-        if (str == null || str.trim().isEmpty())
-            errorMsgs.add("請輸入會員金");
-        Integer customerPoint = null;
-        try {
-            customerPoint = Integer.valueOf(str);
-        } catch (Exception e) {
-            errorMsgs.add("會員金請輸入數字");
-        }
-
-
-        // 這三個欄位不用做錯誤處理
-        Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
-        String sex = req.getParameter("sex");
-        String customerStatus = req.getParameter("customer_status");
-
-        // 假如輸入格式錯誤的，備份選原使用者輸入過的資料
-        Customer customer = new Customer();
-        customer.setCustomerId(customerId);
-        customer.setCustomerName(customerName);
-        customer.setNickname(nickname);
-        customer.setSex(sex);
-        customer.setPhone(phone);
-        customer.setBirth(birth);
-        customer.setAddress(address);
-        customer.setEmail(email);
-        customer.setCustomerPasswd(customerPasswd);
-        customer.setCustomerStatus(customerStatus);
-        customer.setIdno(idno);
-        customer.setCustomerPoint(customerPoint);
-
-        if (!errorMsgs.isEmpty()) {
-            req.setAttribute("customer", customer);
-            return "/example/update_emp_input.jsp";
-        }
-
-        // 修改資料
-        customerService.updateCustomer(customer);
-        req.setAttribute("customer", customerService.getOneCustomer(customerId));
-
-        return "/example/listOneEmp.jsp";
-    }
-
-    private String insert(HttpServletRequest req, HttpServletResponse res) {
-        // 錯誤處理
-        List<String> errorMsgs = new ArrayList<>();
-        req.setAttribute("errorMsgs", errorMsgs);
-
-        String email = req.getParameter("email");
-        String customerPasswd = req.getParameter("customer_passwd");
         String customerName = req.getParameter("customer_name");
         String nickname = req.getParameter("nickname");
         String sex = req.getParameter("sex");
         String phone = req.getParameter("phone");
         String idno = req.getParameter("idno");
+
         Date birth;
         try {
             birth = Date.valueOf(req.getParameter("birth").trim());
@@ -223,12 +102,21 @@ public class CustomerServlet extends HttpServlet {
             birth = new Date(System.currentTimeMillis());
             errorMsgs.add("請輸入日期!");
         }
+
         String address = req.getParameter("address");
 
+        byte[] avatar = null;
+        try (InputStream in = req.getPart("avatar").getInputStream()) {
+            if (in.available() != 0)
+                avatar = in.readAllBytes();
+            else
+                avatar = customerService.getOneCustomer(customerId).getAvatar();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // 假如輸入格式錯誤的，備份還原使用者輸入過的資料
-        Customer customer = new Customer();
         customer.setEmail(email);
-        customer.setCustomerPasswd(customerPasswd);
         customer.setCustomerName(customerName);
         customer.setNickname(nickname);
         customer.setSex(sex);
@@ -236,16 +124,55 @@ public class CustomerServlet extends HttpServlet {
         customer.setIdno(idno);
         customer.setBirth(birth);
         customer.setAddress(address);
-        customer.setCustomerStatus("1"); // 先暫時讓註冊會員狀態起始值為1
+        customer.setAvatar(avatar);
 
+        // 輸入資料錯誤，請重新輸入
         if (!errorMsgs.isEmpty()) {
-            req.setAttribute("customer", customer);
-            return "/customer/register.html";
+//            req.setAttribute("customer", customer);
+            return "/customerCenter/customer-modify.jsp";
         }
 
-        // 新增資料
-        customerService.addCustomer(customer);
+        // 更新成功
+        customerService.updateCustomer(customer);
+        req.getSession().setAttribute("customer", customer);
+        return "/customerCenter/customer-center.jsp";
+    }
 
-        return "/customer/register-success.jsp";
+    private String resetPw(HttpServletRequest req, HttpServletResponse res) {
+        String email = ((Customer) req.getSession().getAttribute("customer")).getEmail();
+        String oldPasswd = req.getParameter("customer_old_passwd");
+        String newPasswd = req.getParameter("customer_passwd");
+
+        boolean isResetPwSuccess = customerService.resetPassword(email, oldPasswd, newPasswd);
+        if (!isResetPwSuccess) {
+            req.setAttribute("isPwWrong", true);
+            return "/customerCenter/customer-resetpw.jsp";
+        } else {
+            return "/customerCenter/customer-center.jsp";
+        }
+    }
+
+    private String logout(HttpServletRequest req, HttpServletResponse res) {
+        HttpSession session = req.getSession();
+        session.removeAttribute("customer");
+        return "/customer/login.jsp";
+    }
+
+    private String getOneModify(HttpServletRequest req, HttpServletResponse res) {
+        Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
+
+        Customer customer = customerService.getOneCustomer(customerId);
+
+        req.setAttribute("customer", customer);
+        return "/admin/customer-modify.jsp";
+    }
+
+    private String changeStatus(HttpServletRequest req, HttpServletResponse res) {
+        Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
+        String status = req.getParameter("customer_status");
+        Customer customer = customerService.getOneCustomer(customerId);
+        customer.setCustomerStatus(status);
+        customerService.updateCustomer(customer);
+        return "/admin/customer.jsp";
     }
 }

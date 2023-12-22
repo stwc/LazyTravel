@@ -2,427 +2,479 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>填寫旅客資訊</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/checkOut.css">
-  <script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
-  <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>填寫旅客資訊</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/checkOut.css">
+<script src="https://kit.fontawesome.com/cb6bf56872.js"
+	crossorigin="anonymous"></script>
+<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
 </head>
 
 
 <body>
-  <header id="header"></header>
-  <main class="main" style="padding-left: 70px; padding-right: 70px;">
-    <div class="container mt-5 px-3 d-flex justify-content-center">
-      <div class="progresss-container ">
-        <div class="progresss" id="progress"> </div>
-        <div class="circle active" style="font-weight: bold;">選擇行程</div>
-        <div class="circle" style="font-weight: bold;">填寫資料</div>
-        <div class="circle" style="font-weight: bold;">完成付款</div>
-      </div>
-    </div>
-    <hr class="mx-5">
-    <form class="mx-5" action="/submit.form" method="post">
-      <div class="passenger-detail">
-        <div class="row">
-          <div class="col mt-5">
-            <p class="mx-3" style="font-size: 24px; font-weight: 600; color: darkgrey;">填寫旅客資料</p>
-            <script>
-              // 假設 passengerCount 是前一頁所選的旅客人數
-              var passengerCount = 3;
+	<header id="header"></header>
+	<main class="main" style="padding-left: 70px; padding-right: 70px;">
+		<div class="container mt-5 px-3 d-flex justify-content-center">
+			<div class="progresss-container ">
+				<div class="progresss" id="progress"></div>
+				<div class="circle active" style="font-weight: bold;">選擇行程</div>
+				<div class="circle" style="font-weight: bold;">填寫資料</div>
+				<div class="circle" style="font-weight: bold;">完成付款</div>
+			</div>
+		</div>
+		<hr class="mx-5">
+		<form class="mx-5" action="/submit.form" method="post">
+			<div class="passenger-detail">
+				<div class="row">
+					<div class="col mt-5">
+						<p class="mx-3"
+							style="font-size: 24px; font-weight: 600; color: darkgrey;">填寫旅客資料</p>
+							<div id="passenger-form-placeholder"></div>
+						
+		</form>
+		</div>
 
-              for (var i = 1; i <= passengerCount; i++) {
-                document.write(`
-                  <div class="passenger-form">
-                    <p class="ms-4" style="font-size: 18px; font-weight: 600; color: #CB997E;">旅客${i}</p>
-    
-                    <label for="inputName${i}" class="form-label ms-4">旅客姓名：</label>
-                    <input type="text" id="inputName${i}" class="form-control ms-4 w-50 mb-4" required>
-                    <label for="gender${i}" class="form-label ms-4">旅客姓別：</label>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gender${i}" id="male${i}" value="male" required>
-                      <label class="form-check-label" for="male${i}">男性</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gender${i}" id="female${i}" value="female" required>
-                      <label class="form-check-label" for="female${i}">女性</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gender${i}" id="other${i}" value="other" required>
-                      <label class="form-check-label" for="other${i}">其他</label>
-                    </div>
-    
-                    <p for="inputId" class="form-label  ms-4 my-3">身分證字號(護照號碼)：</p>
-                    <input type="text" id="inputId" class="form-control ms-4 w-50 mb-4" required>
-                    
-                    <p for="inputel" class="form-label  ms-4 my-3">出生日期：</p>
-                    <input type="date" id="inpudate" class="form-control ms-4 w-50 mb-4" required>
+		<div class="col mt-5">
+			<div class="card mx-3">
+				<div class="card-body">
+					<h5 class="card-title mb-4 "
+						style="font-size: 24px; font-weight: 600; color: darkgrey;">商品明細</h5>
+					<p class="card-subtitle mb-4 text-body-secondary ">
+						商品名稱：<span class="journey-name ms-2" id="journey-name"></span>
+					</p>
+					<p class="card-subtitle mb-4 text-body-secondary">
+						出發日期：<span class="group-strat-time ms-2" id="group-strat-time"></span>
+					</p>
+					<p class="card-subtitle mb-4 text-body-secondary">
+						回程日期：<span class="group-end-time ms-2" id="group-end-time"></span>
+					</p>
+					<p class="card-subtitle mb-4 text-body-secondary">
+						旅客人數：<span class="tourist ms-2" id="tourist"></span>
+					</p>
+					<hr class="mx-1 border-2">
+					<p class="card-subtitle mb-4 fw-bold " style="color: #6B705C;">
+						訂單小計：<span class="total_amt ms-2" id="total_amt"></span>
+					</p>
 
-                    <p for="inputel" class="form-label  ms-4 my-3">連絡電話：</p>
-                    <input type="tel" id="inputel" class="form-control ms-4 w-50 mb-4" required>
-                    
-                    <p for="inputMail" class="form-label  ms-4 my-3">Email信箱：</p>
-                    <input type="email" id="inputMail" class="form-control ms-4 w-50 mb-4" required>
-                    </div>
+					<a href="#" id="customButton" class="btn mt-3" tabindex="-1"
+						role="button" aria-disabled="true">回上一頁</a>
 
-                    
+				</div>
+			</div>
+		</div>
+		</div>
+		</div>
+		</div>
+
+		<div class="mx-5">
+			<div class="card">
+				<div class="card-header"
+					style="font-size: 24px; font-weight: 600; color: gray;">折扣使用
+				</div>
+				<div class="card-body">
+					<h5 class="card-title ms-5 my-3"
+						style="font-size: 24px; font-weight: 600; color: gray;">會員金使用</h5>
+					<div class="ms-5">
+						<input type="text ms-5"
+							style="font-size: 24px; font-weight: 600; color: gray;">
+						<button type="button" class="btn btn-secondary btn-sm">使用</button>
+						<span class="text-body-secondary ms-2 fw-bold"> ( 尚有會員金 xx
+							點 ) </span>
+					</div>
+
+					<h5 class="card-title ms-5 my-3"
+						style="font-size: 24px; font-weight: 600; color: gray;">新增優惠券</h5>
+					<div class="ms-5">
+						<input type="text ms-5"
+							style="font-size: 24px; font-weight: 600; color: gray;">
+						<button type="button" class="btn btn-secondary btn-sm">新增</button>
+						<span id="errorMessage" class="ms-2 " style="color: red;">
+							無效優惠券 </span>
+					</div>
+
+					<div class="container mt-5">
+						<p style="font-size: 24px; font-weight: 600; color: gray;">選擇優惠券：</p>
+
+						<div id="couponCarousel" class="carousel slide">
+							<div class="carousel-inner ">
+
+								<!-- Slide 1 -->
+								<div class="carousel-item active">
+									<div class="row">
+
+										<!-- Coupon 1 -->
+										<div class="col-md-4 px-5">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Coupon 1</h5>
+													<p class="card-text">This is a description of Coupon 1.</p>
+													<div class="d-flex justify-content-end">
+														<input type="checkbox" class="btn-check"
+															id="btn-check-1-outlined" autocomplete="off"> <label
+															class="btn btn-outline-success"
+															for="btn-check-1-outlined">Checked</label><br>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Coupon 2 -->
+										<div class="col-md-4 px-5">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Coupon 2</h5>
+													<p class="card-text">This is a description of Coupon 2.</p>
+													<div class="d-flex justify-content-end">
+														<input type="checkbox" class="btn-check"
+															id="btn-check-2-outlined" autocomplete="off"> <label
+															class="btn btn-outline-success"
+															for="btn-check-2-outlined">Checked</label><br>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Coupon 3 -->
+										<div class="col-md-4 px-5">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Coupon 3</h5>
+													<p class="card-text">This is a description of Coupon 3.</p>
+													<div class="d-flex justify-content-end">
+														<input type="checkbox" class="btn-check"
+															id="btn-check-3-outlined" autocomplete="off"> <label
+															class="btn btn-outline-success"
+															for="btn-check-3-outlined">Checked</label><br>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<!-- Slide 2 -->
+								<div class="carousel-item">
+									<div class="row">
+
+										<!-- Coupon 4 -->
+										<div class="col-md-4 px-5">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Coupon 4</h5>
+													<p class="card-text">This is a description of Coupon 4.</p>
+													<div class="d-flex justify-content-end">
+														<input type="checkbox" class="btn-check"
+															id="btn-check-5-outlined" autocomplete="off"> <label
+															class="btn btn-outline-success"
+															for="btn-check-5-outlined">Checked</label><br>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Coupon 5 -->
+										<div class="col-md-4 px-5">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Coupon 5</h5>
+													<p class="card-text">This is a description of Coupon 5.</p>
+													<div class="d-flex justify-content-end">
+														<input type="checkbox" class="btn-check"
+															id="btn-check-6-outlined" autocomplete="off"> <label
+															class="btn btn-outline-success"
+															for="btn-check-6-outlined">Checked</label><br>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!-- Coupon 6 -->
+										<div class="col-md-4 px-5">
+											<div class="card">
+												<div class="card-body">
+													<h5 class="card-title">Coupon 6</h5>
+													<p class="card-text">This is a description of Coupon 6.</p>
+													<div class="d-flex justify-content-end">
+														<input type="checkbox" class="btn-check"
+															id="btn-check-7-outlined" autocomplete="off"> <label
+															class="btn btn-outline-success"
+															for="btn-check-7-outlined">Checked</label><br>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<!-- Add more slides as needed -->
+
+							</div>
+
+							<!-- Carousel Controls -->
+							<a class="carousel-control-prev justify-content-start "
+								href="#couponCarousel" role="button" data-bs-slide="prev"> <span
+								class="carousel-control-prev-icon opacity-50" aria-hidden="true"
+								style="background-color: gray;"></span> <span class="sr-only">Previous</span>
+							</a> <a class="carousel-control-next justify-content-end "
+								href="#couponCarousel" role="button" data-bs-slide="next"> <span
+								class="carousel-control-next-icon opacity-50" aria-hidden="true"
+								style="background-color: gray;"></span> <span class="sr-only">Next</span>
+							</a>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="card mx-5 mt-5">
+			<div class="card-header"
+				style="font-size: 18px; font-weight: 600; color: gray;">訂單總金額
+			</div>
+			<div class="card-body">
+				<h4 class="card-title" style="font-weight: 600; color: gray;">總計：</h4>
+				<div class="d-flex justify-content-end"
+					style="font-size: 24px; font-weight: 600; color: red;">
+					<p class="card-text">-----</p>
+					<p>元整</p>
+				</div>
+
+				<div class="d-flex justify-content-end mt-3">
+					<button id="customButton" onclick="handleButtonClick()">前往結帳</button>
+				</div>
+			</div>
+		</div>
 
 
 
-                    <hr class="mx-4 border-2">
-                `);
-              }
-            </script>
+	</main>
 
-    </form>
-    </div>
-
-    <div class="col mt-5">
-      <div class="card mx-3">
-        <div class="card-body">
-          <h5 class="card-title mb-4 " style="font-size: 24px; font-weight: 600; color: darkgrey;">商品明細</h5>
-          <p class="card-subtitle mb-4 text-body-secondary ">商品名稱：<span class="journey-name ms-2"></span></p>
-          <p class="card-subtitle mb-4 text-body-secondary">出發日期：<span class="group-strat-time ms-2"></span></p>
-          <p class="card-subtitle mb-4 text-body-secondary">回程日期：<span class="group-end-time ms-2"></span></p>
-          <p class="card-subtitle mb-4 text-body-secondary">旅客人數：<span class="tourist ms-2"></span></p>
-          <hr class="mx-1 border-2">
-          <p class="card-subtitle mb-4 fw-bold " style="color: #6B705C;">訂單小計：<span class="total_amt ms-2"></span></p>
-
-          <a href="#" class="btn btn-outline-info mt-3" tabindex="-1" role="button" aria-disabled="true">再考慮一下，回上一頁</a>
-
-        </div>
-      </div>
-    </div>
-    </div>
-    </div>
-    </div>
-
-    <div class="mx-5">
-      <div class="card">
-        <div class="card-header" style="font-size: 24px; font-weight: 600; color: gray;">
-          折扣使用
-        </div>
-        <div class="card-body">
-          <h5 class="card-title ms-5" style="font-size: 24px; font-weight: 600; color: gray;">會員金使用</h5>
-          <div class="ms-5">
-            <input type="text ms-5" style="font-size: 24px; font-weight: 600; color: gray;">
-            <button type="button" class="btn btn-secondary btn-sm">使用</button>
-            <span class="text-body-secondary ms-2 fw-bold"> ( 尚有會員金 xx 點 ) </span>
-          </div>
+	<footer id="footer"></footer>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
-          <div class="container mt-5">
-            <p style="font-size: 24px; font-weight: 600; color: gray;">選擇優惠券：</p>
 
-            <div id="couponCarousel" class="carousel slide">
-              <div class="carousel-inner ">
 
-                <!-- Slide 1 -->
-                <div class="carousel-item active">
-                  <div class="row">
+	<script>
+	
+	$(function(){
+		 $("#header").load("../components/html/header.html");
+		 $("#footer").load("../components/html/footer.html");
+		 init();
+		 getJourneyDetails();
+		 
+         //優惠券不重複選取 		 
+		 // 取得所有的優惠券 checkbox
+	        var checkboxes = document.querySelectorAll('.btn-check');
 
-                    <!-- Coupon 1 -->
-                    <div class="col-md-4 px-5">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Coupon 1</h5>
-                          <p class="card-text">This is a description of Coupon 1.</p>
-                          <div class="d-flex justify-content-end">
-                            <input type="checkbox" class="btn-check" id="btn-check-1-outlined" autocomplete="off">
-                            <label class="btn btn-outline-success" for="btn-check-1-outlined">Checked</label><br>
-                          </div>
+	        // 當 checkbox 被點擊時執行的函數
+	        function handleCheckboxClick(event) {
+	          // 取得被點擊的 checkbox
+	          var clickedCheckbox = event.target;
 
-                        </div>
-                      </div>
-                    </div>
+	          // 如果被點擊的 checkbox 是已經被選中的狀態
+	          if (clickedCheckbox.checked) {
+	            // 取消其他優惠券的選中狀態
+	            checkboxes.forEach(function (checkbox) {
+	              if (checkbox !== clickedCheckbox) {
+	                checkbox.checked = false;
+	              }
+	            });
+	          }
+	        }
 
-                    <!-- Coupon 2 -->
-                    <div class="col-md-4 px-5">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Coupon 2</h5>
-                          <p class="card-text">This is a description of Coupon 2.</p>
-                          <div class="d-flex justify-content-end">
-                            <input type="checkbox" class="btn-check" id="btn-check-2-outlined" autocomplete="off">
-                            <label class="btn btn-outline-success" for="btn-check-2-outlined">Checked</label><br>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+	        // 為每個優惠券 checkbox 添加點擊事件監聽器
+	        checkboxes.forEach(function (checkbox) {
+	          checkbox.addEventListener('click', handleCheckboxClick);
+	        });
+		 
+	});
 
-                    <!-- Coupon 3 -->
-                    <div class="col-md-4 px-5">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Coupon 3</h5>
-                          <p class="card-text">This is a description of Coupon 3.</p>
-                          <div class="d-flex justify-content-end">
-                            <input type="checkbox" class="btn-check" id="btn-check-3-outlined" autocomplete="off">
-                            <label class="btn btn-outline-success" for="btn-check-3-outlined">Checked</label><br>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+	
+	function init(){
 
+		// 進度條特效
+	    const progress = document.getElementById("progress");
+	    const stepCircles = document.querySelectorAll(".circle");
+	    let currentActive = 1;
+
+	    //NOTE CHANGE HERE TO 1-4
+	    //1=25%
+	    //2=50%
+	    //3=75%
+	    //4=100%
+	    update(2);
+
+	    function update(currentActive) {
+	      stepCircles.forEach((circle, i) => {
+	        if (i < currentActive) {
+	          circle.classList.add("active");
+	        } else {
+	          circle.classList.remove("active");
+	        }
+	      });
+
+	      const activeCircles = document.querySelectorAll(".active");
+	      progress.style.width =
+	        ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";
+	    }
+
+	    }
+	
+	function getJourneyDetails(){
+		 var passengerCount = 3;
+		    const customerId = 11001;
+		    const groupId = 24002;
+		 $("#tourist").text(passengerCount+ " 人 ") ;
+		    
+		    $.ajax({
+		    	url: "http://localhost:8081/LazyTravel/order/order.do",
+				type: "GET",
+				data: {
+					"action" : "getOrderDetails" ,
+					"groupId" : groupId }, 
+				dataType: "json",
+				success: function(data) {
+					console.log(data);
+					data.forEach((item) => {
+						
+						let totalAmt = '';
+						totalAmt = (item.price) * passengerCount;
+						
+						
+						$("#journey-name").text(item.journeyName);
+						$("#group-strat-time").text(item.startTime);
+						$("#group-end-time").text(item.endTime);
+						$("#total_amt").text(totalAmt + " 元 ");
+					});
+		        },
+		        error: function(xhr, status, error) {
+		            // Generic error handling
+		            $("#couponResponse").text("An error occurred while processing your request.");
+		        }
+			
+		    });
+		    
+		    
+		    
+            
+
+            for (var i = 1; i <= passengerCount; i++) {
+              $("#passenger-form-placeholder").append(`
+              
+                <div class="passenger-form">
+                  <p class="ms-4" style="font-size: 18px; font-weight: 600; color: #CB997E;">旅客${i}</p>
+  
+                  <label for="inputName${i}" class="form-label ms-4">旅客姓名：</label>
+                  <input type="text" id="inputName${i}" class="form-control ms-4 w-50 mb-4" required>
+                  <label for="gender${i}" class="form-label ms-4">旅客姓別：</label>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender${i}" id="male${i}" value="male" required>
+                    <label class="form-check-label" for="male${i}">男性</label>
                   </div>
-                </div>
-
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                  <div class="row">
-
-                    <!-- Coupon 4 -->
-                    <div class="col-md-4 px-5">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Coupon 4</h5>
-                          <p class="card-text">This is a description of Coupon 4.</p>
-                          <div class="d-flex justify-content-end">
-                            <input type="checkbox" class="btn-check" id="btn-check-5-outlined" autocomplete="off">
-                            <label class="btn btn-outline-success" for="btn-check-5-outlined">Checked</label><br>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Coupon 5 -->
-                    <div class="col-md-4 px-5">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Coupon 5</h5>
-                          <p class="card-text">This is a description of Coupon 5.</p>
-                          <div class="d-flex justify-content-end">
-                            <input type="checkbox" class="btn-check" id="btn-check-6-outlined" autocomplete="off">
-                            <label class="btn btn-outline-success" for="btn-check-6-outlined">Checked</label><br>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Coupon 6 -->
-                    <div class="col-md-4 px-5">
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Coupon 6</h5>
-                          <p class="card-text">This is a description of Coupon 6.</p>
-                          <div class="d-flex justify-content-end">
-                            <input type="checkbox" class="btn-check" id="btn-check-7-outlined" autocomplete="off">
-                            <label class="btn btn-outline-success" for="btn-check-7-outlined">Checked</label><br>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender${i}" id="female${i}" value="female" required>
+                    <label class="form-check-label" for="female${i}">女性</label>
                   </div>
-                </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender${i}" id="other${i}" value="other" required>
+                    <label class="form-check-label" for="other${i}">其他</label>
+                  </div>
+  
+                  <p for="inputId" class="form-label  ms-4 my-3">身分證字號(護照號碼)：</p>
+                  <input type="text" id="inputId" class="form-control ms-4 w-50 mb-4" required>
+                  
+                  <p for="inputel" class="form-label  ms-4 my-3">出生日期：</p>
+                  <input type="date" id="inpudate" class="form-control ms-4 w-50 mb-4" required>
 
-                <!-- Add more slides as needed -->
-
-              </div>
-
-              <!-- Carousel Controls -->
-              <a class="carousel-control-prev justify-content-start " href="#couponCarousel" role="button"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon opacity-50" aria-hidden="true"
-                  style="background-color: gray;"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next justify-content-end " href="#couponCarousel" role="button"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon opacity-50" aria-hidden="true"
-                  style="background-color: gray;"></span>
-                <span class="sr-only">Next</span>
-              </a>
-
-            </div>
-          </div>
-
-
-
-        </div>
-      </div>
-    </div>
-
-    <div class="card mx-5 mt-5">
-      <div class="card-header" style="font-size: 18px; font-weight: 600; color: gray;">
-        訂單總金額
-      </div>
-      <div class="card-body">
-        <h4 class="card-title" style=" font-weight: 600; color: gray;">總計：</h4>
-        <div class="d-flex justify-content-end" style=" font-size: 24px; font-weight: 600; color: red;">
-          <p class="card-text">-----</p>
-          <p>元整</p>
-        </div>
-
-        <div class="d-flex justify-content-end mt-3">
-          <button id="customButton" onclick="handleButtonClick()">前往結帳</button>
-        </div>
-      </div>
-    </div>
+                  <p for="inputel" class="form-label  ms-4 my-3">連絡電話：</p>
+                  <input type="tel" id="inputel" class="form-control ms-4 w-50 mb-4" required>
+                  
+                  <p for="inputMail" class="form-label  ms-4 my-3">Email信箱：</p>
+                  <input type="email" id="inputMail" class="form-control ms-4 w-50 mb-4" required>
+                  </div>
+                  <hr class="mx-4 border-2">
+ 
+              `);
+              
+            }
+	}
+	
 
 
 
-  </main>
+//       // 送出按鈕
+//       function handleButtonClick() {
+//         for (var i = 1; i <= passengerCount; i++) {
+//           var inputName = document.getElementById('inputName' + i).value;
+//           var genderSelected = document.querySelector('input[name="gender' + i + '"]:checked');
+//           var inputId = document.getElementById('inputId').value;
+//           var inputel = document.getElementById('inputel').value;
+//           var inputMail = document.getElementById('inputMail').value;
 
-  <footer id="footer"></footer>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
-
-  <script>
-    $("#header").load("../components/html/header.html");
-    $("#footer").load("../components/html/footer.html");
-  </script>
-
-  <script>
-
-    // 進度條特效
-    const progress = document.getElementById("progress");
-    const stepCircles = document.querySelectorAll(".circle");
-    let currentActive = 1;
-
-    //NOTE CHANGE HERE TO 1-4
-    //1=25%
-    //2=50%
-    //3=75%
-    //4=100%
-    update(2);
-
-    function update(currentActive) {
-      stepCircles.forEach((circle, i) => {
-        if (i < currentActive) {
-          circle.classList.add("active");
-        } else {
-          circle.classList.remove("active");
-        }
-      });
-
-      const activeCircles = document.querySelectorAll(".active");
-      progress.style.width =
-        ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";
-
-
-    }
-    //前頁商品名稱導入
-    // 假設商品名稱存儲在 sessionStorage 中
-    var journeyName = sessionStorage.getItem('journeyName');
-    var journeyStartTime = sessionStorage.getItem('journeyStartTime');
-    var journeyEndTime = sessionStorage.getItem('journeyEndTime');
-    var tourist = sessionStorage.getItem("tourist");
-    var total_amt = sessionStorage.getItem("total_amt")
-
-    // 將商品名稱設定到 journey-name 的 p 標籤中
-    var journeyNameElement = document.querySelector('.journey-name');
-    var journeyStartTimeeElement = document.querySelector('.group-strat-time');
-    var journeyEndTimeElement = document.querySelector('.group-end-time');
-    var touristElement = document.querySelector('.tourist');
-    var total_amtElement = document.querySelector('.total_amt');
-
-    if (journeyNameElement) {
-      journeyNameElement.textContent = journeyName || '未知商品';
-      journeyStartTimeeElement.textContent = journeyStartTime || "--";
-      journeyEndTimeElement.textContent = journeyEndTime || '--';
-      touristElement.textContent = tourist || '--';
-      total_amtElement.textContent = total_amt || '--';
+//           // 檢查是否有任何一個欄位為空
+//           // if (inputName === '' || !genderSelected || inputId === '' || inputel === '' || inputMail === '') {
+//           //   alert('請填寫所有旅客的資料');
+//           //   window.scrollTo({
+//           //     top: 0,
+//           //     behavior: 'smooth' // 如果支持平滑滾動，可以使用 'smooth'
+//           //   });
+//           //   return; // 如果有任何一個欄位為空，停止進一步處理
+//           // }
+//         }
 
 
 
-      //優惠券則一
-      document.addEventListener('DOMContentLoaded', function () {
-        // 取得所有的優惠券 checkbox
-        var checkboxes = document.querySelectorAll('.btn-check');
+//         var button = document.getElementById('customButton');
+//         button.classList.add('clicked');
+//         // 在這裡可以添加其他點擊前後的處理邏輯
+//         window.location.href = 'paycheck.html';
+//       }
 
-        // 當 checkbox 被點擊時執行的函數
-        function handleCheckboxClick(event) {
-          // 取得被點擊的 checkbox
-          var clickedCheckbox = event.target;
-
-          // 如果被點擊的 checkbox 是已經被選中的狀態
-          if (clickedCheckbox.checked) {
-            // 取消其他優惠券的選中狀態
-            checkboxes.forEach(function (checkbox) {
-              if (checkbox !== clickedCheckbox) {
-                checkbox.checked = false;
-              }
-            });
-          }
-        }
-
-        // 為每個優惠券 checkbox 添加點擊事件監聽器
-        checkboxes.forEach(function (checkbox) {
-          checkbox.addEventListener('click', handleCheckboxClick);
-        });
-      });
+//     }
 
 
-      // 送出按鈕
-      function handleButtonClick() {
-        for (var i = 1; i <= passengerCount; i++) {
-          var inputName = document.getElementById('inputName' + i).value;
-          var genderSelected = document.querySelector('input[name="gender' + i + '"]:checked');
-          var inputId = document.getElementById('inputId').value;
-          var inputel = document.getElementById('inputel').value;
-          var inputMail = document.getElementById('inputMail').value;
+//     //儲存form表單填入的資料
+//     // 取得表單元素
+//     var form = document.querySelector('form');
 
-          // 檢查是否有任何一個欄位為空
-          // if (inputName === '' || !genderSelected || inputId === '' || inputel === '' || inputMail === '') {
-          //   alert('請填寫所有旅客的資料');
-          //   window.scrollTo({
-          //     top: 0,
-          //     behavior: 'smooth' // 如果支持平滑滾動，可以使用 'smooth'
-          //   });
-          //   return; // 如果有任何一個欄位為空，停止進一步處理
-          // }
-        }
+//     // 添加表單提交事件監聽器
+//     form.addEventListener('submit', function (event) {
+//       // 阻止表單默認提交行為
+//       event.preventDefault();
 
+//       // 創建一個對象來保存表單數據
+//       var formData = {};
 
+//       // 遍歷每個旅客
+//       for (var i = 1; i <= passengerCount; i++) {
+//         formData['旅客' + i] = {
+//           '姓名': document.getElementById('inputName' + i).value,
+//           '姓別': document.querySelector('input[name="gender' + i + '"]:checked').value,
+//           '身分證號碼': document.getElementById('inputId').value,
+//           '出生日期': document.getElementById('inpudate').value,
+//           '連絡電話': document.getElementById('inputel').value,
+//           'Email信箱': document.getElementById('inputMail').value
+//         };
+//       }
 
-        var button = document.getElementById('customButton');
-        button.classList.add('clicked');
-        // 在這裡可以添加其他點擊前後的處理邏輯
-        window.location.href = 'paycheck.html';
-      }
-      
-    }
-
-
-    //儲存form表單填入的資料
-    // 取得表單元素
-    var form = document.querySelector('form');
-
-    // 添加表單提交事件監聽器
-    form.addEventListener('submit', function (event) {
-      // 阻止表單默認提交行為
-      event.preventDefault();
-
-      // 創建一個對象來保存表單數據
-      var formData = {};
-
-      // 遍歷每個旅客
-      for (var i = 1; i <= passengerCount; i++) {
-        formData['旅客' + i] = {
-          '姓名': document.getElementById('inputName' + i).value,
-          '姓別': document.querySelector('input[name="gender' + i + '"]:checked').value,
-          '身分證號碼': document.getElementById('inputId').value,
-          '出生日期': document.getElementById('inpudate').value,
-          '連絡電話': document.getElementById('inputel').value,
-          'Email信箱': document.getElementById('inputMail').value
-        };
-      }
-
-      // 將表單數據保存到 localStorage 中
-      localStorage.setItem('formData', JSON.stringify(formData));
-      localStorage.setItem('passengerCount', passengerCount);
-      // 提交表單
-      form.submit();
-    });
+//       // 將表單數據保存到 localStorage 中
+//       localStorage.setItem('formData', JSON.stringify(formData));
+//       localStorage.setItem('passengerCount', passengerCount);
+//       // 提交表單
+//       form.submit();
+//     });
 
   </script>
 

@@ -6,9 +6,9 @@ import com.lazytravel.foodscape.entity.FoodScapeImg;
 
 public interface FoodScapeImgDAO {
 	
-	int insert(FoodScapeImg foodscapeimg);
+	void add(FoodScapeImg foodscapeimg);
 	
-	int update(FoodScapeImg foodscapeimg);
+	void update(FoodScapeImg foodscapeimg);
 	
 	//int delete(Integer imgId, Integer foodScapeId);
 	

@@ -2,18 +2,14 @@ package com.lazytravel.journey.entity;
 
 import java.io.Serializable;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.UpdateTimestamp;
+import javax.persistence.Transient;
 
 import com.lazytravel.journey.entity.JourneyDetail.CompositeJourneyAndFoodscape;
 
@@ -38,17 +34,30 @@ public class JourneyDetail {
 	
 	@Column(name = "nth_day")
 	private Integer nthDay;
+	
+    @Transient
+    private Integer index;    // 用於jsp和Servlet中，判斷新增的物件為第幾筆行程明細
 
 	public JourneyDetail() {
 
 	}
 
-	public JourneyDetail(Integer journeyId, Integer foodScapeId, Time startTime, Time endTime, Integer nthDay) {
+	public JourneyDetail(Integer journeyId, Integer foodScapeId, Time startTime, Time endTime, Integer nthDay, Integer index) {
 		this.journeyId = journeyId;
 		this.foodScapeId = foodScapeId;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.nthDay = nthDay;
+		this.index = index;
+	}
+
+	public JourneyDetail(Integer foodScapeId, Time startTime, Time endTime, Integer nthDay, Integer index) {
+		super();
+		this.foodScapeId = foodScapeId;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.nthDay = nthDay;
+		this.index = index;
 	}
 
 	public Integer getJourneyId() {
@@ -98,6 +107,14 @@ public class JourneyDetail {
 	public void setCompositeKey(CompositeJourneyAndFoodscape key) {
 		this.journeyId = key.getJourneyId();
 		this.foodScapeId = key.getFoodScapeId();
+	}
+	
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 	
 	// 宣告包含複合主鍵屬性的內部類別
