@@ -79,9 +79,14 @@
             <li class="nav-item mx-4"><a class="fa-solid fa-envelope nav-link" href="#"
                                          style="color: white;"></a>
             </li>
-            <li class="nav-item mx-4"><a class="fa-regular fa-heart nav-link" href="#"
-                                         style="color: white;"></a>
-            </li>
+            
+            <li class="nav-item mx-4">
+				<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
+				    <button type="submit" class="fa-regular fa-heart nav-link" style="color: white; border: none; background: none;"></button>
+				    <input type="hidden" name="action" value="shoppingCart_enter" />
+				</form>
+			</li>
+			
           </ul>
         </div>
       </div>
@@ -91,7 +96,13 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+	
 </body>
+<script>
+// 	var contextPath = "${pageContext.request.contextPath}";
+// 	function redirectToShoppingCart() {
+// 		window.location.href = contextPath + "/journey/user/journey_shoppingCart.jsp";
+// 	}
+</script>
 
 </html>
