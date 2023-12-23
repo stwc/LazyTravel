@@ -88,7 +88,7 @@ public class RegisterHandler extends HttpServlet {
         customer.setIdno(idno);
         customer.setBirth(birth);
         customer.setAddress(address);
-        customer.setCustomerStatus(CustomerStatus.ACTIVE.getValue()); // 先暫時讓註冊會員狀態起始值為1
+        customer.setCustomerStatus(CustomerStatus.NOT_AUTH.getValue());
 
         // 輸入資料錯誤，請重新輸入
         if (!errorMsgs.isEmpty()) {
@@ -98,6 +98,11 @@ public class RegisterHandler extends HttpServlet {
 
         // 註冊成功
         customerService.addCustomer(customer);
-        return "/customer/register-success.jsp";
+        // 發送驗證信
+        String path = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + "/" +
+                req.getContextPath() + "/customer/register-auth.do";
+        customerService.sendRegisterMail(customer, path);
+        req.setAttribute("hideResend", true);
+        return "/customer/register-auth.jsp";
     }
 }
