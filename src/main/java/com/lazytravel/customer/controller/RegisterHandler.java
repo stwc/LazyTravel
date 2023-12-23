@@ -3,6 +3,7 @@ package com.lazytravel.customer.controller;
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
+import com.lazytravel.customer.util.AuthCodeUtil;
 import com.lazytravel.customer.util.CustomerStatus;
 import com.password4j.Hash;
 import com.password4j.Password;
@@ -13,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class RegisterHandler extends HttpServlet {
 
         // 抓前端送來的參數
         String email = req.getParameter("email");
-        if (customerService.isEmailExists(email)) {
+        if (customerService.emailExists(email) != null) {
             req.setAttribute("insertFailed", true);
             errorMsgs.add("此Email信箱已註冊過");
         }
@@ -99,9 +99,10 @@ public class RegisterHandler extends HttpServlet {
         // 註冊成功
         customerService.addCustomer(customer);
         // 發送驗證信
-        String path = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + "/" +
-                req.getContextPath() + "/customer/register-auth.do";
-        customerService.sendRegisterMail(customer, path);
+//        String path = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + "/" +
+//                req.getContextPath() + "/customer/register-auth.do";
+//        customerService.sendRegisterMail(customer, path);
+        customerService.sendRegisterMail(customer, AuthCodeUtil.getPath(req, "/customer/register-auth.do"));
         req.setAttribute("hideResend", true);
         return "/customer/register-auth.jsp";
     }

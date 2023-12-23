@@ -17,11 +17,15 @@ public interface CustomerService {
 
     Customer login(String email, String passwd);
 
-    Boolean isEmailExists(String email);
+    Customer emailExists(String email);
 
     Boolean resetPassword(String email, String oldPassword, String newPassword);
 
     void sendRegisterMail(Customer customer, String path);
 
-    AuthStatus isAuthSuccess(String type, Integer customerId, String authCode);
+    AuthStatus isAuthSuccess(Integer customerId, String authCode);
+
+    void sendForgotPwMail(Customer customer, String path);
+
+    Boolean forgotPassword(Integer customerId, String authCode, String newPassword);
 }

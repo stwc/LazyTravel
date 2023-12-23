@@ -3,6 +3,7 @@ package com.lazytravel.customer.controller;
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
+import com.lazytravel.customer.util.AuthCodeUtil;
 import com.lazytravel.customer.util.AuthStatus;
 import com.lazytravel.customer.util.CustomerStatus;
 
@@ -31,10 +32,8 @@ public class RegisterAuthHandler extends HttpServlet {
         String action = req.getParameter("action");
         if ("resend".equals(action)) {
             // 點「再次發送驗證信」button會進來此段落
-            String path = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + "/" +
-                    req.getContextPath() + "/customer/register-auth.do";
 
-            // 登入時若帳號信箱未驗證，參數抓request中暫存的tmpCustomer
+            // 登入時若帳號信箱未驗證會重導至register-auth.jsp，按再次發送驗證信後，參數抓session中暫存的tmpCustomer
             Customer customer = (Customer) req.getSession().getAttribute("tmpCustomer");
             req.getSession().removeAttribute("tmpCustomer");
 
@@ -44,14 +43,14 @@ public class RegisterAuthHandler extends HttpServlet {
                 customer = customerService.getOneCustomer(customerId);
             }
 
-            customerService.sendRegisterMail(customer, path);
+            customerService.sendRegisterMail(customer, AuthCodeUtil.getPath(req, "/customer/register-auth.do"));
             req.setAttribute("hideResend", true);
             forwardPath = "/customer/register-auth.jsp";
         } else {
             // 輸入網址或點擊連結進來的
             Integer customerId = Integer.valueOf(req.getParameter("id"));
             String authCode = req.getParameter("code");
-            AuthStatus authStatus = customerService.isAuthSuccess("register", customerId, authCode);
+            AuthStatus authStatus = customerService.isAuthSuccess(customerId, authCode);
             switch (authStatus) {
                 case EXPIRED -> {
                     req.setAttribute("isExpired", true);

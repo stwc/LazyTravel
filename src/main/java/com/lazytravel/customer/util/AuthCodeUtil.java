@@ -1,5 +1,7 @@
 package com.lazytravel.customer.util;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class AuthCodeUtil {
     public static String generateAuthCode() {
         StringBuilder sb = new StringBuilder();
@@ -19,5 +21,16 @@ public class AuthCodeUtil {
             }
         }
         return sb.toString();
+    }
+
+    public static String getPath(HttpServletRequest req, String destination) {
+        return req.getScheme() +
+                "://" +
+                req.getServerName() +
+                ":" +
+                req.getServerPort() +
+                "/" +
+                req.getContextPath() +
+                destination;
     }
 }

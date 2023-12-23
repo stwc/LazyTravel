@@ -61,8 +61,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Boolean isEmailExists(String email) {
-        return (dao.findByEmail(email) != null);
+    public Customer emailExists(String email) {
+        return dao.findByEmail(email);
     }
 
     @Override
@@ -87,7 +87,6 @@ public class CustomerServiceImpl implements CustomerService {
         Jedis jedis = pool.getResource();
         String key = "RegisterAuth:" + customerId;
         jedis.set(key, authCode);
-        jedis.get(key);
         jedis.expire(key, 30);
         jedis.close();
 
@@ -101,7 +100,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public AuthStatus isAuthSuccess(String type, Integer customerId, String authCode) {
+    public AuthStatus isAuthSuccess(Integer customerId, String authCode) {
         Jedis jedis = pool.getResource();
         String key = "RegisterAuth:" + customerId;
 //        System.out.println("tempAuth key: " + key);
@@ -114,6 +113,45 @@ public class CustomerServiceImpl implements CustomerService {
             return AuthStatus.SUCCESS;
         } else {
             return AuthStatus.FAILED;
+        }
+    }
+
+    @Override
+    public void sendForgotPwMail(Customer customer, String path) {
+        String customerId = String.valueOf(customer.getCustomerId());
+        String authCode = AuthCodeUtil.generateAuthCode();
+        System.out.println("Auth code is: " + authCode);
+
+        Jedis jedis = pool.getResource();
+        String key = "ForgotPwAuth:" + customerId;
+        jedis.set(key, authCode);
+        jedis.expire(key, 60 * 60);
+        jedis.close();
+
+        String to = customer.getEmail();
+        String subject = "趕懶遊 重置密碼";
+        String url = path + "?id=" + customerId + "&" + "code=" + authCode;
+        String messageText = "Hello " + customer.getCustomerName() + ",\n請點選連結重置密碼:\n" + url + "\n";
+
+        MailService mailService = new MailService();
+        mailService.sendMail(to, subject, messageText);
+    }
+
+    @Override
+    public Boolean forgotPassword(Integer customerId, String authCode, String newPassword) {
+        Jedis jedis = pool.getResource();
+        String key = "ForgotPwAuth:" + customerId;
+        String tempAuth = jedis.get(key);
+        jedis.close();
+        if (!authCode.equals(tempAuth)) {
+            return false;
+        } else {
+            Customer customer = dao.findByPK(customerId);
+            Hash hash = Password.hash(newPassword).withBcrypt();
+            String hashedPw = hash.getResult();
+            customer.setCustomerPasswd(hashedPw);
+            dao.update(customer);
+            return true;
         }
     }
 }
