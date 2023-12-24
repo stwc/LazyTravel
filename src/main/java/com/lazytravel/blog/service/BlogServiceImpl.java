@@ -40,6 +40,10 @@ public class BlogServiceImpl implements BlogService {
 	public Integer updateBlog(Blog blog) {
 		return dao.update(blog);
 	}
-
-    
+	public List<Blog> searchBlogsByKeyword(String keyword){
+		return dao.searchBlogs(keyword);
+	}
+	 public void updateView(Integer blogId) {
+		  dao.updateView(blogId);
+	 }
 }

@@ -4,12 +4,20 @@
 <%@ page import="com.lazytravel.blog.entity.*"%>
 <%@ page import="com.lazytravel.blog.dao.*"%>
 <%@ page import="com.lazytravel.blog.service.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@ page import="java.util.Set"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
 BlogService blogSvc = new BlogServiceImpl();
 List<Blog> list = blogSvc.getAllBlogs();
 pageContext.setAttribute("list", list);
+
+if (session.getAttribute("customer") == null) {
+    response.sendRedirect(request.getContextPath() + "/blog/blog/blogfirst.jsp");
+    return;
+  }
 %>
 
 
@@ -60,27 +68,14 @@ pageContext.setAttribute("list", list);
 
 		<div class="row ">
 			<div class="col-9  d-inline-flex">
-				<form class="dropdown my-auto" method="post" action="blog.do">
-							    <button class="btn btn-secondary dropdown-toggle" type="button"
-							            name="blogtag" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-							            aria-expanded="false">想來點甚麼嗎?</button>
-							    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							        <c:forEach var="tag" items="${list[0].getTags()}">
-									<li class="dropdown-item"  href="#"  data-id="${tag.getTagId()}">${tag.getTagName()}</li>
-							        </c:forEach>
-							    </ul>
-							</form>
-
-
-				<div class="input-group w-50 h-auto m-1">
-					<!-- 					<form method="post" action="your_search_action"> -->
-					<input type="text" class="form-control my-lg-auto"
-						placeholder="輸入景點/美食" aria-label="Recipient's username"
-						aria-describedby="button-addon2" />
-					<button class="btn btn-outline-secondary my-auto" type="submit"
-						id="button-addon2">搜尋看看吧</button>
-					<!-- 					</form> -->
-				</div>
+				<form class="input-group w-50 h-auto m-1" METHOD="post" ACTION="blog.do">
+							<input type="text" class="form-control my-lg-auto" name="keyword"
+								placeholder="輸入景點/美食" aria-label="Recipient's username"
+								aria-describedby="button-addon2" />
+								<input type="hidden" name="action" value="search">
+							<button class="btn btn-outline-secondary my-auto" type="submit"
+								id="button-addon2" >搜尋看看吧</button>
+						</form>
 			</div>
 
 
@@ -107,25 +102,25 @@ pageContext.setAttribute("list", list);
 			<div class="row">
 				<c:forEach var="blog" items="${list}">
 					<div class="col-md-4">
-						<div class="card" style="width: 22rem">
-							<img src="../../static/blogimages/大王拉麵.jpg" class="card-img-top"
-								alt="..." />
+						<div class="card" style="width: 22rem;height: 425px; margin: 10px">
+							<img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 100%; height: 50%;" />
 
 							<div class="card-body p">
 								<h5 class="card-title">${blog.title}</h5>
 								<div class="d-inline-flex">
-									<c:forEach var="tag" items="${blog.getTags()}"> ${tag.tagName}
-								</c:forEach>
 									<p class="h6"></p>
 								</div>
 								<div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
-								<p class="h6">${blog.createTime}</p>
-								<p class="card-text">${blog.content}</p>
+								<c:set var="formattedDate">
+    							<fmt:formatDate value="${blog.blogDate}" pattern="yyyy-MM-dd HH:mm"/>
+								</c:set>
+								<p class="h6">${formattedDate}</p>
+								<p class="card-text">${fn:substring(blog.content, 0, 25)}${fn:length(blog.content) > 25 ? '...' : ''}</p>
 								<div class="d-flex justify-content-end">
 									<div class="col-10"></div>
 									<FORM METHOD="post"
 										ACTION="<%=request.getContextPath()%>/blog/blog/blog.do"
-										style="margin-bottom: 0px;">
+										style="position: absolute; bottom: 10px; right: 10px;">
 										<button type="submit" value="修改">
 											<img src="../../static/blogimages/編輯筆.svg" class="thumds"
 												alt="編輯" />
@@ -138,6 +133,23 @@ pageContext.setAttribute("list", list);
 						</div>
 					</div>
 				</c:forEach>
+				
+				
+				<div class="col-md-4">
+    <div class="card" style="width: 22rem; height: 425px; margin: 10px; position: relative;">
+        <img class="card-img-top" src="../../static/blogimages/九份景.jpg" style="width: 100%; height: 50%;" />
+
+        <div class="card-body p">
+    <p class="h5">來寫下一篇屬於你的文章吧</p>
+    <form method="post" class="d-flex justify-content-end" action="<%=request.getContextPath()%>/blog/blog/blog.do" style="position: absolute; bottom: 10px; right: 10px;">
+        <!-- 使用 JavaScript 實現跳轉 -->
+        <button type="button" onclick="redirectToAdd()">
+            <img src="../../static/blogimages/編輯筆.svg" class="thumds" alt="新增" />
+        </button>
+    </form>
+        </div>
+    </div>
+</div>
 			</div>
 
 
@@ -175,6 +187,11 @@ pageContext.setAttribute("list", list);
 				$("#header").load("../../components/html/header.html");
 				$("#footer").load("../../components/html/footer.html");
 			});
-		</script>
+			
+			function redirectToAdd() {
+		        // 使用 window.location.href 將頁面導航到 myblog.jsp
+		        window.location.href = 'addblog2.jsp';
+		    };
+				</script>
 </body>
 </html>

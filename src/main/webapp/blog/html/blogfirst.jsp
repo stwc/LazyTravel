@@ -58,26 +58,13 @@ pageContext.setAttribute("list", list);
 
 			<div class="row ">
 				<div class="col-9  d-inline-flex">
-					<form class="dropdown my-auto" method="post" action="blog.do">
-							    <button class="btn btn-secondary dropdown-toggle" type="button"
-							            name="blogtag" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-							            aria-expanded="false">想來點甚麼嗎?</button>
-							    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							        <c:forEach var="tag" items="${list[0].getTags()}">
-									<li class="dropdown-item"  href="#"  data-id="${tag.getTagId()}">${tag.getTagName()}</li>
-							        </c:forEach>
-							    </ul>
-							</form>
-							
-
-
-					<div class="input-group w-50 h-auto m-1">
-						<input type="text" class="form-control my-lg-auto"
+					<form class="input-group w-50 h-auto m-1" METHOD="post" ACTION="blog.do">
+						<input type="text" class="form-control my-lg-auto" name="keyword"
 							placeholder="輸入景點/美食" aria-label="Recipient's username"
 							aria-describedby="button-addon2" />
-						<button class="btn btn-outline-secondary my-auto" type="button"
-							id="button-addon2">搜尋看看吧</button>
-					</div>
+						<button class="btn btn-outline-secondary my-auto" type="submit"
+							id="button-addon2" value="search">搜尋看看吧</button>
+					</form>
 				</div>
 
 				<div class="col-3 d-flex justify-content-end w-25 p-0">
@@ -86,14 +73,14 @@ pageContext.setAttribute("list", list);
 						<input type="radio" class="btn-check" name="btnradio"
 							id="btnradio1" autocomplete="off" checked /> 
 							<label
-							class="btn btn-outline-primary" for="btnradio1">文章列表</label> 
+							class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE;border-color: transparent;color: white">文章列表</label> 
 							<input
-							type="radio" class="btn-check" name="btnradio" id="btnradio2"
+							type="radio" class="btn-check" name="btnradio" id="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white"
 							autocomplete="off" /> 
-							<label class="btn btn-outline-primary" for="btnradio2">我的文章</label> 
-							<input type="radio"
+							<label class="btn btn-outline-primary" for="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white">我的文章</label> 
+							<input type="radio" style="background: #CCD5AE;border-color: transparent;color: white"
 							class="btn-check" name="btnradio" id="btnradio3"
-							autocomplete="off" /> <label class="btn btn-outline-primary"
+							autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE;border-color: transparent;color: white"
 							for="btnradio3">文章收藏</label>
 					</div>
 				</div>
@@ -110,7 +97,6 @@ pageContext.setAttribute("list", list);
                     <div class="card-body p">
                         <h5 class="card-title">${blog.title}</h5>
                         <div class="d-inline-flex">
-                            <c:forEach var="tag" items="${blog.getTags()}">${tag.tagName}</c:forEach>
                             <p class="h6"></p>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
@@ -145,7 +131,7 @@ pageContext.setAttribute("list", list);
         </c:forEach>
     </form>
 </div>
-
+<div id="searchResults" class="row"></div>
 
 
 			<div class="container-fluid">
@@ -184,6 +170,8 @@ pageContext.setAttribute("list", list);
             // 使用 JavaScript 的 window.location.href 進行頁面跳轉
             window.location.href = '<%=request.getContextPath()%>/blog/blog/blog.do?blogId=' + blogId;
         }
+		
+     
 	</script>
 
 </body>

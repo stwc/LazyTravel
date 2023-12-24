@@ -4,12 +4,17 @@
 <%@ page import="com.lazytravel.blog.entity.*"%>
 <%@ page import="com.lazytravel.blog.dao.*"%>
 <%@ page import="com.lazytravel.blog.service.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+	<%@ page import="java.util.Set"%>
 
 
 <%
-BlogService blogSvc = new BlogServiceImpl();
-List<Blog> list = blogSvc.getAllBlogs();
-pageContext.setAttribute("list",list);
+Blog blog = (Blog) request.getAttribute("blog"); 
+// Blog blog = (Blog) request.getAttribute("blog");
+// BlogService blogSvc = new BlogServiceImpl();
+// List<Blog> list = blogSvc.getAllBlogs();
+// pageContext.setAttribute("list",list);
 %>
 
 <html>
@@ -45,20 +50,16 @@ pageContext.setAttribute("list",list);
   <body>
     <header id="header"></header>
     <main>
-    <c:forEach var="blog" items="${list}">
       <div class="container">
         <div class="row">
           <div class="col my-2">
-            <img
-              src="../../static/blogimages/台中景點.jpg"
-              class="img-fluid"
-              alt="文章大圖" />
+            <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 80%; height: 80%;" />
           </div>
         </div>
         <div class="row">
           <div class="col">
             <h5 class="display-6 lead my-2">
-              <strong>${blog.getTitle()}</strong>
+              <strong>${blog.title}</strong>
             </h5>
           </div>
           <div
@@ -78,16 +79,15 @@ pageContext.setAttribute("list",list);
         </div>
         <div class="row-cols-auto d-inline-flex d-flex justify-content-center">
           <div class="col-7">
-            <p class="h6 p-2">${blog.createTime}</p>
+          <c:set var="formattedDate">
+    							<fmt:formatDate value="${blog.blogDate}" pattern="yyyy-MM-dd HH:mm"/>
+								</c:set>
+            <p class="h6">${formattedDate}</p>
           </div>
 
           <div class="col d-inline-flex">
             <p class="p-2">${blog.customer.nickname}</p>
-            <img
-              src="${blog.customer.avatar}" 
-              class="img-fluid p-0 img-thumbnail"
-              style="height: 50px"
-              alt="" />
+            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?customerId=${blog.customer.customerId}" style="height: 50px "alt="${blog.customer.customerName}" />
           </div>
         </div>
         <hr />
@@ -99,52 +99,8 @@ pageContext.setAttribute("list",list);
           </div>
         </div>
 
-        <div class="row">
-          <div class="col">
-            <p class="h1 my-5"><strong>留言區</strong></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="col d-inline-flex">
-              <p class="h5">吳康仁</p>
-              <p class="h5 text-black-50">－2023年11月7號發佈</p>
-            </div>
-            <div class="col">感覺很棒欸</div>
-          </div>
-        </div>
 
-        <div class="row mt-3">
-          <div class="col d-inline-flex p-2">
-            <p class="p-2">張震</p>
-            <img
-              src="../../static/blogimages/張震.png"
-              class="img-fluid p-0"
-              style="height: 50px"
-              alt="" />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-control"
-                style="height: 200px"
-                id="exampleInput"
-                placeholder="來留個言吧" />
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <button type="button" class="btn btn-success m-2 float-end">
-              Success
-            </button>
-          </div>
-        </div>
       </div>
-      </c:forEach>
 
       <hr />
     </main>
