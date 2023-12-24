@@ -84,9 +84,9 @@
               後臺權限
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="user.html">後臺使用者</a></li>
-              <li><a class="dropdown-item" href="role.html">後臺角色</a></li>
-              <li><a class="dropdown-item" href="func.html">後臺功能</a></li>
+              <li><a class="dropdown-item" href="user.jsp">後臺使用者</a></li>
+              <li><a class="dropdown-item" href="role.jsp">後臺角色</a></li>
+              <li><a class="dropdown-item" href="func.jsp">後臺功能</a></li>
             </ul>
           </li>
         </ul>
