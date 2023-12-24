@@ -2,7 +2,7 @@ package com.lazytravel.customer.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AuthCodeUtil {
+public class Utils {
     public static String generateAuthCode() {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= 8; i++) {
