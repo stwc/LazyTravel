@@ -82,7 +82,7 @@ pageContext.setAttribute("list", list);
 				</div>
 				<div class="input-group w-50 m-1">
 					<input type="text" class="form-control" name="title"
-						value="<%=blog.getTitle()%>" aria-label="Recipient's username"
+						aria-label="Recipient's username"
 						aria-describedby="button-addon2" />
 				</div>
 			</div>
@@ -125,21 +125,20 @@ pageContext.setAttribute("list", list);
 		<hr />
 		<div class="container-fluid">
 			<div class="row mx-5">
-				<textarea  id="summernote"  name="content" style="height: 100px"><%=blog.getContent()%>
+				<textarea  id="summernote"  name="content" style="height: 100px">
 			</textarea>
 			<div class="row d-flex">
 				<div class="col-10"></div>
 				<div class="col-1 justify-content-end d-flex">
-					<button type="button" onclick="redirectToMyBlog()" class="btn btn-success">取消</button>
+					<button type="button" onclick="redirectToMyBlog()" class="btn btn-success">回上頁</button>
 				</div>
 				<div class="col-1 justify-content-end d-flex">
-					<input type="submit" id="saveButton" class="btn btn-success" value="送出修改">
-					<input type="hidden" name="action" value="update"> 
-					<input type="hidden" name="customer_id" value="<%=blog.getCustomer().getCustomerId()%>" size="45"/>
-					<input type="hidden" name="blogId" value="<%=blog.getBlogId()%>">
+					<input type="submit" id="saveButton" class="btn btn-success" value="新增文章">
+					<input type="hidden" name="action" value="insert"> 
+					<input type="hidden" name="customer_id" value="11005" size="45"/>
 					<input type="hidden" name="updateTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">
-					<input type="hidden" name="createTime" value="<%=blog.getCreateTime()%>">
-					<input type="hidden" name="blogStatus" value="<%=blog.getBlogStatus()%>">
+					<input type="hidden" name="createTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">
+					<input type="hidden" name="blogStatus" value="1">
 					
 				</div>
 			</div>
