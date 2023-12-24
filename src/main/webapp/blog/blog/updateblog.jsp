@@ -140,6 +140,7 @@ pageContext.setAttribute("list", list);
 					<input type="hidden" name="updateTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">
 					<input type="hidden" name="createTime" value="<%=blog.getCreateTime()%>">
 					<input type="hidden" name="blogStatus" value="<%=blog.getBlogStatus()%>">
+					<input type="hidden" name="viewSum" value="<%=blog.getViewSum()%>">
 					
 				</div>
 			</div>

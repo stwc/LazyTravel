@@ -71,7 +71,7 @@
 								placeholder="輸入景點/美食" aria-label="Recipient's username"
 								aria-describedby="button-addon2" />
 								<input type="hidden" name="action" value="search">
-							<button class="btn btn-outline-secondary my-auto" type="submit"
+							<button class="btn btn-outline-secondary my-auto" type="submit" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"
 								id="button-addon2" >搜尋看看吧</button>
 						</form>
 					</div>
@@ -82,14 +82,14 @@
 							<input type="radio" class="btn-check" name="btnradio"
 								id="btnradio1" autocomplete="off" checked /> 
 								<label
-								class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE;border-color: transparent;color: white">文章列表</label> 
+								class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;">文章列表</label> 
 								<input
 								type="radio" class="btn-check" name="btnradio" id="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white"
 								autocomplete="off" /> 
-								<label class="btn btn-outline-primary" for="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white" onclick=" toMyBlog()">我的文章</label> 
+								<label class="btn btn-outline-primary" for="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;" onclick=" toMyBlog()">我的文章</label> 
 								<input type="radio" style="background: #CCD5AE;border-color: transparent;color: white"
 								class="btn-check" name="btnradio" id="btnradio3"
-								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE;border-color: transparent;color: white"
+								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"
 								for="btnradio3">文章收藏</label>
 						</div>
 					</div>

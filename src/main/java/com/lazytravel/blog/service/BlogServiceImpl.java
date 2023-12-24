@@ -46,4 +46,10 @@ public class BlogServiceImpl implements BlogService {
 	 public void updateView(Integer blogId) {
 		  dao.updateView(blogId);
 	 }
+
+	@Override
+	public List<Blog> getBlogByCustomerId(Integer customerId) {
+		
+		return dao.getBlogByCustomerId(customerId);
+	}
 }

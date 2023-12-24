@@ -19,5 +19,7 @@ public interface BlogService {
      List<Blog> searchBlogsByKeyword(String keyword);
      
      void updateView(Integer blogId);
+     
+      List<Blog> getBlogByCustomerId(Integer customerId);
     
 }
