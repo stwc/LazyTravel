@@ -4,6 +4,8 @@
 <%@ page import="com.lazytravel.blog.entity.*"%>
 <%@ page import="com.lazytravel.blog.dao.*"%>
 <%@ page import="com.lazytravel.blog.service.*"%>
+<%@ page import="com.lazytravel.customer.entity.*"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 	<%@ page import="java.util.Set"%>
@@ -11,13 +13,18 @@
 
 <%
 BlogService blogSvc = new BlogServiceImpl();
-List<Blog> list = blogSvc.getAllBlogs();
-pageContext.setAttribute("list", list);
+List<Blog>  list = null;
 
-if (session.getAttribute("customer") == null) {
-    response.sendRedirect(request.getContextPath() + "/blog/blog/blogfirst.jsp");
+Customer customer = (Customer) session.getAttribute("customer");
+
+if (customer != null) {
+    list = blogSvc.getBlogByCustomerId((Integer)customer.getCustomerId());
+} else {
+    // 如果會員未登入，導向登入頁面
+    response.sendRedirect(request.getContextPath() + "/customer/login.jsp");
     return;
-  }
+}
+pageContext.setAttribute("list", list);
 %>
 
 
@@ -67,31 +74,34 @@ if (session.getAttribute("customer") == null) {
 		</div>
 
 		<div class="row ">
-			<div class="col-9  d-inline-flex">
-				<form class="input-group w-50 h-auto m-1" METHOD="post" ACTION="blog.do">
+					<div class="col-9  d-inline-flex">
+						<form class="input-group w-50 h-auto m-1" METHOD="post" ACTION="blog.do">
 							<input type="text" class="form-control my-lg-auto" name="keyword"
 								placeholder="輸入景點/美食" aria-label="Recipient's username"
 								aria-describedby="button-addon2" />
 								<input type="hidden" name="action" value="search">
-							<button class="btn btn-outline-secondary my-auto" type="submit"
+							<button class="btn btn-outline-secondary my-auto" type="submit" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"
 								id="button-addon2" >搜尋看看吧</button>
 						</form>
-			</div>
+					</div>
 
 
 			<div class="col-3 d-flex justify-content-end w-25 p-0">
-				<div class="btn-group" role="group"
-					aria-label="Basic radio toggle button group">
-					<input type="radio" class="btn-check" name="btnradio"
-						id="btnradio1" autocomplete="off" /> <label
-						class="btn btn-outline-primary" for="btnradio1">文章列表</label> <input
-						type="radio" class="btn-check" name="btnradio" id="btnradio2"
-						autocomplete="off" checked /> <label
-						class="btn btn-outline-primary" for="btnradio2">我的文章</label> <input
-						type="radio" class="btn-check" name="btnradio" id="btnradio3"
-						autocomplete="off" /> <label class="btn btn-outline-primary"
-						for="btnradio3">文章收藏</label>
-				</div>
+						<div class="btn-group" role="group"
+							aria-label="Basic radio toggle button group">
+							<input type="radio" class="btn-check" name="btnradio"
+								id="btnradio1" autocomplete="off" checked /> 
+								<label
+								class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;">文章列表</label> 
+								<input
+								type="radio" class="btn-check" name="btnradio" id="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white"
+								autocomplete="off" /> 
+								<label class="btn btn-outline-primary" for="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;" onclick=" toMyBlog()">我的文章</label> 
+								<input type="radio" style="background: #CCD5AE;border-color: transparent;color: white"
+								class="btn-check" name="btnradio" id="btnradio3"
+								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"
+								for="btnradio3">文章收藏</label>
+						</div>
 			</div>
 		</div>
 

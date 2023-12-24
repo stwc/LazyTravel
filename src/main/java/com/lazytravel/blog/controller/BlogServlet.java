@@ -122,11 +122,12 @@ public class BlogServlet extends HttpServlet {
         SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        Timestamp blogDate =Timestamp.valueOf(req.getParameter("blog_date"))
         String blogStatus =String.valueOf(req.getParameter("blogStatus"));
+        Integer viewSum=Integer.valueOf(req.getParameter("viewSum"));
         Timestamp blogTimestamp = null;
         
         try {
             // 從 request 中取得 blog_date 參數
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-dd-MM");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             // 解析日期
             LocalDate localDate = LocalDate.parse(blogDateStr, inputFormatter);
             
@@ -179,6 +180,7 @@ public class BlogServlet extends HttpServlet {
         blog.setCreateTime(createTime);
         blog.setBlogStatus(blogStatus);
         blog.setImg(blogImg);
+        blog.setViewSum(viewSum);
         
         Customer customer = new Customer();
         customer.setCustomerId(customerId);
@@ -193,7 +195,7 @@ public class BlogServlet extends HttpServlet {
         blogService.updateBlog(blog);
         req.setAttribute("blog", blogService.getBlogByBlogId(blogId));
 
-        return "/blog/blog/listOneBlog.jsp";
+        return "/blog/blog/myblog.jsp";
     }
 //3.新增
     private String insert(HttpServletRequest req, HttpServletResponse res) {

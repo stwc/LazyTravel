@@ -20,4 +20,6 @@ public interface BlogDAO {
 	
 	public void updateView(Integer blogId);
 	
+	public List<Blog> getBlogByCustomerId(Integer customerId);
+	
 }
