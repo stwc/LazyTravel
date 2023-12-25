@@ -79,6 +79,13 @@ public class FoodScapeImg {
 		return "FoodScapeImg [imgId=" + imgId + ", foodScapeId=" + foodScapeId + ", createTime=" + createTime
 				+ ", blogImg=" + Arrays.toString(blogImg) + "]";
 	}
+
+	public byte[] getImg() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 	
 

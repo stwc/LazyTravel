@@ -29,7 +29,7 @@ public class FoodScapeServiceImpl implements FoodScapeService{
 	}
 
 	@Override
-	public List<FoodScape> getAllFoodScapes(int currentPage) {
+	public List<FoodScape> getAllFoodScapes() {
 
 		return dao.getAll();
 	}
