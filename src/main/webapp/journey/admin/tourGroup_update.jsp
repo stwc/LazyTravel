@@ -4,8 +4,6 @@
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 
-<%@ include file="/admin/header.html" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,8 +154,8 @@
 
 </head>
 
-    <div id="header"></div>
-
+<!--     <div id="header"></div> -->
+	<%@ include file="/admin/header.jsp" %>
 
     <main id="main">
         
