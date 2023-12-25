@@ -14,4 +14,6 @@ public interface TourGroupDAO {
 	List<TourGroup> getAll();
 	List<TourGroup> getByTime(Map<String, String> map);
 	
+	List<TourGroup> findByFK(Integer journeyId);
+	
 }

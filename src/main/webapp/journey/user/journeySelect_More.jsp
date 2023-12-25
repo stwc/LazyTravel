@@ -1,7 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%@ include file="/components/html/header.jsp" %>
+<%@page import="java.util.Collections"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.util.List"%>
+<%@page import="com.lazytravel.journey.dao.*"%>
+<%@page import="com.lazytravel.journey.entity.*"%>
+<%@page import="com.lazytravel.foodscape.entity.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +15,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>篩選行程-下單</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="icon" href="<%=request.getContextPath()%>/static/images/logo.ico" type="image/x-icon">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
 	* {
@@ -30,12 +38,10 @@
 	}
 	
 	article {
-		/* border: 1px solid red; */
 		flex: 1;
 	}
 	
 	section {
-		/* border: 1px solid red; */
 		flex: 100%;
 	}
 	
@@ -50,32 +56,41 @@
 	}
 	
 	div.journey_name {
-		margin-bottom: 15px;
+		margin-bottom: 20px;
 		font-size: 20px;
+		font-weight: 600;
+		color: rgb(113, 120, 95);
+	}
+	
+	span.journey_name_label {
+		margin-right: 25px;
+	}
+	
+	span.journey_name_value {
+		font-weight: 600;
+		color: #CB997E;
+	}
+	
+	p.preparedOrder {
+		color: rgb(113, 120, 95);
+		font-size: 22px;
+		font-weight: 600;
 	}
 	
 	table.journey_detail {
 		border-collapse: separate;
-		border-spacing: 10px;
 		width: 100%;
+		font-size: 15px;
 	}
 	
-	table.journey_detail td {
-		vertical-align: top; /* 文字垂直置頂 */
+	table.journey_detail td,
+	table.journey_detail th {
+		padding-top: 5px;
+		padding-bottom: 5px;
 	}
 	
-	button.btn_more {
-		width: 100px;
-		height: 30px;
-		border-radius: 90px;
-		border-color: transparent;
-		color: white;
-		background: #6B705C;
-	}
-	
-	button.btn_more:active {
-		outline: 2px solid #6B705C;
-		box-shadow: 0 0 8px #a1a397
+	table.journey_detail th {
+		color: darkgrey;
 	}
 	
 	div.score {
@@ -146,18 +161,8 @@
 		box-shadow: 0 0 8px #a1a397
 	}
 	
-	table.wantToOrder {
-		border-collapse: separate;
-		border-spacing: 7px;
-	}
-	
-	table.wantToOrder td {
-		padding-right: 25px;
-	}
-	
-	div.nth_days b {
-		margin-left: 10px;
-		margin-right: 15px;
+	div.nth_days {
+		margin:10px 0px 0px 0px;
 	}
 	
 	div.nth_days i {
@@ -170,119 +175,214 @@
 		color: white;
 		box-shadow: 0 0 8px #a1a397
 	}
+	
+	select.touristNum {
+		width: 135px;
+		height: 30px;
+	}
+	
+	select.touristDate {
+		width: 160px;
+		height: 30px;
+		margin-right: 70px;
+	}
+	
+	td.sign_num,
+	td.min_required,
+	td.max_required,
+	td.tourGroup_price {
+		color: #787878;
+/* 		text-align: right; */
+	}
+	
+	div.div_wrapper table.selectDateAndNum {
+	    display: inline-block;
+	    vertical-align: top;
+	    width: 60%;
+	}
+	
+	div.div_wrapper table {
+		display: inline-block;
+		vertical-align: top;
+		border-collapse: separate;
+		border-spacing: 13px;
+	}
+	
+	div.div_wrapper table.wantToOrder {
+		margin:15px 0px 20px 70px;
+		border: 1px solid darkgrey;
+		border-radius:8px;
+		padding: 10px 50px 10px 50px;
+	}
+	
+ 	div.div_btn{
+		display: flex;
+ 		justify-content: flex-end;
+ 		margin-right: 36px;
+ 	}
+
 </style>
 
+<%	
+// 	Integer journeyId = Integer.valueOf(request.getParameter("journeyId"));
+	Integer journeyId = 23002;
+
+	JourneyService journeySvc = new JourneyServiceImpl();
+	Journey journey = journeySvc.getOneJourney(journeyId);
+	pageContext.setAttribute("journey", journey);
+	
+	JourneyDetailService journeyDetailSvc = new JourneyDetailServiceImpl();
+	List<JourneyDetail> journeyDetailList = journeyDetailSvc.getByJourneyId(journeyId);
+	pageContext.setAttribute("journeyDetailList", journeyDetailList);
+
+	List<FoodScape> foodScapeList = journeyDetailSvc.findFoodscapeNameAndAddress(journeyId);
+	pageContext.setAttribute("foodScapeList", foodScapeList); 
+	
+	
+	TourGroupService tourGroupSvc = new TourGroupServiceImpl();
+	List<TourGroup> tourGroupList = tourGroupSvc.getByJourneyId(journeyId);
+	pageContext.setAttribute("tourGroupList", tourGroupList);
+
+%>
 
 <body>
 
 <!--     <header id="header"></header> -->
+	<%@ include file="/components/html/header.jsp" %>
 
     <main id="main">
         <article>
             <div class="journey_name">
-                <span>行程名稱</span>
-                <span>陽明山一日遊</span>
+                <span class="journey_name_label">行程名稱&nbsp;: </span>
+                <span class="journey_name_value">${journey.journeyName}</span>
             </div>
-            <br>
+          	
             
-            <div class="nth_days">
-                <b>第 1 天</b>
-                <i class="fa-solid fa-circle-chevron-left"></i>
-                <i class="fa-solid fa-circle-chevron-right"></i>
-            </div>
-            <hr>
+			<c:set var="listSize" value="${fn:length(journeyDetailList)}" />
+			<c:set var="lastIndex" value="${listSize - 1}" />
+			<c:set var="lastNthDay" value="${journeyDetailList[lastIndex].nthDay}" />
 
-
-            <table class="journey_detail">
-                <tr>
-                    <th>時間</th>
-                    <th>美食景點</th>
-                    <th>地址</th>
-                </tr>
-                <tr>
-                    <td>08:00~10:00</td>
-                    <td>AAAAA店家</td>
-                    <td>104台北市中山區南京東路三段219號</td>
-                </tr>
-                <tr>
-                    <td>11:00~13:00</td>
-                    <td>BBBBB店家</td>
-                    <td>104台北市中山區南京東路三段219號號號號號號號</td>
-                </tr>
-                <tr>
-                    <td>14:00~16:00</td>
-                    <td>CCCCC店家</td>
-                    <td>104台北市中山區南京東路三段219號</td>
-                </tr>
-            </table>
-
-            <br>
-            <br>
-            <div class="score">
-                <label>最新評價</label>
-                <div>......</div>
-                <button type="button" class="btn_more">查看更多</button>
-            </div>
-
-            <br>
-            <br>
-            <div class="journey_price_div">
-                <span>金額</span>
-                <span class="journey_price_span">NT$420</span>
-            </div>
-
+            <c:forEach begin="1" end="${lastNthDay}" varStatus="daysLoop">	
+            	<div class="nth_days">
+		        	<b style="font-weight: 600; color: rgb(129, 127, 127);">第 ${daysLoop.count} 天</b>
+<!-- 		    		<i class="fa-solid fa-circle-chevron-left"></i> -->
+<!-- 		    		<i class="fa-solid fa-circle-chevron-right"></i> -->
+				</div>
+            	
+				<table class="journey_detail">
+		        	<tr>
+		                <th>時間</th>
+<!-- 						<th></th> -->
+						<th>美食景點</th>
+						<th>地址</th>
+					</tr>
+		            
+					<c:forEach var="journeyDetail" items="${journeyDetailList}" varStatus="loop">
+		                <c:if test="${journeyDetail.nthDay == daysLoop.count}">		 
+			                <fmt:formatDate value="${journeyDetail.startTime}" pattern="HH:mm" var="formattedStartTime" />
+							<fmt:formatDate value="${journeyDetail.endTime}" pattern="HH:mm" var="formattedEndTime" />
+			                <tr>
+<%-- 			                	<td style="width: 50px;">第 ${journeyDetail.nthDay} 天</td> --%>
+			                    <td style="width: 110px;">${formattedStartTime} ~ ${formattedEndTime}</td>
+			                    <td style="width: 130px;">${foodScapeList[loop.index].foodScapeName}</td>
+			                    <td>${foodScapeList[loop.index].address}</td>
+			                </tr>
+						</c:if>
+					</c:forEach>
+				</table>
+				<hr>         		
+            </c:forEach>
+            
         </article>
 
         <article>
             地圖
         </article>
         
-
+		
         <section>
-            <hr>
+            <hr style="border-width: 2px;">
             <br>
-            <table class="wantToOrder">
-                <tr>
-                    <td>出發日期</td>
-                    <td>
-                        <input type="date" name="" id="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>旅遊人數</td>
-                    <td>
-                        <select>
-                            <option value="0" selected>請選擇人數</option>
-                            <option value="1">1人</option>
-                            <option value="2">2人</option>
-                            <option value="3">3人</option>
-                            <option value="4">4人</option>
-                            <option value="5">5人</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>已報名人數</td>
-                    <td>10人</td>
-                </tr>
-                <tr>
-                    <td>成團人數</td>
-                    <td>20人</td>
-                </tr>
-                <tr>
-                    <td>人數上限</td>
-                    <td>50人</td>
-                </tr>
-            </table>
-
-            <br>
-            <div>
-                <button type="reset" class="btn_reset" onclick="redirectToJourneySelect()">取消</button>
-                <button type="button" class="btn_addCart">加入購物車</button>
-                <button type="submit" class="btn_submit">前往結帳</button>
-            </div>
-
-
+            <p class="preparedOrder">下單</p>
+            
+            <div class="div_wrapper">
+	            <table class="selectDateAndNum">
+	                <tr>
+	                    <td>出發日期:</td>
+	                    <td>
+	                        <select class="touristDate" onchange="chooseStartTime(this)">
+	                        	<option>請選擇日期</option>
+	                        	<c:forEach var="tourGroup" items="${tourGroupList}">
+		                            <option value="${tourGroup.startTime}" data-groupId="${tourGroup.groupId}">${tourGroup.startTime}</option>
+		                    	</c:forEach> 
+	                        </select>
+	                    </td>
+	                    
+						<td>旅遊人數:</td>
+						<td>
+	                        <select class="touristNum" onchange="chooseSignupNum(this)">
+	                            <option value="0">請選擇人數</option>
+	                            <c:forEach begin="1" end="5" varStatus="loop">
+		                            <option value="${loop.count}">${loop.count} 人</option>
+		                            <!-- <option value="1"> 1 人 </option> -->
+									<!-- <option value="2"> 2 人 </option> -->
+									<!-- <option value="3"> 3 人 </option> -->
+									<!-- <option value="4"> 4 人 </option> -->
+									<!-- <option value="5"> 5 人 </option> -->
+		                    	</c:forEach> 
+	                        </select>
+	                    </td>
+	                </tr>
+	                
+	                <tr>
+	                	<td></td>
+	                	<td><p class="startTime_errorMessage" style="color: red;"></p></td>
+	                	<td></td>
+	                	<td><p class="signupNum_errorMessage" style="color: red;"></p></td>
+	                </tr>
+				</table>
+				
+				<table class="wantToOrder">
+					<tr>
+	                    <td style="padding-right: 20px;">金額:</td>
+	                    <td class="tourGroup_price">NT$ 0</td>
+	            	</tr>
+		            <tr>
+		    	        <td style="padding-right: 20px;">已報名人數:</td>
+		            	<td class="sign_num">0&nbsp;人</td>
+		            </tr>
+		            <tr>
+		            	<td style="padding-right: 20px;">成團人數:</td>
+		            	<td class="min_required">0&nbsp;人</td>
+		            </tr>
+		           	<tr>
+		            	<td style="padding-right: 20px;">人數上限:</td>
+		            	<td class="max_required">0&nbsp;人</td>
+		            </tr>
+				</table>
+			</div>
+		
+		
+			<br>
+			<div class="div_btn">
+		    	<button type="reset" class="btn_reset" onclick="redirectToJourneySelect()">取消</button>
+		     	
+		     	<form method="post" class="checkData" action="<%= request.getContextPath() %>/journey/user/shoppingCart.do">
+		     		<button type="submit" class="btn_addCart">加入購物車</button>
+		     		<input type="hidden" name="action" value="shoppingCart_add"/>
+		     		<input type="hidden" id="selectedGroupId_addCart" name="groupId" value="" />
+	            	<input type="hidden" id="selectedSignupNum_addCart" name="signupNum" value="" />
+		     	</form>
+		     		
+		     	<form method="post" class="checkData" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">
+					<button type="submit" class="btn_submit" >結帳</button>
+					<input type="hidden" name="action" value="journeySelect_order"/>
+					<input type="hidden" id="selectedGroupId_order" name="groupId" value="" />
+	            	<input type="hidden" id="selectedSignupNum_order" name="signupNum" value="" />
+				</form>	
+		     		
+		    </div>
+		    
         </section>
     </main>
 
@@ -297,21 +397,66 @@
         $(function () {
 // 	        $("#header").load("../components/html/header.html");
 // 	        $("#footer").load("../components/html/footer.html");
+
+
+		    $("form.checkData").submit(function(event) {
+		        var selectedGroupId = $('#selectedGroupId_order').val();
+		        var selectedSignupNum = $("#selectedSignupNum_order").val();
+		        
+		        var errorMsgStartTime = $(".startTime_errorMessage");
+		        var errorMsgSignupNum = $(".signupNum_errorMessage");
+		        
+		        
+		        if (selectedGroupId === "") {
+		            errorMsgStartTime.text("請選擇出發日期");
+		        } else {
+		            errorMsgStartTime.text("");
+		        }
+
+		        if (selectedSignupNum == 0) {
+		            errorMsgSignupNum.text("請選擇旅遊人數");
+		            
+		        } else {
+		            errorMsgSignupNum.text("");
+		        }
+		        
+		        // 只要其中一個有錯誤，表單就不送出
+		        if (selectedGroupId === "" || selectedSignupNum == 0) {
+		        	return false;
+		        }
+		    });	        
+
         });
 
-
+        
+        var contextPath = "${pageContext.request.contextPath}";
         function redirectToJourneySelect() {
-            window.location.href = "./journey_select.html";
+            window.location.href = contextPath + "/journey/user/journeySelect.jsp";
         }
+        
+        
+        function chooseStartTime(selectElement) {
+        	var selectedOption = selectElement.options[selectElement.selectedIndex];
+        	console.log(selectElement.selectedIndex);
+        	
+	        var groupId = selectedOption.getAttribute('data-groupId');
+	        console.log(groupId);
+	        
+	        document.getElementById("selectedGroupId_addCart").value = groupId;
+	        document.getElementById("selectedGroupId_order").value = groupId;
+	    }
+        
+        function chooseSignupNum(selectElement) {
+        	var selectedOption = selectElement.options[selectElement.selectedIndex];
+        	console.log(selectElement.selectedIndex);
+        	
+        	var signupNum = selectedOption.value;
+        	
+	        document.getElementById("selectedSignupNum_addCart").value = signupNum;
+	        document.getElementById("selectedSignupNum_order").value = signupNum;
+	    }
+
     </script>
-
-    
-
-</body>
-</html>
-
-
-<body>
 
 </body>
 </html>

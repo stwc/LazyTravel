@@ -11,6 +11,6 @@ public interface ShoppingCartService {
 	void deleteCart(String customerId, String groupId);
 	
 	ShoppingCart getOneByCustomerIdAndGroupId(String customerId, String groupId);
-	Map<String, String> getOneByCustomerIdReturnMap(String customerId);
-	List<ShoppingCart> getOneByCustomerIdReturnList(String customerId);
+	Map<String, String> getAllByCustomerIdReturnMap(String customerId);
+	List<ShoppingCart> getAllByCustomerIdReturnList(String customerId);
 }

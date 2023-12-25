@@ -30,9 +30,6 @@ import com.lazytravel.journey.dao.JourneyService;
 import com.lazytravel.journey.dao.JourneyServiceImpl;
 import com.lazytravel.journey.entity.Journey;
 import com.lazytravel.journey.entity.JourneyDetail;
-//import com.lazytravel.foodscape.entity.FoodScape;
-//import com.lazytravel.foodscape.dao.FoodScapeService;
-//import com.lazytravel.foodscape.dao.FoodScapeServiceImpl;
 
 @WebServlet(name = "JourneyServlet", value = "/journey/admin/journey.do")
 public class JourneyServlet extends HttpServlet {
