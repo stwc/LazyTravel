@@ -65,7 +65,7 @@ public class FoodScape  {
 	@Column(name="FOODSCAPE_STATUS",columnDefinition = "char")
 	private String foodScapeStatus;
 	
-	@Column(name="CATEGORY")
+	@Column(name="CATEGORY",columnDefinition ="varchar")
 	private String category;
 	
 //	@ManyToMany
@@ -75,7 +75,7 @@ public class FoodScape  {
 //				inverseJoinColumns = { @JoinColumn(name = "TAG_ID", referencedColumnName = "TAG_ID")}
 //			)
 //	private Set<Tag> tags;
-//	
+
 //	@ManyToMany
 //	@JoinTable(
 //				name = "foodscape_blog",
