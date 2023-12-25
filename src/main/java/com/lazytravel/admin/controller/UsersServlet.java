@@ -41,9 +41,12 @@ public class UsersServlet extends HttpServlet {
         String forwardPath = "";
         switch (action) {
             case "getall":
-                String jsonStr = getAll();
                 res.setContentType("application/json; charset=UTF-8");
-                res.getWriter().write(jsonStr);
+                res.getWriter().write(getAll());
+                return;
+            case "getone":
+                res.setContentType("application/json; charset=UTF-8");
+                res.getWriter().write(getOne(req));
                 return;
             default:
                 forwardPath = "/admin/index.jsp";
@@ -76,5 +79,20 @@ public class UsersServlet extends HttpServlet {
         }
 
         return new Gson().toJson(usersDTOList);
+    }
+
+    private String getOne(HttpServletRequest req) {
+        int userId = Integer.parseInt(req.getParameter("id"));
+        Users user = usersService.getUser(userId);
+
+        UsersDTO usersDTO = new UsersDTO();
+        usersDTO.setUserId(user.getUserId());
+        usersDTO.setUsername(user.getUsername());
+        usersDTO.setRoleName(String.valueOf(user.getRoleId()));
+        usersDTO.setUserStatus(user.getUserStatus());
+        usersDTO.setCreateTime(user.getCreateTime());
+        usersDTO.setUpdateTime(user.getUpdateTime());
+
+        return new Gson().toJson(usersDTO);
     }
 }

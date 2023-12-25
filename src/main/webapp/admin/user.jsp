@@ -95,10 +95,10 @@
                     let tmpArr = [];
                     let modifyBtn =
                         '<td>' +
-                        '<form method="post" action="user.do">' +
+                        '<form method="get" action="user-modify.jsp">' +
                         '<button type="submit" class="btn-modify btn">修改</button>' +
-                        '<input type="hidden" name="customer_id" value="' + item.userId + '">' +
-                        '<input type="hidden" name="action" value="getOneModify">' +
+                        '<input type="hidden" name="user_id" value="' + item.userId + '">' +
+                        // '<input type="hidden" name="action" value="getOneModify">' +
                         '</form>' +
                         '</td>';
 

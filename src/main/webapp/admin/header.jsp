@@ -1,4 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.lazytravel.admin.entity.Users" %>
+<%
+  Users users = (Users) session.getAttribute("users");
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,9 +96,13 @@
         </ul>
         <form class="d-flex" method="post" action="">
           <div class="navbar-text me-3">
-            歡迎後臺使用者：<span id="user" class="font-monospace text-primary">admin</span>
+            歡迎後臺使用者：<span id="user" class="font-monospace text-primary"><%= users.getUsername() %></span>
           </div>
-          <button class="btn btn-outline-secondary" type="submit">登出</button>
+<%--          <form method="get" action="<%=request.getContextPath()%>/adminLogin.do">--%>
+<%--            <input type="hidden" name="action" value="logout">--%>
+<%--            <button class="btn btn-outline-secondary" type="submit">登出</button>--%>
+<%--          </form>--%>
+          <a href="<%=request.getContextPath()%>/adminLogin.do" class="btn btn-outline-secondary">登出</a>
           <input type="hidden" name="customer_id"  value="">
         </form>
       </div>

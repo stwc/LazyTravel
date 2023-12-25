@@ -84,6 +84,26 @@ public class UsersDAOImpl implements UsersDAO {
         return list;
     }
 
+    @Override
+    public Users findByUsername(String username) {
+        Session session = getSession();
+        Users users = null;
+        try {
+            session.beginTransaction();
+
+            users = session.createQuery("from Users where username = :username", Users.class)
+                    .setParameter("username", username)
+                    .uniqueResult();
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+
+        return users;
+    }
+
 
     /*
     public static void main(String[] args) {
