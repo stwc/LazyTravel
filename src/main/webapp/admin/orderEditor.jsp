@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,6 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
     <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
-	
 
     <style>
         button.btn_submit {
@@ -131,6 +131,7 @@
             window.history.go(-1);
         }
        
+        
         
     </script>
 
