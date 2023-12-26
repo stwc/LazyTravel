@@ -1,5 +1,7 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
   <meta charset="UTF-8">
@@ -11,12 +13,12 @@
   <script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
   <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
-	<style>
-	button.btn-modify{
-			background-color: #9C6644;
-			color: white;
-		}
-	</style>
+  <style>
+    button.btn-modify {
+      background-color: #9C6644;
+      color: white;
+    }
+  </style>
 </head>
 
 
@@ -32,10 +34,10 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col" >訂單編號#</th>
-              <th scope="col" >商品名稱</th>
-              <th scope="col" >旅客人數</th>
-              <th scope="col" >訂單狀態</th>
+              <th scope="col">訂單編號#</th>
+              <th scope="col">商品名稱</th>
+              <th scope="col">旅客人數</th>
+              <th scope="col">訂單狀態</th>
             </tr>
           </thead>
           <tbody>
@@ -59,9 +61,9 @@
               <th scope="col">連絡電話</th>
             </tr>
           </thead>
-			<tbody>
-			
-			</tbody>
+          <tbody>
+
+          </tbody>
         </table>
       </div>
       <div class="d-flex justify-content-end mx-3 my-3">
@@ -99,22 +101,22 @@
       const orderStatus = urlParams.get('order_status');
       const orderName = urlParams.get('order_name');
       const tourist = urlParams.get('tourist');
-      
+
       $("#orderNo").text(orderNo);
       $("#orderName").text(orderName);
       $("#tourist").text(tourist);
-     
+
       if (orderStatus == 0) {
-     	 $("#orderStatus").text('未付款') 
-		} else if (orderStatus == 1) {
-			$("#orderStatus").text('已付款') 
-		} else if (orderStatus == 2) {
-			$("#orderStatus").text('取消') 
-		} 
-      
+        $("#orderStatus").text('未付款')
+      } else if (orderStatus == 1) {
+        $("#orderStatus").text('已付款')
+      } else if (orderStatus == 2) {
+        $("#orderStatus").text('取消')
+      }
+
       getJourByOrderId();
       getPasDetails();
-      
+
     });
 
     function cancelClick() {
@@ -122,65 +124,68 @@
       button.classList.add('clicked');
       window.location.href = '#';
     }
-    
-    
-    function getJourByOrderId(){
-    	 const urlParams = new URLSearchParams(window.location.search);
-         const orderId = urlParams.get('order_id');
-    	
-    	$.ajax({
-    		url: "http://localhost:8081/LazyTravel/order/order.do" ,
-    		type: 'GET',
-    		data: {"action" : "getJourneyNameByOrderId" , "orderId" : orderId},
-    		dataType: 'json',
-    		success: function (data){
-    			let journeyName = data;
-    			
-    			if(journeyName){
-    				$('#orderName').text(journeyName);
-    			}
-    		},
-    		error: function (xhr, status, error) {
-                console.error("Error fetching journeyName:", status, error);
-            }
-    	});
+
+
+    function getJourByOrderId() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get('order_id');
+
+      $.ajax({
+        url: "http://localhost:8081/LazyTravel/order/order.do",
+        type: 'GET',
+        data: { "action": "getJourneyNameByOrderId", "orderId": orderId },
+        dataType: 'json',
+        success: function (data) {
+          let journeyName = data;
+
+          if (journeyName) {
+            $('#orderName').text(journeyName);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Error fetching journeyName:", status, error);
+        }
+      });
     }
-    
-    
-    function getPasDetails(){
-    	const urlParams = new URLSearchParams(window.location.search);
-        const orderId = urlParams.get('order_id');
-        
-        $.ajax({
-        	url: "http://localhost:8081/LazyTravel/order/passenger.do",
-        	type: 'GET',
-        	data: {"action" : "getPasDetails" , "orderId" : orderId },
-        	dataType: 'json',
-        	success: function (passengers) {
-        		let tbody = "";
-        		passengers.forEach((item , index) => {
-        			tbody += `<tr>
-		                        <th scope="row">${ index + 1 }</th>
-		                        <td>${item.idno}</td>
-		                        <td>${item.passengerName}</td>
-		                        <td>${item.birth}</td>
-		                        <td>${item.phone}</td>
-		                      	</tr>`;
-		                      	
-		                      	
-        		});
-        		 $("table.table.mt-5 tbody").html(tbody);
-        	},
-        	error: function (xhr, status, error) {
-                console.error("Error fetching passenger details:", status, error);
-            }
-        });
+
+
+    function getPasDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get('order_id');
+
+      $.ajax({
+        url: "http://localhost:8081/LazyTravel/order/passenger.do",
+        type: 'GET',
+        data: { "action": "getPasDetails", "orderId": orderId },
+        dataType: 'json',
+        success: function (passengers) {
+          let tbody = "";
+          passengers.forEach((item, index) => {
+            tbody += 
+            	'<tr>' + 
+                '<th scope="row">' + (index + 1) + '</th>' +
+                '<td>' + item.idno + '</td>' +
+                '<td>' + item.passengerName + '</td>' +
+                '<td>' + item.birth + '</td>' +
+                '<td>' + item.phone + '</td>' + 
+               	'</tr>';
+
+
+          });
+          $("table.table.mt-5 tbody").html(tbody);
+        },
+        error: function (xhr, status, error) {
+          console.error("Error fetching passenger details:", status, error);
+        }
+      });
     }
-    
+
     function goBack() {
-        // 使用 history 物件返回上一頁
-        window.history.go(-1);
+      // 使用 history 物件返回上一頁
+      window.history.go(-1);
     }
+    
+    
 
 
   </script>

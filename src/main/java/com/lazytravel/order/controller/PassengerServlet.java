@@ -1,6 +1,9 @@
 package com.lazytravel.order.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,9 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.google.gson.Gson;
 import com.lazytravel.order.entity.Passenger;
-import com.lazytravel.order.service.CouponService;
 import com.lazytravel.order.service.PassengerService;
 
 @WebServlet(name = "PassengerServlet" , urlPatterns = {"/order/passenger.do" , "/admin/passenger.do"})
@@ -43,6 +48,10 @@ public class PassengerServlet extends HttpServlet{
 		case "getPasDetails" :
 			getPasDetails(req , res);
 			return;
+			
+		case "insertPassengers":
+		    insertPassengers(req, res);
+		    break;
 		
 			
 //		case  "update" :
@@ -63,6 +72,49 @@ public class PassengerServlet extends HttpServlet{
 		dispatcher.forward(req, res);
 	}
 	
+	private void insertPassengers(HttpServletRequest req, HttpServletResponse res) {
+		
+			Integer orderId = Integer.parseInt(req.getParameter("orderId"));
+;
+			String jsondata = req.getParameter("passengers");
+			System.out.println(jsondata);
+			JSONArray jsonArray = new JSONArray(jsondata);
+			
+			for(int i = 0 ; i < jsonArray.length(); i++) {
+				 JSONObject jsonObject = jsonArray.getJSONObject(i);
+				
+			        String name = jsonObject.getString("name");
+			        String idno = jsonObject.getString("idno");
+			        String birth = jsonObject.getString("birth");
+			        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		            java.util.Date sdfsBirth;
+					try {
+						sdfsBirth = sdf.parse(birth);
+						Date trasBirth =  new Date(sdfsBirth.getTime());
+						String phone = jsonObject.getString("phone");
+						
+						
+						Passenger passenger = new Passenger();
+						passenger.setOrderId(orderId);
+						passenger.setPassengerName(name);
+						passenger.setIdno(idno);
+						passenger.setBirth(trasBirth);
+						passenger.setPhone(phone);
+
+						passengerService.addPassenger(passenger);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+			}
+
+			
+
+
+
+	}
+
 	private void getPasDetails(HttpServletRequest req, HttpServletResponse res) {
 		
 	    try {

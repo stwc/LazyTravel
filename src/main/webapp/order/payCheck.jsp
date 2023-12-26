@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,38 +38,7 @@
                         </h5>
 
                         <div class="passenger-detail-container">
-                            <!-- <div class="passenger">
-                            <p  style="font-size: 18px; font-weight: 600; color: #CB997E;">旅客1</p>
-                            <p>旅客姓名：</p>
-                            <p>旅客姓別：</p>
-                            <p>身分證字號(護照號碼)：</p>
-                            <p>出生日期：</p>
-                            <p>連絡電話：</p>
-                            <p>Email信箱：</p>
-                        </div> -->
-                            <script>
-                                // var passengerCount = localStorage.getItem('passengerCount');
-                                var passengerCount = 3;
-                                if (passengerCount) {
-                                    // 遍历生成旅客表单
-                                    for (var i = 1; i <= passengerCount; i++) {
-                                        document.write(`
-                                        <div class="passenger-form">
-                                            <p class="ms-4" style="font-size: 18px; font-weight: 600; color: #CB997E;">旅客${i}</p>
-                                            <p for="inputName${i}" class="form-label ms-4 my-3">旅客姓名：</p>                                            
-                                            <p for="gender${i}" class="form-label ms-4 my-3">旅客姓別：</p>
-                                            <p for="inputId" class="form-label  ms-4 my-3">身分證字號(護照號碼)：</p>
-                                            <p for="inputel" class="form-label  ms-4 my-3">出生日期：</p>  
-                                            <p for="inputel" class="form-label  ms-4 my-3">連絡電話：</p>
-                                            <p for="inputMail" class="form-label  ms-4 my-3">Email信箱：</p>
-                                            </div>
-                                        `);
-                                    }
-                                } else {
-                                    // 处理无法检索到旅客人数的情况
-                                    console.error('无法检索旅客人数');
-                                }
-                            </script>
+                           
                         </div>
 
                     </div>
@@ -99,7 +69,7 @@
             </div>
             <div class="card-body">
                 <div>
-                    <p>訂單總金額： <span class="float-end">xxx  元</span></p>
+                    <p>訂單總金額： <span class="globalTotalAmt" style="color: red; font-weight: 600"></span></p>
                     
 
                 </div>
@@ -144,7 +114,14 @@
     </script>
 
     <script>
-
+    let formData;
+    let passengerCount;
+    let groupId;
+    let customerId;
+    let selectedCouponId; 
+    let globalTotalAmt;
+    let orderId;
+    let passengersDataList = [];
         // 進度條特效
         const progress = document.getElementById("progress");
         const stepCircles = document.querySelectorAll(".circle");
@@ -172,55 +149,127 @@
 
 
         }
+        
+        $(function(){
+        	formData = JSON.parse(sessionStorage.getItem('formData'));
+            passengerCount = sessionStorage.getItem('passengerCount');
+            groupId = sessionStorage.getItem('groupId');
+            customerId = sessionStorage.getItem('customerId');
+            selectedCouponId = sessionStorage.getItem('selectedCouponId');
+            globalTotalAmt = sessionStorage.getItem('globalTotalAmt');
+            
+            $(".journey-name").text(sessionStorage.getItem('journey-name'));
+            $(".group-strat-time").text(sessionStorage.getItem('group-strat-time'));
+            $(".group-end-time").text(sessionStorage.getItem('group-end-time'));
+            $(".journey-name").text(sessionStorage.getItem('journey-name'));
+            $(".tourist").text(sessionStorage.getItem('passengerCount'));
+            $(".globalTotalAmt").text(sessionStorage.getItem('globalTotalAmt') + " 元");
 
-        //讀取前一頁的旅客資料
-        document.addEventListener('DOMContentLoaded', function () {
-            // 從 localStorage 中讀取表單數據
-            var formData = JSON.parse(localStorage.getItem('formData'));
+            
+            	
+            // 檢查是否成功獲取數據
+            if (!formData || !passengerCount) {
+                console.error('無法檢索到表單數據或旅客人數');
+                return;
+            }
 
-            // 獲取旅客詳細信息的容器
+            // 獲取顯示旅客詳細信息的容器
             var passengerDetailContainer = document.querySelector('.passenger-detail-container');
 
-            // 遍歷每個旅客
-            for (var passengerKey in formData) {
-                if (formData.hasOwnProperty(passengerKey)) {
-                    var passengerData = formData[passengerKey];
+            // 遍歷每個旅客並生成對應的 HTML 元素
+            for (var i = 1; i <= passengerCount; i++) {
+                var passengerData = formData['passenger' + i];
 
-                    // 創建一個新的旅客元素
-                    var passengerElement = document.createElement('div');
-                    passengerElement.classList.add('passenger');
+                var passengerInfoHTML = 
+                	
+                    '<div class="passenger-form">' +
+                        '<p class="ms-4" style="font-size: 18px; font-weight: 600; color: #CB997E;">旅客' + i + '</p>' +
+                        '<p class="form-label ms-4 my-3">姓名：' + passengerData.name + '</p>' +
+                        '<p class="form-label ms-4 my-3">性別：' + passengerData.gender + '</p>' +
+                        '<p class="form-label ms-4 my-3">證件號碼：' + passengerData.idno + '</p>' +
+                        '<p class="form-label ms-4 my-3">生日：' + passengerData.birth + '</p>' +
+                        '<p class="form-label ms-4 my-3">電話：' + passengerData.phone + '</p>' +
+                        '<p class="form-label ms-4 my-3">Email：' + passengerData.mail + '</p>' +
+                    '</div>';
+                
 
-                    // 遍歷旅客數據的每一個屬性
-                    for (var propertyKey in passengerData) {
-                        if (passengerData.hasOwnProperty(propertyKey)) {
-                            var propertyValue = passengerData[propertyKey];
-
-                            // 創建一個新的 p 標籤並填充數據
-                            var pElement = document.createElement('p');
-                            pElement.textContent = propertyKey + ': ' + propertyValue;
-
-                            // 將 p 標籤添加到旅客元素中
-                            passengerElement.appendChild(pElement);
-                        }
-                    }
-
-                    // 將旅客元素添加到容器中
-                    passengerDetailContainer.appendChild(passengerElement);
-                }
+                // 將生成的 HTML 添加到容器中
+                passengerDetailContainer.innerHTML += passengerInfoHTML;
             }
-        });z
+            
+        });
+
+        
 
 
         function backwardClick() {
-            var button = document.getElementById('customButton');
+		var button = document.getElementById('customButton');
         button.classList.add('clicked');
-        window.location.href = 'checkOut.html';
+        sessionStorage.setItem('scrollToTop', 'true');
+//         window.history.back();
+
+	      window.location.href = 'checkOut.jsp';
         }
         
         function nextClick() {
-            var button = document.getElementById('payButton');
-        button.classList.add('clicked');
-        window.location.href = '#';
+
+        	//第一次請求新增訂單
+        	$.ajax({
+		    	url: "http://localhost:8081/LazyTravel/order/order.do",
+				type: "POST",
+				data: {
+					"action" : "insert" , 
+					"customer_id" : customerId ,
+					"group_id" : groupId ,
+					"tourist" : passengerCount ,
+					"coupon_id" : selectedCouponId ,
+					"total_amt" : globalTotalAmt ,
+					"order_status" : 0
+					 }, 
+				dataType: "json",
+				success: function(response) {
+
+					orderId = response;
+					// 构建包含乘客数据的数组或对象
+		            for (var i = 1; i <= passengerCount; i++) {
+		                var passengerData = formData['passenger' + i];
+		                passengersDataList.push(passengerData);
+		            }
+					
+					
+
+
+		            // 构建要发送的数据对象
+		            var postData = {
+			                "action": "insertPassengers",
+			                "orderId": orderId,
+			                "passengers": JSON.stringify(passengersDataList)      
+		            };
+		            
+					//第二次請求新增旅客明細
+					$.ajax({
+				    	url: "http://localhost:8081/LazyTravel/order/passenger.do",
+						type: "POST",
+						data: postData,
+						dataType:"json",
+						success: function(response) {
+							// 在这里处理从后端返回的响应
+					        console.log('Response received:', response);
+					        
+					        
+				        },
+				        error: function(xhr, status, error) {
+				            console.error('Error:', error);
+				        }
+					});
+					
+        	},
+        	error:function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+
+        });
+        	console.log(passengersDataList);
         }
 
 

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,7 +101,7 @@
 
     <script>
         $(function () {
-            $("#header").load("../admin/header.html");
+            $("#header").load("../admin/header.jsp");
             const urlParms = new URLSearchParams(window.location.search);
             const couponId = urlParms.get('coupon_id');
             const couponStatus = urlParms.get('coupon_status');

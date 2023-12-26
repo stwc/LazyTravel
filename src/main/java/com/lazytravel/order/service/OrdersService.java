@@ -36,13 +36,18 @@ public class OrdersService {
         
         //新增訂單及增加JOURNEY表格BuyCount+1
         // 获取订单所属的Group
-//         TourGroup tougroup = tourgroupdao.getGroupById(order.getGroupId());
+         TourGroup tougroup = tourgroupdao.findByPK(order.getGroupId());
 
         // 更新Group的JourneyID
-//         int journeyId = tougroup.getJourneyId();
-
-        // 获取Journey
-//         Journey journey = journeydao.getJourneyById(journeyId);
+         Journey journey = tougroup.getJourney();
+         Integer oldbuycount = journey.getBuyCount();
+         Integer tourist = order.getTourist();
+         Integer oldsignup = tougroup.getSignupNum();
+         tougroup.setSignupNum(oldsignup + tourist);
+         journey.setBuyCount(oldbuycount + 1);
+         journeydao.update(journey);
+         tourgroupdao.update(tougroup);
+        
 
         //自動產生orderNo
 		generateOrderNo(order);
@@ -58,6 +63,16 @@ public class OrdersService {
 	
 	public void cancelOrder(Integer orderId) {
 		orderdao.cancelOrder(orderId);
+		Orders order = orderdao.getOrdersByOrdersId(orderId);
+		TourGroup tougroup = tourgroupdao.findByPK(order.getGroupId());
+		Journey journey = tougroup.getJourney();
+        Integer oldbuycount = journey.getBuyCount();
+        Integer tourist = order.getTourist();
+        Integer oldsignup = tougroup.getSignupNum();
+        tougroup.setSignupNum(oldsignup - tourist);
+        journey.setBuyCount(oldbuycount - 1);
+        journeydao.update(journey);
+        tourgroupdao.update(tougroup);
 	}
 	
 	

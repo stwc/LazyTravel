@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +39,7 @@
 			</div>
 			<div class="card-body mx-2">
 				<table class="my-5">
-					<a class="btn" href="couponAdd.html" role="button"
+					<a class="btn" href="couponAdd.jsp" role="button"
 						style="background-color: #9C6644;color: white"> 新增</a>
 
 				</table>
@@ -82,7 +83,7 @@
 	<script>
 
 		$(function () {
-			$("#header").load("../admin/header.html");
+			$("#header").load("../admin/header.jsp");
 			init();
 		});
 
@@ -100,16 +101,18 @@
 					);
 				},
 
+				
 				success: function (data) {
 					let dataSet = [];
 					data.forEach((item) => {
 						let tmpArr = [];
-						let modifyBtn = `
-						    <td>
-						            <a href="couponEditor.html?coupon_id=${item.couponID}&coupon_status=${item.couponStatus}" class="btn-modify btn">修改</a>
-						            <input type="hidden" name="action" value="update">
-						    </td>
-						`;
+						let modifyBtn = 
+							
+						    '<td>' +
+						    '<a href="couponEditor.jsp?coupon_id=' + item.couponID + '&coupon_status=' + item.couponStatus + '" class="btn-modify btn">修改</a>' +
+						    '<input type="hidden" name="action" value="update">' +
+						    '</td>';
+						
 
 						let statusCell = '';
 						if (item.couponStatus == 0) {
