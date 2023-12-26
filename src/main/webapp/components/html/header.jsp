@@ -71,7 +71,7 @@
               <a class="nav-link" href="<%=request.getContextPath()%>/customer/login.jsp" style="color: white;">登入</a>
             </li>
             <li class="nav-item mx-4 <%= (customer != null) ? "" : "d-none" %>">
-              <form method="post" action="customer.do">
+              <form method="post" action="<%=request.getContextPath()%>/customer/customer.do">
                 <input type="hidden" name="action" value="logout">
                 <button type="submit" class="nav-link text-light">登出</button>
               </form>
