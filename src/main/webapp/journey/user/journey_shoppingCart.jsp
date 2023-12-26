@@ -196,7 +196,7 @@
 						<td class="col-2 signData">
 							<span>${(tourGroup.signupNum < tourGroup.minRequired)?  "未成團" : "已成團"}</span>
 							<span>&nbsp;/&nbsp;</span>
-							<span>剩餘名額 ${(tourGroup.signupNum < tourGroup.minRequired) ? "" : (tourGroup.maxRequired - tourGroup.signupNum)} 名</span>
+							<span>剩餘名額 ${tourGroup.maxRequired - tourGroup.signupNum} 名</span>
 						</td>
 						
 						<td class="col-3 div_btn">

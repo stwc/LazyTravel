@@ -1,4 +1,3 @@
-<%@page import="java.util.Collections"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -208,7 +207,7 @@
 		border-spacing: 13px;
 	}
 	
-	div.div_wrapper table.wantToOrder {
+	div.div_wrapper table.searchTourGroupData {
 		margin:15px 0px 20px 70px;
 		border: 1px solid darkgrey;
 		border-radius:8px;
@@ -298,25 +297,30 @@
         <article>
             地圖
         </article>
-        
+         
 		
         <section>
-            <hr style="border-width: 2px;">
+            <hr style="border-width: 2px;" >
             <br>
-            <p class="preparedOrder">下單</p>
+            <p class="preparedOrder" id="originalPosition">下單</p>
             
             <div class="div_wrapper">
 	            <table class="selectDateAndNum">
 	                <tr>
-	                    <td>出發日期:</td>
+	               		<td>出發日期:</td>
 	                    <td>
-	                        <select class="touristDate" onchange="chooseStartTime(this)">
-	                        	<option>請選擇日期</option>
-	                        	<c:forEach var="tourGroup" items="${tourGroupList}">
-		                            <option value="${tourGroup.startTime}" data-groupId="${tourGroup.groupId}">${tourGroup.startTime}</option>
-		                    	</c:forEach> 
-	                        </select>
+		                    <form method="post" id="form_chooseStartTime" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">
+		                        <select class="touristDate" onchange="chooseStartTime(this)">
+		                        	<option>請選擇日期</option>
+		                        	<c:forEach var="tourGroup" items="${tourGroupList}">
+			                            <option value="${tourGroup.startTime}" data-groupId="${tourGroup.groupId}">${tourGroup.startTime}</option>
+			                    	</c:forEach> 
+		                        </select>
+		                        <input type="hidden" name="action" value="includeFragment"/>
+								<input type="hidden" id="includeFragment" name="groupId" value="" />
+	                        </form>
 	                    </td>
+	                    
 	                    
 						<td>旅遊人數:</td>
 						<td>
@@ -342,23 +346,35 @@
 	                </tr>
 				</table>
 				
-				<table class="wantToOrder">
-					<tr>
-	                    <td style="padding-right: 20px;">金額:</td>
-	                    <td class="tourGroup_price">NT$ 0</td>
-	            	</tr>
-		            <tr>
-		    	        <td style="padding-right: 20px;">已報名人數:</td>
-		            	<td class="sign_num">0&nbsp;人</td>
-		            </tr>
-		            <tr>
-		            	<td style="padding-right: 20px;">成團人數:</td>
-		            	<td class="min_required">0&nbsp;人</td>
-		            </tr>
-		           	<tr>
-		            	<td style="padding-right: 20px;">人數上限:</td>
-		            	<td class="max_required">0&nbsp;人</td>
-		            </tr>
+				
+				
+				<table class="searchTourGroupData">
+					<c:set var="scrollToOriginalPosition" value="${not empty searchTourGroupData}" />
+				    <c:choose>
+					    <c:when test="${searchTourGroupData}">
+							<%@ include file="/journey/user/searchTourGroupData.file" %>
+					    </c:when>
+					    
+					    <c:otherwise>
+							<tr>
+			                    <td style="padding-right: 20px;">金額:</td>
+			                    <td class="tourGroup_price">NT$ 0</td>
+			            	</tr>
+				            <tr>
+				    	        <td style="padding-right: 20px;">已報名人數:</td>
+				            	<td class="sign_num">0&nbsp;人</td>
+				            </tr>
+				            <tr>
+				            	<td style="padding-right: 20px;">成團人數:</td>
+				            	<td class="min_required">0&nbsp;人</td>
+				            </tr>
+				           	<tr>
+				            	<td style="padding-right: 20px;">人數上限:</td>
+				            	<td class="max_required">0&nbsp;人</td>
+				            </tr>
+					    </c:otherwise>
+					</c:choose>
+		            
 				</table>
 			</div>
 		
@@ -415,7 +431,6 @@
 
 		        if (selectedSignupNum == 0) {
 		            errorMsgSignupNum.text("請選擇旅遊人數");
-		            
 		        } else {
 		            errorMsgSignupNum.text("");
 		        }
@@ -424,8 +439,8 @@
 		        if (selectedGroupId === "" || selectedSignupNum == 0) {
 		        	return false;
 		        }
-		    });	        
-
+		    });
+		    
         });
 
         
@@ -444,7 +459,23 @@
 	        
 	        document.getElementById("selectedGroupId_addCart").value = groupId;
 	        document.getElementById("selectedGroupId_order").value = groupId;
-	    }
+	        document.getElementById("includeFragment").value = groupId;
+	        
+	        
+	  		// 將值存在LocalStorage中
+	        localStorage.setItem("selectedValue_startTime", "請選擇日期");
+	        localStorage.setItem("selectedValue_groupId", "");
+	  		
+	  		var startTime = selectedOption.value;
+	        if (startTime === "請選擇日期") {
+	            return;
+	        }
+	        localStorage.setItem("selectedValue_startTime", startTime);
+	        localStorage.setItem("selectedValue_groupId", groupId);
+	        
+	  		// 送出form表單
+	        document.getElementById("form_chooseStartTime").submit();
+        }
         
         function chooseSignupNum(selectElement) {
         	var selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -454,6 +485,14 @@
         	
 	        document.getElementById("selectedSignupNum_addCart").value = signupNum;
 	        document.getElementById("selectedSignupNum_order").value = signupNum;
+	        
+	        
+	     	// 將值存在LocalStorage中
+	     	localStorage.setItem("selectedValue_signupNum", 0);
+	        if (signupNum === "請選擇人數") {
+	            return;
+	        }
+	        localStorage.setItem("selectedValue_signupNum", signupNum);
 	    }
 
     </script>
