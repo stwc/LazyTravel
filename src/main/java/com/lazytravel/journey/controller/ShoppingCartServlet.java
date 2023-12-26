@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.journey.dao.ShoppingCartService;
@@ -161,9 +162,15 @@ public class ShoppingCartServlet extends HttpServlet {
 		String groupIdName = "groupId_" + index;
 		String groupIdReqGet = req.getParameter(groupIdName);
 		
+		ShoppingCart shoppingCart = shoppingCartSvc.getOneByCustomerIdAndGroupId(customerId, groupIdReqGet);
+		Integer quantity = shoppingCart.getQuantity();
+		
 		shoppingCartSvc.deleteCart(customerId, groupIdReqGet);
 		
-		//?????????????????????????送資料還沒寫
+		// 送資料
+		HttpSession session = req.getSession();
+		session.setAttribute("groupId", groupIdReqGet); 
+		session.setAttribute("signupNum", quantity); 
 		
 		return "/order/checkOut.html";
 	}
