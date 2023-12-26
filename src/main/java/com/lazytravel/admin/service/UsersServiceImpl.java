@@ -52,4 +52,9 @@ public class UsersServiceImpl implements UsersService {
             return null;
         }
     }
+
+    @Override
+    public Users getUserByUsername(String username) {
+        return dao.findByUsername(username);
+    }
 }

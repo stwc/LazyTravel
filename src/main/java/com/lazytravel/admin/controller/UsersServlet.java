@@ -69,8 +69,12 @@ public class UsersServlet extends HttpServlet {
             usersDTO.setUserId(user.getUserId());
             usersDTO.setUsername(user.getUsername());
 
-            Roles roles = roleService.getRole(user.getRoleId());
-            usersDTO.setRoleName(roles.getRoleName());
+            if (user.getRoleId() != null) {
+                Roles roles = roleService.getRole(user.getRoleId());
+                usersDTO.setRoleName(roles.getRoleName());
+            } else {
+                usersDTO.setRoleName("");
+            }
 
             usersDTO.setUserStatus(user.getUserStatus().equals("0") ? "停用" : "啟用");
             usersDTO.setCreateTime(user.getCreateTime());

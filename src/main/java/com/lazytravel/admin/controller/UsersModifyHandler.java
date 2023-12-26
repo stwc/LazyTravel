@@ -1,33 +1,26 @@
 package com.lazytravel.admin.controller;
 
 import com.google.gson.Gson;
-import com.lazytravel.admin.dto.LoginDTO;
+import com.lazytravel.admin.dto.UsersWithPwDTO;
 import com.lazytravel.admin.entity.Users;
 import com.lazytravel.admin.service.UsersService;
 import com.lazytravel.admin.service.UsersServiceImpl;
+import com.password4j.Hash;
+import com.password4j.Password;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-@WebServlet(name = "AdminLoginHandler", value = "/adminLogin.do")
-public class AdminLoginHandler extends HttpServlet {
+@WebServlet(name = "UsersModifyHandler", value = "/UsersModifyHandler")
+public class UsersModifyHandler extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-
-        // 登出
-        req.getSession().removeAttribute("users");
-
-        res.setContentType("text/html; charset=UTF-8");
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/admin-login.jsp");
-        dispatcher.forward(req, res);
+        doPost(req, res);
     }
 
     @Override
@@ -36,30 +29,41 @@ public class AdminLoginHandler extends HttpServlet {
         res.setContentType("text/html; charset=UTF-8");
 
         Gson gson = new Gson();
-        HttpSession session = req.getSession();
-
         BufferedReader reader = req.getReader();
         StringBuilder jsonBuilder = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             jsonBuilder.append(line);
         }
-//        System.out.println("request: " + jsonBuilder.toString());
+        System.out.println("request: " + jsonBuilder);
 
-        LoginDTO loginDTO = gson.fromJson(jsonBuilder.toString(), LoginDTO.class);
+        UsersWithPwDTO usersWithPwDTO = gson.fromJson(jsonBuilder.toString(), UsersWithPwDTO.class);
 
         String jsonString = null;
         UsersService usersService = new UsersServiceImpl();
-        Users users = usersService.login(loginDTO.getUsername(), loginDTO.getPassword());
+        Users users = usersService.getUser(usersWithPwDTO.getUserId());
+//        String newUsername= usersWithPwDTO.getUsername();
+//        boolean usernameNotExist = usersService.getUserByUsername(newUsername) == null;
         if (users != null) {
+//            users.setUsername(usersWithPwDTO.getUsername());
+
+            String password = usersWithPwDTO.getPassword();
+            if (!password.isEmpty()) {
+                Hash hash = Password.hash(password).withBcrypt();
+                String hashedPw = hash.getResult();
+                users.setUserPasswd(hashedPw);
+            }
+
+            users.setRoleId(Integer.valueOf(usersWithPwDTO.getRoleName()));
+            users.setUserStatus(usersWithPwDTO.getUserStatus());
+
+            usersService.updateUser(users);
+
             jsonString = gson.toJson("OK");
-            // 登入
-            session.setAttribute("users", users);
         } else {
             jsonString = gson.toJson("FAIL");
         }
 
         res.getWriter().write(jsonString);
-        return;
     }
 }
