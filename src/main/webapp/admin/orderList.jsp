@@ -1,46 +1,46 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>後臺 - 訂單管理</title>
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-	<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>後臺 - 訂單管理</title>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
-	<style>
-		button.btn-modify,
-		#filterBtn, a.btn-modify{
-			background-color: #9C6644;
-			color: white;
-		}
+<style>
+button.btn-modify, #filterBtn, a.btn-modify {
+	background-color: #9C6644;
+	color: white;
+}
 
-		#order thead th div.dt-head-inner  {
-			white-space: nowrap;
-			display: inline-block; 
-		}
-		
-		#order thead th {
-			white-space: nowrap;
-		}
-		
-		 /* 設置表格佈局為固定 */
-	    #order {
-	        table-layout: fixed;
-	        width: 100%; /* 根據需要調整 */
-	    }
-	
-	    /* 設置每列的寬度 */
-	    #order thead th {
-	        width: 100px; 
-	    }
-	    
-	    #order td {
-        text-align: center; /* 水平居中 */
-        vertical-align: middle; /* 垂直居中 */
-    }
-	
-	</style>
+#order thead th div.dt-head-inner {
+	white-space: nowrap;
+	display: inline-block;
+}
+
+#order thead th {
+	white-space: nowrap;
+}
+
+/* 設置表格佈局為固定 */
+#order {
+	table-layout: fixed;
+	width: 100%; /* 根據需要調整 */
+}
+
+/* 設置每列的寬度 */
+#order thead th {
+	width: 100px;
+}
+
+#order td {
+	text-align: center; /* 水平居中 */
+	vertical-align: middle; /* 垂直居中 */
+}
+</style>
 </head>
 
 <body>
@@ -50,42 +50,43 @@
 		<h3 class="mx-3 mb-4">訂單總覽</h3>
 		<div class="card mx-5 my-5">
 			<div class="card-header">總覽查詢</div>
-				<div class="mx-5 my-5">
-					<table id="order" class="table table-striped">
+			<div class="mx-5 my-5">
+				<table id="order" class="table table-striped">
 					<thead>
 						<tr>
-							<th style = "text-align: center">修改</th>
-							<th style = "text-align: center">明細</th>
-							<th style = "text-align: center">訂單編號</th>
-							<th style = "text-align: center">訂單Id</th>
-							<th style = "text-align: center">顧客編號</th>
-							<th style = "text-align: center">團編號</th>
-							<th style = "text-align: center">旅客人數</th>
-							<th style = "text-align: center">會員金</th>
-							<th style = "text-align: center">優惠券Id</th>
-							<th style = "text-align: center">總金額</th>
-							<th style = "text-align: center">創建日期</th>
-							<th style = "text-align: center">更新日期</th>
-							<th style = "text-align: center">付款日期</th>
-							<th style = "text-align: center">訂單狀態</th>
-							<th style = "text-align: center">評價分數</th>
-							<th style = "text-align: center">評價內容</th>
-							<th style = "text-align: center">評價時間</th>
-							
+							<th style="text-align: center">修改</th>
+							<th style="text-align: center">明細</th>
+							<th style="text-align: center">訂單編號</th>
+							<th style="text-align: center">訂單Id</th>
+							<th style="text-align: center">顧客編號</th>
+							<th style="text-align: center">團編號</th>
+							<th style="text-align: center">旅客人數</th>
+							<th style="text-align: center">會員金</th>
+							<th style="text-align: center">優惠券Id</th>
+							<th style="text-align: center">總金額</th>
+							<th style="text-align: center">創建日期</th>
+							<th style="text-align: center">更新日期</th>
+							<th style="text-align: center">付款日期</th>
+							<th style="text-align: center">訂單狀態</th>
+
+
 
 						</tr>
 					</thead>
 				</table>
-				</div>
 			</div>
 		</div>
+	</div>
 
 	</div>
 
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
 
 
@@ -113,28 +114,31 @@
 						'<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>'
 					);
 				},
-				
+							
 
-				
 				success: function (data) {
 					let dataSet = [];
 					data.forEach((item) => {
 						let tmpArr = [];
-						let modifyBtn = `
-						    <td>
-						            <a href="orderEditor.html?order_id=${item.orderId}&order_no=${item.orderNo}&order_status=${item.orderStatus}" class="btn-modify btn" style="white-space: nowrap;">修改</a>
-						            <input type="hidden" name="action" value="update">
-						    </td>
-						`;
+						console.log(item.orderId)
+// 						let modifyBtn = `
+// 						    <td>
+// 							 <a href="orderEditor.jsp?order_id=${item.orderId}&order_no=${item.orderNo}&order_status=${item.orderStatus}" class="btn-modify btn" style="white-space: nowrap;">修改</a>
+// 						            <input type="hidden" name="action" value="update">
+// 						    </td>
+// 						`;
+	
+							let modifyBtn = 
+						    '<td>' + 
+							'<a href="orderEditor.jsp?order_id=' + item.orderId + '&order_no=' + item.orderNo + '&order_status=' + item.orderStatus + '" class="btn-modify btn" style="white-space: nowrap;">修改</a>' +
+						    '<input type="hidden" name="action" value="update">' +
+						    '</td>';
 						
-						let customerDetail = `
-							<td>
+						let customerDetail = 
+							'<td>' +
+				            '<a class="customerDetail btn-modify btn" href="passengerDetails.jsp?order_id=' + item.orderId + '&order_no=' + item.orderNo + '&order_status=' + item.orderStatus +'&tourist=' + item.tourist + '" class="btn-modify btn" style="white-space: nowrap;">旅客明細</a>' +							
+							'</td>';
 						
-							
-				            <a class="customerDetail btn-modify btn" href="passengerDetails.html?order_id=${item.orderId}&order_no=${item.orderNo}&order_status=${item.orderStatus}&tourist=${item.tourist}" class="btn-modify btn" style="white-space: nowrap;">旅客明細</a>
-							
-							</td>
-						`;
 						let statusCell = '';
 						if (item.orderStatus == 0) {
 							statusCell = '<span class="status-unpaid">未付款</span>';
@@ -192,9 +196,7 @@
 						tmpArr.push(formatDateTime(item.updateTime));
 						tmpArr.push(paidtimeCell);
 						tmpArr.push(statusCell);
-						tmpArr.push(scoreCell);
-						tmpArr.push(contentCell);
-						tmpArr.push(contentTimeCell);
+					
 						
 						dataSet.push(tmpArr)
 					});
@@ -220,10 +222,8 @@
 							{ data: 10 },
 							{ data: 11 },
 							{ data: 12 },
-							{ data: 13 },
-							{ data: 14 },
-							{ data: 15 },
-							{ data: 16 }
+							{ data: 13 }
+
 						],
 					});
 				},
@@ -232,6 +232,7 @@
 					console.log("init error");
 				}
 
+				
 			});
 
 		}

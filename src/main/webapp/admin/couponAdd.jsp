@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,7 +122,7 @@
 
     <script>
         $(function () {
-            $("#header").load("../admin/header.html");
+            $("#header").load("../admin/header.jsp");
         });
 		
         function goBack() {

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -178,13 +179,14 @@
 					let tbody = "";
 					passengers.forEach((item, index) => {
 
-						tbody += `<tr>
-			                        <th scope="row">${index + 1}</th>
-			                        <td>${item.idno}</td>
-			                        <td>${item.passengerName}</td>
-			                        <td>${item.birth}</td>
-			                        <td>${item.phone}</td>
-			                      	</tr>`;
+						tbody += 	
+							'<tr>' +
+	                        '<th scope="row">' + index + 1 + '</th>' + 
+	                        '<td>' + item.idno + '</td>' +
+	                        '<td>' + item.passengerName + '</td>' +
+	                        '<td>' + item.birth + '</td>' + 
+	                        '<td>' + item.phone + '</td>' +
+	                      	'</tr>'
 					});
 					$("table.table.mt-5 tbody").html(tbody);
 				},
@@ -210,7 +212,7 @@
 						alert("訂單已成功取消！");
 
 						// 重新載入訂單明細頁面
-						location.href = "/LazyTravel/customorCenter/orderList.html";
+						location.href = "/LazyTravel/customerCenter/orderList.jsp";
 					} else {
 						alert("取消訂單失敗，請稍後再試。");
 					}

@@ -154,5 +154,15 @@ public class BlogDAOImpl implements BlogDAO {
 	        e.printStackTrace();
 	    }
 	}
+
+	@Override
+	public List<Blog> getBlogByCustomerId(Integer customerId) {
+		Transaction transaction = null;
+		Session session = getSession();
+		transaction = session.beginTransaction();
+        return session.createQuery("FROM Blog WHERE customer.customerId = :customerId", Blog.class)
+            .setParameter("customerId", customerId)
+            .getResultList();
+	}
 }
 

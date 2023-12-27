@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -69,7 +70,7 @@ button.btn-modify, #filterBtn, a.btn-modify {
 
 	<script>
 	
-	const orderId = 11002;
+	const orderId = 11001;
 		$(function (){
 			$("#header").load("../components/html/header.html");
 			$("#footer").load("../components/html/footer.html");
@@ -92,11 +93,11 @@ button.btn-modify, #filterBtn, a.btn-modify {
 					data.forEach((item) => {
 						let tmpArr = [];
 
-						let ordersDetail = `
-							<td>
-				            <a class="customerDetail btn-modify btn" href="orderDetails.html?order_id=${item.orderId}&order_no=${item.orderNo}&order_status=${item.orderStatus}&tourist=${item.tourist}" class="btn-modify btn" style="white-space: nowrap;">訂單明細</a>
-							</td>
-						`;
+						let ordersDetail = 
+							'<td>' +
+				            '<a class="customerDetail btn-modify btn" href="orderDetails.jsp?order_id=' + item.orderId + '&order_no=' + item.orderNo + '&order_status=' + item.orderStatus + '&tourist=' + item.tourist + '" class="btn-modify btn" style="white-space: nowrap;">訂單明細</a>'  +
+							'</td>';
+						
 						
 						let statusCell = '';
 						if (item.orderStatus == 0) {

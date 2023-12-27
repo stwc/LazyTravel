@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +35,7 @@
 							onclick="addCouponClick()">新增優惠券</button>
 					</form>
 					
-					<div id="couponResponse"></div>
+					<div class="my-3 fw-bolder" id="couponResponse" style="color: red" ></div>
 				</div>
 			</div>
 
@@ -82,8 +83,9 @@
 			$("#header").load("../components/html/header.html");
 			$("#footer").load("../components/html/footer.html");
 			const customerId = 11001;
-			
-			getcustomercoupon ()
+			getcustomercoupon ();
+			 $("#couponResponse").text(sessionStorage.successmessage);
+	         $("#couponResponse").text(sessionStorage.errormessage);
 		
 			
 		});
@@ -104,14 +106,20 @@
 				dataType: "json",
 				success: function(data) {
 		            // Check if response contains 'success' or 'error'
-		            if (data.success) {
+		            if (data.message) {
 		                // Handle success
-		               
-		                $("#couponResponse").text(data.success);
-		            } else if (data.error) {
-		            	 console.log(data.error)
-		                $("#couponResponse").text(data.error);
+		               sessionStorage.successmessage = data.message;
+// 		                $("#couponResponse").text(data.success);
+		            } else if (data.message) {
+		            	 console.log(data.message)
+		            	 sessionStorage.errormessage = data.message;
+// 		                $("#couponResponse").text(data.error);
+		            	 const errormessage = data.message;
 		            }
+		            
+		            location.href = "/LazyTravel/customerCenter/coupon.jsp";
+		           
+		           
 		        },
 		        error: function(xhr, status, error) {
 		            // Generic error handling
@@ -119,7 +127,6 @@
 		        }  
 				});
 			
-		
 		}
 		
 		function getcustomercoupon (){
@@ -133,6 +140,8 @@
 					"customerId" : customerId },
 				dataType: "json",
 				success: function(data){
+
+					
 					let dataSet = [];
 					data.forEach((item) => {
 						let tmpArr = [];
@@ -181,8 +190,7 @@
 						],
 						
 					});
-					
-					
+
 				},
 				error: function () {
 					console.log("init error");
