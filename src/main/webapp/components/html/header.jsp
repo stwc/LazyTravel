@@ -29,7 +29,7 @@
         <div class="navbar nav-item-area">
           <ul class="navbar-nav d-flex flex-row">
             <li class="nav-item dropdown mx-4">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+              <a href="<%=request.getContextPath()%>/index.jsp" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                  style="color: white;">首頁</a>
               <ul class="dropdown-menu" style="position: absolute">
                 <li><a class="dropdown-item" href="#">行程篩選</a></li>
@@ -43,7 +43,7 @@
               <ul class="dropdown-menu" style="position: absolute">
                 <li><a class="dropdown-item" href="#">熱門文章</a></li>
                 <li><a class="dropdown-item" href="#">撰寫文章</a></li>
-                <li><a class="dropdown-item" href="#">我的文章</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/blog/blog/myblog.jsp">我的文章</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown mx-4">
@@ -54,7 +54,7 @@
                 </li>
                 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/orderList.jsp">歷史訂單</a></li>
                 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/coupon.jsp">優惠券</a></li>
-                <li><a class="dropdown-item" href="#">我的評價</a></li>
+<%--                <li><a class="dropdown-item" href="#">我的評價</a></li>--%>
               </ul>
             </li>
             <li class="nav-item dropdown mx-4">
@@ -71,7 +71,7 @@
               <a class="nav-link" href="<%=request.getContextPath()%>/customer/login.jsp" style="color: white;">登入</a>
             </li>
             <li class="nav-item mx-4 <%= (customer != null) ? "" : "d-none" %>">
-              <form method="post" action="customer.do">
+              <form method="post" action="<%=request.getContextPath()%>/customer/customer.do">
                 <input type="hidden" name="action" value="logout">
                 <button type="submit" class="nav-link text-light">登出</button>
               </form>

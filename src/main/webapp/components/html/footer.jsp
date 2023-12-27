@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% Object customer = session.getAttribute("customer"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@
 
     <footer class="mx-3">
       <div class="row">
-        <div class="col-6 col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
           <h5>首頁</h5>
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/index.jsp" class="nav-link p-0 text-muted">Home</a></li>
@@ -30,26 +31,26 @@
           </ul>
         </div>
 
-        <div class="col-6 col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
           <h5>部落格 BLOG</h5>
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">熱門文章</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">撰寫文章</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">我的文章</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/blog/blog/myblog.jsp" class="nav-link p-0 text-muted">我的文章</a></li>
           </ul>
         </div>
 
-        <div class="col-6 col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
           <h5>會員中心</h5>
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerCenter/customer-center.jsp" class="nav-link p-0 text-muted">會員資料</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">歷史訂單</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">優惠券</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">我的評價</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerCenter/orderList.jsp" class="nav-link p-0 text-muted">歷史訂單</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerCenter/coupon.jsp" class="nav-link p-0 text-muted">優惠券</a></li>
+<%--            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">我的評價</a></li>--%>
           </ul>
         </div>
 
-        <div class="col-6 col-md-2 mb-3">
+        <div class="col-md-3 mb-3">
           <h5>客服</h5>
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">常見問題 F&Q</a></li>
@@ -57,7 +58,7 @@
           </ul>
         </div>
 
-        <div class="col-md-4 mb-3">
+        <div class="col-md-4 mb-3 ms-auto <%= (customer == null) ? "" : "d-none" %>">
           <form>
             <h5>還沒成為會員嗎? 趕快註冊加入，來場懶遊吧!!</h5>
             <p></p>

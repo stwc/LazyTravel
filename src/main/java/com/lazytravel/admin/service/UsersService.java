@@ -12,4 +12,8 @@ public interface UsersService {
     Users getUser(Integer userId);
 
     List<Users> getAll();
+
+    Users login (String username, String password);
+
+    Users getUserByUsername(String username);
 }
