@@ -32,6 +32,9 @@
       <div id="alert-fail" class="alert alert-warning d-none" role="alert">
         帳號或密碼輸入錯誤，請重新輸入！
       </div>
+      <div id="alert-danger" class="alert alert-danger d-none" role="alert">
+        該使用者帳號已被停用。
+      </div>
       <div class="mb-3">
         <label for="inputUsername" class="form-label">Username</label>
         <input type="text" class="form-control" id="inputUsername" placeholder="請輸入帳號..."
@@ -128,7 +131,11 @@
             success: function (data) {
                 if (data === "OK") {
                     window.location.replace(host + webCtx + "/admin");
+                } else if (data === "BAN") {
+                    $("#alert-fail").addClass("d-none");
+                    $("#alert-danger").removeClass("d-none");
                 } else {
+                    $("#alert-danger").addClass("d-none");
                     $("#alert-fail").removeClass("d-none");
                 }
             },

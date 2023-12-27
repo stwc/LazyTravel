@@ -52,10 +52,16 @@ public class AdminLoginHandler extends HttpServlet {
         UsersService usersService = new UsersServiceImpl();
         Users users = usersService.login(loginDTO.getUsername(), loginDTO.getPassword());
         if (users != null) {
-            jsonString = gson.toJson("OK");
-            // 登入
-            session.setAttribute("users", users);
+            if (!users.getUserStatus().equals("0")) {
+                // 登入
+                jsonString = gson.toJson("OK");
+                session.setAttribute("users", users);
+            } else {
+                // 停用
+                jsonString = gson.toJson("BAN");
+            }
         } else {
+            // 帳號或密碼錯誤
             jsonString = gson.toJson("FAIL");
         }
 
