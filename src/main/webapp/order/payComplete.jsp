@@ -57,8 +57,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
     <script>
-        $("#header").load("../components/html/header.html");
-        $("#footer").load("../components/html/footer.html");
+        $("#header").load("../components/html/header.jsp");
+        $("#footer").load("../components/html/footer.jsp");
     </script>
 
     <script>

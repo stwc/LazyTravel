@@ -1,4 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.lazytravel.customer.entity.Customer" %>
+
+
+
+
+<%-- <% --%>
+ <%-- Customer customerObj = (Customer) session.getAttribute("customer");
+  Integer customerId = customerObj.getCustomerId();
+  Integer passengerCount = (Integer)session.getAttribute("passengerCount");
+  Integer groupId = (Integer)session.getAttribute("groupId");
+<%-- %> --%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,21 +22,18 @@
 <title>填寫旅客資訊</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="./css/checkOut.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/order/css/checkOut.css">
+
 <script src="https://kit.fontawesome.com/cb6bf56872.js"
 	crossorigin="anonymous"></script>
 <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
-
-
-
-
-
 
 </head>
 
 
 <body>
 	<header id="header"></header>
+	<%@ include file="/components/html/header.jsp" %>
 	<main class="main" style="padding-left: 70px; padding-right: 70px;">
 		<div class="container mt-5 px-3 d-flex justify-content-center">
 			<div class="progresss-container ">
@@ -124,7 +134,7 @@
 					</div>
 
 					<div class="d-flex justify-content-end mt-3">
-						<button type="submit" class="bt1" id="customerDetailForm">前往結帳</button>
+						<button type="submit" class="bt1" id="customerDetailForm">確認訂單</button>
 					</div>
 				</div>
 			</div>
@@ -135,6 +145,7 @@
 	</main>
 
 	<footer id="footer"></footer>
+	<%@ include file="/components/html/footer.jsp" %>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
 		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
 		crossorigin="anonymous"></script>
@@ -151,11 +162,15 @@
 	let group_strat_time = 0;
 	let group_end_time = 0;
 
-    //=====>  最終用session取得
+//=========>  最終用session取得
 	let passengerCount = 1;
 	let customerId = 11001;
 	let groupId = 24002;
-	//=====>
+
+<%-- 	let customerId = <%= customerId %>; --%>
+<%-- 	let passengerCount = <%= passengerCount %>; --%>
+<%-- 	let groupId = <%= groupId %>; --%>
+//=========>
 
 	$(window).on('load', function() {
     if (sessionStorage.getItem('scrollToTop') === 'true') {   
@@ -167,8 +182,8 @@
 });
 	
 	$(function(){
-		 $("#header").load("../components/html/header.html");
-		 $("#footer").load("../components/html/footer.html");
+// 		 $("#header").load("../components/html/header.html");
+// 		 $("#footer").load("../components/html/footer.html");
 		 init();
 		 getCustomerCoupon();
 		 recovery_data();
@@ -226,7 +241,6 @@
 	      progress.style.width =
 	        ((activeCircles.length - 1) / (stepCircles.length - 1)) * 100 + "%";
 	    }
-	    
 
 		 $("#tourist").text(passengerCount+ " 人 ") ;
 		    

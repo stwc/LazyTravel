@@ -52,8 +52,8 @@
               <ul class="dropdown-menu" style="position: absolute">
                 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/customer-center.jsp">會員資料</a>
                 </li>
-                <li><a class="dropdown-item" href="#">歷史訂單</a></li>
-                <li><a class="dropdown-item" href="#">優惠券</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/orderList.jsp">歷史訂單</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/coupon.jsp">優惠券</a></li>
                 <li><a class="dropdown-item" href="#">我的評價</a></li>
               </ul>
             </li>
