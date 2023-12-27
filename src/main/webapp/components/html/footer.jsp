@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% Object customer = session.getAttribute("customer"); %>
+<% Object c = session.getAttribute("customer"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +58,7 @@
           </ul>
         </div>
 
-        <div class="col-md-4 mb-3 ms-auto <%= (customer == null) ? "" : "d-none" %>">
+        <div class="col-md-4 mb-3 ms-auto <%= (c == null) ? "" : "d-none" %>">
           <form>
             <h5>還沒成為會員嗎? 趕快註冊加入，來場懶遊吧!!</h5>
             <p></p>
