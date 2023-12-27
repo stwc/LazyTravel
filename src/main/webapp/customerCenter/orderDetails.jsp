@@ -110,15 +110,11 @@
 
 
 
-	<script>
-		$("#header").load("/webapp/components/html/header.html");
-		$("#footer").load("/webapp/components/html/footer.html");
-	</script>
 
 	<script>
 		$(function () {
-			$("#header").load("../components/html/header.html");
-			$("#footer").load("../components/html/footer.html");
+			$("#header").load("../components/html/header.jsp");
+			$("#footer").load("../components/html/footer.jsp");
 			const urlParams = new URLSearchParams(window.location.search);
 			const orderId = urlParams.get('order_id');
 			const orderNo = urlParams.get('order_no');
@@ -182,8 +178,8 @@
 						tbody += 	
 							'<tr>' +
 	                        '<th scope="row">' + index + 1 + '</th>' + 
-	                        '<td>' + item.idno + '</td>' +
 	                        '<td>' + item.passengerName + '</td>' +
+	                        '<td>' + item.idno + '</td>' +
 	                        '<td>' + item.birth + '</td>' + 
 	                        '<td>' + item.phone + '</td>' +
 	                      	'</tr>'

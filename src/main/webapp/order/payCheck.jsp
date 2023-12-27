@@ -89,10 +89,13 @@
                     
                 </div>
 
-
+			<form id="ecpayform" method="POST" action="http://localhost:8081/LazyTravel/order/ecpay.do">
                 <div class="d-flex justify-content-end mx-3 my-3">
-                    <button id="payButton" onclick="nextClick()">付款</button>
+                    <button type="submit" id="payButton" onclick="nextClick()">去買單</button>
+                    <input id="ecpay" type="hidden" name="orderId" value=" " >
                 </div>
+			</form>
+				
             </div>
         </div>
 
@@ -109,8 +112,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
     <script>
-        $("#header").load("../components/html/header.html");
-        $("#footer").load("../components/html/footer.html");
+        $("#header").load("../components/html/header.jsp");
+        $("#footer").load("../components/html/footer.jsp");
     </script>
 
     <script>
@@ -212,7 +215,21 @@
         }
         
         function nextClick() {
+        	
+        	event.preventDefault();
+            
+            // 假设您希望延迟提交2秒钟
+            setTimeout(function() {
+              // 获取表单元素
+              var form = document.getElementById('ecpayform');
+              
+              // 执行表单提交
+              form.submit();
+            }, 2000); // 2000毫秒 = 2秒钟
+       
+        	
 
+			
         	//第一次請求新增訂單
         	$.ajax({
 		    	url: "http://localhost:8081/LazyTravel/order/order.do",
@@ -228,8 +245,9 @@
 					 }, 
 				dataType: "json",
 				success: function(response) {
-
 					orderId = response;
+					$("#ecpay").val(orderId);
+					
 					// 构建包含乘客数据的数组或对象
 		            for (var i = 1; i <= passengerCount; i++) {
 		                var passengerData = formData['passenger' + i];
@@ -255,21 +273,19 @@
 						success: function(response) {
 							// 在这里处理从后端返回的响应
 					        console.log('Response received:', response);
-					        
-					        
-				        },
-				        error: function(xhr, status, error) {
-				            console.error('Error:', error);
-				        }
-					});
-					
-        	},
-        	error:function(xhr, status, error) {
-                console.error('Error:', error);
-            }
+					        window.location.href = 'checkOut.jsp';
+				      	},
+				      	error:function(xhr, status, error) {
+				              console.error('Error:', error);
+				          }
 
-        });
-        	console.log(passengersDataList);
+       			 	});
+					
+		        },
+		        error: function(xhr, status, error) {
+		            console.error('Error:', error);
+		        }
+			});		
         }
 
 
