@@ -35,7 +35,7 @@
 <div id="main" class="p-3">
   <div class="mx-3 mb-4 d-flex align-items-start">
     <h3 class="d-inline-block me-3">後臺使用者</h3>
-    <a href="user-add.html" id="add" class="btn">新增</a>
+    <a href="user-add.jsp" id="add" class="btn">新增</a>
   </div>
 
   <div class="table-responsive mx-3">

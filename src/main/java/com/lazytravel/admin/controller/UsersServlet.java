@@ -8,6 +8,8 @@ import com.lazytravel.admin.service.RoleService;
 import com.lazytravel.admin.service.RoleServiceImpl;
 import com.lazytravel.admin.service.UsersService;
 import com.lazytravel.admin.service.UsersServiceImpl;
+import com.password4j.Hash;
+import com.password4j.Password;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,6 +50,9 @@ public class UsersServlet extends HttpServlet {
                 res.setContentType("application/json; charset=UTF-8");
                 res.getWriter().write(getOne(req));
                 return;
+            case "create":
+                forwardPath = createUser(req, res);
+                break;
             default:
                 forwardPath = "/admin/index.jsp";
         }
@@ -56,6 +61,30 @@ public class UsersServlet extends HttpServlet {
         res.setContentType("text/html; charset=UTF-8");
         RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
         dispatcher.forward(req, res);
+    }
+
+    private String createUser(HttpServletRequest req, HttpServletResponse res) {
+        String username = req.getParameter("username");
+        String userPasswd = req.getParameter("user_passwd");
+        Integer roleId = Integer.valueOf(req.getParameter("role"));
+        String userStatus = req.getParameter("status");
+
+        if (usersService.getUserByUsername(username) == null) {
+            Users users = new Users();
+            users.setUsername(username);
+
+            String hashedPw = Password.hash(userPasswd).withBcrypt().getResult();
+            users.setUserPasswd(hashedPw);
+
+            users.setRoleId(roleId);
+            users.setUserStatus(userStatus);
+
+            usersService.addUser(users);
+            return "/admin/user.jsp";
+        } else {
+            req.setAttribute("createFailed", true);
+            return "/admin/user-add.jsp";
+        }
     }
 
     private String getAll() {
