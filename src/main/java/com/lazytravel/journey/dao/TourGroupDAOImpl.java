@@ -131,6 +131,21 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<TourGroup> findByFK(Integer journeyId){
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<TourGroup> list = null;
+		try {
+			session.beginTransaction();
+			list = session.createQuery("from TourGroup where journey.journeyId = :journeyId order by startTime, endTime", TourGroup.class).setParameter("journeyId", journeyId).list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return list;
+	};
 
 	
 	

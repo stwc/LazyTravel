@@ -15,5 +15,11 @@ public interface BlogService {
      List<Blog> getAllBlogs();
      
      Blog getBlogWithMsgs(Integer blogId);
+     
+     List<Blog> searchBlogsByKeyword(String keyword);
+     
+     void updateView(Integer blogId);
+     
+      List<Blog> getBlogByCustomerId(Integer customerId);
     
 }

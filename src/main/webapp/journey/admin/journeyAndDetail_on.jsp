@@ -6,8 +6,6 @@
 
 <%@ page import="java.text.SimpleDateFormat" %>
 
-<%@ include file="/admin/header.html" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -203,7 +201,8 @@
 </head>
 <body>
 
-	<div id="header"></div>
+<!-- 	<div id="header"></div> -->
+	<%@ include file="/admin/header.jsp" %>
 
 	<main id="main">
 

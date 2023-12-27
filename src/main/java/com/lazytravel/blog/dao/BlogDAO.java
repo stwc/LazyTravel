@@ -16,4 +16,10 @@ public interface BlogDAO {
 	
 	public Blog getBlogWithMsgs(Integer blogId);
 	
+	public List<Blog> searchBlogs(String keyword);
+	
+	public void updateView(Integer blogId);
+	
+	public List<Blog> getBlogByCustomerId(Integer customerId);
+	
 }

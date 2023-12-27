@@ -59,7 +59,7 @@ public interface FoodScapeService {
 	
 	FoodScape getFoodScapeByFoodScapeId(Integer foodScapeId);
 	
-	List<FoodScape> getAllFoodScapes(int currentPage);
+	List<FoodScape> getAllFoodScapes();
 
 	
 	

@@ -3,6 +3,7 @@ package com.lazytravel.customer.controller;
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
+import com.lazytravel.customer.util.CustomerStatus;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -35,7 +36,7 @@ public class LoginHandler extends HttpServlet {
         final String passwd = req.getParameter("customer_passwd");
         Customer customer = customerService.login(email, passwd);
         if (customer != null) {
-            if (customer.getCustomerStatus().equals("0")) {
+            if (customer.getCustomerStatus().equals(CustomerStatus.BANNED.getValue())) {
                 // 帳號被停權
                 req.setAttribute("isBanned", true);
                 // 重導回登入頁面
@@ -43,7 +44,7 @@ public class LoginHandler extends HttpServlet {
                 RequestDispatcher dispatcher = req.getRequestDispatcher(loginPath);
                 dispatcher.forward(req, res);
                 return;
-            } else if (customer.getCustomerStatus().equals("1")) {
+            } else if (customer.getCustomerStatus().equals(CustomerStatus.ACTIVE.getValue())) {
                 // 登入成功
                 HttpSession session = req.getSession();
                 session.setAttribute("customer", customer);
@@ -53,7 +54,11 @@ public class LoginHandler extends HttpServlet {
 
                 // 重導回首頁
                 res.sendRedirect(indexPath);
-            } else if (customer.getCustomerStatus().equals("2")) {
+            } else if (customer.getCustomerStatus().equals(CustomerStatus.NOT_AUTH.getValue())) {
+                // 暫存會員資料
+                HttpSession session = req.getSession();
+                session.setAttribute("tmpCustomer", customer);
+                req.setAttribute("notAuth", true);
                 // 帳號尚未驗證，重導至驗證頁面
                 res.setContentType("text/html; charset=UTF-8");
                 RequestDispatcher dispatcher = req.getRequestDispatcher(authPath);

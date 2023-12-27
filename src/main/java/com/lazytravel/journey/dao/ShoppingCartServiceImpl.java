@@ -42,12 +42,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	}
 
 	@Override
-	public Map<String, String> getOneByCustomerIdReturnMap(String customerId) {
+	public Map<String, String> getAllByCustomerIdReturnMap(String customerId) {
 		return shoppingCartDAO.findByCustomerIdReturnMap(customerId);
 	}
 	
 	@Override
-	public List<ShoppingCart> getOneByCustomerIdReturnList(String customerId) {
+	public List<ShoppingCart> getAllByCustomerIdReturnList(String customerId) {
 		return shoppingCartDAO.findByCustomerIdReturnList(customerId);
 	}
 

@@ -56,10 +56,9 @@ pageContext.setAttribute("list", list);
 <body>
 	<header id="header"></header>
 
-	<main>
-		<div class="container" method="post" ACTION="blog.do" name="form1"
-			enctype="multipart/form-data">
-			<c:if test="${not empty errorMsgs}">
+	<form METHOD="post" ACTION="blog.do" name="form1" enctype="multipart/form-data">
+		<div class="container"  >
+					<c:if test="${not empty errorMsgs}">
 				<font style="color: red">請修正以下錯誤:</font>
 				<ul>
 					<c:forEach var="message" items="${errorMsgs}">
@@ -82,36 +81,14 @@ pageContext.setAttribute("list", list);
 					<p class="h4 mb-0">1.標題:</p>
 				</div>
 				<div class="input-group w-50 m-1">
-					<input type="text" class="form-control" name="blog_id"
+					<input type="text" class="form-control" name="title"
 						value="<%=blog.getTitle()%>" aria-label="Recipient's username"
 						aria-describedby="button-addon2" />
 				</div>
 			</div>
-			
-				<div class="row">
-					<div class="col-3 d-flex align-items-center">
-						<p class="h4 mb-0">2.美食/地標標籤:</p>
-					</div>
-					
-					<form class="dropdown col-9 input-group w-50 h-auto m-1" method="post" action="blog.do">
-    <input type="text" class="form-control" name="tag" id="tagInput" aria-label="Recipient's username"
-           value="<c:forEach var='tag' items='${blog.getTags()}'><c:out value='${tag.tagName}'/></c:forEach>"
-           aria-describedby="button-addon2" />
-    <button type="button" name="blogTag" id="dropdownMenuButton1"
-            class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-            data-bs-toggle="dropdown" aria-expanded="false"></button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <c:forEach var="tags" items="${list[0].getTags()}">
-            <li><a class="dropdown-item tag-item" href="#" data-id="${tags.tagId}" data-name="${tags.tagName}">${tags.tagName}</a></li>
-        </c:forEach>
-    </ul>
-    </form>
-
-				</div>
-
 			<div class="row">
 				<div class="col-3 d-flex align-items-center">
-					<p class="h4 mb-0">3.懶遊日期:</p>
+					<p class="h4 mb-0">2.懶遊日期:</p>
 				</div>
 				<div class="col-9 input-group w-50 h-auto m-1">
 					<div class="input-group">
@@ -132,11 +109,11 @@ pageContext.setAttribute("list", list);
 			</div>
 			<div class="row">
 				<div class="col-3 d-flex align-items-center">
-					<p class="h4 mb-0">4.首頁圖片上傳:</p>
+					<p class="h4 mb-0">3.首頁圖片上傳:</p>
 				</div>
 				<div class="col-7 d-flex align-items-center">
 					<div class="input-group mb-3 h-auto mt-3 m-1" style="width: 545px">
-						<input value="<%="${blogImg.img}"%>" type="file"
+						<input type="file" name="blogImg"
 							class="form-control" id="inputGroupFile01" />
 					</div>
 				</div>
@@ -148,22 +125,28 @@ pageContext.setAttribute("list", list);
 		<hr />
 		<div class="container-fluid">
 			<div class="row mx-5">
-				<div id="summernote" name="content"  style="height: 100px"><%=blog.getContent()%></div>
-			</div>
+				<textarea  id="summernote"  name="content" style="height: 100px"><%=blog.getContent()%>
+			</textarea>
 			<div class="row d-flex">
 				<div class="col-10"></div>
 				<div class="col-1 justify-content-end d-flex">
 					<button type="button" onclick="redirectToMyBlog()" class="btn btn-success">取消</button>
 				</div>
 				<div class="col-1 justify-content-end d-flex">
-					<input type="submit" class="btn btn-success" value="送出修改">
+					<input type="submit" id="saveButton" class="btn btn-success" value="送出修改">
 					<input type="hidden" name="action" value="update"> 
 					<input type="hidden" name="customer_id" value="<%=blog.getCustomer().getCustomerId()%>" size="45"/>
-					<input type="hidden" name="blogId" value="<%=blog.getBlogId()%>"></form>
+					<input type="hidden" name="blogId" value="<%=blog.getBlogId()%>">
+					<input type="hidden" name="updateTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">
+					<input type="hidden" name="createTime" value="<%=blog.getCreateTime()%>">
+					<input type="hidden" name="blogStatus" value="<%=blog.getBlogStatus()%>">
+					<input type="hidden" name="viewSum" value="<%=blog.getViewSum()%>">
+					
 				</div>
 			</div>
 		</div>
-	</main>
+		</div>
+	</form>
 	<img src="/" alt="" />
 	<footer id="footer"></footer>
 
@@ -186,9 +169,6 @@ pageContext.setAttribute("list", list);
 			$("#header").load("../../components/html/header.jsp");
 			$("#footer").load("../../components/html/footer.jsp");
 		});
-		$(document).ready(function() {
-			$("#summernote").summernote();
-		});
 
 		flatpickr("#datepicker", {
 			// 選擇器配置選項，可以根據需要進行調整
@@ -205,6 +185,30 @@ pageContext.setAttribute("list", list);
 	        $('.tag-item').on('click', function () {
 	            var tagName = $(this).data('name');
 	            $('#tagInput').val(tagName);
+	        });
+	    });
+	    
+	    $(document).ready(function() {
+	        $('#summernote').summernote();
+
+	        // 使用 Ajax 將內容傳送到後端
+	        $('#saveButton').click(function() {
+	            var summernoteContent = $('#summernote').summernote('code');
+	            $.ajax({
+	                type: 'POST',
+	                url: "/blog/blog/blog.do", // 替換成你的 Servlet 的 URL
+	                data: {
+	                    content: summernoteContent
+	                },
+	                success: function(response) {
+	                    console.log('成功儲存到資料庫');
+	                    // 在這裡處理成功儲存的相應
+	                },
+	                error: function(error) {
+	                    console.error('儲存失敗');
+	                    // 在這裡處理錯誤
+	                }
+	            });
 	        });
 	    });
 	</script>

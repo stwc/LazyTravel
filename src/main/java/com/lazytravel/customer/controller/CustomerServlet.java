@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
 import com.lazytravel.customer.entity.Customer;
+import com.lazytravel.customer.util.AuthCodeUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -64,6 +65,12 @@ public class CustomerServlet extends HttpServlet {
             case "changeStatus":
                 forwardPath = changeStatus(req, res);
                 break;
+            case "sendForgotPwMail":
+                forwardPath = sendForgotPwMail(req, res);
+                break;
+            case "forgotpw":
+                forwardPath = forgotPw(req, res);
+                break;
             default:
                 forwardPath = "/index.jsp";
         }
@@ -84,7 +91,7 @@ public class CustomerServlet extends HttpServlet {
 
         // 抓前端傳來的參數
         String email = req.getParameter("email");
-        if (!customer.getEmail().equals(email) && customerService.isEmailExists(email)) {
+        if (!customer.getEmail().equals(email) && customerService.emailExists(email) != null) {
             req.setAttribute("updateFailed", true);
             errorMsgs.add("此Email信箱已有人使用");
         }
@@ -174,5 +181,33 @@ public class CustomerServlet extends HttpServlet {
         customer.setCustomerStatus(status);
         customerService.updateCustomer(customer);
         return "/admin/customer.jsp";
+    }
+
+    private String sendForgotPwMail(HttpServletRequest req, HttpServletResponse res) {
+        String email = req.getParameter("email");
+        Customer customer = customerService.emailExists(email);
+        if (customer == null) {
+            req.setAttribute("emailNotExists", true);
+            return "/customer/forgotpw.jsp";
+        } else {
+            customerService.sendForgotPwMail(customer, AuthCodeUtil.getPath(req, "/customer/resetpw.jsp"));
+            req.setAttribute("hideResetPw", true);
+            return "/customer/resetpw.jsp";
+        }
+    }
+
+    private String forgotPw(HttpServletRequest req, HttpServletResponse res) {
+        String newPasswd = req.getParameter("customer_passwd");
+        Integer customerId = Integer.valueOf(req.getParameter("customerId"));
+        String authCode = req.getParameter("authCode");
+
+        boolean isResetPwSuccess = customerService.forgotPassword(customerId, authCode, newPasswd);
+        if (!isResetPwSuccess) {
+            req.setAttribute("resetPwFailed", true);
+            req.setAttribute("hideResetPw", true);
+            return "/customer/resetpw.jsp";
+        } else {
+            return "/customer/login.jsp";
+        }
     }
 }

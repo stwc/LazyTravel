@@ -2,9 +2,12 @@ package com.lazytravel.blog.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.util.HibernateUtil;
@@ -111,6 +114,55 @@ public class BlogDAOImpl implements BlogDAO {
             throw e;
         }
     }
-		
+	public List<Blog> searchBlogs(String keyword) {
+	    Transaction transaction = null;
+	    List<Blog> blogs = null;
+
+	    try (Session session = getSession()) {
+	        transaction = session.beginTransaction();
+
+	        String hql = "FROM Blog WHERE title LIKE :keyword OR content LIKE :keyword";
+	        Query<Blog> query = session.createQuery(hql, Blog.class);
+	        query.setParameter("keyword", "%" + keyword + "%");
+
+	        blogs = query.getResultList();
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        e.printStackTrace(); // 在实际应用中应该记录日志
+	    }
+
+	    return blogs;
 	}
+	
+	public void updateView(Integer blogId) {
+	    Transaction transaction = null;
+	    try  {
+	    	Session session = getSession();
+	        transaction = session.beginTransaction();
+	        Blog blog = session.get(Blog.class, blogId);
+	        blog.setViewSum(blog.getViewSum() + 1);
+	        session.update(blog);
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction != null) {
+	            transaction.rollback();
+	        }
+	        e.printStackTrace();
+	    }
+	}
+
+	@Override
+	public List<Blog> getBlogByCustomerId(Integer customerId) {
+		Transaction transaction = null;
+		Session session = getSession();
+		transaction = session.beginTransaction();
+        return session.createQuery("FROM Blog WHERE customer.customerId = :customerId", Blog.class)
+            .setParameter("customerId", customerId)
+            .getResultList();
+	}
+}
 

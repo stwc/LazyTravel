@@ -16,13 +16,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.lazytravel.customer.entity.Customer;
-import com.lazytravel.foodscape.entity.Tag;
 
 @Entity
 @Table(name = "blog")
@@ -61,15 +61,9 @@ public class Blog {
 	@Column(name ="CL_SUM")
 	private Integer clSum;
 	
+	@Lob
 	@Column(name = "IMG" ,columnDefinition = "longblob")
 	private byte[]  img;
-	
-	@ManyToMany(fetch =FetchType.EAGER)
-	@JoinTable(
-			name = "blog_tag",
-	        joinColumns = @JoinColumn(name = "BLOG_ID"),
-	        inverseJoinColumns = @JoinColumn(name = "TAG_ID"))
-	private Set<Tag> tags = new HashSet<>();
 	
 	
 	@Column(name = "BLOG_STATUS",columnDefinition = "char")
@@ -102,14 +96,6 @@ public class Blog {
 
 	public String getTitle() {
 		return title;
-	}
-
-	public Set<Tag> getTags() {
-		return tags;
-	}
-
-	public void setTags(Set<Tag> tags) {
-		this.tags = tags;
 	}
 
 	public void setTitle(String title) {
