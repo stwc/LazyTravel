@@ -72,8 +72,8 @@ button.btn-modify, #filterBtn, a.btn-modify {
 	
 	const orderId = 11001;
 		$(function (){
-			$("#header").load("../components/html/header.html");
-			$("#footer").load("../components/html/footer.html");
+			$("#header").load("../components/html/header.jsp");
+			$("#footer").load("../components/html/footer.jsp");
 			
 			init();
 			
