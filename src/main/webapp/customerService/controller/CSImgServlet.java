@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,21 +16,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lazytravel.customer.entity.Customer;
-import com.lazytravel.customerservice.entity.CSMail;
+import com.lazytravel.customerservice.entity.CSImg;
 import com.lazytravel.customerservice.entity.CSMessage;
-import com.lazytravel.customerservice.service.CSMailService;
-import com.lazytravel.customerservice.service.CSMailServiceImpl;
+import com.lazytravel.customerservice.service.CSImgService;
+import com.lazytravel.customerservice.service.CSImgServiceImpl;
 import com.lazytravel.customerservice.service.CSMessageService;
 import com.lazytravel.customerservice.service.CSMessageServiceImpl;
 
-@WebServlet(value = "/customerService/CSMessage.do")
-public class CSMessageServlet extends HttpServlet {
+@WebServlet(value = "/customerService/CSImg.do")
+public class CSImgServlet extends HttpServlet {
 
-	private CSMessageService csMessageService;
+	private CSImgService csImgService;
 
 	@Override
 	public void init() throws ServletException {
-		csMessageService = new CSMessageServiceImpl();
+		csImgService = new CSImgServiceImpl();
 	}
 
 	@Override
@@ -61,9 +62,9 @@ public class CSMessageServlet extends HttpServlet {
 			forwardPath = insert(req, res);
 			break;
 		default:
-			forwardPath = "/customerService/select_CSMessage_page.jsp";
+			forwardPath = "/customerService/select_CSImg_page.jsp";
 		}
-		
+
 		res.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
@@ -75,39 +76,39 @@ public class CSMessageServlet extends HttpServlet {
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		// ----------------------------------------------------//
-		String str = req.getParameter("messageId");
+		String str = req.getParameter("ImgId");
 		if (str == null || str.trim().isEmpty())
-			errorMsgs.add("請輸入訊息編號");
+			errorMsgs.add("請輸入圖片編號");
 		if (!errorMsgs.isEmpty())
-			return "/customerService/select_CSMessage_page.jsp";
+			return "/customerService/select_CSImg_page.jsp";
 		// ------------------1.-------------------------//
-		Integer messageId = null;
+		Integer ImgId = null;
 		try {
-			messageId = Integer.valueOf(str);
+			ImgId = Integer.valueOf(str);
 		} catch (Exception e) {
-			errorMsgs.add("訊息ID格式不正確");
+			errorMsgs.add("圖片ID格式不正確");
 		}
 		if (!errorMsgs.isEmpty())
-			return "/customerService/select_CSMessage_page.jsp";
+			return "/customerService/select_CSImg_page.jsp";
 		// ------------------2.-------------------------//
-		csMessageService = new CSMessageServiceImpl();
-		CSMessage csMessage = csMessageService.getCSMessageByCSMessageId(messageId);
-		if (csMessage == null)
+		csImgService = new CSImgServiceImpl();
+		CSImg csImg = csImgService.getCSImgByCSImgId(ImgId);
+		if (csImg == null)
 			errorMsgs.add("查無資料");
 		if (!errorMsgs.isEmpty())
-			return "/customerService/select_CSMessage_page.jsp";
+			return "/customerService/select_CSImg_page.jsp";
 		// ------------------3.-------------------------//
-		req.setAttribute("csMessage", csMessage);
-		return "/customerService/listOneCSMessage.jsp";
+		req.setAttribute("csImg", csImg);
+		return "/customerService/listOneCSImg.jsp";
 	}
 
 	// 2.修改
 	private String getOneUpdate(HttpServletRequest req, HttpServletResponse res) {
-		Integer messageId = Integer.valueOf(req.getParameter("messageId"));
-		CSMessage csMessage = csMessageService.getCSMessageByCSMessageId(messageId);
+		Integer ImgId = Integer.valueOf(req.getParameter("ImgId"));
+		CSImg csImg = csImgService.getCSImgByCSImgId(ImgId);
 
-		req.setAttribute("csMessage", csMessage);
-		return "/customerService/update_CSMessage_input.jsp";
+		req.setAttribute("csImg", csImg);
+		return "/customerService/update_CSImg_input.jsp";
 	}
 
 	private String update(HttpServletRequest req, HttpServletResponse res) {
@@ -115,40 +116,40 @@ public class CSMessageServlet extends HttpServlet {
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		// -------------------1.---------------------------------//
-		Integer messageId = Integer.valueOf(req.getParameter("messageId"));
-		Integer mailId = Integer.valueOf(req.getParameter("mailId"));
-		String content = String.valueOf(req.getParameter("content"));
-		String messagefrom = String.valueOf(req.getParameter("messageFrom"));
-
+		Integer ImgId = Integer.valueOf(req.getParameter("Imgid"));
+		Integer csmessageId = Integer.valueOf(req.getParameter("MessageId"));
+		// ↓↓↓↓↓↓↓↓↓↓↓圖片處理//
+		String base64Img = req.getParameter("img");
+		byte[] decodedBytes = Base64.getDecoder().decode(base64Img);
+		// 圖片處理//
 		Timestamp createTime = null;
 		try {
 			createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
 		} catch (Exception e) {
 			createTime = new java.sql.Timestamp(System.currentTimeMillis());
-			errorMsgs.add("發送時間");
+			errorMsgs.add("上傳時間");
 		}
 		// -----------------------------//
-		CSMessage csMessage = new CSMessage();
-		csMessage.setMessageId(messageId);
-		csMessage.setContent(content);
-		csMessage.setMessageFrom(messagefrom);
-		csMessage.setCreateTime(createTime);
+		CSImg csImg = new CSImg();
+		csImg.setImgId(ImgId);
+		csImg.setImg(decodedBytes);
+		csImg.setCreateTime(createTime);
 
-		CSMail csMail = new CSMail();
-		csMail.setMailId(mailId);
-		csMessage.setCsMail(csMail);
+		CSMessage csMessage = new CSMessage();
+		csMessage.setMessageId(csmessageId);
+		csImg.setCsMessage(csMessage);
 
 		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("csMessage", csMessage);
-			return "/customerService/update_CSMessage_input.jsp";
+			req.setAttribute("csImg", csImg);
+			return "/customerService/update_CSImg_input.jsp";
 		}
 		// -------------------2.---------------------------------//
 		// 修改資料
-		csMessageService.updateCSMessage(csMessage);
+		csImgService.updateCSImg(csImg);
 
-		req.setAttribute("csMessage", csMessageService.getCSMessageByCSMessageId(messageId));
+		req.setAttribute("csImg", csImgService.getCSImgByCSImgId(ImgId));
 
-		return "/customerService/listOneCSMessage.jsp";
+		return "/customerService/listOneCSImg.jsp";
 	}
 
 //3.新增
@@ -157,32 +158,41 @@ public class CSMessageServlet extends HttpServlet {
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		// -------------------1.---------------------------------//
-		Integer mailId = Integer.valueOf(req.getParameter("mail_Id"));
-		String content = String.valueOf(req.getParameter("content"));
-		String messagefrom = String.valueOf(req.getParameter("message_from"));
+		Integer csmessageId = Integer.valueOf(req.getParameter("MessageId"));
+		// ↓↓↓↓↓↓↓↓↓↓↓圖片處理//
+		String base64Img = req.getParameter("img");
+		byte[] decodedBytes = Base64.getDecoder().decode(base64Img);
+		// 圖片處理//
+		Timestamp createTime = null;
+		try {
+			createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
+		} catch (Exception e) {
+			createTime = new java.sql.Timestamp(System.currentTimeMillis());
+			errorMsgs.add("上傳時間");
+		}
+		// -----------------------------//
+		CSImg csImg = new CSImg();
+		csImg.setImg(decodedBytes);
+		csImg.setCreateTime(createTime);
 
-		Timestamp createDate = java.sql.Timestamp.valueOf(req.getParameter("createDate").trim());
-		
-
-		// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
 		CSMessage csMessage = new CSMessage();
-		csMessage.setContent(content);
-		csMessage.setMessageFrom(messagefrom);
-		csMessage.setCreateTime(createDate);
+		csMessage.setMessageId(csmessageId);
+		csImg.setCsMessage(csMessage);
 
-		CSMail csMail = new CSMail();
-		csMail.setMailId(mailId);
-		csMessage.setCsMail(csMail);
+		if (!errorMsgs.isEmpty()) {
+			req.setAttribute("csImg", csImg);
+			return "/customerService/update_CSImg_input.jsp";
+		}
 
 		// -------------------2.---------------------------------//
 		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("csMessage", csMessage);
-			return "/customerService/addCSMessage.jsp";
+			req.setAttribute("csImg", csImg);
+			return "/customerService/addCSImg.jsp";
 		}
 		// -------------------3.---------------------------------//
 		// 新增資料
-		csMessageService.addCSMessage(csMessage);
+		csImgService.addCSImg(csImg);
 
-		return "/customerService/frontMailContent.jsp";
+		return "/customerService/listAlICSImg.jsp";
 	}
 }

@@ -1,4 +1,4 @@
-package com.lazytravel.customerservice;
+package com.lazytravel.customerservice.dao;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

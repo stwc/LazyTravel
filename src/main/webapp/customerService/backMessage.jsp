@@ -71,7 +71,7 @@ a#add:hover {
 						<td>${csMessage.messageFrom}</td>
 							<td>
 					<form method="post" ACTION="<%=request.getContextPath()%>/customerService/CSMessage.do" style="margin-bottom: 0px;">
-                    <button type="submit" name="action" value="getOne_For_Update" class="btn-modify btn" class="btn-modify btn" style="background-color: #6B705C">修改</button>
+                    <td><a href="${pageContext.request.contextPath}/customerService/backMailContent.jsp?mailId=${csMessage.getMessageId()}" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">查看詳情</a></td>
                     <input type="hidden" "messageId"  value="${csMessage.getMessageId()}">
                 </form>
 							</td>

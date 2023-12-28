@@ -58,12 +58,12 @@
               </ul>
             </li>
             <li class="nav-item dropdown mx-4">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                 style="color: white;">客服</a>
+                <a href="#" class="nav-link link_trasition dropdown-toggle" data-bs-toggle="dropdown"
+                  style="color: white;">客服</a>
               <ul class="dropdown-menu" style="position: absolute">
                 <li><a class="dropdown-item" href="#">常見問題 F&Q</a></li>
-                <li><a class="dropdown-item" href="#">聯絡我們</a></li>
-              </ul>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerService/Backmessage.jsp">聯絡我們</a></li>
+                </ul>
             </li>
 
 
