@@ -222,10 +222,10 @@
 				<!-- 若購物車中無資料時，顯示訊息，並維持表格寬高 -->
 				<c:if test="${empty tourGroupList}">
 				    <tr>
-				        <td colspan="6" style="text-align: center; padding-top: 50px; font-weight: 600; color: #CB997E;">您沒有收藏行程唷，趕快去逛逛吧~~</td>
+				        <td colspan="6" style="text-align: center; padding-top: 50px; font-size: 20px; font-weight: 600; color: #CB997E;">您沒有收藏行程唷，趕快去逛逛吧~~</td>
 				    </tr>
 				    <tr>
-				        <td colspan="6" style="text-align: center; padding-top: 30px; font-weight: 600; color: #CB997E;">這裡建議您不用收藏，直接下單唷^_^</td>
+				        <td colspan="6" style="text-align: center; padding-top: 30px; font-size: 20px; font-weight: 600; color: #CB997E;">溫馨提示: 建議您不用收藏，直接下單唷^_^</td>
 				    </tr>
 				</c:if>
 				
