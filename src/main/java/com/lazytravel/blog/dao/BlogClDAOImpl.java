@@ -104,12 +104,19 @@ public class BlogClDAOImpl implements BlogClDAO {
 		    	try {
 		            transaction = session.beginTransaction();
 		            // 使用 HQL 查詢是否存在對應的 BlogCl 記錄
-		            String hql = "SELECT blogCl.blogClStatus FROM BlogCl blogCl WHERE blogCl.customer.customerId = :customerId AND blogCl.blog.blogId = :blogId";
-		            Query<String> query = session.createQuery(hql, String.class);
-		            query.setParameter("customerId", customerId);
-		            query.setParameter("blogId", blogId);
-		            String blogClStatus = query.uniqueResult();
-
+//		            String hql = "SELECT blogCl.blogClStatus FROM BlogCl blogCl WHERE blogCl.customer.customerId = :customerId AND blogCl.blog.blogId = :blogId";
+//		            Query<String> query = session.createQuery(hql, String.class);
+//		            query.setParameter("customerId", customerId);
+//		            query.setParameter("blogId", blogId);
+//		            String blogClStatus = query.uniqueResult();
+		            
+		            Character tmp = (Character) session.createNativeQuery("select BLOG_CL_STATUS from Blog_Cl where customer_Id = :customerId and blog_Id = :blogId")
+		            		.setParameter("customerId", customerId)
+		            		.setParameter("blogId", blogId)
+		            		.uniqueResult();
+		            
+		            String blogClStatus = String.valueOf(tmp);
+		            		
 		            transaction.commit(); // 提交事務
 		            
 		            if(blogClStatus ==null){
@@ -163,7 +170,7 @@ public class BlogClDAOImpl implements BlogClDAO {
 		        BlogCl blogCl = (BlogCl) query.uniqueResult();
 
 		        blogCl.setBlogClStatus("0");  // 0 表示取消收藏
-	            session.merge(blogCl);
+	            session.update(blogCl);
 		        
 		    	transaction.commit();
 		    }catch (Exception e) {
