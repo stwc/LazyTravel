@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/admin/*"})
 public class AdminLoginFilter implements Filter {
 
     private FilterConfig config;

@@ -32,7 +32,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">後臺管理</a>
+      <a class="navbar-brand" href="<%=request.getContextPath()%>/admin/">後臺管理</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,8 +48,8 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/customer.jsp">會員資料</a></li>
-              <li><a class="dropdown-item" href="orderList.html">會員訂單</a></li>
-              <li><a class="dropdown-item" href="#">優惠券</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/orderList.jsp">會員訂單</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/couponList.jsp">優惠券</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -57,8 +57,9 @@
               美食景點
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">美食景點</a></li>
-              <li><a class="dropdown-item" href="#">標籤</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/foodscape/jsp/foodscape.jsp">美食景點</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/foodscape/jsp/opentime.jsp">營業時間</a></li>
+<%--              <li><a class="dropdown-item" href="#">標籤</a></li>--%>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -66,9 +67,9 @@
               行程
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">行程管理</a></li>
-              <li><a class="dropdown-item" href="#">旅行團</a></li>
-              <li><a class="dropdown-item" href="#">行程評價</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/journey/admin/journey_list.jsp">行程管理</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/journey/admin/tourGroup_list.jsp">旅行團</a></li>
+<%--              <li><a class="dropdown-item" href="#">行程評價</a></li>--%>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -76,21 +77,21 @@
               部落格
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">文章</a></li>
-              <li><a class="dropdown-item" href="#">留言</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/backbloglist.jsp">文章</a></li>
+<%--              <li><a class="dropdown-item" href="#">留言</a></li>--%>
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">客服</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/customerService/backContentMail.jsp">客服</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               後臺權限
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="user.jsp">後臺使用者</a></li>
-              <li><a class="dropdown-item" href="role.jsp">後臺角色</a></li>
-              <li><a class="dropdown-item" href="func.jsp">後臺功能</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/user.jsp">後臺使用者</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/role.jsp">後臺角色</a></li>
+              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/func.jsp">後臺功能</a></li>
             </ul>
           </li>
         </ul>

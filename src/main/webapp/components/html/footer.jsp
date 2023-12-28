@@ -25,17 +25,17 @@
           <h5>首頁</h5>
           <ul class="nav flex-column">
             <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/index.jsp" class="nav-link p-0 text-muted">Home</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">行程篩選</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">熱門行程</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">熱門景點</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/foodscape/jsp/selectpage.jsp" class="nav-link p-0 text-muted">美食景點篩選</a></li>
+<%--            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">熱門行程</a></li>--%>
+<%--            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">熱門景點</a></li>--%>
           </ul>
         </div>
 
         <div class="col-md-3 mb-3">
           <h5>部落格 BLOG</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">熱門文章</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">撰寫文章</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/blog/blog/blogfirst.jsp" class="nav-link p-0 text-muted">文章列表</a></li>
+<%--            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">撰寫文章</a></li>--%>
             <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/blog/blog/myblog.jsp" class="nav-link p-0 text-muted">我的文章</a></li>
           </ul>
         </div>
@@ -53,8 +53,8 @@
         <div class="col-md-3 mb-3">
           <h5>客服</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">常見問題 F&Q</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">聯絡我們</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerService/frontQA.jsp" class="nav-link p-0 text-muted">常見問題</a></li>
+            <li class="nav-item mb-2"><a href="<%=request.getContextPath()%>/customerService/frontContentMail.jsp" class="nav-link p-0 text-muted">聯絡我們</a></li>
           </ul>
         </div>
 

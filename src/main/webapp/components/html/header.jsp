@@ -30,19 +30,19 @@
           <ul class="navbar-nav d-flex flex-row">
             <li class="nav-item dropdown mx-4">
               <a href="<%=request.getContextPath()%>/index.jsp" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                 style="color: white;">首頁</a>
+                 style="color: white;">搜尋美食</a>
               <ul class="dropdown-menu" style="position: absolute">
-                <li><a class="dropdown-item" href="#">行程篩選</a></li>
-                <li><a class="dropdown-item" href="#">熱門行程</a></li>
-                <li><a class="dropdown-item" href="#">熱門景點</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/foodscape/jsp/selectpage.jsp">美食景點篩選</a></li>
+<%--                <li><a class="dropdown-item" href="#">熱門行程</a></li>--%>
+<%--                <li><a class="dropdown-item" href="#">熱門景點</a></li>--%>
               </ul>
             </li>
             <li class="nav-item dropdown mx-4">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                 style="color: white;">部落格 BLOG</a>
+                 style="color: white;">部落格</a>
               <ul class="dropdown-menu" style="position: absolute">
-                <li><a class="dropdown-item" href="#">熱門文章</a></li>
-                <li><a class="dropdown-item" href="#">撰寫文章</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/blog/blog/blogfirst.jsp">文章列表</a></li>
+<%--                <li><a class="dropdown-item" href="#">撰寫文章</a></li>--%>
                 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/blog/blog/myblog.jsp">我的文章</a></li>
               </ul>
             </li>
@@ -61,8 +61,8 @@
                 <a href="#" class="nav-link link_trasition dropdown-toggle" data-bs-toggle="dropdown"
                   style="color: white;">客服</a>
               <ul class="dropdown-menu" style="position: absolute">
-                <li><a class="dropdown-item" href="#">常見問題 F&Q</a></li>
-                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerService/Backmessage.jsp">聯絡我們</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerService/frontQA.jsp">常見問題</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerService/frontContentMail.jsp">聯絡我們</a></li>
                 </ul>
             </li>
 
@@ -76,9 +76,9 @@
                 <button type="submit" class="nav-link text-light">登出</button>
               </form>
             </li>
-            <li class="nav-item mx-4"><a class="fa-solid fa-envelope nav-link" href="#"
-                                         style="color: white;"></a>
-            </li>
+<%--            <li class="nav-item mx-4"><a class="fa-solid fa-envelope nav-link" href="#"--%>
+<%--                                         style="color: white;"></a>--%>
+<%--            </li>--%>
             
             <li class="nav-item mx-4">
 				<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
