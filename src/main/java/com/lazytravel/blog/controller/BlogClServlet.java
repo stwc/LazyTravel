@@ -58,6 +58,10 @@ public class BlogClServlet extends HttpServlet{
 	                // 來自addEmp.jsp的請求
 	                forwardPath = insert(req, res);
 	                break;
+	            case "onFavorite":
+	                // 來自addEmp.jsp的請求
+	                forwardPath = onFavorite(req, res);
+	                break;
 	            default:
 	                forwardPath = "/blog/blogcl/blogCl_select_page.jsp";
 	        }
@@ -180,6 +184,20 @@ public class BlogClServlet extends HttpServlet{
 	        blogClService.addBlogCl(blogCl);
 
 	        return "/blog/blogcl/listAllBlogCl.jsp";
+	    }
+	    private String onFavorite(HttpServletRequest req, HttpServletResponse res) {
+	    	Integer customerId =Integer.valueOf(req.getParameter("customerId"));
+	    	Integer blogId = Integer.valueOf(req.getParameter("blogId"));
+	    	
+	    	boolean isBlogCl = blogClService.isBlogCl(customerId, blogId);
+	    	if (isBlogCl) {
+	            // 如果已經收藏，執行取消收藏
+	            blogClService.unFavoriteCl(customerId, blogId);
+	        } else {
+	            // 如果未收藏，執行收藏
+	        	blogClService.addFavoriteCl(customerId, blogId);
+	        }
+			return "1";
 	    }
 }
 

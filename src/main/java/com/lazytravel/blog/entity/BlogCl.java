@@ -23,14 +23,14 @@ public class BlogCl {
 	@Column(name = "BLOG_CL_ID", updatable = false)
 	private Integer blogClId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
 	private Customer customer;
 
 	@Column(name = "LIKE_TIME")
 	private Timestamp likeTime;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BLOG_ID", referencedColumnName = "BLOG_ID")
 	private Blog blog;
 
@@ -77,6 +77,12 @@ public class BlogCl {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+//	@Override
+//	public String toString() {
+//		return "BlogCl [blogClId=" + blogClId + ", customer=" + customer + ", likeTime=" + likeTime + ", blog=" + blog
+//				+ "]";
+//	}
 
 	public void setBlogClStatus(String blogClStatus) {
 		this.blogClStatus = blogClStatus;

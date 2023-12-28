@@ -1,7 +1,9 @@
 package com.lazytravel.blog.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -19,9 +21,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.tagext.TryCatchFinally;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.entity.BlogMsg;
+import com.lazytravel.blog.service.BlogClService;
+import com.lazytravel.blog.service.BlogClServiceImpl;
 import com.lazytravel.blog.service.BlogMsgService;
 import com.lazytravel.blog.service.BlogMsgServiceImpl;
 import com.lazytravel.blog.service.BlogService;
@@ -32,10 +41,12 @@ import com.lazytravel.customer.entity.Customer;
 @MultipartConfig
 public class BlogServlet extends HttpServlet {
 	private BlogService blogService;
+	private BlogClService blogClService;
 
 	@Override
 	public void init() throws ServletException {
 		blogService = new BlogServiceImpl();
+		blogClService = new BlogClServiceImpl();
 	}
 
 	@Override
@@ -48,6 +59,29 @@ public class BlogServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 
 		String action = req.getParameter("action");
+		
+//		System.out.println(action);
+		JSONObject json = null;
+		
+		if(action == null) {
+		  	 BufferedReader reader = req.getReader();
+	         StringBuilder requestData = new StringBuilder();
+	         String line;
+	         while ((line = reader.readLine()) != null) {
+	             requestData.append(line);
+	         }
+	         
+	         try {
+	             json = new JSONObject(requestData.toString());
+	              action  = json.getString("action");
+//	              System.out.println(action);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
         String forwardPath = "";
         switch (action) {
             case "getOne_For_Display":
@@ -72,6 +106,15 @@ public class BlogServlet extends HttpServlet {
             case "search":
             forwardPath =handleSearch(req,res);
             break;
+//            case "toggleFavorite":
+//                forwardPath = toggleFavorite(req, res);
+//                break;
+            case "updownStatus":
+                forwardPath =updownStatus(req,res);
+                break;
+            case "toggleFavorite":
+                forwardPath = toggleFavorite(json, res);
+                break;
             default:
                 forwardPath = "/blog/blog/select_page.jsp";
         }
@@ -214,6 +257,7 @@ public class BlogServlet extends HttpServlet {
 //        Timestamp blogDate =Timestamp.valueOf(req.getParameter("blog_date"))
         String blogStatus =String.valueOf(req.getParameter("blogStatus"));
         Timestamp blogTimestamp = null;
+        Integer viewSum=Integer.valueOf(req.getParameter("viewSum"));
         
         try {
             // 從 request 中取得 blog_date 參數
@@ -269,6 +313,7 @@ public class BlogServlet extends HttpServlet {
         blog.setCreateTime(createTime);
         blog.setBlogStatus(blogStatus);
         blog.setImg(blogImg);
+        blog.setViewSum(viewSum);
         
         Customer customer = new Customer();
         customer.setCustomerId(customerId);
@@ -282,7 +327,7 @@ public class BlogServlet extends HttpServlet {
         // 新增資料
         blogService.addBlog(blog);
 
-        return "/blog/blog/blogfirst.jsp";
+        return "/blog/blog/myblog.jsp";
     }
     
     private String getBlogMsgsByBlogId(HttpServletRequest req, HttpServletResponse res) {
@@ -301,15 +346,120 @@ public class BlogServlet extends HttpServlet {
         String keyword = request.getParameter("keyword");
         List<Blog> searchResults = blogService.searchBlogsByKeyword(keyword);
 
-        // 将搜索结果存储到请求属性中
         request.setAttribute("searchResults", searchResults);
 
-//        // 转发到展示搜索结果的页面
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("/search.jsp");
 //        dispatcher.forward(request, response);
         
         return "/blog/blog/search.jsp";
     }
     
+    
+    private String toggleFavorite(JSONObject json, HttpServletResponse res) throws IOException {
+//        Integer blogId =Integer.valueOf(req.getParameter("blogId"));
+//        Integer customerId =Integer.valueOf(req.getParameter("customerId"));
+//        
+//        var isLoggedIn = true;
+//        if (isLoggedIn) {
+//            // 使用 BlogClDAO 將 blogId 收藏到後端
+//            if (blogClService.isBlogCl(customerId,blogId)) {
+//                // 如果已經收藏，執行取消收藏的邏輯
+//               blogClService.unFavoriteCl(customerId,blogId);
+//                req.setAttribute("message", "取消收藏成功！");
+//            } else {
+//                // 如果未收藏，執行收藏的邏輯
+//                blogClService.onFavoriteCl(customerId,blogId);
+//                req.setAttribute("message", "收藏成功！");
+//            }
+//        } else {
+//            // 用戶未登入，可以導向登入頁面或顯示提示
+//            req.setAttribute("error", "請先登入後再收藏。");
+//        }
+//
+//        // 重新導向或返回結果
+//        return "1"; // 將這裡的 "your-jsp-page.jsp" 替換為你想要顯示的 JSP 頁面
+//    	HttpSession session = req.getSession();
+//    	Customer customer = (Customer) session.getAttribute("customer");
+    	
+//    	 BufferedReader reader = req.getReader();
+//         StringBuilder requestData = new StringBuilder();
+//         String line;
+//         while ((line = reader.readLine()) != null) {
+//        	 System.out.println(line);
+//             requestData.append(line);
+//         }
+         try {
+//             json = new JSONObject(requestData.toString());
+        	 
+             Integer blogId = json.getInt("blogId");
+             Integer customerId = json.getInt("customerId");
+             System.out.println("blogID="+blogId);
+             System.out.println("customerid="+customerId);
+             
+             // 在實際應用中，這裡可以根據需要進行收藏或取消收藏的邏輯
+             String blogClStatus = blogClService.isBlogCl(customerId, blogId);
+             System.out.println("IF外面的"+blogClStatus);
+             
+             if (blogClStatus != null) {
+            	 blogClService.addFavoriteCl(customerId, blogId);
+            	    // 如果有收藏資料
+            	 System.out.println("IF裡面的="+blogClStatus);
+            	    if ("0".equals(blogClStatus) ) {
+            	        // 如果收藏狀態為 0，將收藏狀態修改為 1
+            	        System.out.println("收藏狀態為 0，修改為 1");
+            	        blogClService.updateFavoriteCl(customerId, blogId);
+            	    } else {
+            	        // 其他邏輯，例如取消收藏
+            	        System.out.println("執行其他邏輯，例如取消收藏");
+            	        blogClService.unFavoriteCl(customerId, blogId);
+            	    }
+            	} else {
+            	    // 如果沒有收藏資料，新增收藏資料，並將收藏狀態設置為 1
+            	    System.out.println("沒有收藏資料，新增收藏資料，收藏狀態設置為 1");
+            	    blogClService.addFavoriteCl(customerId, blogId);
+            	}
+
+             // 回傳 JSON 格式的成功訊息
+             res.setContentType("application/json");
+             res.setCharacterEncoding("UTF-8");
+             PrintWriter out = res.getWriter();
+             out.write("{\"result\": \"success\"}");
+             out.flush();
+         } catch (JSONException e) {
+             e.printStackTrace();
+             // 回傳 JSON 格式的錯誤訊息
+             res.setContentType("application/json");
+             res.setCharacterEncoding("UTF-8");
+             PrintWriter out = res.getWriter();
+             out.write("{\"error\": \"處理 JSON 資料時發生錯誤。\"}");
+             out.flush();
+        	 e.printStackTrace();
+         }
+         res.getWriter().close();
+		return "0";
+         
+     }
+    
+    
+    
+    
+    
+    
+    
+    
+    private String updownStatus(HttpServletRequest req, HttpServletResponse res) {
+        Integer blogId = Integer.valueOf(req.getParameter("blogId"));
+        BlogService blogService = new BlogServiceImpl();
+        Blog blog = blogService.getBlogByBlogId(blogId);
+        
+        String currentStatus = blog.getBlogStatus();
+        String newStatus = (currentStatus.equals("0")) ? "1" : "0";
+        blog.setBlogStatus(newStatus);
+        blogService.updateBlog(blog);
+        
+        req.setAttribute("blog", blog);
+
+        return "/blog/html/backbloglist.jsp";  
 }
 
+}
