@@ -92,7 +92,7 @@ pageContext.setAttribute("list", list);
 							<input type="radio" class="btn-check" name="btnradio"
 								id="btnradio1" autocomplete="off" checked /> 
 								<label
-								class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;">文章列表</label> 
+								class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"onclick=" ToBlogFirst()">文章列表</label> 
 								<input
 								type="radio" class="btn-check" name="btnradio" id="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white"
 								autocomplete="off" /> 
@@ -113,7 +113,7 @@ pageContext.setAttribute("list", list);
 				<c:forEach var="blog" items="${list}">
 					<div class="col-md-4">
 						<div class="card" style="width: 22rem;height: 425px; margin: 10px">
-							<img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 100%; height: 50%;" />
+							<img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 351px; height: 200px;" />
 
 							<div class="card-body p">
 								<h5 class="card-title">${blog.title}</h5>
@@ -153,7 +153,7 @@ pageContext.setAttribute("list", list);
     <p class="h5">來寫下一篇屬於你的文章吧</p>
     <form method="post" class="d-flex justify-content-end" action="<%=request.getContextPath()%>/blog/blog/blog.do" style="position: absolute; bottom: 10px; right: 10px;">
         <!-- 使用 JavaScript 實現跳轉 -->
-        <button type="button" onclick="redirectToAdd()">
+        <button type="button" onclick="ToAdd()">
             <img src="../../static/blogimages/編輯筆.svg" class="thumds" alt="新增" />
         </button>
     </form>
@@ -166,23 +166,7 @@ pageContext.setAttribute("list", list);
 
 		</div>
 
-		<div class="container-fluid m-3">
-			<div class="row justify-content-center">
-				<div class="col-4">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-							<li class="page-item"><a class="page-link" href="#">Previous</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">Next</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</div>
+		<iv>
 
 		<footer id="footer"></footer>
 
@@ -198,10 +182,16 @@ pageContext.setAttribute("list", list);
 				$("#footer").load("../../components/html/footer.html");
 			});
 			
-			function redirectToAdd() {
+			function ToAdd() {
 		        // 使用 window.location.href 將頁面導航到 myblog.jsp
 		        window.location.href = 'addblog2.jsp';
 		    };
+		    
+		    function ToBlogFirst() {
+		        // 使用 window.location.href 將頁面導航到 myblog.jsp
+		        window.location.href = 'blogfirst.jsp';
+		    };
+		    
 				</script>
 </body>
 </html>

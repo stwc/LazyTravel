@@ -1,7 +1,11 @@
 package com.lazytravel.customer.entity;
 
 import javax.persistence.*;
+
+import com.lazytravel.blog.entity.BlogCl;
+
 import java.sql.Timestamp;
+import java.util.Set;
 import java.sql.Date;
 
 @Entity
@@ -40,6 +44,9 @@ public class Customer {
     @Column(name = "update_time", insertable = false, updatable = false)
     private Timestamp updateTime;
 
+    @OneToMany(mappedBy = "customer")
+    private Set<BlogCl> blogCls;
+    
     public Customer() {
         super();
     }
@@ -199,7 +206,15 @@ public class Customer {
         this.updateTime = updateTime;
     }
 
-    @Override
+    public Set<BlogCl> getBlogCls() {
+		return blogCls;
+	}
+
+	public void setBlogCls(Set<BlogCl> blogCls) {
+		this.blogCls = blogCls;
+	}
+
+	@Override
     public String toString() {
         return "Customer{" +
                 "customerId=" + customerId +

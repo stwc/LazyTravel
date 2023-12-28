@@ -69,21 +69,24 @@ public class Blog {
 	@Column(name = "BLOG_STATUS",columnDefinition = "char")
 	private String blogStatus;
 	
-	@OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BlogMsg> blogMsgs = new ArrayList<>();
+	@OneToMany(mappedBy = "blog")
+    private Set<BlogCl> blogCls;
+	
+//	@OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<BlogMsg> blogMsgs = new ArrayList<>();
 
 	public Blog() {
 	}
 
 	
-	public List<BlogMsg> getBlogMsgs() {
-		return blogMsgs;
-	}
-
-
-	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
-		this.blogMsgs = blogMsgs;
-	}
+//	public List<BlogMsg> getBlogMsgs() {
+//		return blogMsgs;
+//	}
+//
+//
+//	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
+//		this.blogMsgs = blogMsgs;
+//	}
 
 
 	public Integer getBlogId() {
@@ -183,6 +186,16 @@ public class Blog {
 	public void setBlogStatus(String blogStatus) {
 		this.blogStatus = blogStatus;
 	}
+
+	public Set<BlogCl> getBlogCls() {
+		return blogCls;
+	}
+
+
+	public void setBlogCls(Set<BlogCl> blogCls) {
+		this.blogCls = blogCls;
+	}
+
 
 	@Override
 	public String toString() {
