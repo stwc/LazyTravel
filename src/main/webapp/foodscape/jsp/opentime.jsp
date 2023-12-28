@@ -64,6 +64,7 @@ pageContext.setAttribute("list",list);
             <th scope="col">開店時間</th>
             <th scope="col">打烊時間</th>
             <th scope="col">星期</th>
+            <th scope="col">修改</th>
           </tr>
 
         </thead>
@@ -71,7 +72,7 @@ pageContext.setAttribute("list",list);
         <c:forEach var="opentime" items="${list}">
           <tr>
           	<td>${opentime.openTimeId}</td>
-<%--           	<td>${opentime.foodscape.foodScapeId}</td> --%>
+          	<td>${opentime.foodScapeId}</td>
           	<td>${opentime.startTime}</td>
           	<td>${opentime.endTime}</td>
           	<td>${opentime.week}</td>
