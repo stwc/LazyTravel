@@ -13,5 +13,10 @@ public interface CSMessageService {
 	CSMessage getCSMessageByCSMessageId(Integer csMessageId);
 
 	List<CSMessage> getAllCSMessages();
+	
+List<CSMessage> findByCustomerId(Integer customerId);
+	
+public void saveCSMessage(CSMessage csMessage,Integer customerId);
 
+public List<CSMessage> getCSMessageByMailId(Integer mailId);
 }
