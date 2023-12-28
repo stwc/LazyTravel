@@ -459,7 +459,7 @@ public class BlogServlet extends HttpServlet {
         
         req.setAttribute("blog", blog);
 
-        return "/blog/html/backbloglist.jsp";  
+        return "/admin/backbloglist.jsp";
 }
 
 }

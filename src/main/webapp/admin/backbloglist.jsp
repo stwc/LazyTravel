@@ -21,7 +21,7 @@ pageContext.setAttribute("list",list);
     <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
-    <link rel="icon" href="../../static/images/logo.ico" type="image/x-icon" />
+    <link rel="icon" href="../static/images/logo.ico" type="image/x-icon" />
 
     <style>
       button.btn-modify {
@@ -99,7 +99,7 @@ pageContext.setAttribute("list",list);
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script>
       $(function () {
-        $("#header").load("../../admin/header.html");
+        $("#header").load("<%=request.getContextPath()%>/admin/header.jsp");
         new DataTable("#example");
       });
       

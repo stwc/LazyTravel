@@ -95,7 +95,7 @@ button.btn-modify, #filterBtn, a.btn-modify {
 
 		$(function () {
 
-			$("#header").load("../admin/header.html");
+			$("#header").load("../admin/header.jsp");
 			init();
 
 
