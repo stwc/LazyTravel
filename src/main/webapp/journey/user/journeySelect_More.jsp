@@ -58,11 +58,11 @@
 		margin-bottom: 20px;
 		font-size: 20px;
 		font-weight: 600;
-		color: rgb(113, 120, 95);
 	}
 	
 	span.journey_name_label {
 		margin-right: 25px;
+		color: rgb(113, 120, 95);
 	}
 	
 	span.journey_name_value {
@@ -223,8 +223,7 @@
 </style>
 
 <%	
-// 	Integer journeyId = Integer.valueOf(request.getParameter("journeyId"));
-	Integer journeyId = 23002;
+	Integer journeyId = (Integer) request.getSession().getAttribute("journeyId");
 
 	JourneyService journeySvc = new JourneyServiceImpl();
 	Journey journey = journeySvc.getOneJourney(journeyId);
@@ -237,11 +236,10 @@
 	List<FoodScape> foodScapeList = journeyDetailSvc.findFoodscapeNameAndAddress(journeyId);
 	pageContext.setAttribute("foodScapeList", foodScapeList); 
 	
-	
 	TourGroupService tourGroupSvc = new TourGroupServiceImpl();
 	List<TourGroup> tourGroupList = tourGroupSvc.getByJourneyId(journeyId);
 	pageContext.setAttribute("tourGroupList", tourGroupList);
-
+	
 %>
 
 <body>
@@ -381,7 +379,12 @@
 		
 			<br>
 			<div class="div_btn">
-		    	<button type="reset" class="btn_reset" onclick="redirectToJourneySelect()">取消</button>
+<!-- 		    	<button type="reset" class="btn_reset" onclick="redirectToJourneySelect()">取消</button> -->
+		     	<form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">
+		     		<button type="submit" class="btn_reset">取消</button>
+		     		<input type="hidden" name="action" value="receiveFoodScapeId"/>
+		     	</form>
+		     	
 		     	
 		     	<form method="post" class="checkData" action="<%= request.getContextPath() %>/journey/user/shoppingCart.do">
 		     		<button type="submit" class="btn_addCart">加入購物車</button>
@@ -442,12 +445,6 @@
 		    });
 		    
         });
-
-        
-        var contextPath = "${pageContext.request.contextPath}";
-        function redirectToJourneySelect() {
-            window.location.href = contextPath + "/journey/user/journeySelect.jsp";
-        }
         
         
         function chooseStartTime(selectElement) {

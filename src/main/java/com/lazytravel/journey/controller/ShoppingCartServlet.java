@@ -163,16 +163,17 @@ public class ShoppingCartServlet extends HttpServlet {
 		String groupIdReqGet = req.getParameter(groupIdName);
 		
 		ShoppingCart shoppingCart = shoppingCartSvc.getOneByCustomerIdAndGroupId(customerId, groupIdReqGet);
-		Integer quantity = shoppingCart.getQuantity();
-		
-		shoppingCartSvc.deleteCart(customerId, groupIdReqGet);
-		
-		// 送資料
-		HttpSession session = req.getSession();
-		session.setAttribute("groupId", groupIdReqGet); 
-		session.setAttribute("signupNum", quantity); 
-		
-		return "/order/checkOut.html";
+		if(shoppingCart != null) {
+			Integer quantity = shoppingCart.getQuantity();
+			shoppingCartSvc.deleteCart(customerId, groupIdReqGet);
+			
+			// 送資料
+			HttpSession session = req.getSession();
+			session.setAttribute("groupId", groupIdReqGet); 
+			session.setAttribute("signupNum", quantity); 
+		}
+
+		return "/order/checkOut.jsp";
 	}
 	
 	
