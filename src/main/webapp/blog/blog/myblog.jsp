@@ -75,14 +75,7 @@ pageContext.setAttribute("list", list);
 
 		<div class="row ">
 					<div class="col-9  d-inline-flex">
-						<form class="input-group w-50 h-auto m-1" METHOD="post" ACTION="blog.do">
-							<input type="text" class="form-control my-lg-auto" name="keyword"
-								placeholder="輸入景點/美食" aria-label="Recipient's username"
-								aria-describedby="button-addon2" />
-								<input type="hidden" name="action" value="search">
-							<button class="btn btn-outline-secondary my-auto" type="submit" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"
-								id="button-addon2" >搜尋看看吧</button>
-						</form>
+						
 					</div>
 
 
@@ -178,8 +171,8 @@ pageContext.setAttribute("list", list);
 			src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 		<script>
 			$(function() {
-				$("#header").load("../../components/html/header.html");
-				$("#footer").load("../../components/html/footer.html");
+				$("#header").load("../../components/html/header.jsp");
+				$("#footer").load("../../components/html/footer.jsp");
 			});
 			
 			function ToAdd() {
