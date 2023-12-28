@@ -335,8 +335,10 @@
         		  var $option0 = $('<option></option>').text("無");
         		  $select.append($option0);
 
-// 			        $select.empty(); // 清空select選項
-
+			      $select.empty(); // 清空select選項
+			      var $option0 = $('<option></option>').text("無");
+        		  $select.append($option0);
+        		  
 			        data.forEach(function(item) {
 			        	if(globalTotalAmt >= item.threshold ){
 			        		var $option = $('<option></option>').val(item.discount)
