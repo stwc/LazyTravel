@@ -1,4 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="com.lazytravel.customerservice.entity.*"%>
+<%@ page import="com.lazytravel.customerservice.dao.*"%>
+<%@ page import="com.lazytravel.customerservice.service.*"%>
+<%@ page import="com.lazytravel.customer.entity.Customer"%>
+<%@page import="com.lazytravel.customerservice.entity.CSMail"%>
+
+<%
+Customer customer = (Customer) session.getAttribute("customer");
+pageContext.setAttribute("customer", customer);
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,27 +31,30 @@
     <header id="header"></header>
 
     <div class="container mt-4 p-2 mt-2 ">
-        <h3 class="text-center mb-2">客服信箱</h3>
+        <h3 class="text-center mb-2">客服信箱新增</h3>
 
 
-        <FORM METHOD="post" ACTION="CSMail.do" name="form1">
+        <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/customerService/CSMail.do" name="form1">
             <div class="mb-3">
-                <label for="inputName" class="form-label" name="customer_name">您的姓名</label>
-                <input type="text" class="form-control" id="inputName" placeholder="請輸入您的姓名" required>
+                <label for="inputName" class="form-label" >會員姓名</label>
+                <input type="text" readonly="readonly" class="form-control" id="inputName"  name="customer_name" value="${customer.customerName}" readonly="readonly">
             </div>
+
+            <div class="mb-3">
 
             <div class="mb-3">
                 <label for="inputComment" class="form-label">信件標題</label>
-                <textarea class="form-control" id="inputComment" rows="2" placeholder="請輸入問題內容" required></textarea>
+                <textarea class="form-control" id="inputComment" name="mailTitle" rows="2" placeholder="請輸入問題內容" required></textarea>
             </div>
             <div class="mb-3">
                 <label for="inputComment" class="form-label">問題內容</label>
-                <textarea class="form-control" id="inputComment" rows="5" placeholder="請輸入問題內容" required></textarea>
+                <textarea class="form-control" id="inputComment"  name="mailContent" rows="5" placeholder="請輸入問題內容" required></textarea>
             </div>
 
-            <div class="d-grid gap-1 col-1 mx-auto">
-                <button type="button" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">提交</button>
-            </div>
+            <br>
+	<input type="hidden" name="action" value="insert">
+	<input type="submit" value="送出新增">
+	<table id="table-1">
         </form>
     </div>
 
@@ -51,6 +69,8 @@
             $("#header").load("../components/html/header.html");
             $("#footer").load("../components/html/footer.html");
         });
+        
+        
     </script>
 </body>
 

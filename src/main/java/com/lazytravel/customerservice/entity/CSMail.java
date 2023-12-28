@@ -2,6 +2,7 @@ package com.lazytravel.customerservice.entity;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -43,6 +44,9 @@ public class CSMail {
 	
 	@Column(name="CS_MAIL_STATUS",columnDefinition = "CHAR")
     private String csMailStatus;
+	
+	@OneToMany(mappedBy = "csMail",cascade = CascadeType.ALL)
+	private List<CSMessage> csMessageList;
 
     public CSMail() {
     }
@@ -94,6 +98,14 @@ public class CSMail {
 
 	public void setMailId(Integer mailId) {
 		this.mailId = mailId;
+	}
+	
+	public List<CSMessage> getCsMessageList() {
+		return csMessageList;
+	}
+
+	public void setCsMessageList(List<CSMessage> csMessageList) {
+		this.csMessageList = csMessageList;
 	}
 
 	@Override
