@@ -22,7 +22,6 @@ public class JourneySelectRedisDAOImpl implements JourneySelectRedisDAO {
 			String foodScapeIdStr = String.valueOf(foodScapeId);
 			jedis.sadd(key, foodScapeIdStr);
 		}
-		jedis.close();
 	}
 
 	@Override
@@ -33,7 +32,6 @@ public class JourneySelectRedisDAOImpl implements JourneySelectRedisDAO {
 			String foodScapeIdStr = String.valueOf(foodScapeId);
 			jedis.srem(key, foodScapeIdStr);
 		}
-		jedis.close();
 	}
 
 	@Override
@@ -56,7 +54,6 @@ public class JourneySelectRedisDAOImpl implements JourneySelectRedisDAO {
 		String key = "journey:" + journeyId + ":foodscapes";
 		Set<String> members = jedis.smembers(key);
 		
-		jedis.close();
 		return members;
 	}
 
