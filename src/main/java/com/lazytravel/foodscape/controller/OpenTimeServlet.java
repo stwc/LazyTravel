@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.lazytravel.foodscape.entity.FoodScape;
 import com.lazytravel.foodscape.entity.OpenTime;
-import com.lazytravel.foodscape.entity.Tag;
 import com.lazytravel.foodscape.service.OpenTimeService;
 import com.lazytravel.foodscape.service.OpenTimeServiceImpl;
 

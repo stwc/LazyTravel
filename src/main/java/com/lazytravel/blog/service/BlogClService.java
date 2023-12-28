@@ -15,4 +15,13 @@ public interface BlogClService {
 	 BlogCl getBlogClByBlogClId(Integer blogClId);
 	 
 	 List<BlogCl>getAllBlogCls();
+	 
+	 String isBlogCl(Integer customerId,Integer blogId);
+	 
+	 void addFavoriteCl(Integer customerId,Integer blogId) ;
+	 
+	 void unFavoriteCl(Integer customerId,Integer blogId) ;
+	 
+	 void updateFavoriteCl(Integer customerId,Integer blogId);
+		 
 }

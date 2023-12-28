@@ -95,7 +95,7 @@
 
   <script>
     $(function () {
-      $("#header").load("../admin/header.html");
+      $("#header").load("../admin/header.jsp");
       const urlParams = new URLSearchParams(window.location.search);
       const orderId = urlParams.get('order_id');
       const orderNo = urlParams.get('order_no');

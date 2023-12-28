@@ -123,7 +123,7 @@
         	</ul>
         </c:if>
         
-    	<form method="post" action="<%=request.getContextPath()%>/foodscape/jsp/FoodScape.do">
+    	<form method="post" action="FoodScape.do">
         <div class="div_foodscapeId">
             <label>美食/景點ID :</label>
 

@@ -124,6 +124,7 @@ CREATE TABLE ROLES(
 
 INSERT INTO ROLES (ROLE_NAME, ROLE_DESCR) VALUES ('管理員', 'superuser擁有所有權限');
 INSERT INTO ROLES (ROLE_NAME, ROLE_DESCR) VALUES ('客服', '客服可查看訂單、客服系統');
+INSERT INTO ROLES (ROLE_NAME, ROLE_DESCR) VALUES ('測試', '測試test');
 
 -- 後臺功能 --
 CREATE TABLE FUNC(
@@ -166,8 +167,9 @@ CREATE TABLE USERS(
     FOREIGN KEY (ROLE_ID) REFERENCES roles(ROLE_ID) ON DELETE SET NULL
 ) AUTO_INCREMENT = 12001;
 
-INSERT INTO USERS (USERNAME, USER_PASSWD, ROLE_ID) VALUES ('admin', '123456', 1);
-INSERT INTO USERS (USERNAME, USER_PASSWD, ROLE_ID) VALUES ('cs123', '123456', 2);
+INSERT INTO USERS (USERNAME, USER_PASSWD, ROLE_ID) VALUES ('admin', '$2b$10$R7npZfTD9vlUIQDns6NR2eOPwPGI1yZowYrOjuAMOSb3.lwiiolqi', 1);
+INSERT INTO USERS (USERNAME, USER_PASSWD, ROLE_ID) VALUES ('cs123', '$2b$10$R7npZfTD9vlUIQDns6NR2eOPwPGI1yZowYrOjuAMOSb3.lwiiolqi', 2);
+INSERT INTO USERS (USERNAME, USER_PASSWD, ROLE_ID) VALUES ('test123', '$2b$10$R7npZfTD9vlUIQDns6NR2eOPwPGI1yZowYrOjuAMOSb3.lwiiolqi', 3);
 
 -- 美食景點 --
 CREATE TABLE FOODSCAPE (
@@ -207,7 +209,7 @@ CREATE TABLE FOODSCAPE (
 ('詹記麻辣火鍋', 0223777799, '台北市大安區和平東路三段60號', '台北市', 121.4647245, 25.0292629, '非常好吃的火鍋店！本人比較喜歡原味鍋底勝於麻辣的，原因是原味鍋底本身味道好鮮', 1, '美食'),
 ('國立臺灣科學教育館', 0266101234, '台北市士林區士商路189號', '台北市', 120.572821, 24.6484386, '多樓層的科學博物館，其互動式展覽吸引不少家庭造訪，另設有餐廳和劇院', 1, '景點'),
 ('臺北市立兒童新樂園', 0228333823, '台北市士林區承德路五段55號', '台北市', 121.5104449, 25.0972351, '適合家庭出遊的景點，擁有兒童遊樂設施、室內外遊樂區和大型電玩', 1, '景點'),
-('富樂臺式涮涮鍋', 0228866895, '台北市士林區承德路四段75-1號', '台北市', 121.4696473, 25.0973319, '劍潭這邊的老字號火鍋名店，儘管現在出了許多更新穎更亮麗的火鍋店，又在距離士林夜市不遠的地方，但仍然是屹立不搖', 1, '美食'),
+('富樂臺式涮涮鍋', 0228866895, '台北市士林區承德路四段75-1號', '台北市', 121.4696473, 25.0973319, '劍潭這邊的老字號火鍋名店，儘管現在出了許多更新穎更亮麗的火鍋店，又在距離士林夜市不遠的地方，但仍然是屹立不搖', 0, '美食'),
 ('有之和牛', 0287851117, '台北市信義區忠孝東路五段497號1樓', '台北市', 121.5063692, 25.0414087, '肉質相當不錯，美國赤牛見島黑牛與熟成肋眼牛相當鮮美，擺盤賞心悅目', 1, '美食'),
 ('M One Cafe', 0227220150, '台北市信義區松壽路11號3樓', '台北市', 121.5487228, 25.0371524, '薯絲是必點的，外層酥脆，內層鬆軟，第一次知道馬鈴薯的好吃，麵包類也都表現的很好，又鬆軟又有嚼勁', 1, '美食');
 
@@ -278,9 +280,10 @@ CREATE TABLE JOURNEY (
 ) AUTO_INCREMENT = 23001;
 
 INSERT INTO JOURNEY (JOURNEY_NAME, PRICE, CONTENT, AVG_SCORE, SCORE_COUNT, DAYS, BUY_COUNT, JOURNEY_STATUS) VALUES 
-('市區二日遊', 2000, '走走吃吃', 0, 0, 1, 0, 0),
+('市區二日遊', 2000, '走走吃吃', 0, 0, 2, 0, 0),
 ('台北三天兩夜美食旅', 15000, '爽吃', 4.1, 6, 3, 10, 1),
-('療育悠閒四日遊', 25000, '慢活行程', 4.7, 8, 1, 22, 1);
+('療育悠閒四日遊', 25000, '慢活行程', 4.7, 8, 4, 22, 1),
+('市區二日遊2', 3000, '走走吃吃2', 3, 44, 2, 55, 1);
 
 
 -- 行程-時間地點 (關係) -- 
@@ -323,7 +326,14 @@ INSERT INTO JOURNEY_DETAIL (JOURNEY_ID, FOODSCAPE_ID, START_TIME, END_TIME, NTH_
 (23002, 22007, '15:00:00', '17:00:00', 3),
 (23002, 22002, '12:00:00', '14:00:00', 1),
 (23002, 22022, '18:00:00', '21:00:00', 2),
-(23002, 22015, '12:00:00', '14:00:00', 3);
+(23002, 22015, '12:00:00', '14:00:00', 3),
+(23004, 22001, '10:00:00', '12:00:00', 1),
+(23004, 22004, '13:00:00', '16:00:00', 1),
+(23004, 22008, '16:30:00', '17:00:00', 1),
+(23004, 22011, '06:00:00', '08:00:00', 2),
+(23004, 22012, '09:00:00', '11:00:00', 2),
+(23004, 22015, '14:00:00', '16:00:00', 2),
+(23004, 22013, '17:00:00', '18:00:00', 2);
 
 
 -- 旅行團 --

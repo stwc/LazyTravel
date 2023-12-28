@@ -148,7 +148,7 @@
 	TourGroup tourGroup = (TourGroup) request.getAttribute("tourGroup");
 
 	JourneyService journeySvc = new JourneyServiceImpl();
-	List<Journey> journeyList = journeySvc.getAll();
+	List<Journey> journeyList = journeySvc.getAllByStatusIsMarketed();
 	pageContext.setAttribute("journey", journeyList);
 %>
 

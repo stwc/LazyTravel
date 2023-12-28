@@ -2,6 +2,7 @@ package com.lazytravel.customerservice.dao;
 
 import java.util.List;
 
+import com.lazytravel.customerservice.entity.CSMail;
 import com.lazytravel.customerservice.entity.CSMessage;
 
 
@@ -13,14 +14,10 @@ public Integer add(CSMessage message); //新增
 	public CSMessage getByPK(Integer messageId); //查詢
 	
 	public List<CSMessage>getAll(); //找全部
+	
+	public List<CSMessage> findByCustomerId(Integer customerId);
+	
+	public List<CSMessage> getCSMessageByMailId(Integer mailId);
+	
 
-//    void add(CSMessage csMessage);
-//
-//    void update(CSMessage csMessage);
-//
-//    void delete(Integer messageId);
-//
-//    CSMessage findByPK(Integer messageId);
-//
-//    List<CSMessage> getAll();
 }

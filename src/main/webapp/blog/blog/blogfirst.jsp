@@ -4,6 +4,7 @@
 	<%@ page import="com.lazytravel.blog.entity.*"%>
 	<%@ page import="com.lazytravel.blog.dao.*"%>
 	<%@ page import="com.lazytravel.blog.service.*"%>
+	<%@ page import="com.lazytravel.customer.entity.*"%>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 	<%@ page import="java.util.Set"%>
@@ -13,6 +14,8 @@
 	BlogService blogSvc = new BlogServiceImpl();
 	List<Blog> list = blogSvc.getAllBlogs();
 	pageContext.setAttribute("list", list);
+	Customer customer = (Customer)session.getAttribute("customer");
+    Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 // 	 Blog blog = (Blog) session.getAttribute("blog");
 // 	String img = request.getContextPath() + "/blog/blog/BlogImageReader?id=" + blog.getBlogId();
 	
@@ -100,9 +103,10 @@
 				<div class="container">
 	    <div class="row" >
 	        <c:forEach var="blog" items="${list}">
+	        <c:if test="${blog.blogStatus ne 0}">
 	            <div class="col-md-4">
 	                <div class="card" style="width: 22rem;height: 450px; margin: 10px;">
-	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 100%; height: 50%;" />
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 351px; height: 200px;" />
 	                    <div class="card-body p">
 	                        <h5 class="card-title">${blog.title}</h5>
 	                        <div class="d-inline-flex">
@@ -119,27 +123,31 @@
 	                                <p>${blog.customer.customerName}</p>
 	                            </div>
 	                            <div class="col-md-5 p-0">
-	                            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?customerId=${blog.customer.customerId}" style=" width: 50%; height: 50%; "alt="${blog.customer.customerName}" />
+	                            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?id=${blog.customer.customerId}" style=" width: 50%; height: 50%; "alt="${blog.customer.customerName}" />
 	                            </div>
 	                            <div class="col-md-4 d-inline-flex align-items-center">
 	                                <img src="../../static/blogimages/按讚.svg" class="thumds" alt="讚" />
 	                                <p class="m-1 p-1">${blog.likeSum}</p>
-	                                <img src="../../static/blogimages/UN收藏.svg" class="thumds m-0" alt="收藏" />
+	                                
+	                                <button  type="button"  class="blogClSubmit" data-blogid="${blog.blogId}"   style="border:none;background:none;padding:0;">
+	                                <img src="../../static/blogimages/UN收藏.svg"    class="thumds m-0 blogCl" alt="收藏" />
+	                                <input type="hidden" id="blogId" value="${blog.blogId}"   />
+	                                </button>
+	                                
 	                                <p class="m-1 p-1">${blog.clSum}</p>
-	                                <img src="../../static/blogimages/瀏覽數.svg " class="thumds" alt="view" />
+	                                <img src="../../static/blogimages/瀏覽數.svg " class="thumds" alt="view"  />
 	                                <p class="m-1 p-1">${blog.viewSum}</p>
-	                                <!-- <input type="hidden" name="blogId" value="${blog.blogId}">
-	                                <input type="hidden" name="action" value="getOne_For_Update"> -->
 	                            </div>
 	                        </div>
 	                        <form class=" row d-flex justify-content-end" METHOD="post" ACTION="blog.do" style="margin-bottom: 0px;">
-	                        <input type="hidden" name="blogId" value="${blog.blogId}">
+	                        <input type="hidden"  name="blogId" value="${blog.blogId}">
 	                        <input type="hidden" name="action" value="getOne_For_Display">
  						   <input type="submit"  value="看更多" class="btn btn-primary m-1 p-1" style="background: #9C6644;border-color: transparent;color: white;width: 100px;height: 30px">
 	                    </form>
 	                    		</div>
 	                </div>
 	            </div>
+	             </c:if>
 	        </c:forEach>
 	    </div>
 	</div>
@@ -177,15 +185,105 @@
 				$("#footer").load("../../components/html/footer.jsp");
 			});
 			
-			// JavaScript 函數，用來處理點擊事件
-	        function redirectToNextPage(blogId) {
-	            // 使用 JavaScript 的 window.location.href 進行頁面跳轉
-	            window.location.href = '<%=request.getContextPath()%>/blog/blog/blog.do?blogId=' + blogId;
-	        }
-			function toMyBlog(){
-				window.location.href = "myblog.jsp";
+			<!-- JavaScript 函數，用來處理點擊事件 -->
+			function redirectToNextPage(blogId) {
+			    // 使用 JavaScript 的 window.location.href 進行頁面跳轉
+			    window.location.href = '<%=request.getContextPath()%>/blog/blog/blog.do?blogId=' + blogId;
 			}
-	     
+
+			function toMyBlog() {
+			    // 導向至 "myblog.jsp" 頁面
+			    window.location.href = "myblog.jsp";
+			}
+
+			$(document).ready(function () {
+			    $('.blogClSubmit').click(function () {
+			    	var customerId = parseInt("<%= customerId %>", 10);
+				
+			        // 檢查用戶是否已登入
+			        if (customerId === 0 || customerId === "") {
+			            alert("請先登入才能收藏。");
+			            console.log(customerId);
+			        } else {
+			            // 使用 AJAX 將收藏的資訊傳送到後端
+			            var dataToSend = {
+			                "action" : "toggleFavorite",
+			                blogId: $(this).data('blogid'),
+			                customerId: customerId
+			            };
+
+			            $.ajax({
+			                type: "POST",
+			                url: "<%=request.getContextPath()%>/blog/blog/blog.do",
+			                data: JSON.stringify(dataToSend),
+			                contentType: "application/json; charset=utf-8",
+			                dataType: "type",
+			                success: function (response) {
+			                	if (response.result === 'success') {
+			                        // 處理成功的邏輯
+			                        console.log('成功：', response);
+			                    } else {
+			                        // 處理失敗的邏輯
+			                        console.error('錯誤：', response.error);
+			                    }
+			                },
+// 			                error: function (xhr, s, error) {
+// 			                    alert(xhr.status);
+// 			                    alert(xhr.readyState);
+// 			                }
+			            });
+			        }
+			    });
+			});
+
+// 			function toggleFavorite(blogId) {
+// 			    // 在此處檢查用戶是否已登入，您可以使用您的登入邏輯
+// 			    // 如果已登入，則使用 AJAX 將 BlogId 傳送到後端
+// 			    // 以下是簡單的範例
+// 			    var isLoggedIn = true; // 這裡使用一個示範變數，實際上需要根據您的登入邏輯進行檢查
+
+// 			    if (isLoggedIn) {
+// 			        // 使用 AJAX 將 BlogId 傳送到後端
+// 			        $.ajax({
+// 			            type: "POST",
+<%-- 			            url: "<%=request.getContextPath()%>/blog/blog/blog.do", --%>
+// 			            data: { blogId: blogId },
+// 			            success: function (response) {
+// 			                // 在這裡處理後端的回應，例如更新 UI 顯示為已收藏
+// 			                alert("文章已收藏！");
+// 			            },
+// 			            error: function () {
+// 			                alert("收藏失敗，請稍後再試。");
+// 			            }
+// 			        });
+// 			    } else {
+// 			        // 用戶未登入，可以導向登入頁面或顯示提示
+// 			        alert("請先登入後再收藏。");
+// 			    }
+// 			}
+// 			document.addEventListener('click', function(event) {
+// 		        if (event.target.classList.contains('blogCl')) {
+// 		            // 確保點擊的是收藏按鈕
+// 		            var blogId = event.target.dataset.blogid;
+<%-- 		            var customerId = '<%= customer.getCustomerId() %>';// 你的會員ID --%>
+
+// 		            // 使用Fetch API發送POST請求
+// 		            fetch('/BlogClServlet', {
+// 		                method: 'POST',
+// 		                headers: {
+// 		                    'Content-Type': 'text/plain',
+// 		                },
+// 		                body: 'customerId=' + customerId + '&blogId=' + blogId,
+// 		            })
+// 		            .then(response => response.text())
+// 		            .then(data => {
+// 		                console.log(data); // 處理伺服器回應
+// 		            })
+// 		            .catch(error => {
+// 		                console.error('Error:', error);
+// 		            });
+// 		        }
+// 		    });
 		</script>
 	
 	</body>

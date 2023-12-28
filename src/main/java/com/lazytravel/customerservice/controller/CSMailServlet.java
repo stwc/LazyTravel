@@ -1,10 +1,9 @@
 package com.lazytravel.customerservice.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,9 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customerservice.entity.CSMail;
+import com.lazytravel.customerservice.entity.CSMessage;
 import com.lazytravel.customerservice.service.CSMailService;
 import com.lazytravel.customerservice.service.CSMailServiceImpl;
 
@@ -163,36 +164,27 @@ public class CSMailServlet extends HttpServlet {
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		// -------------------1.---------------------------------//
-		Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
-		String title = String.valueOf(req.getParameter("title"));
-		String csmailStatus = String.valueOf(req.getParameter("csmail_status"));
+		HttpSession session = req.getSession();
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		String title = String.valueOf(req.getParameter("mailTitle"));
+		String mailContent = String.valueOf(req.getParameter("mailContent"));
 
-		Timestamp lastMsgTime = null;
-		try {
-			lastMsgTime = java.sql.Timestamp.valueOf(req.getParameter("upDateTime").trim());
-		} catch (Exception e) {
-			lastMsgTime = new java.sql.Timestamp(System.currentTimeMillis());
-			errorMsgs.add("最後訊息時間");
-		}
-
-		Timestamp createTime = null;
-		try {
-			createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
-		} catch (Exception e) {
-			createTime = new java.sql.Timestamp(System.currentTimeMillis());
-			errorMsgs.add("建立時間");
-		}
+		Timestamp righNow = java.sql.Timestamp.from(Instant.now());
 
 		// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
 		CSMail csMail = new CSMail();
 		csMail.setTitle(title);
-		csMail.setCreateTime(createTime);
-		csMail.setLastMsgTime(lastMsgTime);
-		csMail.setCsMailStatus(csmailStatus);
-
-		Customer customer = new Customer();
-		customer.setCustomerId(customerId);
 		csMail.setCustomer(customer);
+		csMail.setCreateTime(righNow);
+		csMail.setLastMsgTime(righNow);
+		csMail.setCsMailStatus(String.valueOf(0));
+		
+		CSMessage csMessage = new CSMessage();
+		csMessage.setContent(mailContent);
+		csMessage.setCreateTime(righNow);
+		if (customer != null) 
+			csMessage.setMessageFrom(String.valueOf(0));
 
 		// -------------------2.---------------------------------//
 		if (!errorMsgs.isEmpty()) {
@@ -201,7 +193,7 @@ public class CSMailServlet extends HttpServlet {
 		}
 		// -------------------3.---------------------------------//
 		// 新增資料
-		csMailService.addCSMail(csMail);
+		csMailService.addCSMail(csMail, csMessage);
 
 		return "/customerService/listAllCSMail.jsp";
 	}

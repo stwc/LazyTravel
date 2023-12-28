@@ -3,7 +3,7 @@ package com.lazytravel.customer.controller;
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
-import com.lazytravel.customer.util.AuthCodeUtil;
+import com.lazytravel.customer.util.Utils;
 import com.lazytravel.customer.util.AuthStatus;
 import com.lazytravel.customer.util.CustomerStatus;
 
@@ -43,7 +43,7 @@ public class RegisterAuthHandler extends HttpServlet {
                 customer = customerService.getOneCustomer(customerId);
             }
 
-            customerService.sendRegisterMail(customer, AuthCodeUtil.getPath(req, "/customer/register-auth.do"));
+            customerService.sendRegisterMail(customer, Utils.getPath(req, "/customer/register-auth.do"));
             req.setAttribute("hideResend", true);
             forwardPath = "/customer/register-auth.jsp";
         } else {

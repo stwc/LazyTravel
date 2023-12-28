@@ -209,6 +209,8 @@ public class JourneyServlet extends HttpServlet {
 					FoodScape foodScape = foodScapeSvc.getFoodScapeByFoodScapeId(foodScapeId);
 					if(foodScape == null) {
 						errorMsgs.add("第" + index + "筆 行程細項: 查無此美食景點ID");
+					} else if((foodScape.getFoodScapeStatus()).equals("0")) {
+						errorMsgs.add("第" + index + "筆 行程細項: 此美食景點ID尚未上架");
 					}
 			        
 			    } catch (NumberFormatException e) {

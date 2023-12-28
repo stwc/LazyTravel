@@ -2,9 +2,12 @@ package com.lazytravel.blog.service;
 
 import java.util.List;
 
+import javax.swing.undo.AbstractUndoableEdit;
+
 import com.lazytravel.blog.dao.BlogClDAO;
 import com.lazytravel.blog.dao.BlogClDAOImpl;
 import com.lazytravel.blog.entity.BlogCl;
+import com.lazytravel.blog.entity.BlogLike;
 
 public class BlogClServiceImpl implements BlogClService {
 
@@ -35,5 +38,29 @@ public class BlogClServiceImpl implements BlogClService {
 	public List<BlogCl> getAllBlogCls() {
 		return dao.getAll();
 	}
+
+	@Override
+	public String isBlogCl(Integer customerId,Integer blogId) {
+		return dao.isBlogCl(customerId,blogId);
+	}
+
+	@Override
+	public void addFavoriteCl(Integer customerId, Integer blogId) {
+		dao.addFavoriteCl(customerId, blogId);
+		
+	}
+
+	@Override
+	public void unFavoriteCl(Integer customerId, Integer blogId) {
+		dao.unFavoriteCl(customerId, blogId);
+		
+	}
+
+	@Override
+	public void updateFavoriteCl(Integer customerId, Integer blogId) {
+		dao.updateFavoriteCl(customerId, blogId);
+		
+	}
+
 
 }

@@ -3,7 +3,7 @@ package com.lazytravel.customer.service;
 import com.lazytravel.customer.dao.CustomerDAO;
 import com.lazytravel.customer.dao.CustomerDAOImpl;
 import com.lazytravel.customer.entity.Customer;
-import com.lazytravel.customer.util.AuthCodeUtil;
+import com.lazytravel.customer.util.Utils;
 import com.lazytravel.customer.util.AuthStatus;
 import com.lazytravel.util.JedisPoolUtil;
 import com.password4j.Hash;
@@ -81,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void sendRegisterMail(Customer customer, String path) {
         String customerId = String.valueOf(customer.getCustomerId());
-        String authCode = AuthCodeUtil.generateAuthCode();
+        String authCode = Utils.generateAuthCode();
         System.out.println("Auth code is: " + authCode);
 
         Jedis jedis = pool.getResource();
@@ -119,7 +119,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void sendForgotPwMail(Customer customer, String path) {
         String customerId = String.valueOf(customer.getCustomerId());
-        String authCode = AuthCodeUtil.generateAuthCode();
+        String authCode = Utils.generateAuthCode();
         System.out.println("Auth code is: " + authCode);
 
         Jedis jedis = pool.getResource();
