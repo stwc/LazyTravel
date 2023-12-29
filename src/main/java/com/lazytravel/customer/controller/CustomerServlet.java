@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.lazytravel.customer.service.CustomerService;
 import com.lazytravel.customer.service.CustomerServiceImpl;
 import com.lazytravel.customer.entity.Customer;
-import com.lazytravel.customer.util.AuthCodeUtil;
+import com.lazytravel.customer.util.Utils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -190,7 +190,7 @@ public class CustomerServlet extends HttpServlet {
             req.setAttribute("emailNotExists", true);
             return "/customer/forgotpw.jsp";
         } else {
-            customerService.sendForgotPwMail(customer, AuthCodeUtil.getPath(req, "/customer/resetpw.jsp"));
+            customerService.sendForgotPwMail(customer, Utils.getPath(req, "/customer/resetpw.jsp"));
             req.setAttribute("hideResetPw", true);
             return "/customer/resetpw.jsp";
         }

@@ -185,7 +185,8 @@ public class BlogClServlet extends HttpServlet{
 
 	        return "/blog/blogcl/listAllBlogCl.jsp";
 	    }
-//	    private String onFavorite(HttpServletRequest req, HttpServletResponse res) {
+
+	    private String onFavorite(HttpServletRequest req, HttpServletResponse res) {
 //	    	Integer customerId =Integer.valueOf(req.getParameter("customerId"));
 //	    	Integer blogId = Integer.valueOf(req.getParameter("blogId"));
 //	    	
@@ -197,7 +198,7 @@ public class BlogClServlet extends HttpServlet{
 //	            // 如果未收藏，執行收藏
 //	        	blogClService.addFavoriteCl(customerId, blogId);
 //	        }
-//			return "1";
-//	    }
+			  return "1";
+	    }
 }
 

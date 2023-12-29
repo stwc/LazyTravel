@@ -62,6 +62,11 @@ public class TourGroupServiceImpl implements TourGroupService {
         
 		return dao.getByTime(query);
 	}
+	
+	@Override
+	public List<TourGroup> getByJourneyId(Integer journeyId){
+		return dao.findByFK(journeyId);
+	}
 
 	
 

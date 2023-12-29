@@ -1,4 +1,36 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="com.lazytravel.customerservice.entity.*"%>
+<%@ page import="com.lazytravel.customerservice.dao.*"%>
+<%@ page import="com.lazytravel.customerservice.service.*"%>
+<%@ page import="com.lazytravel.customer.entity.Customer"%>
+<%@page import="com.lazytravel.customerservice.entity.CSMail"%>
+
+<%
+CSMailService CSMailSvc = new CSMailServiceImpl();
+List<CSMail>  list = null;
+
+Customer customer = (Customer) session.getAttribute("customer");
+
+if (customer != null) {
+    list = CSMailSvc.getCSMailByCustomerId((Integer)customer.getCustomerId());
+} else {
+    // 如果會員未登入，導向登入頁面
+    response.sendRedirect(request.getContextPath() + "/customer/login.jsp");
+    return;
+}
+pageContext.setAttribute("list", list);
+// CSMail csMail = (CSMail) session.getAttribute("csMail");
+// session.setAttribute("csMailId", csMail.getMailId());
+%>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,32 +49,41 @@
 
     <div class="container py-5">
         <h2 class="text-center mb-4">客服信箱</h2>
+ 
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">編號</th>
+                        <th scope="col">信件編號</th>
                         <th scope="col">發送日期</th>
                         <th scope="col">發送時間</th>
                         <th scope="col">信件標題</th>
-                        <th scope="col">信件狀態</th>
+                        <th scope="col">內文</th>
+                        
                         <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
+                   <c:forEach var="csMail" items="${list}">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>2023-12-21</td>
-                        <td>09:30 AM</td>
-                        <td>標題內容。</td>
-                        <td>1</td>
-                        <td><a href="#" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">查看詳情</a></td>
+                        <td>${csMail.getMailId()}</td>
+				        <td>${csMail.createTime}</td>
+				       <td>${csMail.lastMsgTime}</td>
+				      <td>${csMail.getTitle()}</td>
+				      <td>${csMessage.content}</td>
+                        <td><a href="${pageContext.request.contextPath}/customerService/frontMailContent.jsp?mailId=${csMail.getMailId()}" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">查看詳情</a>
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/customerService/CSMessage.do" style="margin-bottom: 0px;">
+					 <input type="submit" value="查看詳情">
+					 <input type="hidden" name="messageId"  value="${csMail.getMailId()}">
+					 <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+					 </td>
                     </tr>
+                   </c:forEach>
                     <!-- 可以添加更多類似上面結構的表格行 -->
                 </tbody>
             </table>
              <div class="text-center mt-4">
-                <a href="#" class="btn btn-secondary" style="background-color: #6B705C">新增訊息</a>
+                <a href="#" class="btn btn-secondary" onclick="toMyAdd()" style="background-color: #6B705C">回覆</a>
             </div>
         </div>
     </div>
@@ -58,6 +99,10 @@
             $("#header").load("../components/html/header.html");
             $("#footer").load("../components/html/footer.html");
         });
+        
+        function toMyAdd(){
+			window.location.href = "frontContent.jsp";
+		}
     </script>
 </body>
 

@@ -161,19 +161,14 @@ public class CSMessageServlet extends HttpServlet {
 		String content = String.valueOf(req.getParameter("content"));
 		String messagefrom = String.valueOf(req.getParameter("message_from"));
 
-		Timestamp createTime = null;
-		try {
-			createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
-		} catch (Exception e) {
-			createTime = new java.sql.Timestamp(System.currentTimeMillis());
-			errorMsgs.add("發送時間");
-		}
+		Timestamp createDate = java.sql.Timestamp.valueOf(req.getParameter("createDate").trim());
+		
 
 		// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
 		CSMessage csMessage = new CSMessage();
 		csMessage.setContent(content);
 		csMessage.setMessageFrom(messagefrom);
-		csMessage.setCreateTime(createTime);
+		csMessage.setCreateTime(createDate);
 
 		CSMail csMail = new CSMail();
 		csMail.setMailId(mailId);
@@ -188,6 +183,6 @@ public class CSMessageServlet extends HttpServlet {
 		// 新增資料
 		csMessageService.addCSMessage(csMessage);
 
-		return "/customerService/listAllCSMessage.jsp";
+		return "/customerService/frontMailContent.jsp";
 	}
 }

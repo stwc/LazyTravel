@@ -5,8 +5,6 @@
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 
-<%@ include file="/admin/header.html" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +13,6 @@
 <title>後臺-旅行團(查詢)</title>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
-<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
 <link rel="icon" href="${pageContext.request.contextPath}/static/images/logo.ico" type="image/x-icon" />
 
 <style>
@@ -97,7 +94,8 @@
 
 </head>
   <body>
-    <div id="header"></div>
+<!--     <div id="header"></div> -->
+	<%@ include file="/admin/header.jsp" %>
 
     <div id="main" class="p-3">
       <h3 class="mx-3 mb-5">

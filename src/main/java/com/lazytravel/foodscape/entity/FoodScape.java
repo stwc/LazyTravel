@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,11 +31,11 @@ public class FoodScape  {
 	@Column(name = "FOODSCAPE_ID",updatable = false)	
 	private Integer foodScapeId;
 	
-	@OneToMany(mappedBy = "foodScapeId", cascade = CascadeType.ALL)
-	private Set<OpenTime> opentimes;
+//	@OneToMany(mappedBy = "foodScapeId", cascade = CascadeType.ALL)
+//	private Set<OpenTime> opentimes;
 	
-	@OneToMany(mappedBy = "foodScapeId", cascade = CascadeType.ALL)
-	private Set<FoodScapeImg> foodscapeimgs;
+//	@OneToMany(mappedBy = "foodScapeId", cascade = CascadeType.ALL)
+//	private Set<FoodScapeImg> foodscapeimgs;
 	
 	@Column(name="FOODSCAPE_NAME")
 	private String foodScapeName;
@@ -64,17 +65,17 @@ public class FoodScape  {
 	@Column(name="FOODSCAPE_STATUS",columnDefinition = "char")
 	private String foodScapeStatus;
 	
-	@Column(name="CATEGORY")
+	@Column(name="CATEGORY",columnDefinition ="varchar")
 	private String category;
 	
-	@ManyToMany
-	@JoinTable(
-				name = "foodscape_tag",
-				joinColumns = { @JoinColumn(name = "FOODSCAPE_ID", referencedColumnName = "FOODSCAPE_ID")},
-				inverseJoinColumns = { @JoinColumn(name = "TAG_ID", referencedColumnName = "TAG_ID")}
-			)
-	private Set<Tag> tags;
-	
+//	@ManyToMany
+//	@JoinTable(
+//				name = "foodscape_tag",
+//				joinColumns = { @JoinColumn(name = "FOODSCAPE_ID", referencedColumnName = "FOODSCAPE_ID")},
+//				inverseJoinColumns = { @JoinColumn(name = "TAG_ID", referencedColumnName = "TAG_ID")}
+//			)
+//	private Set<Tag> tags;
+
 //	@ManyToMany
 //	@JoinTable(
 //				name = "foodscape_blog",
@@ -82,6 +83,9 @@ public class FoodScape  {
 //				inverseJoinColumns = { @JoinColumn(name = "BLOG_ID", referencedColumnName = "BLOG_ID")}
 //			)
 //	private Set<Blog> blogs;
+	
+    @Transient
+    private Integer nthDay;    // 用於JourneyDetailServiceImpl.java
 	
 public  FoodScape() {
 	super();
@@ -105,6 +109,22 @@ public FoodScape(Integer foodScapeId, String foodScapeName, String phone, String
 
 
 
+
+public FoodScape(Integer nthDay, String foodScapeName, String address) {
+	super();
+	this.nthDay = nthDay;
+	this.foodScapeName = foodScapeName;
+	this.address = address;
+}
+
+public Integer getNthDay() {
+	return nthDay;
+}
+
+public void setNthDay(Integer nthDay) {
+	this.nthDay = nthDay;
+}
+
 public Integer getFoodScapeId() {
 	return foodScapeId;
 }
@@ -114,21 +134,21 @@ public void setFoodScapeId(Integer foodScapeId) {
 	this.foodScapeId = foodScapeId;
 }
 
-public Set<OpenTime> getOpenTimes(){
-	return opentimes;
-}
+//public Set<OpenTime> getOpenTimes(){
+//	return opentimes;
+//}
+//
+//public void setOpenTimes(Set<OpenTime> opentimes) {
+//	this.opentimes = opentimes;
+//}
 
-public void setOpenTimes(Set<OpenTime> opentimes) {
-	this.opentimes = opentimes;
-}
-
-public Set<FoodScapeImg> getFoodScapeImgs(){
-	return foodscapeimgs;
-}
-
-public void setFoodScapeImgs(Set<FoodScapeImg> foodscapeimgs) {
-	this.foodscapeimgs = foodscapeimgs;
-}
+//public Set<FoodScapeImg> getFoodScapeImgs(){
+//	return foodscapeimgs;
+//}
+//
+//public void setFoodScapeImgs(Set<FoodScapeImg> foodscapeimgs) {
+//	this.foodscapeimgs = foodscapeimgs;
+//}
 
 public String getFoodScapeName() {
 	return foodScapeName;
@@ -229,12 +249,12 @@ public void setCategory(String category) {
 	this.category = category;
 }
 
-public Set<Tag> getTags() {
-	return tags;
-}
-public void setMembers(Set<Tag> tags) {
-	this.tags = tags;
-}
+//public Set<Tag> getTags() {
+//	return tags;
+//}
+//public void setMembers(Set<Tag> tags) {
+//	this.tags = tags;
+//}
 
 @Override
 public String toString() {
@@ -247,6 +267,8 @@ public static FoodScape valueOf(String parameter) {
 
 	return null;
 }
+
+
 	
 
 }

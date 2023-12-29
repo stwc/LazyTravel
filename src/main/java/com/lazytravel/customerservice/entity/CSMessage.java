@@ -3,6 +3,7 @@ package com.lazytravel.customerservice.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,25 +11,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "CS_MESSAGE")
 public class CSMessage{
 	
+	
+	public CSMessage() {}
+	
+	public CSMessage(Integer messageId, String content, Timestamp createTime, String messageFrom) {
+		super();
+		this.messageId = messageId;
+		this.content = content;
+		this.createTime = createTime;
+		this.messageFrom = messageFrom;
+	}
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name ="MESSAGE_ID")
     private Integer messageId;
     
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	@JoinColumn(name="MAIL_ID",referencedColumnName = "MAIL_ID")
 	private CSMail csMail;
 	
 	
-	
-	@Column(name="CONTENT",columnDefinition = "LONGTEXT")
+	@Lob
+	@Column(name="CONTENT")
 	private String content;
     
 	@Column(name="CREATE_TIME")
@@ -37,9 +52,25 @@ public class CSMessage{
 	@Column(name="MESSAGE_FROM",columnDefinition = "CHAR")
 	private String messageFrom;
 
-    public CSMessage() {
-    }
-    public Integer getMessageId() {
+	
+	
+	@Transient
+	private String createTimeFormate;
+	
+	@Transient
+	private Integer customerId;
+	
+	
+
+    public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
+
+	public Integer getMessageId() {
         return messageId;
     }
     
@@ -75,5 +106,16 @@ public class CSMessage{
 		return "CSMessage [messageId=" + messageId + ", csMail=" + csMail + ", content=" + content + ", createTime="
 				+ createTime + ", messageFrom=" + messageFrom + "]";
 	}
+
+	public String getCreateTimeFormate() {
+		return createTimeFormate;
+	}
+
+	public void setCreateTimeFormate(String createTimeFormate) {
+		this.createTimeFormate = createTimeFormate;
+	}
+	
+	
+	
 	
 	}

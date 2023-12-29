@@ -66,8 +66,8 @@
     <div class="col-12 mb-3">
       <label for="inputPassword2" class="form-label">確認新密碼</label>
       <input type="password" class="form-control" id="inputPassword2" placeholder="請再次輸入密碼"
-             aria-describedby="passwordHelp2">
-      <div class="valid-feedback validationPassword2">
+             aria-describedby="passwordHelp2 validationPassword2">
+      <div class="valid-feedback">
         兩次輸入的密碼相符
       </div>
       <div id="validationPassword2" class="invalid-feedback">

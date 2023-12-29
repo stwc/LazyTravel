@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%@ include file="/components/html/header.jsp" %>
+<%@page import="java.util.List"%>
+<%@page import="com.lazytravel.journey.dao.*"%>
+<%@page import="com.lazytravel.journey.entity.*"%>
+<%@page import="com.lazytravel.customer.entity.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,8 +12,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>購物車</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="icon" href="${pageContext.request.contextPath}/static/images/logo.ico" type="image/x-icon">
+
+
 <style>
 	* {
 		box-sizing: border-box;
@@ -138,12 +142,12 @@
     }
 </style>
 
-
 </head>
 <body>
 
 <!--     <header id="header"></header> -->
-
+	<%@ include file="/components/html/header.jsp" %>
+	
     <main id="main">
         <div class="cart_title">購物車</div>
 		
@@ -174,14 +178,14 @@
 						</td>
 						
 						<td class="col-2 amount">
-							<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
-							    <button class="amount_reduce" onclick="reduce(this)"><b>-</b></button>
-								<span class="count mx-3">${shoppingCartList[loop.index].quantity}</span>	
-							    <button class="amount_plus"  onclick="plus(this)"><b>+</b></button>
+							<form method="post" id="form_quantity_${loop.index}" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do">
+							    <button class="amount_reduce" onclick="reduce(this, ${loop.index}, event)"><b>-</b></button>
+								<span class="count_${loop.index} mx-3">${shoppingCartList[loop.index].quantity}</span>	
+							    <button class="amount_plus"  onclick="plus(this, ${loop.index}, event)"><b>+</b></button>
 							    <input type="hidden" name="action" value="shoppingCart_update" />
-							    <input type="hidden" name="${loop.index}" value="${loop.index}" />
-<%-- 							    <input type="hidden" name="groupId_${loop.index}" value="${shoppingCartList[loop.index].groupId}" /> --%>
-<%-- 							    <input type="hidden" id="quantityChange" name="quantityChange_${loop.index}" value="" /> --%>
+							    <input type="hidden" name="loopIndex" value="${loop.index}" />
+							    <input type="hidden" name="groupId_${loop.index}" value="${shoppingCartList[loop.index].groupId}" />
+							    <input type="hidden" id="quantityChange_${loop.index}" name="quantityChange_${loop.index}" value="" />
 							</form>
 						</td>
 						
@@ -192,18 +196,22 @@
 						<td class="col-2 signData">
 							<span>${(tourGroup.signupNum < tourGroup.minRequired)?  "未成團" : "已成團"}</span>
 							<span>&nbsp;/&nbsp;</span>
-							<span>剩餘名額 ${(tourGroup.signupNum < tourGroup.minRequired) ? "" : (tourGroup.maxRequired - tourGroup.signupNum)} 名</span>
+							<span>剩餘名額 ${tourGroup.maxRequired - tourGroup.signupNum} 名</span>
 						</td>
 						
 						<td class="col-3 div_btn">
-							<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
+							<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do">
 							    <button type="submit" class="btn_submit">結帳</button>
 							    <input type="hidden" name="action" value="shoppingCart_order" />
+							    <input type="hidden" name="loopIndex" value="${loop.index}" />
+							    <input type="hidden" name="groupId_${loop.index}" value="${shoppingCartList[loop.index].groupId}" />
 							</form>
 							
-							<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
-							    <button type="button" class="btn_delete" onclick="deleteJourney(this)">刪除</button>
+							<form method="post" id="form_delete_${loop.index}" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do">
+							    <button type="button" class="btn_delete" onclick="deleteJourney(this, ${loop.index})">刪除</button>
 							    <input type="hidden" name="action" value="shoppingCart_delete" />
+							    <input type="hidden" name="loopIndex" value="${loop.index}" />
+							    <input type="hidden" name="groupId_${loop.index}" value="${shoppingCartList[loop.index].groupId}" />
 							</form>
 							
 						</td>	
@@ -211,7 +219,16 @@
 				</c:forEach>
 				
 				
-				<!-- 若購物車中無資料時，可維持表格寬高 -->
+				<!-- 若購物車中無資料時，顯示訊息，並維持表格寬高 -->
+				<c:if test="${empty tourGroupList}">
+				    <tr>
+				        <td colspan="6" style="text-align: center; padding-top: 50px; font-size: 20px; font-weight: 600; color: #CB997E;">您沒有收藏行程唷，趕快去逛逛吧~~</td>
+				    </tr>
+				    <tr>
+				        <td colspan="6" style="text-align: center; padding-top: 30px; font-size: 20px; font-weight: 600; color: #CB997E;">溫馨提示: 建議您不用收藏，直接下單唷^_^</td>
+				    </tr>
+				</c:if>
+				
 				<tr>
 					<td class="col-3 name_and_date">
 						<span style="visibility: hidden;">陽明山一日遊111</span>
@@ -240,7 +257,6 @@
 					</td>
 				</tr>
 				
-				
 	        </tbody>
 		</table>
 	
@@ -249,8 +265,6 @@
 	    	<button type="button" onclick="redirectToHome()">繼續逛逛</button>
 	    </div>
 
-	
-	
     </main>
     
 	<%@ include file="/components/html/footer.jsp" %>
@@ -259,64 +273,55 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
  		$(function () {
 // 	        $("#header").load("../components/html/header.jsp");
 // 	        $("#footer").load("../components/html/footer.jsp");
         });
 
- 		var loopIndexValue = 0;
-        function reduce(button) {
-            var label = button.parentNode.querySelector(".count");
+ 		function reduce(button, index, event) {
+        	var countClass = "count_" + index;
+        	var label = button.parentNode.querySelector("." + countClass);
             var value = parseInt(label.innerText);
             if (value > 1) {
                 value--;
                 label.innerText = value;
-                document.getElementById('quantityChange').value = value;
+                document.getElementById("quantityChange_" + index).value = value;
                 
-//                 loopIndexValue = ${loop.index};
-                
-//                 var form = button.closest('form');
-//                 if (form) {
-//                     var inputGroupId = document.createElement("input");
-//                     inputGroupId.setAttribute("type", "hidden");
-//                     inputGroupId.setAttribute("name", "groupId_" + form.getAttribute('data-form-index')); // 使用属性来作为唯一的名称
-//                     inputGroupId.setAttribute("value", "your_group_id_here");
-//                     form.appendChild(inputGroupId);
-
-//                     var inputQuantityChange = document.createElement("input");
-//                     inputQuantityChange.setAttribute("type", "hidden");
-//                     inputQuantityChange.setAttribute("name", "quantityChange_" + form.getAttribute('data-form-index')); // 使用属性来作为唯一的名称
-//                     inputQuantityChange.setAttribute("value", value);
-//                     form.appendChild(inputQuantityChange);  
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                document.getElementById("form_quantity_" + index).submit();
             } else {
-            	alert("數量無法小於1");
-//             	return false;
+            	swal("報名人數", "最少1人", "info");
+            	
+                // 阻止表单提交
+                event.preventDefault();
+                
+            	return false;
             }
         }
         
-        function plus(button) {
-            var label = button.parentNode.querySelector(".count");
+        function plus(button, index, event) {
+        	var countClass = "count_" + index;
+        	var label = button.parentNode.querySelector("." + countClass);
             var value = parseInt(label.innerText);
-            value++;
-            label.innerText = value;
-            document.getElementById('quantityChange').value = value;
+            if (value < 5) {
+                value++;
+                label.innerText = value;
+                document.getElementById("quantityChange_" + index).value = value;
+                
+                document.getElementById("form_quantity_" + index).submit();
+            } else {
+            	swal("報名人數", "最多5人", "info");
+            	
+                // 阻止表单提交
+                event.preventDefault();
+                
+            	return false;
+            }
         }
         
-        function deleteJourney(button) {
+        function deleteJourney(button, index) {
+            document.getElementById("form_delete_" + index).submit();
             var row = button.closest("tr");
             if (row) {
                 row.remove();

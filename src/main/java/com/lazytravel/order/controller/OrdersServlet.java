@@ -82,8 +82,8 @@ public class OrdersServlet extends HttpServlet {
 			break;
 
 		case "insert":
-			forwardPath = insert(req, res);
-			break;
+			insert(req, res);
+			return ;
 
 		
 		case "getJourneyNameByOrderId" :
@@ -317,7 +317,7 @@ public class OrdersServlet extends HttpServlet {
 	
 	}
 
-	private String insert(HttpServletRequest req, HttpServletResponse res) {
+	private void insert(HttpServletRequest req, HttpServletResponse res) {
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
 		
@@ -325,32 +325,39 @@ public class OrdersServlet extends HttpServlet {
 		Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
 		Integer groupId = Integer.valueOf(req.getParameter("group_id"));
 		Integer tourist = Integer.valueOf(req.getParameter("tourist"));
-		Integer customerPoint = Integer.valueOf(req.getParameter("customer_point"));
 		Integer couponId = Integer.valueOf(req.getParameter("coupon_id"));
 		Integer totalAmt = Integer.valueOf(req.getParameter("total_amt"));
 		String orderStatus = String.valueOf(req.getParameter("order_status"));
+		Integer customerPoint = 0;
+		
+
 
 		Orders order = new Orders();
 
 		order.setCustomerId(customerId);
 		order.setGroupId(groupId);
 		order.setTourist(tourist);
-		order.setCustomerPoint(customerPoint);
 		order.setCouponId(couponId);
 		order.setTotalAmt(totalAmt);
 		order.setOrderStatus(orderStatus);
+		order.setCustomerPoint(customerPoint);
 
-		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("order", order);
-			return "/example/addEmp.jsp";
-		}
+		
 
 		ordersService.addOrder(order);
 		
 		String orderNo = order.getOrderNo();
 	    req.setAttribute("orderNo", orderNo);
-		;
-		return "/order/listAllEmp.jsp";
+		
+	    Integer orderId = order.getOrderId();
+	    
+	    try {
+	        PrintWriter out = res.getWriter();
+	        out.print(orderId); // 将orderId写入响应
+	        out.flush();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 
 	}
 	

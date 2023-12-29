@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.journey.dao.ShoppingCartService;
@@ -75,13 +76,111 @@ public class ShoppingCartServlet extends HttpServlet {
 	
 	
 	private String enterToShoppingCart(HttpServletRequest req, HttpServletResponse res) {
-//		Customer customer = (Customer) req.getSession().getAttribute("customer");
-//		String customerId = String.valueOf(customer.getCustomerId()) ;
-		String customerId = "11001";
+		Customer customer = (Customer) req.getSession().getAttribute("customer");
+		String customerId = String.valueOf(customer.getCustomerId()) ;
 		
+		getListAndreturnJsp(req, res, customerId);
+		
+		return "/journey/user/journey_shoppingCart.jsp";		
+	}
+
+	
+	private String addJourneyToShoppingCart(HttpServletRequest req, HttpServletResponse res) {
+		Customer customer = (Customer) req.getSession().getAttribute("customer");
+		String customerId = String.valueOf(customer.getCustomerId()) ;
+
+		String groupId  = req.getParameter("groupId");
+		Integer signupNum = Integer.valueOf(req.getParameter("signupNum"));
+		
+		ShoppingCart shoppingCart = shoppingCartSvc.getOneByCustomerIdAndGroupId(customerId, groupId);
+		if(shoppingCart == null) {
+			ShoppingCart shoppingCartAdd = new ShoppingCart(customerId, groupId, signupNum);
+			shoppingCartSvc.addCart(shoppingCartAdd);
+		} else {
+			Integer quantity = shoppingCart.getQuantity();
+			Integer total = signupNum + quantity;
+			
+			if(total <= 5) {
+				shoppingCart.setQuantity(total);
+				shoppingCartSvc.updateQuantityFromCart(shoppingCart);
+			} else {
+				shoppingCart.setQuantity(5);
+				shoppingCartSvc.updateQuantityFromCart(shoppingCart);
+			}
+		}
+		
+		getListAndreturnJsp(req, res, customerId);
+		
+		return "/journey/user/journey_shoppingCart.jsp";
+	}
+
+	
+	private String updateQuantityFromShoppingCart(HttpServletRequest req, HttpServletResponse res) {
+		Customer customer = (Customer) req.getSession().getAttribute("customer");
+		String customerId = String.valueOf(customer.getCustomerId()) ;
+		
+		Integer index = Integer.valueOf(req.getParameter("loopIndex"));
+		String groupIdName = "groupId_" + index;
+		String quantityChangeName = "quantityChange_" + index;	
+		
+		String groupIdReqGet = req.getParameter(groupIdName);
+		String quantityReqGet = req.getParameter(quantityChangeName);
+		
+		ShoppingCart shoppingCartChange = new ShoppingCart();
+		shoppingCartChange.setCustomerId(customerId);
+		shoppingCartChange.setGroupId(groupIdReqGet);
+		shoppingCartChange.setQuantity(Integer.valueOf(quantityReqGet));
+        shoppingCartSvc.updateQuantityFromCart(shoppingCartChange);
+		
+        getListAndreturnJsp(req, res, customerId);
+        
+		return "/journey/user/journey_shoppingCart.jsp";
+	}
+	
+	
+	private String deleteTourGroupFromShoppingCart(HttpServletRequest req, HttpServletResponse res) {
+		Customer customer = (Customer) req.getSession().getAttribute("customer");
+		String customerId = String.valueOf(customer.getCustomerId()) ;
+		
+		Integer index = Integer.valueOf(req.getParameter("loopIndex"));
+		String groupIdName = "groupId_" + index;
+		String groupIdReqGet = req.getParameter(groupIdName);
+		
+		shoppingCartSvc.deleteCart(customerId, groupIdReqGet);
+		
+		getListAndreturnJsp(req, res, customerId);
+		
+		return "/journey/user/journey_shoppingCart.jsp";
+	}
+
+	
+	private String toOrderPage(HttpServletRequest req, HttpServletResponse res) {
+		Customer customer = (Customer) req.getSession().getAttribute("customer");
+		String customerId = String.valueOf(customer.getCustomerId()) ;
+		
+		Integer index = Integer.valueOf(req.getParameter("loopIndex"));
+		String groupIdName = "groupId_" + index;
+		String groupIdReqGet = req.getParameter(groupIdName);
+		
+		ShoppingCart shoppingCart = shoppingCartSvc.getOneByCustomerIdAndGroupId(customerId, groupIdReqGet);
+		if(shoppingCart != null) {
+			Integer quantity = shoppingCart.getQuantity();
+			shoppingCartSvc.deleteCart(customerId, groupIdReqGet);
+			
+			// 送資料
+			HttpSession session = req.getSession();
+			session.setAttribute("groupId", groupIdReqGet); 
+			session.setAttribute("signupNum", quantity); 
+		}
+
+		return "/order/checkOut.jsp";
+	}
+	
+	
+	private void getListAndreturnJsp(HttpServletRequest req, HttpServletResponse res, String customerId) {
 		Map<String, String> cartData = new HashMap<>();
 		if(customerId != null) {
-			cartData = shoppingCartSvc.getOneByCustomerIdReturnMap(customerId);
+			cartData = shoppingCartSvc.getAllByCustomerIdReturnMap(customerId);
 		}
 		
 		List<ShoppingCart> shoppingCartList = new ArrayList<>();
@@ -103,69 +202,6 @@ public class ShoppingCartServlet extends HttpServlet {
 		
 		req.setAttribute("shoppingCartList", shoppingCartList);
 		req.setAttribute("tourGroupList", tourGroupList);
-		
-		return "/journey/user/journey_shoppingCart.jsp";		
 	}
 
-	private String addJourneyToShoppingCart(HttpServletRequest req, HttpServletResponse res) {
-		return null;
-	}
-
-	private String updateQuantityFromShoppingCart(HttpServletRequest req, HttpServletResponse res) {
-//		Customer customer = (Customer) req.getSession().getAttribute("customer");
-//		String customerId = String.valueOf(customer.getCustomerId()) ;
-		String customerId = "11001";
-		
-		Integer index = Integer.valueOf(req.getParameter("index"));
-		String groupIdName = "groupId_" + index;
-		String quantityChangeName = "quantityChange" + index;	
-		
-//		Integer quantity = Integer.valueOf(req.getParameter("quantityChange"));
-		
-		
-		
-		
-		
-		
-		
-//		shoppingCartSvc.updateQuantityFromCart(shoppingCart);
-		
-		return null;
-	}
-	
-	private String deleteTourGroupFromShoppingCart(HttpServletRequest req, HttpServletResponse res) {
-		return null;
-	}
-
-	private String toOrderPage(HttpServletRequest req, HttpServletResponse res) {
-		return null;
-	}
-
-
-
-
-
-
-
-	
-//        // 取得購物車資訊
-//        String customerId = request.getParameter("customerId"); // 這裡根據實際情況取得用戶 ID
-//        ShoppingCart cart = shoppingCartService.getShoppingCart(customerId); // 從後端服務獲取購物車資訊
-//        request.setAttribute("cart", cart); // 將購物車資訊設定到 request 中
-//        request.getRequestDispatcher("/cart.jsp").forward(request, response); // 轉發到 JSP 頁面顯示購物車
-//
-//        String productId = request.getParameter("productId");
-//        int quantity = Integer.parseInt(request.getParameter("quantity"));
-//        String customerId = request.getParameter("customerId"); // 假設此參數從前端獲取
-//
-//        // 在後端服務處理新增商品到購物車的邏輯，這可能涉及對 Redis 的寫入操作
-//        shoppingCartService.addToCart(customerId, productId, quantity);
-//
-//        // 重新導向到購物車頁面，顯示更新後的資訊
-//        response.sendRedirect(request.getContextPath() + "/cart?customerId=" + customerId);
-	
-	
-	
-	
-	
 }

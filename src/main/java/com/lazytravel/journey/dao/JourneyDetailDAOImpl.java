@@ -97,7 +97,7 @@ public class JourneyDetailDAOImpl implements JourneyDetailDAO {
 		List<JourneyDetail> list = null;
 		try {
 			session.beginTransaction();
-			list = session.createQuery("from JourneyDetail where journeyId = :journeyId", JourneyDetail.class).setParameter("journeyId", journeyId).list();
+			list = session.createQuery("from JourneyDetail where journeyId = :journeyId order by nthDay, startTime, endTime", JourneyDetail.class).setParameter("journeyId", journeyId).list();
 			session.getTransaction().commit();
 			return list;
 		} catch (Exception e) {
@@ -137,31 +137,6 @@ public class JourneyDetailDAOImpl implements JourneyDetailDAO {
 		}
 		return journeyDetailList;
 	}
-	
-	
-	
-//// ------------------------------ 用 main 方法測試 --------------------------------	
-//	public static void main(String[] args) {
-//		JourneyDetailDAO journeyDetailDAO = new JourneyDetailDAOImpl();
-//		
-//		// 新增
-//		
-//		
-//		
-//		
-//		// 修改
-//		
-//		
-//		
-//		// 刪除
-//		
-//		
-//		
-//		
-//		// 查詢一筆
-//		
-//		
-//		
-//	}
+
 	
 }
