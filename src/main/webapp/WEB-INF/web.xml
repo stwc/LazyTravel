@@ -20,7 +20,7 @@
         <url-pattern>/customerCenter/*</url-pattern>
         <url-pattern>/journey/user/journey_shoppingCart.jsp</url-pattern>
         <url-pattern>/journey/user/shoppingCart.do</url-pattern>
-        <url-pattern>/order/*</url-pattern>
+        <url-pattern>/order/checkOut.jsp</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
