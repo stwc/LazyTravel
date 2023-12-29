@@ -1,0 +1,67 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+	<tr>
+		<td style="padding-right: 20px;">金額:</td>
+		<td class="tourGroup_price">NT$ ${tourGroup.price}</td>
+	</tr>
+	<tr>
+		<td style="padding-right: 20px;">已報名人數:</td>
+		<td class="sign_num">${tourGroup.signupNum} &nbsp;人</td>
+	</tr>
+	<tr>
+		<td style="padding-right: 20px;">成團人數:</td>
+		<td class="min_required">${tourGroup.minRequired} &nbsp;人</td>
+	</tr>
+	<tr>
+		<td style="padding-right: 20px;">人數上限:</td>
+		<td class="max_required">${tourGroup.maxRequired} &nbsp;人</td>
+	</tr>
+
+	
+<script>
+	window.onload = function() {
+    	
+    	// 從LocalStorage讀取值，塞入對應欄位
+    	// 1.select的出發日期
+    	var selectDateElement = document.querySelector(".touristDate");
+	    var storedValue_startTime = localStorage.getItem("selectedValue_startTime");	
+		if (storedValue_startTime) {
+		    selectDateElement.value = storedValue_startTime;
+		}
+	   
+	    // 2.form表單的groupId
+	    var storedValue_groupId = localStorage.getItem("selectedValue_groupId");
+	    if (storedValue_groupId) {
+			document.getElementById("selectedGroupId_addCart").value = storedValue_groupId;    
+	    	document.getElementById("selectedGroupId_order").value = storedValue_groupId;
+		}
+		
+		// 3.select的旅遊人數、form表單的signupNum
+		var selectNumElement = document.querySelector(".touristNum");
+	    var storedValue_signupNum = localStorage.getItem("selectedValue_signupNum");	
+		
+		if (storedValue_signupNum) {
+		    selectNumElement.value = storedValue_signupNum;
+		}
+		
+		if (storedValue_signupNum) {
+			document.getElementById("selectedSignupNum_addCart").value = storedValue_signupNum;    
+	    	document.getElementById("selectedSignupNum_order").value = storedValue_signupNum;
+		}
+		
+		
+				
+		// 頁面到下單位置
+	    var originalPosition = document.getElementById("originalPosition");
+	    if (originalPosition) {
+	        originalPosition.scrollIntoView({
+	            behavior: "auto", // 不滾動(?????????
+	            block: "center", // 控制垂直方向滚动位置为中央
+	        });
+	    }  
+		
+	};
+	
+</script>
+

@@ -14,6 +14,8 @@ Blog blog = (Blog) request.getAttribute("blog");
 BlogService blogSvc = new BlogServiceImpl();
 List<Blog> list = blogSvc.getAllBlogs();
 pageContext.setAttribute("list", list);
+
+Customer customer = (Customer) session.getAttribute("customer");
 %>
 
 <html>

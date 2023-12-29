@@ -12,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lazytravel.foodscape.entity.FoodScape;
-import com.lazytravel.foodscape.entity.Tag;
 import com.lazytravel.foodscape.service.FoodScapeService;
 import com.lazytravel.foodscape.service.FoodScapeServiceImpl;
 
-@WebServlet(name = "FoodScapeServlet", value = "/foodscape/foodscape.do")
+@WebServlet(name = "FoodScapeServlet", value = "/foodscape/jsp/FoodScape.do")
 public class FoodScapeServlet extends HttpServlet {
 	private FoodScapeService foodscapeService;
 
@@ -37,6 +36,9 @@ public class FoodScapeServlet extends HttpServlet {
 		String forwardPath = "";
 		String action = req.getParameter("action");
 		switch (action) {
+		case "getOne_For_Display":
+            forwardPath = getOneDisplay(req, res);
+            break;
 		case "foodscape_search":
 			forwardPath = getFoodScapeByFoodScapeId(req, res);
 			break;
@@ -48,6 +50,19 @@ public class FoodScapeServlet extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
+	}
+
+	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
+		List<String> errorMsgs = new ArrayList<>();
+        req.setAttribute("errorMsgs", errorMsgs);
+        Integer foodScapeId =Integer.valueOf(req.getParameter("foodScapeId"));
+        
+        foodscapeService = new FoodScapeServiceImpl();
+        FoodScape foodscape = foodscapeService.getFoodScapeByFoodScapeId(foodScapeId);
+        
+        req.setAttribute("foodscape", foodscape);
+        return "/foodscape/jsp/selectmore.jsp";
+
 	}
 
 	private String updateFoodScape(HttpServletRequest req, HttpServletResponse res) {
@@ -122,14 +137,14 @@ public class FoodScapeServlet extends HttpServlet {
     		
 	        if (!errorMsgs.isEmpty()) {
 	        	req.setAttribute("foodscape", foodscape);
-	        	return "/foodscape/jsp/foodScapeModify.jsp";
+	        	return "/foodscape/jsp/foodscapeModify.jsp";
 	        }
 	        
 	        //修改資料
 	        foodscapeService.updateFoodScape(foodscape);
 	        req.setAttribute("foodscape", foodscapeService.getFoodScapeByFoodScapeId(foodScapeId));
 	        
-			return "/foodscape/jsp/foodscape.jsp";
+			return "/foodscape/jsp/foodscapeModify.jsp";
 	}
 	
 	

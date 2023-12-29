@@ -22,4 +22,6 @@ public interface BlogDAO {
 	
 	public List<Blog> getBlogByCustomerId(Integer customerId);
 	
+	
+	
 }

@@ -57,6 +57,7 @@ pageContext.setAttribute("list",list);
               <th scope="col">文章標題</th>
               <th scope="col">會員名稱</th>
               <th scope="col">發布時間</th>
+              <th scope="col">文章狀態</th>
               <th></th>
             </tr>
           </thead>
@@ -68,9 +69,23 @@ pageContext.setAttribute("list",list);
               <td>${blog.customer.customerName}</td>
               <td>${blog.createTime}</td>
               <td>
+    <c:if test="${blog.blogStatus eq 0}">
+        下架中
+    </c:if>
+    <c:if test="${blog.blogStatus eq 1}">
+        上架中
+    </c:if>
+</td>
+              <td>
                 <form method="post" action="<%=request.getContextPath()%>/blog/blog/blog.do" style="margin-bottom: 0px;">
                     <button type="submit" name="action" value="getOne_For_Update" class="btn-modify btn">修改</button>
-                    <input type="hidden" name="blogI" value="${blog.getBlogId()}">
+                    <input type="hidden" name="blogId" value="${blog.getBlogId()}">	
+                    <button type="submit" name="action" value="updownStatus" class="btn-modify btn" onclick="toggleStatus(${blog.getBlogId()})">
+                    <c:if test="${blog.blogStatus eq 0}">上架</c:if>
+                    <c:if test="${blog.blogStatus eq 1}">下架</c:if>
+                    </button>
+                    <input type="hidden" name="blogId" value="${blog.getBlogId()}">
+                    
                 </form>
               </td>
             </tr>
@@ -87,6 +102,34 @@ pageContext.setAttribute("list",list);
         $("#header").load("../../admin/header.html");
         new DataTable("#example");
       });
+      
+      function toggleStatus(blogId) {
+          // 發送AJAX請求
+          $.ajax({
+              type: "POST",
+              url: "<%=request.getContextPath()%>/blog/blog/blog.do",
+              data: {
+                  action: "updownStatus",
+                  blogId: blogId
+              },
+              success: function (data) {
+                  // 更新頁面上的狀態顯示，這裡假設你的HTML中有一個元素用於顯示狀態
+                  var statusElement = $("#status_" + blogId);
+                  var btnElement = $("#btn_" + blogId);
+                  
+                  if (data === "0") {
+                      statusElement.text("下架中");
+                      btnElement.text("上架");
+                  } else if (data === "1") {
+                      statusElement.text("上架中");
+                      btnElement.text("下架");
+                  }
+              },
+              error: function () {
+                  alert("上下架操作失敗");
+              }
+          });
+      }
     </script>
   </body>
 </html>

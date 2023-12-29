@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% Object customer = session.getAttribute("customer"); %>
+<% Object cu = session.getAttribute("customer"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,21 +29,21 @@
         <div class="navbar nav-item-area">
           <ul class="navbar-nav d-flex flex-row">
             <li class="nav-item dropdown mx-4">
-              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                 style="color: white;">首頁</a>
+              <a href="<%=request.getContextPath()%>/index.jsp" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                 style="color: white;">搜尋美食</a>
               <ul class="dropdown-menu" style="position: absolute">
-                <li><a class="dropdown-item" href="#">行程篩選</a></li>
-                <li><a class="dropdown-item" href="#">熱門行程</a></li>
-                <li><a class="dropdown-item" href="#">熱門景點</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/foodscape/jsp/selectpage.jsp">美食景點篩選</a></li>
+<%--                <li><a class="dropdown-item" href="#">熱門行程</a></li>--%>
+<%--                <li><a class="dropdown-item" href="#">熱門景點</a></li>--%>
               </ul>
             </li>
             <li class="nav-item dropdown mx-4">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                 style="color: white;">部落格 BLOG</a>
+                 style="color: white;">部落格</a>
               <ul class="dropdown-menu" style="position: absolute">
-                <li><a class="dropdown-item" href="#">熱門文章</a></li>
-                <li><a class="dropdown-item" href="#">撰寫文章</a></li>
-                <li><a class="dropdown-item" href="#">我的文章</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/blog/blog/blogfirst.jsp">文章列表</a></li>
+<%--                <li><a class="dropdown-item" href="#">撰寫文章</a></li>--%>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/blog/blog/myblog.jsp">我的文章</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown mx-4">
@@ -52,33 +52,33 @@
               <ul class="dropdown-menu" style="position: absolute">
                 <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/customer-center.jsp">會員資料</a>
                 </li>
-                <li><a class="dropdown-item" href="#">歷史訂單</a></li>
-                <li><a class="dropdown-item" href="#">優惠券</a></li>
-                <li><a class="dropdown-item" href="#">我的評價</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/orderList.jsp">歷史訂單</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerCenter/coupon.jsp">優惠券</a></li>
+<%--                <li><a class="dropdown-item" href="#">我的評價</a></li>--%>
               </ul>
             </li>
             <li class="nav-item dropdown mx-4">
                 <a href="#" class="nav-link link_trasition dropdown-toggle" data-bs-toggle="dropdown"
                   style="color: white;">客服</a>
               <ul class="dropdown-menu" style="position: absolute">
-                <li><a class="dropdown-item" href="#">常見問題 F&Q</a></li>
-                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerService/Backmessage.jsp">聯絡我們</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerService/frontQA.jsp">常見問題</a></li>
+                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/customerService/frontContentMail.jsp">聯絡我們</a></li>
                 </ul>
             </li>
 
 
-            <li class="nav-item mx-4 <%= (customer == null) ? "" : "d-none" %>">
+            <li class="nav-item mx-4 <%= (cu == null) ? "" : "d-none" %>">
               <a class="nav-link" href="<%=request.getContextPath()%>/customer/login.jsp" style="color: white;">登入</a>
             </li>
-            <li class="nav-item mx-4 <%= (customer != null) ? "" : "d-none" %>">
-              <form method="post" action="customer.do">
+            <li class="nav-item mx-4 <%= (cu != null) ? "" : "d-none" %>">
+              <form method="post" action="<%=request.getContextPath()%>/customer/customer.do">
                 <input type="hidden" name="action" value="logout">
                 <button type="submit" class="nav-link text-light">登出</button>
               </form>
             </li>
-            <li class="nav-item mx-4"><a class="fa-solid fa-envelope nav-link" href="#"
-                                         style="color: white;"></a>
-            </li>
+<%--            <li class="nav-item mx-4"><a class="fa-solid fa-envelope nav-link" href="#"--%>
+<%--                                         style="color: white;"></a>--%>
+<%--            </li>--%>
             
             <li class="nav-item mx-4">
 				<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">

@@ -18,6 +18,27 @@
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
         <url-pattern>/customerCenter/*</url-pattern>
+        <url-pattern>/journey/user/journey_shoppingCart.jsp</url-pattern>
+        <url-pattern>/journey/user/shoppingCart.do</url-pattern>
+        <url-pattern>/order/checkOut.jsp</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+        <dispatcher>ASYNC</dispatcher>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>adminLoginFilter</filter-name>
+        <filter-class>com.lazytravel.admin.filter.AdminLoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>adminLoginFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/journey/admin/*</url-pattern>
+        <url-pattern>/foodscape/jsp/foodscape.jsp</url-pattern>
+        <url-pattern>/foodscape/jsp/opentime.jsp</url-pattern>
+        <url-pattern>/customerService/backContentMail.jsp</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>

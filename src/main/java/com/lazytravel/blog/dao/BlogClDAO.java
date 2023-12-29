@@ -14,4 +14,12 @@ public interface BlogClDAO {
 	
 	public List<BlogCl>getAll();
 	
+	public String isBlogCl(Integer customerId,Integer blogId) ;
+	
+	void addFavoriteCl(Integer customerId,Integer blogId);
+	
+	void unFavoriteCl(Integer customerId,Integer blogId);
+	
+	void updateFavoriteCl(Integer customerId,Integer blogId);
+	
 }

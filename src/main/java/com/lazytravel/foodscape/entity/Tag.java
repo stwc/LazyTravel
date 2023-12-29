@@ -40,8 +40,8 @@ public class Tag {
 			)
 	private Set<FoodScape> foodscapes;
 
-	@ManyToMany (mappedBy = "tags")
-    private Set<Blog> blogs = new HashSet<>();
+//	@ManyToMany (mappedBy = "tags")
+//    private Set<Blog> blogs = new HashSet<>();
 
 public Tag() {
 

@@ -12,4 +12,6 @@ public interface UsersDAO {
     Users findByPK(Integer userId);
 
     List<Users> getAll();
+
+    Users findByUsername(String username);
 }

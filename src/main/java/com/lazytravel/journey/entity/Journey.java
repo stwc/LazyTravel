@@ -73,6 +73,15 @@ public class Journey {
 		this.buyCount = buyCount;
 		this.journeyStatus = journeyStatus;
 	}
+	
+	public Journey(Integer journeyId, String journeyName, Integer price, Integer days, Integer buyCount) {
+		super();
+		this.journeyId = journeyId;
+		this.journeyName = journeyName;
+		this.price = price;
+		this.days = days;
+		this.buyCount = buyCount;
+	}
 
 	public Integer getJourneyId() {
 		return journeyId;
@@ -168,12 +177,5 @@ public class Journey {
 				+ createTime + ", content=" + content + ", avgScore=" + avgScore + ", scoreCount=" + scoreCount
 				+ ", days=" + days + ", buyCount=" + buyCount + ", journeyStatus=" + journeyStatus + "]";
 	}
-	
-//    // for join (新增)
-//    public List<FoodScape> getAllFoodScape() {
-//    	FoodScapeService FoodScapeSvc = new FoodScapeService();
-//    	List<FoodScape> list = FoodScapeSvc.getAll();
-//		return list;
-//    }
 	
 }

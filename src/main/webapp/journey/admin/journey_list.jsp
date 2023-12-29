@@ -4,8 +4,6 @@
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 
-<%@ include file="/admin/header.html" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +11,7 @@
 <title>後臺-行程(查詢)</title>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
-<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" />
-<link rel="icon" href="${pageContext.request.contextPath}/static/images/logo.ico" type="image/x-icon" />
+<link rel="icon" href="<%=request.getContextPath()%>/static/images/logo.ico" type="image/x-icon">
 
 <style>
 	h3 span {
@@ -79,7 +76,8 @@
 </head>
 <body>
 	
-    <div id="header"></div>
+<!--     <div id="header"></div> -->
+    <%@ include file="/admin/header.jsp" %>
 
     <div id="main" class="p-3">
       <h3 class="mx-3 mb-5">
@@ -97,10 +95,10 @@
                 <th>行程名稱</th>
                 <th>價格</th>
                 <th>建立時間</th>
-                <th>行程<br>天數</th>
-                <th>購買<br>次數</th>
-                <th>平均<br>評分</th>
-                <th>評分<br>次數</th>
+                <th>行程天數</th>
+                <th>購買次數</th>
+				<!-- <th>平均<br>評分</th> -->
+				<!-- <th>評分<br>次數</th> -->
                 <th>狀態</th>
                 <th></th>
               </tr>
@@ -115,8 +113,8 @@
 					<td>${journey.createTime}</td>
 					<td>${journey.days}</td>
 					<td>${journey.buyCount}</td>
-					<td>${journey.avgScore}</td>
-					<td>${journey.scoreCount}</td>
+					<%-- <td>${journey.avgScore}</td> --%>
+					<%-- <td>${journey.scoreCount}</td> --%>
 					<td>${(journey.journeyStatus == 0) ? "未上架" : "已上架" }         
 	                <td>
 	                  <form method="post" action="<%=request.getContextPath()%>/journey/admin/journey.do" style="display: inline-block;">
@@ -133,6 +131,7 @@
 	              </tr>
 	        	</c:forEach>
 	        <tbody>
+	      </table>
 	        
         
 	        

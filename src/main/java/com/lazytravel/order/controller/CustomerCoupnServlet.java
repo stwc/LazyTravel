@@ -17,7 +17,7 @@ import com.lazytravel.order.entity.CustomerCoupon;
 import com.lazytravel.order.service.CouponService;
 import com.lazytravel.order.service.CustomerCouponService;
 
-@WebServlet(name = "CustomerCouponServlet", urlPatterns = { "/customorCenter/customercoupon.do" })
+@WebServlet(name = "CustomerCouponServlet", urlPatterns = { "/customorCenter/customercoupon.do" , "/order/customercoupon.do" })
 public class CustomerCoupnServlet extends HttpServlet {
 
 	private CouponService couponservice;
@@ -73,6 +73,7 @@ public class CustomerCoupnServlet extends HttpServlet {
 				
 				if (coupon != null) {
 					CustomResponseData responseData = new CustomResponseData();
+					responseData.setCouponId(coupon.getCouponID());
 					responseData.setCouponName(coupon.getCouponName());
 	                responseData.setSerialNo(coupon.getSerialNo());
 	                responseData.setStartTime(coupon.getStartTime());
@@ -82,6 +83,7 @@ public class CustomerCoupnServlet extends HttpServlet {
 	                responseData.setCouponStatus(customerCoupon.getCouponStatus());
 
 	                responseDataList.add(responseData);
+	                
 				}
 
 			}
@@ -120,13 +122,13 @@ public class CustomerCoupnServlet extends HttpServlet {
 	        	Integer addstatus = customerCouponService.addCustomerCoupon(customerId, coupon.getCouponID());
 	            if (addstatus == 1) {
 	            	try {
-						res.getWriter().write("{\"success\": \"新增成功!!\"}");
+						res.getWriter().write("{\"message\": \"新增成功 !!\"}");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}else {
 					try {
-						res.getWriter().write("{\"error\": \"你已經有這張囉!!\"}");
+						res.getWriter().write("{\"message\": \"你已經有這張囉 !!\"}");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -135,7 +137,7 @@ public class CustomerCoupnServlet extends HttpServlet {
 	        } else {
 	        	res.setContentType("application/json; charset=UTF-8");
 	            try {
-					res.getWriter().write("{\"error\": \"優惠券庫存不足!!\"}");
+					res.getWriter().write("{\"message\": \"優惠券庫存不足 !!\"}");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -143,7 +145,7 @@ public class CustomerCoupnServlet extends HttpServlet {
 	    } else {
 	    	res.setContentType("application/json; charset=UTF-8");
             try {
-				res.getWriter().write("{\"error\": \"優惠券不存在!!\"}");
+				res.getWriter().write("{\"message\": \"優惠券不存在!!\"}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

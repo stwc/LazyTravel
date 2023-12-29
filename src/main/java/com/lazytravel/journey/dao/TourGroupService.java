@@ -12,4 +12,5 @@ public interface TourGroupService {
 	List<TourGroup> getAll();
 	List<TourGroup> getByTime(Map<String, String> map);
 	
+	List<TourGroup> getByJourneyId(Integer journeyId);
 }

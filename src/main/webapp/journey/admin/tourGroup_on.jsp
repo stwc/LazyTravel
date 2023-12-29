@@ -4,8 +4,6 @@
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 
-<%@ include file="/admin/header.html" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -154,8 +152,8 @@
 	TourGroup tourGroup = (TourGroup) request.getAttribute("tourGroup");
 
 	JourneyService journeySvc = new JourneyServiceImpl();
-	List<Journey> journeyList = journeySvc.getAll();
-	pageContext.setAttribute("journey", journeyList);
+	List<Journey> journeyMarketedList = journeySvc.getAllByStatusIsMarketed();
+	pageContext.setAttribute("journey", journeyMarketedList);
 	
 	pageContext.getAttribute("journeyId");
 	pageContext.getAttribute("journeyName");
@@ -163,8 +161,8 @@
 
 </head>
 
-    <div id="header"></div>
-
+<!--     <div id="header"></div> -->
+	<%@ include file="/admin/header.jsp" %>
 
     <main id="main">
         
@@ -186,11 +184,11 @@
 			<div class="div_tourGroup_journey">
 			    <label>行程ID / 名稱 :</label>
 			    <select id="journeyOption" name="journey_id" onchange="updateHiddenField(this)">
-			        <c:forEach var="journey" items="${journey}">
-			            <option value="${journey.getJourneyId()}" ${journey.getJourneyId() == tourGroup.getJourney().getJourneyId() ? "selected" : ""}>
-			                ${journey.getJourneyId()}  ${journey.getJourneyName()}
-			            </option>
-			        </c:forEach>
+					<c:forEach var="journey" items="${journey}">
+				    	<option value="${journey.getJourneyId()}" ${journey.getJourneyId() == tourGroup.getJourney().getJourneyId() ? "selected" : ""}>
+							${journey.getJourneyId()}  ${journey.getJourneyName()}
+				        </option>
+					</c:forEach>
 			    </select>
 			    <input type="hidden" id="hiddenJourneyId" name="journey_id" value="<%= (tourGroup == null) ? "0" : tourGroup.getJourney().getJourneyId() %>">
 			    <input type="hidden" id="hiddenJourneyName" name="journey_name" value="<%= (tourGroup == null) ? "0" : tourGroup.getJourney().getJourneyName() %>">

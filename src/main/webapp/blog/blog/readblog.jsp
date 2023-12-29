@@ -73,7 +73,7 @@ Blog blog = (Blog) request.getAttribute("blog");
             <p class="m-1 p-1">${blog.viewSum}</p>
             <img
               src="../../static/blogimages/UN¦¬ÂÃ.svg"
-              class="thumds"
+              class="thumds" 
               alt="" />
           </div>
         </div>
@@ -116,6 +116,8 @@ Blog blog = (Blog) request.getAttribute("blog");
         $("#header").load("../../components/html/header.jsp");
         $("#footer").load("../../components/html/footer.jsp");
       });
+      
+      
     </script>
   </body>
 </html>

@@ -136,8 +136,8 @@ public class CouponHibernateDAOImpl implements CouponHibernateDAO {
 		
 		
 		//查詢單筆
-//		coupon = dao.getCouponByCouponId(32001);
-//		System.out.println(coupon);
+		coupon = dao.getCouponByCouponId(32001);
+		System.out.println(coupon);
 		
 //		更新單筆
 //		coupon = dao.getCouponByCouponId(32001);

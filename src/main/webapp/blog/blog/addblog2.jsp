@@ -10,10 +10,9 @@
 <%@ page import="java.sql.Timestamp" %>
 
 <%
-Blog blog = (Blog) request.getAttribute("blog");
+Customer customer = (Customer) session.getAttribute("customer");
+String customerId = String.valueOf(customer.getCustomerId());
 BlogService blogSvc = new BlogServiceImpl();
-List<Blog> list = blogSvc.getAllBlogs();
-pageContext.setAttribute("list", list);
 %>
 
 <html>
@@ -135,10 +134,13 @@ pageContext.setAttribute("list", list);
 				<div class="col-1 justify-content-end d-flex">
 					<input type="submit" id="saveButton" class="btn btn-success" value="·s¼W¤å³¹">
 					<input type="hidden" name="action" value="insert"> 
-					<input type="hidden" name="customer_id" value="11005" size="45"/>
+					<input type="hidden" name="customer_id" value="<%= customer.getCustomerId().toString() %>" size="45"/>
 					<input type="hidden" name="updateTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">
 					<input type="hidden" name="createTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">
 					<input type="hidden" name="blogStatus" value="1">
+					<input type="hidden" name="viewSum" value="0">
+					
+					
 					
 				</div>
 			</div>
