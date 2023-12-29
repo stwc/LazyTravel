@@ -5,12 +5,12 @@
 
 
 
-<%-- <% --%>
- <%-- Customer customerObj = (Customer) session.getAttribute("customer");
+
+ <% Customer customerObj = (Customer) session.getAttribute("customer");
   Integer customerId = customerObj.getCustomerId();
-  Integer passengerCount = (Integer)session.getAttribute("passengerCount");
-  Integer groupId = (Integer)session.getAttribute("groupId");
-<%-- %> --%>
+  Integer passengerCount = (Integer)session.getAttribute("signupNum");
+  Integer groupId = Integer.parseInt((String)(session.getAttribute("groupId")));
+%>
 
 
 <!DOCTYPE html>
@@ -163,13 +163,16 @@
 	let group_end_time = 0;
 
 //=========>  最終用session取得
-	let passengerCount = 1;
-	let customerId = 11001;
-	let groupId = 24002;
+// 	let passengerCount = 1;
+// 	let customerId = 11001;
+// 	let groupId = 24002;
 
-<%-- 	let customerId = <%= customerId %>; --%>
-<%-- 	let passengerCount = <%= passengerCount %>; --%>
-<%-- 	let groupId = <%= groupId %>; --%>
+	let customerId = <%= customerId %>;
+	let passengerCount = <%= passengerCount %>;
+	let groupId = <%= groupId %>;
+	console.log(customerId);
+	console.log(passengerCount);
+	console.log(groupId);
 //=========>
 
 	$(window).on('load', function() {
@@ -410,7 +413,7 @@
 
 		      
 			
-		      window.location.href = 'payCheck.jsp';
+		      window.location.href = 'http://localhost:8081/LazyTravel/order/payCheck.jsp';
 			
 			
 			
