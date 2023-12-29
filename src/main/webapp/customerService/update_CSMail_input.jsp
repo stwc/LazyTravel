@@ -100,6 +100,18 @@ CSMail csMail = (CSMail) request.getAttribute("csMail");
 			<td><input type="TEXT" name="csMail_status" value="<%=csMail.getCsMailStatus() %>" 
 			size="45"/></td>
 		</tr>
+		<tr>
+			<td>客戶問題:</td>
+			<td><input type="TEXT" name="questions" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
+		</tr>
+		<tr>
+			<td>客服回答:</td>
+			<td><input type="TEXT" name="answer" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
+		</tr>
+		<tr>
+			<td>來源:</td>
+			<td><input type="TEXT" name="MESSAGE_FROM" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
+		</tr>
 	</table>
 	<br>
 	<input type="hidden" name="action" value="update">

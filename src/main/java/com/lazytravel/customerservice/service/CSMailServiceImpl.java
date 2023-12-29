@@ -4,29 +4,25 @@ import java.util.List;
 
 import com.lazytravel.customerservice.dao.CSMailDAO;
 import com.lazytravel.customerservice.dao.CSMailDAOImpl;
-import com.lazytravel.customerservice.dao.CSMessageDAO;
-import com.lazytravel.customerservice.dao.CSMessageDaoImpl;
-import com.lazytravel.customerservice.entity.CSCustomerVO;
 import com.lazytravel.customerservice.entity.CSMail;
-import com.lazytravel.customerservice.entity.CSMessage;
+
+
 
 public class CSMailServiceImpl implements CSMailService {
 
 	private CSMailDAO dao;
-	private CSMessageDAO msgDao;
 
 	public CSMailServiceImpl() {
 		dao = new CSMailDAOImpl();
-		msgDao = new CSMessageDaoImpl();
 	}
 
 	@Override
-	public CSMail addCSMail(CSMail csMail, CSMessage csMessage) {
-		Integer id = dao.add(csMail);
-		csMessage.setCsMail(csMail);
-		msgDao.add(csMessage);
-		csMail = dao.getByPK(id);
-		return csMail;
+	public Integer addCSMail(CSMail csMail) {
+		Integer mailId = dao.add(csMail);
+//		csMessage.setCsMail(csMail);
+//		msgDao.add(csMessage);
+//		csMail = dao.getByPK(id);
+		return mailId;
 	}
 
 	@Override
@@ -47,11 +43,6 @@ public class CSMailServiceImpl implements CSMailService {
 	@Override
 	public CSMail findByCustomerId(Integer customerId) {
 		return dao.findByCustomerId(customerId);
-	}
-
-	@Override
-	public List<CSCustomerVO> getCSCustomerList() {
-		return dao.getCSCustomerList();
 	}
 
 	@Override
