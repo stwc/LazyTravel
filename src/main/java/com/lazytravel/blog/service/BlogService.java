@@ -22,4 +22,6 @@ public interface BlogService {
      
       List<Blog> getBlogByCustomerId(Integer customerId);
     
+      
+      List<Blog> getBlogClByCustomerId(Integer customerId);
 }

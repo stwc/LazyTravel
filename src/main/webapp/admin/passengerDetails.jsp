@@ -67,7 +67,8 @@
         </table>
       </div>
       <div class="d-flex justify-content-end mx-3 my-3">
-        <button class="btn-modify btn" onclick="goBack()">回上頁</button>
+        <button class="btn-modify btn mx-3" onclick="modifyPassenger()"><a href="/admin/passengerEditor.jsp" style="text-decoration:none; color: white">修改旅客明細</a></button>
+        <button class="btn-modify btn mx-3" onclick="goBack()">回上頁</button>
       </div>
 
     </div>
