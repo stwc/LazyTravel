@@ -400,8 +400,8 @@ public class BlogServlet extends HttpServlet {
              String blogClStatus = blogClService.isBlogCl(customerId, blogId);
              System.out.println("IF外面的"+blogClStatus);
              
-             if ("null".equals(blogClStatus)) {
-            	 blogClService.addFavoriteCl(customerId, blogId);
+             if (! blogClStatus.equals("novalue")) {
+            	 blogClService.updateFavoriteCl(customerId, blogId);
             	    // 如果有收藏資料
             	 System.out.println("IF裡面的="+blogClStatus);
             	    if ("0".equals(blogClStatus) ) {
