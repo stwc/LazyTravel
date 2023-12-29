@@ -37,7 +37,7 @@ CSMail csMail = (CSMail) request.getAttribute("csMail");
 		</tr>
 		<tr>
 			<td>信件標題:</td>
-			<td><input type="TEXT" name="title" value="<%=  (csMail == null)? "請寫下您的問題" : csMail.getTitle() %>" size="45"/></td>
+			<td><input type="TEXT" name="title" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
 		</tr>
 		<tr>
 			<td>建立時間:</td>
@@ -55,6 +55,14 @@ CSMail csMail = (CSMail) request.getAttribute("csMail");
 			<td>信件狀態:</td>
 			<td><input type="TEXT" name="csmail_status" value="<%= (csMail==null)?  "0"  :  csMail.getCsMailStatus() %>" 
 			size="45"/></td>
+		</tr>
+		<tr>
+			<td>客戶問題:</td>
+			<td><input type="TEXT" name="questions" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
+		</tr>
+		<tr>
+			<td>客服回答:</td>
+			<td><input type="TEXT" name="answer" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
 		</tr>
 		
 	</table>

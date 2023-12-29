@@ -61,6 +61,8 @@ CSMail csMail = (CSMail) request.getAttribute("csMail");
 			<th>建立時間</th>
 			<th>最後訊息時間</th>
 			<th>信件狀態</th>
+			<th>客戶問題</th>
+			<th>客服回答</th>
 		</tr>
 		<tr>
 			    <td>${csMail.getMailId()}</td>
@@ -69,7 +71,8 @@ CSMail csMail = (CSMail) request.getAttribute("csMail");
 				<td>${csMail.createTime}</td>
 				<td>${csMail.lastMsgTime}</td>
 				<td>${csMail.csMailStatus}</td>
-				
+				<td>${csMail.questions}</td>
+				<td>${csMail.answer}</td>
 		</tr>
 	</table>
 
