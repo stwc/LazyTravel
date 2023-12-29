@@ -6,6 +6,7 @@ import javax.swing.undo.AbstractUndoableEdit;
 
 import com.lazytravel.blog.dao.BlogClDAO;
 import com.lazytravel.blog.dao.BlogClDAOImpl;
+import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.entity.BlogCl;
 import com.lazytravel.blog.entity.BlogLike;
 
@@ -61,6 +62,8 @@ public class BlogClServiceImpl implements BlogClService {
 		dao.updateFavoriteCl(customerId, blogId);
 		
 	}
-
+	public List<BlogCl> getBlogClByCustomerId(Integer customerId){
+		return dao.getBlogClByCustomerId(customerId);
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lazytravel.blog.dao.BlogClDAO;
 import com.lazytravel.blog.dao.BlogClDAOImpl;
+import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.entity.BlogCl;
 
 public interface BlogClService {
@@ -24,4 +25,5 @@ public interface BlogClService {
 	 
 	 void updateFavoriteCl(Integer customerId,Integer blogId);
 		 
+	 List<BlogCl> getBlogClByCustomerId(Integer customerId);
 }

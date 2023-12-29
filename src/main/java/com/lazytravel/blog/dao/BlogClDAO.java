@@ -2,6 +2,7 @@ package com.lazytravel.blog.dao;
 
 import java.util.List;
 
+import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.entity.BlogCl;
 
 public interface BlogClDAO {
@@ -21,5 +22,7 @@ public interface BlogClDAO {
 	void unFavoriteCl(Integer customerId,Integer blogId);
 	
 	void updateFavoriteCl(Integer customerId,Integer blogId);
+	
+	public List<BlogCl> getBlogClByCustomerId(Integer customerId);
 	
 }

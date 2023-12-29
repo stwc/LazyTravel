@@ -174,4 +174,21 @@ public class BlogDAOImpl implements BlogDAO {
 		return blogs;
 
 	}
+	public List<Blog> getBlogClByCustomerId(Integer customerId){
+		Transaction transaction = null;
+		List<Blog> blogs = null;
+		try {
+			Session session = getSession();
+			transaction = session.beginTransaction();
+			blogs= session.createQuery("FROM BlogCl WHERE customerId = :customerId  ORDER BY blogDate DESC", Blog.class)
+					.setParameter("customerId", customerId)
+					.getResultList();
+			transaction.commit();
+		} catch (Exception e) {
+			// 處理例外狀況，例如記錄錯誤或拋出新的例外狀況
+			e.printStackTrace();
+			throw new RuntimeException("Error retrieving blogs by customerId", e);
+		}
+		return blogs;
+	}
 }
