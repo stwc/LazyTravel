@@ -68,7 +68,7 @@
 
 
             <li class="nav-item mx-4 <%= (cu == null) ? "" : "d-none" %>">
-              <a class="nav-link" href="<%=request.getContextPath()%>/customer/login.jsp" style="color: white;">登入</a>
+              <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp" style="color: white;">登入</a>
             </li>
             <li class="nav-item mx-4 <%= (cu != null) ? "" : "d-none" %>">
               <form method="post" action="<%=request.getContextPath()%>/customer/customer.do">

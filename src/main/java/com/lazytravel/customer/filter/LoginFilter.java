@@ -31,10 +31,10 @@ public class LoginFilter implements Filter {
 //            String location = req.getRequestURI();
             System.out.println("Location before login: " + location);
             session.setAttribute("location", location);
-            res.sendRedirect(req.getContextPath() + "/customer/login.jsp");
+            res.sendRedirect(req.getContextPath() + "/login.jsp");
 
 //            res.setContentType("text/html; charset=UTF-8");
-//            req.getRequestDispatcher("/customer/login.jsp").forward(req, res);
+//            req.getRequestDispatcher("/login.jsp").forward(req, res);
 
         } else {
             chain.doFilter(request, response);
