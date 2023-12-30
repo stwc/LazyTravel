@@ -34,7 +34,7 @@
 		background-color: #6b705c;
 		color: white;
 	}
-	
+
 	a#add:active {
 		outline: 2px solid #6b705c;
 		box-shadow: 0 0 8px #a1a397;
@@ -80,6 +80,12 @@
 	table{
         font-size: 14px;
     }
+    
+    table#list td:nth-child(9) {
+    	padding: 8px 5px;
+    }
+    
+    
 </style>
 	
 <%
@@ -121,7 +127,7 @@
           	</table>
         </form> 
 
-          <table id="123" class="display mb-5">
+          <table id="list" class="display mb-5">
             <thead>
               <tr>
                 <th>旅行團ID</th>
@@ -132,9 +138,10 @@
                 <th>成團人數</th>
                 <th>人數上限</th>
                 <th>報名起訖日</th>
-                <th>上架時間</th>
+                <th>狀態</th>
+                <th>建立時間</th>
                 <th>更新時間</th>
-                <th></th>
+                <th style="width: 50px; padding:10px 0px;"></th>
               </tr>
             </thead>
 
@@ -150,6 +157,7 @@
 					<td>${tourGroup.minRequired}</td>
 					<td>${tourGroup.maxRequired}</td>
 					<td>${tourGroup.signupDate} ~ ${tourGroup.dueDate}</td>
+					<td>${(tourGroup.groupStatus eq 0) ? "未上架" : "已上架"}</td>
 					<td>${tourGroup.createTime}</td>
 					<td>${tourGroup.updateTime}</td>     
 	                <td>
@@ -171,7 +179,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script>
-      let table = new DataTable("#123");
+      let table = new DataTable("#list");
 
       $(function () {
 //         $("#header").load("../admin/header.html");

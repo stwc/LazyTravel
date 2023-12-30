@@ -49,6 +49,23 @@ public class TourGroupDAOImpl implements TourGroupDAO {
 	}
 	
 	@Override
+	public int updateList(List<TourGroup> tourGroupList) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+	        for (TourGroup tourGroup : tourGroupList) {
+	            session.update(tourGroup);
+	        }
+			session.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return -1;
+		}
+	}
+	
+	@Override
 	public TourGroup findByPK(Integer groupId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		TourGroup tourGroup = null;

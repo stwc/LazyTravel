@@ -60,13 +60,16 @@ public class TourGroup {
 	@UpdateTimestamp
 	@Column(name = "update_time")
 	private Timestamp updateTime;
+	
+	@Column(name = "group_status", columnDefinition = "char")
+	private String groupStatus;
 
 	public TourGroup() {
 	}
 
 	public TourGroup(Integer groupId, Journey journey, Date startTime, Date endTime, Integer price,
 			Integer signupNum, Integer minRequired, Integer maxRequired, Timestamp signupDate, Timestamp dueDate,
-			Timestamp createTime, Timestamp updateTime) {
+			Timestamp createTime, Timestamp updateTime, String groupStatus) {
 		this.groupId = groupId;
 		this.journey = journey;
 		this.startTime = startTime;
@@ -79,6 +82,7 @@ public class TourGroup {
 		this.dueDate = dueDate;
 		this.createTime = createTime;
 		this.updateTime = updateTime;
+		this.groupStatus = groupStatus;
 	}
 
 	public Integer getGroupId() {
@@ -176,13 +180,21 @@ public class TourGroup {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
+	
+	public String getGroupStatus() {
+		return groupStatus;
+	}
+
+	public void setGroupStatus(String groupStatus) {
+		this.groupStatus = groupStatus;
+	}
 
 	@Override
 	public String toString() {
 		return "TourGroup [groupId=" + groupId + ", journey=" + journey+ ", startTime=" + startTime + ", endTime="
 				+ endTime + ", price=" + price + ", signupNum=" + signupNum + ", minRequired=" + minRequired
 				+ ", maxRequired=" + maxRequired + ", signupDate=" + signupDate + ", dueDate=" + dueDate
-				+ ", createTime=" + createTime + ", updateTime=" + updateTime + "]";
+				+ ", createTime=" + createTime + ", updateTime=" + updateTime + ", groupStatus=" + groupStatus + "]";
 	}
 	
 

@@ -237,7 +237,7 @@
 	pageContext.setAttribute("foodScapeList", foodScapeList); 
 	
 	TourGroupService tourGroupSvc = new TourGroupServiceImpl();
-	List<TourGroup> tourGroupList = tourGroupSvc.getByJourneyId(journeyId);
+	List<TourGroup> tourGroupList = tourGroupSvc.getMarketedByJourneyId(journeyId);
 	pageContext.setAttribute("tourGroupList", tourGroupList);
 	
 %>
@@ -459,16 +459,16 @@
 	        document.getElementById("includeFragment").value = groupId;
 	        
 	        
-	  		// 將值存在LocalStorage中
-	        localStorage.setItem("selectedValue_startTime", "請選擇日期");
-	        localStorage.setItem("selectedValue_groupId", "");
+	  		// 將值存在sessionStorage中
+	        sessionStorage.setItem("selectedValue_startTime", "請選擇日期");
+	        sessionStorage.setItem("selectedValue_groupId", "");
 	  		
 	  		var startTime = selectedOption.value;
 	        if (startTime === "請選擇日期") {
 	            return;
 	        }
-	        localStorage.setItem("selectedValue_startTime", startTime);
-	        localStorage.setItem("selectedValue_groupId", groupId);
+	        sessionStorage.setItem("selectedValue_startTime", startTime);
+	        sessionStorage.setItem("selectedValue_groupId", groupId);
 	        
 	  		// 送出form表單
 	        document.getElementById("form_chooseStartTime").submit();
@@ -484,12 +484,12 @@
 	        document.getElementById("selectedSignupNum_order").value = signupNum;
 	        
 	        
-	     	// 將值存在LocalStorage中
-	     	localStorage.setItem("selectedValue_signupNum", 0);
+	     	// 將值存在sessionStorage中
+	     	sessionStorage.setItem("selectedValue_signupNum", 0);
 	        if (signupNum === "請選擇人數") {
 	            return;
 	        }
-	        localStorage.setItem("selectedValue_signupNum", signupNum);
+	        sessionStorage.setItem("selectedValue_signupNum", signupNum);
 	    }
 
     </script>
