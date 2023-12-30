@@ -47,7 +47,7 @@
   <div class="d-flex flex-column justify-content-center align-items-center">
     <div class="h1 mt-1 mb-3">會員登入</div>
 
-    <form method="post" action="<%=request.getContextPath()%>/customer/login.do" class="w-75">
+    <form method="post" action="<%=request.getContextPath()%>/login.do" class="w-75">
       <div class="alert alert-warning <%= (loginFailed) ? "" : "d-none" %>" role="alert">
         Email信箱或密碼輸入錯誤，請重新輸入！
       </div>

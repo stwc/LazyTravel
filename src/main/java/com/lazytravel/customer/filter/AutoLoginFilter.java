@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/customer/login.do", "/customer/login.jsp"})
+@WebFilter(urlPatterns = {"/login.do", "/customer/login.jsp"})
 public class AutoLoginFilter implements Filter {
 
     private FilterConfig config;
