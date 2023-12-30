@@ -11,7 +11,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet(name = "LoginHandler", value = "/customer/login.do")
+@WebServlet(name = "LoginHandler", value = "/login.do")
 public class LoginHandler extends HttpServlet {
     private CustomerService customerService;
 
