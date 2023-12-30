@@ -54,7 +54,8 @@ public class LoginHandler extends HttpServlet {
                 // 產生Unique Identifier，做下次自動登入用
                 String token = UUID.randomUUID().toString().replace("-", "");
                 Cookie cookie = new Cookie("AUTH_TOKEN", token); // 存進cookie
-                cookie.setMaxAge(7 * 24 * 60 * 60); // 一星期內有效
+//                cookie.setMaxAge(7 * 24 * 60 * 60); // 一星期內有效
+                cookie.setMaxAge(60 * 60); // 一小時內有效
                 res.addCookie(cookie);
                 // token也存進redis
                 customerService.setAutoLogin(customer.getCustomerId(), token);
@@ -65,7 +66,9 @@ public class LoginHandler extends HttpServlet {
                 String location = (String) session.getAttribute("location");
                 System.out.println("original location: " + location);
                 RequestDispatcher dispatcher= req.getRequestDispatcher(Objects.requireNonNullElse(location, indexPath));
+                session.removeAttribute("location");
 
+                System.out.println("[會員] 會員登入");
                 dispatcher.forward(req, res);
             } else if (customer.getCustomerStatus().equals(CustomerStatus.NOT_AUTH.getValue())) {
                 // 暫存會員資料

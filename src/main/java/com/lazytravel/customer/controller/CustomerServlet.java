@@ -174,6 +174,7 @@ public class CustomerServlet extends HttpServlet {
         // cookie移除登入token
         res.addCookie(new Cookie("AUTH_TOKEN", ""));
 
+        System.out.println("[會員] 會員登出");
         return "/login.jsp";
     }
 

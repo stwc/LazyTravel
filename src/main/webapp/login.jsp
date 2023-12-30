@@ -64,7 +64,8 @@
       </div>
       <div class="mb-3">
         <label for="inputPassword" class="form-label">密碼</label>
-        <input type="password" name="customer_passwd" class="form-control" id="inputPassword" placeholder="請輸入密碼..." required>
+        <input type="password" name="customer_passwd" class="form-control" id="inputPassword"
+               placeholder="請輸入密碼..." required>
       </div>
       <div class="d-grid gap-2 mt-4">
         <button type="submit" id="btn-login" class="btn mb-3" style="background-color: #6B705C;">
@@ -109,6 +110,14 @@
     $(function () {
         $("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
         $("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
+
+        let path = window.location.pathname.split("/");
+        console.log(path)
+        if (path[3] === "customer.do") {
+            <%--window.location.href = "<%=request.getContextPath()%>/login.jsp";--%>
+            let new_url = "<%=request.getContextPath()%>/login.jsp";
+            window.history.pushState(null, "", new_url);
+        }
     });
 
     document.getElementById("btn-login").onclick = () => {

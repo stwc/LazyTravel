@@ -36,16 +36,16 @@ public class AutoLoginFilter implements Filter {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                System.out.println("cookie name: " + cookie.getName());
+//                System.out.println("cookie name: " + cookie.getName());
                 if (cookie.getName().equals("AUTH_TOKEN")) {
                     String token = cookie.getValue();
 //                    System.out.println("token:" + token);
                     Customer loginInfo = new CustomerServiceImpl().getAutoLoginInfo(token);
                     if (loginInfo != null) {
                         session.setAttribute("customer", loginInfo);
-                        System.out.println("自動登入成功！");
+                        System.out.println("[會員] 自動登入成功！");
                     } else {
-                        System.out.println("沒有該會員的資料");
+                        System.out.println("[會員] 沒有該會員的資料");
                     }
                     break;
                 }
