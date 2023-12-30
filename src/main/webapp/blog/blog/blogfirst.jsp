@@ -123,7 +123,7 @@
 	                                <p>${blog.customer.customerName}</p>
 	                            </div>
 	                            <div class="col-md-5 p-0">
-	                            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?id=${blog.customer.customerId}" style=" width: 50%; height: 50%; "alt="${blog.customer.customerName}" />
+	                            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?id=${blog.customer.customerId}" style=" width: 50%; height: 70px; "alt="${blog.customer.customerName}" />
 	                            </div>
 	                            <div class="col-md-4 d-inline-flex align-items-center">
 	                                <img src="../../static/blogimages/«öÆg.svg" class="thumds" alt="Æg" />

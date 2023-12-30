@@ -77,7 +77,7 @@ Blog blog = (Blog) request.getAttribute("blog");
               alt="" />
           </div>
         </div>
-        <div class="row-cols-auto d-inline-flex d-flex justify-content-center">
+<!--         <div class="row-cols-auto d-inline-flex d-flex justify-content-center"> -->
           <div class="col-7">
           <c:set var="formattedDate">
     							<fmt:formatDate value="${blog.blogDate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -85,11 +85,11 @@ Blog blog = (Blog) request.getAttribute("blog");
             <p class="h6">${formattedDate}</p>
           </div>
 
-          <div class="col d-inline-flex">
-            <p class="p-2">${blog.customer.nickname}</p>
-            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?customerId=${blog.customer.customerId}" style="height: 50px "alt="${blog.customer.customerName}" />
+          <div class="col d-inline-flex justify-content-center align-items-center" >
+            <p class="m-0"style="width: 60px; ">${blog.customer.nickname}</p>
+            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?id=${blog.customer.customerId}" style="width:100px; height: 100px "alt="${blog.customer.customerName}" />
           </div>
-        </div>
+<!--         </div> -->
         <hr />
         <div class="row">
           <div class="col">

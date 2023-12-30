@@ -33,28 +33,44 @@ public class CSMail {
 	@JoinColumn(name="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
     private Customer customer;
 	
-	@Column(name="TITLE",columnDefinition = "VARCHAR")
-    private String title;
-	
+
 	@Column(name="CREATE_TIME")
     private Timestamp createTime;
-	
-	@Column(name="LAST_MSG_TIME")
-    private Timestamp lastMsgTime;
 	
 	@Column(name="CS_MAIL_STATUS",columnDefinition = "CHAR")
     private String csMailStatus;
 	
-	@OneToMany(mappedBy = "csMail",cascade = CascadeType.ALL)
-	private List<CSMessage> csMessageList;
+	@Column(name="questions",columnDefinition = "LONGTEXT")
+	private String questions;
+	
+	@Column(name="answer",columnDefinition = "LONGTEXT")
+	private String answer;
+	
+	@Column(name="RECEIVED_TIME")
+    private Timestamp RECEIVED_TIME;
+    
+	public CSMail() {
+	}
 
-    public CSMail() {
-    }
+	public CSMail(Integer mailId, Customer customer, Timestamp createTime, String csMailStatus, String questions,
+			String answer, Timestamp rECEIVED_TIME) {
+		super();
+		this.mailId = mailId;
+		this.customer = customer;
+		this.createTime = createTime;
+		this.csMailStatus = csMailStatus;
+		this.questions = questions;
+		this.answer = answer;
+		RECEIVED_TIME = rECEIVED_TIME;
+	}
 
-    public Integer getMailId() {
-        return mailId;
-    }
+	public Integer getMailId() {
+		return mailId;
+	}
 
+	public void setMailId(Integer mailId) {
+		this.mailId = mailId;
+	}
 
 	public Customer getCustomer() {
 		return customer;
@@ -62,14 +78,6 @@ public class CSMail {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public Timestamp getCreateTime() {
@@ -80,14 +88,6 @@ public class CSMail {
 		this.createTime = createTime;
 	}
 
-	public Timestamp getLastMsgTime() {
-		return lastMsgTime;
-	}
-
-	public void setLastMsgTime(Timestamp lastMsgTime) {
-		this.lastMsgTime = lastMsgTime;
-	}
-
 	public String getCsMailStatus() {
 		return csMailStatus;
 	}
@@ -96,23 +96,35 @@ public class CSMail {
 		this.csMailStatus = csMailStatus;
 	}
 
-	public void setMailId(Integer mailId) {
-		this.mailId = mailId;
-	}
-	
-	public List<CSMessage> getCsMessageList() {
-		return csMessageList;
+	public String getQuestions() {
+		return questions;
 	}
 
-	public void setCsMessageList(List<CSMessage> csMessageList) {
-		this.csMessageList = csMessageList;
+	public void setQuestions(String questions) {
+		this.questions = questions;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public Timestamp getRECEIVED_TIME() {
+		return RECEIVED_TIME;
+	}
+
+	public void setRECEIVED_TIME(Timestamp rECEIVED_TIME) {
+		RECEIVED_TIME = rECEIVED_TIME;
 	}
 
 	@Override
 	public String toString() {
-		return "CSMail [mailId=" + mailId + ", customer=" + customer + ", title=" + title + ", createTime=" + createTime
-				+ ", lastMsgTime=" + lastMsgTime + ", csMailStatus=" + csMailStatus + "]";
+		return "CSMail [mailId=" + mailId + ", customer=" + customer + ", createTime=" + createTime + ", csMailStatus="
+				+ csMailStatus + ", questions=" + questions + ", answer=" + answer + ", RECEIVED_TIME=" + RECEIVED_TIME
+				+ "]";
 	}
 
-
-  }
+ }

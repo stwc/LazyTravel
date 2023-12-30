@@ -28,4 +28,10 @@ public interface CustomerService {
     void sendForgotPwMail(Customer customer, String path);
 
     Boolean forgotPassword(Integer customerId, String authCode, String newPassword);
+
+    void setAutoLogin(Integer customerId, String token);
+
+    Customer getAutoLoginInfo(String token);
+
+    void removeAuthToken(String token);
 }

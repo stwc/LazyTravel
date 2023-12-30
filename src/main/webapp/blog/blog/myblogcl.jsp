@@ -12,13 +12,15 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-BlogService blogSvc = new BlogServiceImpl();
-List<Blog>  list = null;
+// BlogService blogSvc = new BlogServiceImpl();
+BlogClService blogClSvc = new BlogClServiceImpl();
+List<BlogCl>  list = null;
 
 Customer customer = (Customer) session.getAttribute("customer");
 
+
 if (customer != null) {
-    list = blogSvc.getBlogByCustomerId((Integer)customer.getCustomerId());
+    list = blogClSvc.getBlogClByCustomerId((Integer)customer.getCustomerId());
 } else {
     // 如果會員未登入，導向登入頁面
     response.sendRedirect(request.getContextPath() + "/customer/login.jsp");
@@ -92,7 +94,7 @@ pageContext.setAttribute("list", list);
 								<label class="btn btn-outline-primary" for="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;" onclick=" toMyBlog()">我的文章</label> 
 								<input type="radio" style="background: #CCD5AE;border-color: transparent;color: white"
 								class="btn-check" name="btnradio" id="btnradio3"
-								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;" onclick="ToBlogCl()"
+								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"
 								for="btnradio3">文章收藏</label>
 						</div>
 			</div>
@@ -103,7 +105,13 @@ pageContext.setAttribute("list", list);
 		<hr />
 		<div class="container">
 			<div class="row">
-				<c:forEach var="blog" items="${list}">
+				<c:forEach var="blogCl" items="${list}">
+				<%
+        BlogService blogSvc = new BlogServiceImpl();
+//         BlogClService blogClSvc = new BlogClServiceImpl();
+        // 獲取 BlogCl 對應的 Blog
+        Blog blog = blogSvc.getBlogById(blogCl.getBlog().getBlogId());
+    %>
 					<div class="col-md-4">
 						<div class="card" style="width: 22rem;height: 425px; margin: 10px">
 							<img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 351px; height: 200px;" />
@@ -183,11 +191,6 @@ pageContext.setAttribute("list", list);
 		    function ToBlogFirst() {
 		        // 使用 window.location.href 將頁面導航到 myblog.jsp
 		        window.location.href = 'blogfirst.jsp';
-		    };
-		    
-		    function ToBlogCl() {
-		        // 使用 window.location.href 將頁面導航到 myblog.jsp
-		        window.location.href = 'myblogcl.jsp';
 		    };
 		    
 				</script>

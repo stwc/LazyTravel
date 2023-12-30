@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 
 import com.lazytravel.customer.entity.Customer;
 import com.lazytravel.customerservice.entity.CSMail;
-import com.lazytravel.customerservice.entity.CSMessage;
 import com.lazytravel.customerservice.service.CSMailService;
 import com.lazytravel.customerservice.service.CSMailServiceImpl;
 
@@ -54,9 +53,21 @@ public class CSMailServlet extends HttpServlet {
 			// 來自update_emp_input.jsp的請求
 			forwardPath = update(req, res);
 			break;
-		case "insert":
+		case "toBackContent":
 			// 來自addEmp.jsp的請求
-			forwardPath = insert(req, res);
+			forwardPath = toBackContent(req, res);
+			break;			
+		case "backinsert":
+			// 來自addEmp.jsp的請求
+			forwardPath = backinsert(req, res);
+			break;
+		case "frontinsert":
+			// 來自addEmp.jsp的請求
+			forwardPath = frontinsert(req, res);
+			break;
+		case "toFrontContent":
+			// 來自addEmp.jsp的請求
+			forwardPath = toFrontContent(req, res);
 			break;
 		default:
 			forwardPath = "/customerService/select_CSMail_page.jsp";
@@ -66,6 +77,7 @@ public class CSMailServlet extends HttpServlet {
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	}
+
 
 	// 查詢
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
@@ -136,10 +148,7 @@ public class CSMailServlet extends HttpServlet {
 		// -------------------------------------------------------------------//
 		CSMail csMail = new CSMail();
 		csMail.setMailId(mailId);
-		csMail.setTitle(title);
-		csMail.setCsMailStatus(csmailStatus);
 		csMail.setCreateTime(createTime);
-		csMail.setLastMsgTime(lastMsgTime);
 		
 		Customer customer = new Customer();
 		customer.setCustomerId(customerId);
@@ -158,43 +167,92 @@ public class CSMailServlet extends HttpServlet {
 		return "/customerService/listOneCSMail.jsp";
 	}
 
+	
+	private String toBackContent(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		Integer mailId = Integer.valueOf(req.getParameter("mail_Id").trim());
+		req.setAttribute("mailId", mailId);
+		
+		return "/customerService/backContent.jsp";
+	}
+
+	
 //3.新增
-	private String insert(HttpServletRequest req, HttpServletResponse res) {
-		// 錯誤處理
-		List<String> errorMsgs = new ArrayList<>();
-		req.setAttribute("errorMsgs", errorMsgs);
+	private String backinsert(HttpServletRequest req, HttpServletResponse res) {
+//		// 錯誤處理
+//		List<String> errorMsgs = new ArrayList<>();
+//		req.setAttribute("errorMsgs", errorMsgs);
+		
 		// -------------------1.---------------------------------//
 		HttpSession session = req.getSession();
 		Customer customer = (Customer) session.getAttribute("customer");
 		
-		String title = String.valueOf(req.getParameter("mailTitle"));
-		String mailContent = String.valueOf(req.getParameter("mailContent"));
-
-		Timestamp righNow = java.sql.Timestamp.from(Instant.now());
-
-		// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
-		CSMail csMail = new CSMail();
-		csMail.setTitle(title);
-		csMail.setCustomer(customer);
-		csMail.setCreateTime(righNow);
-		csMail.setLastMsgTime(righNow);
-		csMail.setCsMailStatus(String.valueOf(0));
+		String mailContent = req.getParameter("mailContent").trim();
 		
-		CSMessage csMessage = new CSMessage();
-		csMessage.setContent(mailContent);
-		csMessage.setCreateTime(righNow);
-		if (customer != null) 
-			csMessage.setMessageFrom(String.valueOf(0));
+		Integer mailId = Integer.valueOf(req.getParameter("mail_Id").trim());
+		
+		CSMail cSMail = csMailService.getCSMailByCSMailId(mailId);
+		
+		cSMail.setAnswer(mailContent);
+		cSMail.setCsMailStatus("1");
+		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		cSMail.setRECEIVED_TIME(timestamp);;
+		// -------------------2.---------------------------------//
+// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
+//		if (!errorMsgs.isEmpty()) {
+//			req.setAttribute("csMail", csMail);
+//			return "/customerService/addCSMail.jsp";
+//		}
+		// -------------------3.---------------------------------//
+		// 修改資料
+		csMailService.updateCSMail(cSMail);
+		return "/customerService/backContenMail.jsp";
+	}
+	
+	
+	
+	private String toFrontContent(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		Customer customer = (Customer) session.getAttribute("customer");
+		String  customerName = customer.getCustomerName();
+		
+		
+		req.setAttribute("customerName", customerName);
+		
+		return "/customerService/frontContent.jsp";
+	}	
+	
+	private String frontinsert(HttpServletRequest req, HttpServletResponse res) {
+		// 錯誤處理
+//		List<String> errorMsgs = new ArrayList<>();
+//		req.setAttribute("errorMsgs", errorMsgs);
+		// -------------------1.---------------------------------//
+		HttpSession session = req.getSession();
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		Timestamp righNow = java.sql.Timestamp.from(Instant.now());
+		String mailquestions = String.valueOf(req.getParameter("mailquestions"));
+		
+		CSMail cSMail = new CSMail();
+		cSMail.setCustomer(customer);
+		cSMail.setQuestions(mailquestions);
+		cSMail.setCreateTime(righNow);
+		cSMail.setCsMailStatus("0");
+		
 
 		// -------------------2.---------------------------------//
-		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("csMail", csMail);
-			return "/customerService/addCSMail.jsp";
-		}
+		// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
+//		if (!errorMsgs.isEmpty()) {
+//			req.setAttribute("csMail", csMail);
+//			return "/customerService/addCSMail.jsp";
+//		}
 		// -------------------3.---------------------------------//
 		// 新增資料
-		csMailService.addCSMail(csMail, csMessage);
+		csMailService.addCSMail(cSMail);
 
-		return "/customerService/listAllCSMail.jsp";
+		return "/customerService/frontContentMail.jsp";
 	}
 }
