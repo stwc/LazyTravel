@@ -81,7 +81,7 @@
 <%--            </li>--%>
             
             <li class="nav-item mx-4">
-				<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
+				<form method="get" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
 				    <button type="submit" class="fa-regular fa-heart nav-link" style="color: white; border: none; background: none;"></button>
 				    <input type="hidden" name="action" value="shoppingCart_enter" />
 				</form>
