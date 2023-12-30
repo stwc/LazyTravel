@@ -3,7 +3,11 @@
 <%
   // 已經登入過就無法進來登入頁面，重導回首頁
   if (session.getAttribute("customer") != null) {
-    response.sendRedirect(request.getContextPath() + "/index.jsp");
+    String location = (String) session.getAttribute("location");
+    if (location == null)
+      response.sendRedirect(request.getContextPath() + "/index.jsp"); // 回首頁
+    else
+      response.sendRedirect(request.getContextPath() + location); // 回之前的頁面
     return;
   }
 
