@@ -161,7 +161,8 @@ public class CustomerServiceImpl implements CustomerService {
         String key = "TOKEN:" + token;
         String value = String.valueOf(customerId);
         jedis.set(key, value);
-        jedis.expire(key, 60 * 60 * 24 * 7); // 一週內不用重新登入
+//        jedis.expire(key, 60 * 60 * 24 * 7); // 一週內不用重新登入
+        jedis.expire(key, 60 * 60); // 一小時內不用重新登入
         jedis.close();
     }
 

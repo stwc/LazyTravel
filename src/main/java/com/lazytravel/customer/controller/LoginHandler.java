@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 
 @WebServlet(name = "LoginHandler", value = "/login.do")
@@ -31,7 +32,7 @@ public class LoginHandler extends HttpServlet {
         res.setContentType("text/html; charset=UTF-8");
 
         String indexPath = "/index.jsp";
-        String loginPath = "/customer/login.jsp";
+        String loginPath = "/login.jsp";
         String authPath = "/customer/register-auth.jsp";
 
         final String email = req.getParameter("email");
@@ -53,7 +54,8 @@ public class LoginHandler extends HttpServlet {
                 // 產生Unique Identifier，做下次自動登入用
                 String token = UUID.randomUUID().toString().replace("-", "");
                 Cookie cookie = new Cookie("AUTH_TOKEN", token); // 存進cookie
-                cookie.setMaxAge(7 * 24 * 60 * 60); // 一星期內有效
+//                cookie.setMaxAge(7 * 24 * 60 * 60); // 一星期內有效
+                cookie.setMaxAge(60 * 60); // 一小時內有效
                 res.addCookie(cookie);
                 // token也存進redis
                 customerService.setAutoLogin(customer.getCustomerId(), token);
@@ -63,8 +65,10 @@ public class LoginHandler extends HttpServlet {
                 // 重導回先前的頁面
                 String location = (String) session.getAttribute("location");
                 System.out.println("original location: " + location);
-                RequestDispatcher dispatcher = req.getRequestDispatcher(location);
+                RequestDispatcher dispatcher= req.getRequestDispatcher(Objects.requireNonNullElse(location, indexPath));
+                session.removeAttribute("location");
 
+                System.out.println("[會員] 會員登入");
                 dispatcher.forward(req, res);
             } else if (customer.getCustomerStatus().equals(CustomerStatus.NOT_AUTH.getValue())) {
                 // 暫存會員資料

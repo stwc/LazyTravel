@@ -21,7 +21,7 @@ if (customer != null) {
     list = blogSvc.getBlogByCustomerId((Integer)customer.getCustomerId());
 } else {
     // 如果會員未登入，導向登入頁面
-    response.sendRedirect(request.getContextPath() + "/customer/login.jsp");
+    response.sendRedirect(request.getContextPath() + "/login.jsp");
     return;
 }
 pageContext.setAttribute("list", list);

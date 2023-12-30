@@ -80,8 +80,8 @@
 
 	<script>
 		$(function() {
-			$("#header").load("../components/html/header.jsp");
-			$("#footer").load("../components/html/footer.jsp");
+			$("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
+			$("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
 			const customerId = 11001;
 			getcustomercoupon ();
 			 $("#couponResponse").text(sessionStorage.successmessage);

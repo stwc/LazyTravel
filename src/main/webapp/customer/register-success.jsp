@@ -24,7 +24,7 @@
         將於<span class="text-danger">10秒</span>後自動返回登入頁面
       </div>
       <div class="col-12 mb-3 text-center">
-        <a href="<%=request.getContextPath()%>/customer/login.jsp" class="btn text-light" style="background-color: #6B705C;">返回登入頁面</a>
+        <a href="<%=request.getContextPath()%>/login.jsp" class="btn text-light" style="background-color: #6B705C;">返回登入頁面</a>
       </div>
 
     </div>
