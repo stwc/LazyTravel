@@ -9,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet(name = "LoginHandler", value = "/customer/login.do")
 public class LoginHandler extends HttpServlet {
@@ -28,7 +29,7 @@ public class LoginHandler extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
-        String indexPath = req.getContextPath() + "/index.jsp";
+        String indexPath = "/index.jsp";
         String loginPath = "/customer/login.jsp";
         String authPath = "/customer/register-auth.jsp";
 
@@ -49,11 +50,18 @@ public class LoginHandler extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("customer", customer);
 
-                // 確認session id
-                System.out.println("session id: " + session.getId());
+                // 產生Unique Identifier，做下次自動登入用
+                String token = UUID.randomUUID().toString().replace("-", "");
+                Cookie cookie = new Cookie("AUTH_TOKEN", token); // 存進cookie
+                cookie.setMaxAge(7 * 24 * 60 * 60); // 一星期內有效
+                res.addCookie(cookie);
+                // token也存進redis
+                customerService.setAutoLogin(customer.getCustomerId(), token);
 
                 // 重導回首頁
-                res.sendRedirect(indexPath);
+                res.setContentType("text/html; charset=UTF-8");
+                RequestDispatcher dispatcher = req.getRequestDispatcher(indexPath);
+                dispatcher.forward(req, res);
             } else if (customer.getCustomerStatus().equals(CustomerStatus.NOT_AUTH.getValue())) {
                 // 暫存會員資料
                 HttpSession session = req.getSession();
