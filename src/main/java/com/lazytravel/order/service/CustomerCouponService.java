@@ -18,6 +18,11 @@ public class CustomerCouponService {
 		ccdao = new CustomerCouponHibernateDAOImpl();
 		cdao = new CouponHibernateDAOImpl();
 	}
+	
+	public CustomerCoupon get1Customer1Coupon(int customerId, int couponId) {
+		CustomerCoupon existingCoupon = ccdao.getByCustomerIdAndCouponId(customerId, couponId);
+		return existingCoupon;
+	}
 
 	public Integer addCustomerCoupon(int customerId, int couponId) {
 		CustomerCoupon existingCoupon = ccdao.getByCustomerIdAndCouponId(customerId, couponId);
@@ -42,8 +47,8 @@ public class CustomerCouponService {
 		return  1;
 	}
 
-	public void updateCustomerCoupon() {
-
+	public void updateCustomerCoupon(CustomerCoupon customercoupon) {
+		ccdao.update(customercoupon);
 	}
 
 	public List<CustomerCoupon> getCustomerCoupon(Integer customerId) {

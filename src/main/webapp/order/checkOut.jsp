@@ -342,8 +342,9 @@
 			      var $option0 = $('<option></option>').text("無");
         		  $select.append($option0);
         		  
+        		  
 			        data.forEach(function(item) {
-			        	if(globalTotalAmt >= item.threshold ){
+			        	if(globalTotalAmt >= item.threshold  && item.couponStatus != 1){
 			        		var $option = $('<option></option>').val(item.discount)
 				                								.text(item.couponName + "：消費滿 " +　item.threshold + " 折抵 " + item.discount + " 元")
 			        											.data('couponId', item.couponId);

@@ -1,14 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.List"%>
+<%@page import="com.lazytravel.order.dao.*"%>
+<%@page import="com.lazytravel.order.entity.*"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
+
+<%
+
+
+%>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>會員中心-歷史訂單</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/orderDetails.css">
+<!--   <link rel="stylesheet" href="../css/orderDetails.css"> -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
   <script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
   <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
@@ -67,7 +77,11 @@
         </table>
       </div>
       <div class="d-flex justify-content-end mx-3 my-3">
-        <button class="btn-modify btn mx-3" onclick="modifyPassenger()"><a href="/admin/passengerEditor.jsp" style="text-decoration:none; color: white">修改旅客明細</a></button>
+      <form method="post" action="<%=request.getContextPath()%>/order/passenger.do">
+        <button type="submit" class="btn-modify btn mx-3">修改旅客明細</button>
+        <input class="passengermodify" type="hidden" name="orderId" value="" />
+        <input type="hidden" name="action" value="passsengerDetail_modify" />  
+      </form>
         <button class="btn-modify btn mx-3" onclick="goBack()">回上頁</button>
       </div>
 
@@ -94,14 +108,15 @@
 
 
   <script>
+     const urlParams = new URLSearchParams(window.location.search);
+     const orderId = urlParams.get('order_id');
+     const orderNo = urlParams.get('order_no');
+     const orderStatus = urlParams.get('order_status');
+     const orderName = urlParams.get('order_name');
+     const tourist = urlParams.get('tourist');
+  
     $(function () {
       $("#header").load("../admin/header.jsp");
-      const urlParams = new URLSearchParams(window.location.search);
-      const orderId = urlParams.get('order_id');
-      const orderNo = urlParams.get('order_no');
-      const orderStatus = urlParams.get('order_status');
-      const orderName = urlParams.get('order_name');
-      const tourist = urlParams.get('tourist');
 
       $("#orderNo").text(orderNo);
       $("#orderName").text(orderName);
@@ -117,6 +132,7 @@
 
       getJourByOrderId();
       getPasDetails();
+      $(".passengermodify").val(orderId);
 
     });
 
@@ -165,8 +181,8 @@
             tbody += 
             	'<tr>' + 
                 '<th scope="row">' + (index + 1) + '</th>' +
-                '<td>' + item.idno + '</td>' +
                 '<td>' + item.passengerName + '</td>' +
+                '<td>' + item.idno + '</td>' +
                 '<td>' + item.birth + '</td>' +
                 '<td>' + item.phone + '</td>' + 
                	'</tr>';
@@ -180,10 +196,12 @@
         }
       });
     }
+    
+    
+
 
     function goBack() {
-      // 使用 history 物件返回上一頁
-      window.history.go(-1);
+      window.location.href = "orderList.jsp";
     }
     
     

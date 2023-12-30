@@ -151,6 +151,8 @@ button.btn-modify, #filterBtn, a.btn-modify {
 						let paidtimeCell = '';
 						if (item.paidTime == null) {
 							paidtimeCell = '<span class="status-unpaid">--</span>';
+						}else{
+							paidtimeCell = formatDateTime(item.paidTime);
 						}
 
 
