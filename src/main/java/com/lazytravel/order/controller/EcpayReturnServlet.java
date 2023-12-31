@@ -41,7 +41,13 @@ public class EcpayReturnServlet extends HttpServlet{
 		String rtnCode = req.getParameter("RtnCode");
 		Integer customerId = Integer.parseInt(req.getParameter("CustomField1"));
 		Integer orderId = Integer.parseInt(req.getParameter("CustomField2"));
-		Integer couponId = Integer.parseInt(req.getParameter("CustomField3"));
+		String couponIdstr = req.getParameter("CustomField3");
+		Integer couponId = 0;
+		if(!couponIdstr.equals("null")) {
+			couponId = Integer.parseInt(couponIdstr);
+		}else {
+			couponId = 0;
+		}
 		
 		System.out.println(merchantTradeNo + " " + RtnMsg + " RtnCode=" + rtnCode + "customerId=" + customerId);
 		
@@ -50,11 +56,15 @@ public class EcpayReturnServlet extends HttpServlet{
 			Orders order = orderSvc.getOneOrder(orderId);
 			order.setOrderStatus("1");
 			order.setPaidTime(new Timestamp(System.currentTimeMillis()));
-			CustomerCoupon ccs = customerSvc.get1Customer1Coupon(customerId, couponId);
-			ccs.setCouponStatus("1");
+			
+			if(couponId != 0) {
+				CustomerCoupon ccs = customerSvc.get1Customer1Coupon(customerId, couponId);
+				ccs.setCouponStatus("1");
+				customerSvc.updateCustomerCoupon(ccs);
+			}
+		
 			
 			orderSvc.updateOrder(order);
-			customerSvc.updateCustomerCoupon(ccs);
 		}
 		
 	}

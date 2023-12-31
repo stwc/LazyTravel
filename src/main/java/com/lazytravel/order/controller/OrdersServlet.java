@@ -337,7 +337,13 @@ public class OrdersServlet extends HttpServlet {
 		order.setCustomerId(customerId);
 		order.setGroupId(groupId);
 		order.setTourist(tourist);
-		order.setCouponId(couponId);
+		
+		if (couponId == 0) {
+			order.setCouponId(null);
+		}else {
+			order.setCouponId(couponId);
+		}
+		
 		order.setTotalAmt(totalAmt);
 		order.setOrderStatus(orderStatus);
 		order.setCustomerPoint(customerPoint);

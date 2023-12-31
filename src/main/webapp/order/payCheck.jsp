@@ -137,6 +137,8 @@
         //4=100%
         update(3);
 
+        
+        
         function update(currentActive) {
             stepCircles.forEach((circle, i) => {
                 if (i < currentActive) {
@@ -246,6 +248,7 @@
 				dataType: "json",
 				success: function(response) {
 					orderId = response;
+					console.log(orderId)
 					$("#ecpay").val(orderId);
 					
 					// 构建包含乘客数据的数组或对象
