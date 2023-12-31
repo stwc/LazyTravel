@@ -12,7 +12,7 @@
 <%
 Customer customer = (Customer) session.getAttribute("customer");
 if (customer == null) {
-    response.sendRedirect(request.getContextPath() + "/customer/login.jsp");
+    response.sendRedirect(request.getContextPath() + "/login.jsp");
     return;
 }
 Integer customerId = (Integer) customer.getCustomerId();

@@ -174,7 +174,8 @@ public class CustomerServlet extends HttpServlet {
         // cookie移除登入token
         res.addCookie(new Cookie("AUTH_TOKEN", ""));
 
-        return "/customer/login.jsp";
+        System.out.println("[會員] 會員登出");
+        return "/login.jsp";
     }
 
     private String getOneModify(HttpServletRequest req, HttpServletResponse res) {
@@ -219,7 +220,7 @@ public class CustomerServlet extends HttpServlet {
             req.setAttribute("hideResetPw", true);
             return "/customer/resetpw.jsp";
         } else {
-            return "/customer/login.jsp";
+            return "/login.jsp";
         }
     }
 }

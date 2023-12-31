@@ -8,6 +8,7 @@ import com.lazytravel.journey.entity.TourGroup;
 public interface TourGroupDAO {
 	int add(TourGroup tourGroup);
 	int update(TourGroup tourGroup);
+	int updateList(List<TourGroup> tourGroupList);
 //	void delete(Integer groupId);
 	
 	TourGroup findByPK(Integer groupId);
