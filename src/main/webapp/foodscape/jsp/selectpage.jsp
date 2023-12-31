@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.stream.Collectors" %>
 <%@ page import="com.lazytravel.foodscape.entity.*"%>
+<%@ page import="com.lazytravel.foodscape.entity.FoodScape" %>
 <%@ page import="com.lazytravel.foodscape.dao.*"%>
 <%@ page import="com.lazytravel.foodscape.service.*"%>
 <%@ page import="com.lazytravel.journey.entity.*"%>
@@ -18,6 +21,32 @@ FoodScapeService foodscapeService = new FoodScapeServiceImpl();
 List<FoodScape> list = foodscapeService.getAllFoodScapes();
 pageContext.setAttribute("list", list);
 %>
+
+<%
+List<Integer> foodScapeIdList = new ArrayList<>();
+if (foodscape != null) {
+    foodScapeIdList.add(foodscape.getFoodScapeId());
+}
+
+//foodScapeIdList轉換為以,分隔的字串
+
+String foodScapeIdList_Str = foodScapeIdList.stream().map(Object::toString).collect(Collectors.joining(","));
+if (!foodScapeIdList_Str.isEmpty()) {
+    try {
+        int foodScapeId = Integer.parseInt(foodScapeIdList_Str);
+        // 其他處理
+    } catch (NumberFormatException e) {
+    	System.out.println("輸入的 foodScapeId 不是有效的數字：" + foodScapeIdList_Str);
+    }
+} else {
+    // 處理空字串的情況，可能是給一個預設值或者其他邏輯
+}
+//送資料
+request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
+
+%>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -278,7 +307,9 @@ pageContext.setAttribute("list", list);
                             </div>
 
                             <!-- 加入 hidden input，將 foodScapeId 傳遞到下一個頁面 -->
+                            <c:if test="${not empty foodscape.foodScapeId}">
                             <input type="hidden" name="foodScapeId" value="${foodscape.foodScapeId}">
+                            </c:if>
                             <input type="submit" name="action" value="查看更多" class="btn_submit mt-auto">
                         </div>
                     </div>
@@ -289,10 +320,18 @@ pageContext.setAttribute("list", list);
 </ul>
 
                             <br>
-                            <div class="div_btn">
-                                <button type="reset" class="btn_reset">全部取消</button>                                
-                                <button type="submit" class="btn_submit">送出</button>
+                            <div class="div_btn">                           
+                                <button type="reset" class="btn_reset">全部取消</button>
+<%--                                 <form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                 --%>
+<!--                                 <button type="submit" class="btn_submit">送出</button> -->
+<!--                                 <input type="hidden" name="action" value="receiveFoodScapeId"> -->
+<!--                                 </form> -->
+<%-- 					<form class="selectfsId" method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                 --%>
+<!--     				<button type="submit" class="btn_submit">送出</button> -->
+<!--     				<input type="hidden" name="action" value="receiveFoodScapeId" id="selectedFoodScapeIdsInput"> -->
+<!-- 					</form> -->
                             </div>
+
 
 
         
@@ -300,6 +339,7 @@ pageContext.setAttribute("list", list);
 
 
     <footer id="footer"></footer>
+    <%@ include file="/components/html/footer.jsp" %>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -308,8 +348,8 @@ pageContext.setAttribute("list", list);
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
       $(function () {
-          $("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
-          $("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
+//         $("#header").load("../components/html/header.jsp");
+//         $("#footer").load("../components/html/footer.jsp");
       });
     </script>
   	
@@ -319,10 +359,10 @@ pageContext.setAttribute("list", list);
   	    $('.fas.fa-check-circle').on('click', function () {
   	        // 切换勾号的状态，如果已经被选中则取消选中，反之亦然
   	        $(this).toggleClass('checked');
-  	        
+
   	        // 获取当前点击的 li 元素
   	        var listItem = $(this).closest('li');
-  	        
+
   	        // 切换 li 元素的选中状态
   	        listItem.toggleClass('selected');
   	    });
@@ -332,15 +372,33 @@ pageContext.setAttribute("list", list);
   	        // 获取所有选中的项
   	        var selectedItems = $('li.selected');
   	        
-  	        // 打印选中项的值
-  	        selectedItems.each(function () {
-  	            console.log($(this).find('input[name="selectedItems"]').val());
+  	     	var selectedFoodScapeIds = [];
+
+  	        // 遍历选中项，将 foodScapeId 添加到隐含的 input 元素中
+  	        selectedItems.each(function (index) {
+  	            var foodScapeId = $(this).find('input[name="foodScapeId"]').val();
+  	          console.log('Selected FoodScapeId: ' + foodScapeId);
+  	       		 selectedFoodScapeIds.push(foodScapeId);
+  	          
+  	          
+  	           
   	        });
+  	        
+  	      var selectedFoodScapeIdsString = selectedFoodScapeIds.join(',');
+  	      
+	  	    $('<input>').attr({
+	  	        type: 'hidden',
+	  	        name: 'selectedFoodScapeIds',
+	  	        value: selectedFoodScapeIdsString
+	  	    }).appendTo('form');
+	  	    console.log(selectedFoodScapeIdsString);
   	    });
   	});
+  	
 
 </script>
   
+
   
   </body>
   
