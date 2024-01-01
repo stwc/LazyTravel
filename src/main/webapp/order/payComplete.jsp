@@ -38,7 +38,7 @@
             </div>
               
               <div class="d-flex justify-content-end mt-5">
-                <button id="backtohomeButton" onclick="backwardClick()">回首頁</button>
+                <button class="btnn" id = "backtohomeButton" onclick="backwardClick()">回首頁</button>
             </div>
             </div>
           </div>

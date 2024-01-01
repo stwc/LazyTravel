@@ -26,7 +26,7 @@
 
 <script src="https://kit.fontawesome.com/cb6bf56872.js"
 	crossorigin="anonymous"></script>
-<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+<link rel="icon" href="<%=request.getContextPath()%>/static/images/logo.ico" type="image/x-icon">
 
 </head>
 
@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		<hr class="mx-5">
-		<form class="mx-5" id="customerDetailsForm">
+		<form class="mx-5 " id="customerDetailsForm">
 			<div class="passenger-detail">
 				<div class="row">
 					<div class="col mt-5">
@@ -76,8 +76,8 @@
 									訂單小計：<span class="total_amt ms-2" id="total_amt"></span>
 								</p>
 
-								<a href="#" id="customButton" class="btn mt-3" tabindex="-1"
-									role="button" aria-disabled="true">回上一頁</a>
+								<a id="customButton" class="btnn mt-3" tabindex="-1"
+									role="button" aria-disabled="true" onclick="goBack()">回上一頁</a>
 
 							</div>
 						</div>
@@ -134,7 +134,7 @@
 					</div>
 
 					<div class="d-flex justify-content-end mt-3">
-						<button type="submit" class="bt1" id="customerDetailForm">確認訂單</button>
+						<button type="submit" class="btnn" id="customerDetailForm">確認訂單</button>
 					</div>
 				</div>
 			</div>
@@ -152,6 +152,8 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
 
 
 
@@ -161,6 +163,7 @@
 	let journey_name = 0;
 	let group_strat_time = 0;
 	let group_end_time = 0;
+	let originalTotal = 0;
 
 //=========>  最終用session取得
 // 	let passengerCount = 1;
@@ -184,6 +187,9 @@
     }
 });
 	
+	
+	
+	
 	$(function(){
 // 		 $("#header").load("../components/html/header.html");
 // 		 $("#footer").load("../components/html/footer.html");
@@ -196,15 +202,23 @@
 	});
 	
 	$('#couponSelect').on('change', function() {
-		selectedCouponId = $(this).find('option:selected').data('couponId');
-		 calculateTotal();
-	
+		var selectedDiscount = $('#couponSelect').val();
+		
+		if(selectedDiscount !== undefined){
+			if(selectedDiscount === "0"){
+				$("#DSTotal").text(originalTotal + " 元");
+			}else{
+				calculateTotal(selectedDiscount);
+			}
+		}
 	    });
 	
-	function calculateTotal(){
-		var selectedDiscount = $('#couponSelect').val();
-        var originalTotal = globalTotalAmt; // 從全局變量中獲取原始總金額
-        var discountedTotal = originalTotal - selectedDiscount; // 計算折扣後的總金額
+	function calculateTotal(selectedDiscount){
+		if(selectedDiscount !=0 ){
+			var discountedTotal = originalTotal - selectedDiscount; // 計算折扣後的總金額        	
+		}else{
+			 discountedTotal = originalTotal;
+		}
 
         // 確保總金額不會小於0
         discountedTotal = (discountedTotal < 0) ? 0 : discountedTotal;
@@ -270,6 +284,7 @@
 						group_end_time = item.endTime;
 						$("#total_amt").text(totalAmt + " 元 ");
 						globalTotalAmt = totalAmt;
+						originalTotal = totalAmt;
 						$("#DSTotal").text(totalAmt + " 元 ")
 					});
 		        },
@@ -287,7 +302,7 @@
           		'<div class="passenger-form">' +
           		'<p class="ms-4" style="font-size: 18px; font-weight: 600; color: #CB997E;">旅客' + i + '</p>' +
           		'<label for="inputName' + i + '" class="form-label ms-4">旅客姓名：</label>' +
-                '<input type="text" id="inputName' + i + '" class="form-control ms-4 w-50 mb-4" required>' +
+                '<input name="inputName" type="text" id="inputName' + i + '" class="form-control ms-4 w-50 mb-4" required>' +
                 '<label for="gender' + i + '" class="form-label ms-4">旅客姓別：</label>' +
                 '<div class="form-check form-check-inline">' +
                 '<input class="form-check-input" type="radio" name="gender' + i + '" id="male' + i + '" value="男性" required>' +
@@ -302,13 +317,13 @@
                 '<label class="form-check-label" for="other' + i + '">其他</label>' +
                 '</div>' +
                 '<p for="inputId" class="form-label  ms-4 my-3">身分證字號(護照號碼)：</p>' +
-                '<input type="text" id="inputId" class="form-control ms-4 w-50 mb-4" required>' +
-                '<p for="inputel" class="form-label  ms-4 my-3">出生日期：</p>' +
-                '<input type="date" id="inpudate" class="form-control ms-4 w-50 mb-4" name= "birth' + i + '" id="birth' + i + '"  required>' +
+                '<input name="inputId" type="text" id="inputId" class="form-control ms-4 w-50 mb-4" required>' +
+                '<p for="inputbirth" class="form-label  ms-4 my-3">出生日期：</p>' +
+                '<input name="inputbirth" type="date" id="inpudate" class="form-control ms-4 w-50 mb-4" name= "birth' + i + '" id="birth' + i + '"  required>' +
                 '<p for="inputel" class="form-label  ms-4 my-3">連絡電話：</p>' +
-                '<input type="tel" id="inputel" class="form-control ms-4 w-50 mb-4" name= "phone' + i + '" id="phone' + i + '"  required>' +
+                '<input name="inputel" type="tel" id="inputel" class="form-control ms-4 w-50 mb-4" name= "phone' + i + '" id="phone' + i + '"  required="\d+">' +
                 '<p for="inputMail" class="form-label  ms-4 my-3">Email信箱：</p>' +
-                '<input type="email" id="inputMail" class="form-control ms-4 w-50 mb-4" name= "mail' + i + '" id="mail' + i + '"  required>' +
+                '<input name="inputMail"  type="email" id="inputMail" class="form-control ms-4 w-50 mb-4" name= "mail' + i + '" id="mail' + i + '"  required>' +
                 '</div>' +
                 '<hr class="mx-4 border-2">';
            	
@@ -335,12 +350,11 @@
 				success: function(data) {
 			        console.log(data);
 			      var $select = $('#couponSelect');
-        		  var $option0 = $('<option></option>').text("無");
-        		  $select.append($option0);
 
 			      $select.empty(); // 清空select選項
-			      var $option0 = $('<option></option>').text("無");
+        		  var $option0 = $('<option></option>').text("無").val(0);
         		  $select.append($option0);
+	
         		  
         		  
 			        data.forEach(function(item) {
@@ -479,8 +493,16 @@
 
 	        };
 	        
+	        function goBack() {
+	            // 使用 history 物件返回上一頁
+	            window.history.go(-1);
+	        }
 	        
 	        
+
+	        
+	        
+
 	        
   </script>
 

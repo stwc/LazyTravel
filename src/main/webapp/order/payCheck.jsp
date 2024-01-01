@@ -57,7 +57,7 @@
 
 
                 <div class="d-flex justify-content-end mt-3">
-                    <button id="customButton" onclick="backwardClick()">修改旅客資訊</button>
+                    <button class="btnn btn" id ="backward" onclick="backwardClick()">修改旅客資訊</button>
                 </div>
             </div>
         </div>
@@ -79,11 +79,7 @@
                               <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="firstRadio" checked>
                               <label class="form-check-label" for="firstRadio">信用卡付款</label>
                             </li>
-                            <li class="list-group-item">
-                              <input class="form-check-input me-1" type="radio" name="listGroupRadio" value="" id="secondRadio">
-                              <label class="form-check-label" for="secondRadio">Line Pay</label>
-                            </li>
-                            
+                           
                           </ul>
                     </div>
                     
@@ -91,7 +87,7 @@
 
 			<form id="ecpayform" method="POST" action="http://localhost:8081/LazyTravel/order/ecpay.do">
                 <div class="d-flex justify-content-end mx-3 my-3">
-                    <button type="submit" id="payButton" onclick="nextClick()">去買單</button>
+                    <button type="submit" class="btnn" id="payButton" onclick="nextClick()">去買單</button>
                     <input id="ecpay" type="hidden" name="orderId" value=" " >
                 </div>
 			</form>
@@ -208,7 +204,7 @@
 
 
         function backwardClick() {
-		var button = document.getElementById('customButton');
+       var button = document.getElementById('backward');
         button.classList.add('clicked');
         sessionStorage.setItem('scrollToTop', 'true');
 //         window.history.back();

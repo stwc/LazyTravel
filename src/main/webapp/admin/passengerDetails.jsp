@@ -100,10 +100,12 @@
   </main>
 
   <footer id="footer"></footer>
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  	<script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
 
 
@@ -116,7 +118,7 @@
      const tourist = urlParams.get('tourist');
   
     $(function () {
-      $("#header").load("../admin/header.jsp");
+    	$("#header").load("../admin/header.jsp");
 
       $("#orderNo").text(orderNo);
       $("#orderName").text(orderName);

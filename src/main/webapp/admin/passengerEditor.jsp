@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>後台-優惠券新增</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/checkComplete.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/checkComplete.css">
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
     <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
@@ -113,17 +113,19 @@
     </main>
 
     <footer id="footer"></footer>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    	<script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
 
 
 
     <script>
         $(function () {
-            $("#header").load("../admin/header.jsp");
+        	$("#header").load("../admin/header.jsp");
         });
 		
         function goBack() {

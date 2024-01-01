@@ -117,22 +117,33 @@ div.container1 {
       background-color: #fff;
     }
 
-    #customButton, #payButton{
-      background-color: #ffffff; /* 初始背景色 */
-      color: #9C6644; /* 初始文字與框線色 */
-      border: 2px solid #9C6644; /* 初始邊框色 */
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 150px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #customButton, #payButton{
-      background-color: #9C6644; /* 點擊後背景色 */
-      color: #ffffff; /* 點擊後文字色 */
-      border-radius: 10px;   
-    }
+    .btnn {
+        background-color: #9C6644;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+  }
+  
+  .btnn:hover {
+     background-color: #804C33;
+        background-color: #B07C56;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+  .btnn:active{
+           background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
+  

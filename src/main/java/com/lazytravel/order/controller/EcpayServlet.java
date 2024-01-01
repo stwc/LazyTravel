@@ -50,7 +50,7 @@ public class EcpayServlet extends HttpServlet{
 		String formattedTradeDate = dateFormat.format(tradeDate);
 		String itemName = orderService.getJourneyNameByOrderId(orderId);
 		String customerId = String.valueOf(order.getCustomerId());
-		int merchantTradeNoSet = 890000 + orderId;
+		int merchantTradeNoSet = 880000 + orderId;
 
 	
 		System.out.println(orderId);
