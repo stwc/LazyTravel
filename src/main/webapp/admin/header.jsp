@@ -32,7 +32,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="<%=request.getContextPath()%>/admin/">後臺管理</a>
+      <a class="navbar-brand" href="<%=request.getContextPath()%>/admin/index.jsp">後臺管理</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/admin/index.html">首頁</a>
+            <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/admin/index.jsp">首頁</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -86,12 +86,12 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              後臺權限
+              後臺管理
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/user.jsp">後臺使用者</a></li>
-              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/role.jsp">後臺角色</a></li>
-              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/func.jsp">後臺功能</a></li>
+<%--              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/role.jsp">後臺角色</a></li>--%>
+<%--              <li><a class="dropdown-item" href="<%=request.getContextPath()%>/admin/func.jsp">後臺功能</a></li>--%>
             </ul>
           </li>
         </ul>
