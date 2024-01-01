@@ -146,6 +146,7 @@
 					data.forEach((item) => {
 						let tmpArr = [];
 
+						
 						function formatDateTime(timestamp) {
 							const options = {
 								year: 'numeric',
@@ -161,7 +162,7 @@
 						let statusCell = '';
 						if (item.couponStatus == 0) {
 							statusCell = '<span class="status-unpaid">未使用</span>';
-						} else if (item.orderStatus == 1) {
+						} else if (item.couponStatus == 1) {
 							statusCell = '<span class="status-paid">已使用</span>';
 						}
 						

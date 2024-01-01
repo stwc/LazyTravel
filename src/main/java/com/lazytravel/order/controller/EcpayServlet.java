@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lazytravel.order.entity.Orders;
+import com.lazytravel.order.service.CustomerCouponService;
 import com.lazytravel.order.service.OrdersService;
 
 import ecpay.payment.integration.AllInOne;
@@ -22,6 +23,7 @@ import ecpay.payment.integration.domain.AioCheckOutALL;
 public class EcpayServlet extends HttpServlet{
 
 	private OrdersService orderService ;
+
 	public AllInOne all;
 	
 	@Override
@@ -41,13 +43,14 @@ public class EcpayServlet extends HttpServlet{
 		Integer orderId = Integer.parseInt(req.getParameter("orderId"));
 		Orders order = orderService.getOneOrder(orderId);
 		String orderNo = order.getOrderNo();
+		Integer couponId = order.getCouponId();
 		String totalAmt = String.valueOf(order.getTotalAmt());
 		Timestamp tradeDate= order.getCreateTime();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String formattedTradeDate = dateFormat.format(tradeDate);
 		String itemName = orderService.getJourneyNameByOrderId(orderId);
 		String customerId = String.valueOf(order.getCustomerId());
-		int merchantTradeNoSet = 980000 + orderId;
+		int merchantTradeNoSet = 880000 + orderId;
 
 	
 		System.out.println(orderId);
@@ -66,7 +69,8 @@ public class EcpayServlet extends HttpServlet{
 		obj.setItemName(itemName);
 		obj.setCustomField1(customerId);
 		obj.setCustomField2(String.valueOf(orderId));
-		obj.setReturnURL("https://c7fd-101-3-41-192.ngrok-free.app/LazyTravel/order/ecpayreturn.do");
+		obj.setCustomField3(String.valueOf(couponId));
+		obj.setReturnURL("https://8ade-101-3-41-192.ngrok-free.app/LazyTravel/order/ecpayreturn.do");
 		obj.setOrderResultURL("http://localhost:8081/LazyTravel/order/payComplete.jsp");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);

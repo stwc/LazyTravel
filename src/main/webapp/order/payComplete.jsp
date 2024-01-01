@@ -38,7 +38,7 @@
             </div>
               
               <div class="d-flex justify-content-end mt-5">
-                <button id="backtohomeButton" onclick="backwardClick()">回首頁</button>
+                <button class="btnn" id = "backtohomeButton" onclick="backwardClick()">回首頁</button>
             </div>
             </div>
           </div>
@@ -96,7 +96,7 @@
         function backwardClick() {
             var button = document.getElementById('backtohomeButton');
         button.classList.add('clicked');
-        window.location.href = '#';
+        window.location.href = 'http://localhost:8081/LazyTravel/index.jsp';
         }
         
         
