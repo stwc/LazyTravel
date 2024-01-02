@@ -313,7 +313,7 @@ public class OrdersServlet extends HttpServlet {
 	    ordersService.updateOrder(order);
 
 	    req.setAttribute("order", order);
-	    return "/admin/orderList.html"; // 这里可以根据你的业务逻辑进行跳转
+	    return "/admin/orderList.jsp"; // 这里可以根据你的业务逻辑进行跳转
 	
 	}
 
