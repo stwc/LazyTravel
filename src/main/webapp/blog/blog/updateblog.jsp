@@ -14,6 +14,7 @@ Blog blog = (Blog) request.getAttribute("blog");
 BlogService blogSvc = new BlogServiceImpl();
 List<Blog> list = blogSvc.getAllBlogs();
 pageContext.setAttribute("list", list);
+String blogImg = request.getContextPath()+ "/blog/blog/BlogImgReader?blogId="+blog.getBlogId();
 
 Customer customer = (Customer) session.getAttribute("customer");
 %>
@@ -115,13 +116,13 @@ Customer customer = (Customer) session.getAttribute("customer");
 				</div>
 				<div class="col-7 d-flex align-items-center">
 					<div class="input-group mb-3 h-auto mt-3 m-1" style="width: 545px">
-						<input type="file" name="blogImg"
+						<input type="file" name="blogImg" value="<%=blogImg %>" 
 							class="form-control" id="inputGroupFile01" />
 					</div>
 				</div>
-				<div class="col-2 d-flex align-items-center">
-					<button type="button" class="btn btn-success">取消圖片</button>
-				</div>
+			</div>
+			<div id="preview" style="text-align: center;">
+			<img class="top-50 start-50" src="<%=blogImg %>"  style="width: 545px;height:300px "class="preview_img" alt="Img""/>
 			</div>
 		</div>
 		<hr />
@@ -143,6 +144,8 @@ Customer customer = (Customer) session.getAttribute("customer");
 					<input type="hidden" name="createTime" value="<%=blog.getCreateTime()%>">
 					<input type="hidden" name="blogStatus" value="<%=blog.getBlogStatus()%>">
 					<input type="hidden" name="viewSum" value="<%=blog.getViewSum()%>">
+						<input type="hidden" name="clSum" value="<%=blog.getClSum()%>">
+					<input type="hidden" name="likeSum" value="<%=blog.getLikeSum()%>">
 					
 				</div>
 			</div>
@@ -188,6 +191,26 @@ Customer customer = (Customer) session.getAttribute("customer");
 	            var tagName = $(this).data('name');
 	            $('#tagInput').val(tagName);
 	        });
+	    });
+	    
+	    let preview_img = function (file) {
+	        let reader = new FileReader();
+	        reader.readAsDataURL(file);
+	        reader.addEventListener("load", function () {
+	            <%--let img_src = `<img src="${reader.result}" class="preview_img">`;--%>
+	            let img_src = '<img src="' + reader.result + '" class="preview_img" alt="img" style="width: 545px; height: 300px;">';
+	            $("#preview").html(img_src);
+	        })
+	    };
+	    
+	    $("#inputGroupFile01").on("change", function (e) {
+	        // console.log(this);
+	        console.log(this.files);
+
+	        if (this.files.length > 0)
+	            preview_img(this.files[0]);
+	        else
+	            $("#preview").html('<span class="text">預覽圖</span>');
 	    });
 	    
 	    $(document).ready(function() {

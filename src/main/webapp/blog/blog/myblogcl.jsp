@@ -109,8 +109,9 @@ pageContext.setAttribute("list", list);
 	    <div class="row" >
 	        <c:forEach var="blog" items="${list}">
 	        <c:if test="${blog.blogStatus ne 0}">
+	        <c:set var="foundClStatus" value="false" />
 	        <c:forEach var="blogCl" items="${blog.blogCls}">
-	        <c:if test="${blogCl.blogClStatus eq '1'}">
+	        <c:if test="${blogCl.customer.customerId eq customer.customerId and blogCl.blogClStatus eq '1' and foundClStatus eq 'false'}">
 	            <div class="col-md-4" id="blogCard-${blog.blogId}">
 	                <div class="card" style="width: 22rem;height: 450px; margin: 10px;">
 	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 351px; height: 200px;" />
