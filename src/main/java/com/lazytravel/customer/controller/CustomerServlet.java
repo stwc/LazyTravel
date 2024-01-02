@@ -87,7 +87,7 @@ public class CustomerServlet extends HttpServlet {
         Customer customer = customerService.getOneCustomer(customerId);
 
         // 抓前端傳來的參數
-        String email = req.getParameter("email");
+        String email = req.getParameter("email").trim();
         if (!customer.getEmail().equals(email) && customerService.emailExists(email) != null) {
             req.setAttribute("updateFailed", true);
             errorMsgs.add("此Email信箱已有人使用");
