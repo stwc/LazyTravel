@@ -22,6 +22,40 @@
 			color: white;
 		}
 		
+		
+		button.btn-modify,
+		#filterBtn, a.btn-modify, a.couponAdd {
+        background-color: #9C6644;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+  }
+  
+  button.btn-modify:hover,
+		#filterBtn:hover, a.btn-modify:hover, a.couponAdd:hover {
+     background-color: #804C33;
+        background-color: #B07C56;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+  button.btn-modify:active,
+		#filterBtn:active, a.btn-modify:active, a.couponAdd:active{
+           background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
+		
 		.coupon{
 			width: 1347px;
 		}
@@ -39,7 +73,7 @@
 			</div>
 			<div class="card-body mx-2">
 				<table class="my-5">
-					<a class="btn" href="couponAdd.jsp" role="button"
+					<a class="btn couponAdd" href="couponAdd.jsp" role="button"
 						style="background-color: #9C6644;color: white"> 新增</a>
 
 				</table>

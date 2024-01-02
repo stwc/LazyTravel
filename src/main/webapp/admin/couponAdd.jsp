@@ -19,9 +19,9 @@
             height: 30px;
             border-radius: 90px;
             border-color: transparent;
-            color: white;
-            background: #CCD5AE;
 
+            color: white;
+            background: #9C6644;
             margin-right: 15px;
         }
 
@@ -36,13 +36,9 @@
             border-radius: 90px;
             border-color: transparent;
             color: white;
-            background: #9C6644;
+            background: #CCD5AE;
         }
 
-        button.btn_reset:active {
-            outline: 2px solid #9C6644;
-            box-shadow: 0 0 8px #a1a397
-        }
     </style>
 </head>
 
@@ -60,37 +56,37 @@
                 <form method="post" action="coupon.do" id="couponForm">
                     <div class="serialNo my-3">
                         <label>優惠號碼：</label>
-                        <input type="text" name="serialNo">
+                        <input type="text" name="serialNo" required>
                     </div>
 
                     <div class="couponName my-3">
                         <label>優惠名稱： </label>
-                        <input type="text" name="couponName">
+                        <input type="text" name="couponName" required>
                     </div>
 
                     <div class="discount my-3">
                         <label>折扣金額： </label>
-                        <input type="text" name="discount">
+                        <input type="text" name="discount" required>
                     </div>
 
                     <div class="threshold my-3">
                         <label>折扣門檻： </label>
-                        <input type="text" name="threshold">
+                        <input type="text" name="threshold" required>
                     </div>
 
                     <div class="startTime my-3">
                         <label>生效日期： </label>
-                        <input type="datetime-local" name="startTime">
+                        <input type="datetime-local" name="startTime" required>
                     </div>
 
                     <div class="endTime my-3">
                         <label>結束日期： </label>
-                        <input type="datetime-local" name="endTime">
+                        <input type="datetime-local" name="endTime" required>
                     </div>
 
                     <div class="total my-3">
                         <label>發放數量： </label>
-                        <input type="number" name="total">
+                        <input type="number" name="total" required>
                     </div>
 
 

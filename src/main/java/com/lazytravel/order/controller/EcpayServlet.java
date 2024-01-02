@@ -50,7 +50,7 @@ public class EcpayServlet extends HttpServlet{
 		String formattedTradeDate = dateFormat.format(tradeDate);
 		String itemName = orderService.getJourneyNameByOrderId(orderId);
 		String customerId = String.valueOf(order.getCustomerId());
-		int merchantTradeNoSet = 880000 + orderId;
+		int merchantTradeNoSet = 870000 + orderId;
 
 	
 		System.out.println(orderId);
@@ -70,7 +70,7 @@ public class EcpayServlet extends HttpServlet{
 		obj.setCustomField1(customerId);
 		obj.setCustomField2(String.valueOf(orderId));
 		obj.setCustomField3(String.valueOf(couponId));
-		obj.setReturnURL("https://8ade-101-3-41-192.ngrok-free.app/LazyTravel/order/ecpayreturn.do");
+		obj.setReturnURL("https://fc24-1-164-240-137.ngrok-free.app/LazyTravel/order/ecpayreturn.do");
 		obj.setOrderResultURL("http://localhost:8081/LazyTravel/order/payComplete.jsp");
 		obj.setNeedExtraPaidInfo("N");
 		String form = all.aioCheckOut(obj, null);

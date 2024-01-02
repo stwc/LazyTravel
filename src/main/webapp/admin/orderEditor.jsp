@@ -18,8 +18,7 @@
             border-radius: 90px;
             border-color: transparent;
             color: white;
-            background: #CCD5AE;
-
+            background: #9C6644;
             margin-right: 15px;
         }
 
@@ -33,8 +32,8 @@
             height: 30px;
             border-radius: 90px;
             border-color: transparent;
-            color: white;
-            background: #9C6644;
+			color: white;
+            background: #CCD5AE;
         }
 
         button.btn_reset:active {

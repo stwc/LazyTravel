@@ -18,16 +18,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>會員中心-歷史訂單</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-<!--   <link rel="stylesheet" href="../css/orderDetails.css"> -->
   <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
   <script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
   <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
   <style>
+
+    
     button.btn-modify {
-      background-color: #9C6644;
-      color: white;
-    }
+        background-color: #9C6644;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+  }
+  
+  button.btn-modify:hover {
+     background-color: #804C33;
+        background-color: #B07C56;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+  button.btn-modify:active{
+           background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
+  
+    
   </style>
 </head>
 
@@ -143,7 +171,6 @@
       button.classList.add('clicked');
       window.location.href = '#';
     }
-
 
     function getJourByOrderId() {
       const urlParams = new URLSearchParams(window.location.search);

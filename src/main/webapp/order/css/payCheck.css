@@ -79,7 +79,7 @@ div.container1 {
     border-color: var(--line-border-fill);
   }
   
-  .btn {
+  .btn,backward {
     background-color: var(--line-border-fill);
     color: #fff;
     cursor: pointer;
@@ -91,11 +91,11 @@ div.container1 {
     font-size: 14px;
   }
   
-  .btn:active {
+  .btn:active,backward:active {
     transform: scale(0.98);
   }
   
-  .btn:focus {
+  .btn:focus,backward:focus {
     outline: 0;
   }
   

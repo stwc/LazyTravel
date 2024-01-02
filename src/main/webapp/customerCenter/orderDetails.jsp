@@ -12,10 +12,31 @@
 	<script src="https://kit.fontawesome.com/cb6bf56872.js" crossorigin="anonymous"></script>
 	<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 	<style>
-		#goBackButton {
-			background-color: #9C6644;
-			color: white;
-		}
+		
+		.btnn {
+            width: 100px;
+            height: 30px;
+            border-radius: 90px;
+            border-color: transparent;
+
+            color: white;
+            background: #9C6644;
+            margin-right: 15px;
+        }
+
+        .btnn:active {
+            outline: 2px solid #CCD5AE;
+            box-shadow: 0 0 8px #a1a397
+        }
+
+        #goBackButton {
+            width: 100px;
+            height: 30px;
+            border-radius: 90px;
+            border-color: transparent;
+            color: white;
+            background: #CCD5AE;
+        }
 	</style>
 </head>
 
@@ -63,9 +84,9 @@
 				</table>
 			</div>
 			<div class="d-flex justify-content-end mx-3 my-3">
-				<button class="btn mx-5" id="goBackButton" onclick="goBack()">回上一頁</button>
+				<button class="btnn mx-5" id="goBackButton" onclick="goBack()">回上一頁</button>
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+				<button type="button" class="btnn" data-bs-toggle="modal" data-bs-target="#exampleModal"
 					id="cancelOrderButton">取消訂單</button>
 
 				<!-- Modal -->
@@ -174,7 +195,6 @@
 				success: function (passengers) {
 					let tbody = "";
 					passengers.forEach((item, index) => {
-
 						tbody += 	
 							'<tr>' +
 	                        '<th scope="row">' + index + 1 + '</th>' + 
