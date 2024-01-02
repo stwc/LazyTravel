@@ -110,7 +110,7 @@
       </h4>
       <ul class="mt-3">
         <li class="mb-2">
-          <a href="<%=request.getContextPath()%>/customerService/backContentMail.jsp" class="">客服</a>
+          <a href="<%=request.getContextPath()%>/customerService/backContenMail.jsp" class="">客服</a>
         </li>
       </ul>
     </div>

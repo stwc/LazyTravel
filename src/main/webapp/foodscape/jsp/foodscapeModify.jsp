@@ -5,7 +5,7 @@
 <%@page import="com.lazytravel.foodscape.entity.*"%>
 <%@page import="com.lazytravel.foodscape.service.*"%>
 
-<%@ include file="/admin/header.html" %>
+
 
 <%
 FoodScape foodscape = (FoodScape) request.getAttribute("foodscape");
@@ -119,8 +119,7 @@ pageContext.setAttribute("list", list);
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   <script>
     $(function () {
-      $("#header").load("header.html");
-
+        $("#header").load("<%=request.getContextPath()%>/admin/header.jsp");
     });
   </script>
 </body>
