@@ -78,7 +78,7 @@ public class CouponServlet extends HttpServlet{
 		couponservice.updateCoupon(coupon);
 		
 		req.setAttribute("coupon", coupon);
-		return "/admin/couponList.html";
+		return "/admin/couponList.jsp";
 	}
 	
 	
@@ -129,7 +129,7 @@ public class CouponServlet extends HttpServlet{
 			return "/admin/couponAdd.html";
 		}
 		couponservice.addCoupon(coupon);
-		return "/admin/couponList.html";
+		return "/admin/couponList.jsp";
 	}
 	
 	
