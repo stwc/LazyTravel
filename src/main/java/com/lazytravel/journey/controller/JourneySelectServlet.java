@@ -117,7 +117,8 @@ public class JourneySelectServlet extends HttpServlet{
 	
 	private String receiveFoodScapeIdFromPreviousPage(HttpServletRequest req, HttpServletResponse res) {
 		// 接收上一個頁面送過來的景點資料
-		String foodScapeIdListStr = (String) req.getSession().getAttribute("foodScapeIdList_Str");
+//		String foodScapeIdListStr = (String) req.getSession().getAttribute("foodScapeIdList_Str");
+		String foodScapeIdListStr = req.getParameter("selectedFoodScapeIds");
 		
 		if(foodScapeIdListStr == null) {
 		    return "/journey/user/journeySelect.jsp";
