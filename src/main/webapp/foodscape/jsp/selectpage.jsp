@@ -322,13 +322,13 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
                             <br>
                             <div class="div_btn">                           
                                 <button type="reset" class="btn_reset">全部取消</button>
-<%--                                 <form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                 --%>
-<!--                                 <button type="submit" class="btn_submit">送出</button> -->
-<!--                                 <input type="hidden" name="action" value="receiveFoodScapeId"> -->
-<!--                                 </form> -->
-<%-- 					<form class="selectfsId" method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                 --%>
-<!--     				<button type="submit" class="btn_submit">送出</button> -->
-<!--     				<input type="hidden" name="action" value="receiveFoodScapeId" id="selectedFoodScapeIdsInput"> -->
+                                <form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                
+                                <button type="submit" class="btn_submit">送出</button>
+                                <input type="hidden" name="action" value="receiveFoodScapeId">
+                                </form>
+					<form class="selectfsId" method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                
+    				<button type="submit" class="btn_submit">送出</button>
+    				<input type="hidden" name="action" value="receiveFoodScapeId" id="selectedFoodScapeIdsInput">
 <!-- 					</form> -->
                             </div>
 
