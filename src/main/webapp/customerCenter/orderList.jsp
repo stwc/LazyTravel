@@ -1,4 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.lazytravel.customer.entity.Customer" %>
+
+
+
+
+
+ <% Customer customerObj = (Customer) session.getAttribute("customer");
+  Integer customerId = customerObj.getCustomerId();
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,7 +109,7 @@
 
 	<script>
 	
-	const orderId = 11001;
+	let customerId = <%= customerId %>;
 		$(function (){
 			$("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
@@ -107,9 +118,7 @@
 			
 			
 		});
-		
-		
-		
+
 		function init(){
 			$.ajax({
 				url: "http://localhost:8081/LazyTravel/order/order.do",
