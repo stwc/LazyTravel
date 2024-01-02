@@ -50,10 +50,10 @@ public class FoodScape  {
 	private String city;
 	
 	@Column(name="LNG")
-	private double lng;
+	private Double lng;
 	
 	@Column(name="LAT")
-	private double lat;
+	private Double lat;
 	
 	@Column(name="INTRO",columnDefinition = "LONGTEXT")
 	private String intro;
@@ -91,7 +91,7 @@ public  FoodScape() {
 	super();
 }
 
-public FoodScape(Integer foodScapeId, String foodScapeName, String phone, String address, String city, double lng, double lat,
+public FoodScape(Integer foodScapeId, String foodScapeName, String phone, String address, String city, Double lng, Double lat,
 		String intro, Timestamp updateTime, String foodScapeStatus, String category) {
 	super();
 	this.foodScapeId = foodScapeId;
@@ -115,6 +115,14 @@ public FoodScape(Integer nthDay, String foodScapeName, String address) {
 	this.nthDay = nthDay;
 	this.foodScapeName = foodScapeName;
 	this.address = address;
+}
+
+
+
+public FoodScape(Double lat, Double lng) {
+	super();
+	this.lat = lat;
+	this.lng = lng;
 }
 
 public Integer getNthDay() {
@@ -190,22 +198,22 @@ public void setCity(String city) {
 }
 
 
-public double getLng() {
+public Double getLng() {
 	return lng;
 }
 
 
-public void setLng(double lng) {
+public void setLng(Double lng) {
 	this.lng = lng;
 }
 
 
-public double getLat() {
+public Double getLat() {
 	return lat;
 }
 
 
-public void setLat(double lat) {
+public void setLat(Double lat) {
 	this.lat = lat;
 }
 

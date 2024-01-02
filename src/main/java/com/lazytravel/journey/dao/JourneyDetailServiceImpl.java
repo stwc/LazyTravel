@@ -55,17 +55,36 @@ public class JourneyDetailServiceImpl implements JourneyDetailService {
 		List<FoodScape> foodScapeList = new ArrayList<>();
 		
 		for(JourneyDetail journeyDetail : journeyDetailList) {
-				Integer foodScapeId = journeyDetail.getFoodScapeId();
-				Integer nthDay = journeyDetail.getNthDay();
+			Integer foodScapeId = journeyDetail.getFoodScapeId();
+			Integer nthDay = journeyDetail.getNthDay();
 				
-				FoodScape foodScape = foodScapeDAO.getByPK(foodScapeId);
-				String foodScapeName = foodScape.getFoodScapeName();
-				String address = foodScape.getAddress();
+			FoodScape foodScape = foodScapeDAO.getByPK(foodScapeId);
+			String foodScapeName = foodScape.getFoodScapeName();
+			String address = foodScape.getAddress();
 				
-				foodScapeList.add(new FoodScape(nthDay, foodScapeName, address));
+			foodScapeList.add(new FoodScape(nthDay, foodScapeName, address));
 		}
 		return foodScapeList;
 	}
 	
+	@Override
+	public List<FoodScape> findFoodscapeLngAndLat(Integer journeyId, Integer nthDay) {
+		List<JourneyDetail> journeyDetailList = dao.findByJourneyId(journeyId);
+		
+		List<FoodScape> foodScapeList = new ArrayList<>();
+		
+		for(JourneyDetail journeyDetail : journeyDetailList) {
+			if(journeyDetail.getNthDay() == nthDay) {
+				Integer foodScapeId = journeyDetail.getFoodScapeId();
+				
+				FoodScape foodScape = foodScapeDAO.getByPK(foodScapeId);
+				Double lat = foodScape.getLat();
+				Double lng = foodScape.getLng();
+				
+				foodScapeList.add(new FoodScape(lat, lng));				
+			}
+		}
+		return foodScapeList;
+	}
 
 }

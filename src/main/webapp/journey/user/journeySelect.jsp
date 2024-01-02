@@ -387,21 +387,21 @@
         
 
         <br><br>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="pagination-sm">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">上一頁</a></li>
-                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">1</a></li>
-                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">2</a></li>
-                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">3</a></li>
-                            <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">下一頁</a></li>
-                        </ul>
-					</nav>
-                </div>
-            </div>
-        </div>
+<!--         <div class="container-fluid"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-md-12"> -->
+<!--                     <nav class="pagination-sm"> -->
+<!--                         <ul class="pagination justify-content-end"> -->
+<!--                             <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">上一頁</a></li> -->
+<!--                             <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">1</a></li> -->
+<!--                             <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">2</a></li> -->
+<!--                             <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">3</a></li> -->
+<!--                             <li class="page-item"><a class="page-link a_page" href="#" style="padding-right: 10px; padding-left: 10px;">下一頁</a></li> -->
+<!--                         </ul> -->
+<!-- 					</nav> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
 
 
     </main>
