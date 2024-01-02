@@ -136,6 +136,8 @@ BlogService blogSvc = new BlogServiceImpl();
 					<input type="hidden" name="createTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">
 					<input type="hidden" name="blogStatus" value="1">
 					<input type="hidden" name="viewSum" value="0">
+					<input type="hidden" name="clSum" value="0">
+					<input type="hidden" name="likeSum" value="0">
 					
 					
 					

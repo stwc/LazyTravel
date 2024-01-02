@@ -380,6 +380,8 @@ public class BlogServlet extends HttpServlet {
         String blogStatus =String.valueOf(req.getParameter("blogStatus"));
         Timestamp blogTimestamp = null;
         Integer viewSum=Integer.valueOf(req.getParameter("viewSum"));
+        Integer clSum=Integer.valueOf(req.getParameter("clSum"));
+        Integer likeSum=Integer.valueOf(req.getParameter("likeSum"));
         
         try {
             // 從 request 中取得 blog_date 參數
@@ -436,6 +438,8 @@ public class BlogServlet extends HttpServlet {
         blog.setBlogStatus(blogStatus);
         blog.setImg(blogImg);
         blog.setViewSum(viewSum);
+        blog.setClSum(clSum);
+        blog.setLikeSum(likeSum);
         
         Customer customer = new Customer();
         customer.setCustomerId(customerId);
