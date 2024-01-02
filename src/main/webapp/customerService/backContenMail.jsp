@@ -63,9 +63,9 @@ pageContext.setAttribute("list",list);
                     <tr>
                         <th scope="col">信件ID</th>
                         <th scope="col">會員ID</th>
-                        <th scope="col">客戶發信時間</th>
+                        <th scope="col">客戶時間</th>
                         <th scope="col">客戶問題</th>
-                        <th scope="col">客服發信時間</th>
+                        <th scope="col">客服時間</th>
                         <th scope="col">客服回答</th>
                         <th scope="col">信件狀態</th>
                         <th></th>

@@ -36,19 +36,9 @@ CSMail csMail = (CSMail) request.getAttribute("csMail");
 			 size="45"/></td>
 		</tr>
 		<tr>
-			<td>信件標題:</td>
-			<td><input type="TEXT" name="title" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
-		</tr>
-		<tr>
 			<td>建立時間:</td>
 			<td><input type="TEXT" name="createTime" 
 			value="<%= (csMail==null)? new java.sql.Timestamp(System.currentTimeMillis()) : csMail.getCreateTime()%>" 
-			size="45"/></td>
-		</tr>
-		<tr>
-			<td>最後訊息時間:</td>
-			<td><input type="TEXT" name="upDateTime" 
-			value="<%= (csMail==null)? new java.sql.Timestamp(System.currentTimeMillis()) : csMail.getLastMsgTime()%>" 
 			size="45"/></td>
 		</tr>
 		<tr>
@@ -58,11 +48,11 @@ CSMail csMail = (CSMail) request.getAttribute("csMail");
 		</tr>
 		<tr>
 			<td>客戶問題:</td>
-			<td><input type="TEXT" name="questions" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
+			<td><input type="TEXT" name="questions" value="<%=  (csMail == null)? "" : csMail.getQuestions()%>" size="45"/></td>
 		</tr>
 		<tr>
 			<td>客服回答:</td>
-			<td><input type="TEXT" name="answer" value="<%=  (csMail == null)? "" : csMail.getTitle() %>" size="45"/></td>
+			<td><input type="TEXT" name="answer" value="<%=  (csMail == null)? "" : csMail.getAnswer()%>" size="45"/></td>
 		</tr>
 		
 	</table>
