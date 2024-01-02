@@ -131,7 +131,7 @@
 
         // 帳號
         const username = $("#InputUsername");
-        if (username.val() === "")
+        if (username.val().trim() === "")
             username.removeClass("is-valid").addClass("is-invalid");
         else
             username.removeClass("is-invalid").addClass("is-valid");

@@ -64,7 +64,7 @@ public class UsersServlet extends HttpServlet {
     }
 
     private String createUser(HttpServletRequest req, HttpServletResponse res) {
-        String username = req.getParameter("username");
+        String username = req.getParameter("username").trim();
         String userPasswd = req.getParameter("user_passwd");
         Integer roleId = Integer.valueOf(req.getParameter("role"));
         String userStatus = req.getParameter("status");
