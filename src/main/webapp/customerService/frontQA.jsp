@@ -133,8 +133,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
       $(function () {
-        $("#header").load("../components/html/header.html");
-        $("#footer").load("../components/html/footer.html");
+        $("#header").load("../components/html/header.jsp");
+        $("#footer").load("../components/html/footer.jsp");
       });
     </script>
   </body>

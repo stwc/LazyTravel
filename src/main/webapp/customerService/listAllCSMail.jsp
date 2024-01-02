@@ -60,29 +60,24 @@ pageContext.setAttribute("list",list);
 
 	<table>
 		<tr>
-			<th>信件ID</th>
-			<th>會員ID</th>
-			<th>信件標題</th>
-			<th>建立時間</th>
-			<th>最後訊息時間</th>
-			<th>信件狀態</th>
-			<th>客戶問題</th>
-			<th>客服回答</th>
-			<th>來源</th>
+			<th scope="col">信件ID</th>
+	        <th scope="col">會員ID</th>
+	        <th scope="col">客戶發信時間</th>
+	         <th scope="col">客戶問題</th>
+	         <th scope="col">客服發信時間</th>
+	          <th scope="col">客服回答</th>
+	          <th scope="col">信件狀態</th>
 		</tr>
-<%--		<%@ include file="page1.file" %>--%>
-<%--		<c:forEach var="empVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">--%>
 		<c:forEach var="csMail" items="${list}">
 			<tr>
-				<td>${csMail.getMailId()}</td>
-				<td>${csMail.customer.customerId}</td>
-				<td>${csMail.getTitle()}</td>
-				<td>${csMail.createTime}</td>
-				<td>${csMail.lastMsgTime}</td>
-				<td>${csMail.csMailStatus}</td>
-				<td>${csMail.questions}</td>
-				<td>${csMail.answer}</td>
-				<td>${csMail.MESSAGE_FROM}</td>
+				 <tr>
+                            <td>${csMail.getMailId()}</td>
+                            <td>${csMail.customer.customerId}</td>
+                            <td>${csMail.createTime}</td>
+                            <td>${csMail.questions}</td>
+                            <td>${csMail.RECEIVED_TIME}</td>
+                            <td>${csMail.answer}</td>
+                            <td>${csMail.csMailStatus}</td>
 				<td>
 				  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/customerService/CSMail.do" style="margin-bottom: 0px;">
 					 <input type="submit" value="修改">

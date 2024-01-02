@@ -50,9 +50,9 @@ pageContext.setAttribute("list", list);
                 <thead>
                     <tr>
                         <th scope="col">信件編號</th>
-                        <th scope="col">客戶發送時間</th>
+                        <th scope="col">客戶時間</th>
                         <th scope="col">客戶問題</th>
-                        <th scope="col">客服發送時間</th>
+                        <th scope="col">客服時間</th>
                         <th scope="col">客服回答</th>
                         <th scope="col"></th>
                     </tr>
@@ -72,7 +72,7 @@ pageContext.setAttribute("list", list);
             </table>
              <div class="text-center mt-4">
 	             <form method="post" action="<%=request.getContextPath()%>/customerService/CSMail.do" >
-					<button type="submit" class="btn btn-secondary btn-modify" style="background-color: #6B705C">回覆</button> 
+					<button type="submit" class="btn btn-secondary btn-modify" style="background-color: #6B705C">新增</button> 
 					<input type="hidden" name="action" value="toFrontContent" />             
 				</form>
             </div>
