@@ -55,14 +55,14 @@ public class Customer {
     @Column(name = "update_time", insertable = false, updatable = false)
     private Timestamp updateTime;
 
-    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
-    private Set<BlogCl> blogCls;
-    
-    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
-    private Set<BlogLike> blogLikes;
-    
-    @OneToMany(mappedBy = "customer")
-    private List<BlogMsg> blogMsgs;
+//    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+//    private Set<BlogCl> blogCls;
+//    
+//    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+//    private Set<BlogLike> blogLikes;
+//    
+//    @OneToMany(mappedBy = "customer")
+//    private List<BlogMsg> blogMsgs;
     
     
     public Customer() {
