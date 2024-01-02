@@ -116,9 +116,6 @@ BlogService blogSvc = new BlogServiceImpl();
 							class="form-control" id="inputGroupFile01" />
 					</div>
 				</div>
-				<div class="col-2 d-flex align-items-center">
-					<button type="button" class="btn btn-success">取消圖片</button>
-				</div>
 			</div>
 		</div>
 		<hr />

@@ -73,7 +73,7 @@ pageContext.setAttribute("list", list);
 						<strong>${blog.title}</strong>
 					</h5>
 				</div>
-				<div
+				<div id="status-${blog.blogId}"
 					class="col-4 d-inline-flex justify-content-center align-items-center">
 					
 					
@@ -202,7 +202,7 @@ pageContext.setAttribute("list", list);
 												<input type="hidden" name="blogId" value="${blog.blogId}">
 												<input type="hidden" name="blogMsgId"
 													value="${blogMsg.blogMsgId}" />
-												<button type="submit" class="btn" style="width: 100px; height: 50px; background: #6B705C">刪除留言</button>
+												<button type="submit" class="btn" style="width: 100px; height: 50px; background: #6B705C; border-color: transparent; color: white; border-radius: 90px;">刪除留言</button>
 											</c:if>
 					</div>
 				</div>
@@ -306,10 +306,10 @@ pageContext.setAttribute("list", list);
 		                dataType: "json",
 		                success: function (response) {
 		                	if (response.result === 'success') {
-		                		var updateblogCl = $('#blogClSubmit-' + blogId + ' .blogCl');
-		                		console.log(updateblogCl)
+		                		var updateblogCl = $('#status-' + blogId + ' .blogClSubmit .blogCl');
+		                		console.log(updateblogCl);
 		                		if (response.blogclstatus === '0' || response.blogclstatus === 'novalue') {
-		                            updateblogCl.prop('src', "../../static/blogimages/ON收藏.svg");
+		                			updateblogCl.prop('src', "../../static/blogimages/ON收藏.svg");
 		                        } else {
 		                            updateblogCl.prop('src', "../../static/blogimages/UN收藏.svg");
 		                        }
@@ -357,7 +357,7 @@ pageContext.setAttribute("list", list);
 		                dataType: "json",
 		                success: function (response) {
 		                	if (response.result === 'success') {
-		                		var updateblogLike = $('#blogLikeSubmit-' + blogId + ' .blogLike');
+		                		var updateblogLike = $('#status-' + blogId + ' .blogLikeSubmit .blogLike');
 		                		console.log(updateblogLike)
 		                		if (response.blogLikeStatus === '0' || response.blogLikeStatus === 'novalue') {
 		                            updateblogLike.prop('src', "../../static/blogimages/已讚.svg");

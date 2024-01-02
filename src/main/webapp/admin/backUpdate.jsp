@@ -14,7 +14,7 @@ Blog blog = (Blog) request.getAttribute("blog");
 BlogService blogSvc = new BlogServiceImpl();
 List<Blog> list = blogSvc.getAllBlogs();
 pageContext.setAttribute("list", list);
-
+String blogImg = request.getContextPath()+ "/blog/blog/BlogImgReader?blogId="+blog.getBlogId();
 // Customer customer = (Customer) session.getAttribute("customer");
 %>
 
@@ -115,11 +115,13 @@ pageContext.setAttribute("list", list);
 				</div>
 				<div class="col-7 d-flex align-items-center">
 					<div class="input-group mb-3 h-auto mt-3 m-1" style="width: 545px">
-						<input type="file" name="blogImg"  value="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}"
+						<input type="file" name="blogImg" value="<%=blogImg %>" 
 							class="form-control" id="inputGroupFile01" />
 					</div>
 				</div>
-				
+				<div style="text-align: center;">
+			<img class="top-50 start-50" src="<%=blogImg %>"  style="width: 545px;height:300px"/>
+			</div>
 			</div>
 		</div>
 		<hr />
