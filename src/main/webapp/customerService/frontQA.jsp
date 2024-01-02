@@ -22,14 +22,7 @@
           <h2>常見問題Q&A</h2>
         </div>
       </div>
-      <div class="row align-items-center">
-        <div class="col-md-6 offset-md-3 mb-2">
-          <form class="search-container d-flex">
-            <input class="form-control me-2" type="search" placeholder="搜尋問題" aria-label="Search">
-            <button type="button" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">go</button>
-          </form>
-        </div>
-      </div>
+     
       <!-- 其他內容... -->
     </div>
 

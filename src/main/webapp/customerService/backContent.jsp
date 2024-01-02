@@ -39,7 +39,7 @@ request.getParameter("customer");
 <!--     <header id="header"></header> -->
 
     <div class="container mt-4 p-2 mt-2 ">
-        <h3 class="text-center mb-2">後台回覆</h3>
+        <h3 class="text-center mb-2">客服回覆</h3>
 
 
         <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/customerService/CSMail.do" name="form1">

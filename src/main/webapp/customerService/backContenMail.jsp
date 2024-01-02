@@ -1,4 +1,4 @@
-<%@page import="com.lazytravel.customerservice.entity.CSMail"%>
+                                                                                                                                                                                                                                                                                                                       <%@page import="com.lazytravel.customerservice.entity.CSMail"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List"%>
@@ -54,7 +54,7 @@ pageContext.setAttribute("list",list);
 
     <div id="main" class="p-3">
         <div class="mx-3 mb-4 d-flex align-items-start">
-            <h3 class="d-inline-block me-3">所有訊息內文</h3>
+            <h3 class="d-inline-block me-3">客服信箱</h3>
         </div>
 
         <div class="table-responsive mx-4">

@@ -43,7 +43,7 @@ pageContext.setAttribute("list", list);
 <header id="header"></header>
 
     <div class="container py-5">
-        <h2 class="text-center mb-4">信箱</h2>
+        <h2 class="text-center mb-4">客戶信箱</h2>
  
         <div class="table-responsive">
             <table class="table table-striped">
