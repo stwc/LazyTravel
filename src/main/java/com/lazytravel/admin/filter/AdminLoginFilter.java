@@ -27,7 +27,7 @@ public class AdminLoginFilter implements Filter {
         HttpSession session = req.getSession();
         Object users = session.getAttribute("users");
         if (users == null) {
-            session.setAttribute("location", req.getRequestURI());
+//            session.setAttribute("location", req.getRequestURI());
             res.sendRedirect(req.getContextPath() + "/admin-login.jsp");
             return;
         } else {
