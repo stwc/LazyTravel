@@ -15,8 +15,40 @@
 	crossorigin="anonymous"></script>
 <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
-</head>
+<style>
+  .btnn {
+        background-color: #9C6644;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+  }
+  
+  .btnn:hover {
+     background-color: #804C33;
+        background-color: #B07C56;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+  .btnn:active{
+           background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
 
+</style>
+
+</head>
 
 <body>
 	<header id="header"></header>
@@ -31,7 +63,7 @@
 							<label for="couponCode" class="form-label">優惠碼：</label> 
 							<input type="text" class="form-control" name="couponNo" required>
 						</div>
-						<button type="button" class="btn btn-primary" id="addCouponButton"
+						<button type="button" class="btnn" id="addCouponButton"
 							onclick="addCouponClick()">新增優惠券</button>
 					</form>
 					
@@ -145,8 +177,7 @@
 					let dataSet = [];
 					data.forEach((item) => {
 						let tmpArr = [];
-
-						
+	
 						function formatDateTime(timestamp) {
 							const options = {
 								year: 'numeric',

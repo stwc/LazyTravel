@@ -11,10 +11,37 @@
 <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
 <style>
-button.btn-modify, #filterBtn, a.btn-modify {
-	background-color: #9C6644;
-	color: white;
-}
+
+
+  button.btn-modify, #filterBtn, a.btn-modify {
+        background-color: #9C6644;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+  }
+  
+  button.btn-modify:hover, #filterBtn:hover, a.btn-modify:hover {
+     background-color: #804C33;
+        background-color: #B07C56;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+ 	button.btn-modify:active, #filterBtn:active, a.btn-modify:active{
+           background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
 
 #order thead th div.dt-head-inner {
 	white-space: nowrap;
@@ -114,7 +141,7 @@ button.btn-modify, #filterBtn, a.btn-modify {
 						'<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>'
 					);
 				},
-				
+
 							
 
 				success: function (data) {

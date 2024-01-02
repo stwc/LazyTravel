@@ -57,7 +57,7 @@
 
 
                 <div class="d-flex justify-content-end mt-3">
-                    <button class="btnn btn" id ="backward" onclick="backwardClick()">修改旅客資訊</button>
+                    <button class="btnn" id ="backward" onclick="backwardClick()">修改旅客資訊</button>
                 </div>
             </div>
         </div>

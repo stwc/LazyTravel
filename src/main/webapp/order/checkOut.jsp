@@ -230,8 +230,6 @@
 
 	
 	function init(){
-		
-	
 
 		// 進度條特效
 	    const progress = document.getElementById("progress");
@@ -294,8 +292,7 @@
 		        }
 			
 		    });
-		    
-		    
+
            for (var i = 1; i <= passengerCount; i++) {
            	
            	let customerDetails = 
