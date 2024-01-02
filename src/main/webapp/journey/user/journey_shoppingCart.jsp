@@ -330,7 +330,7 @@
         
         var contextPath = "${pageContext.request.contextPath}";
         function redirectToHome() {
-//             window.location.href = contextPath + "/journey/admin/tourGroup_list.jsp";
+        	window.location.href = contextPath + "/foodscape/jsp/selectpage.jsp";
         }
     </script>
 </body>

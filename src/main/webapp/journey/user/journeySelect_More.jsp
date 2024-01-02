@@ -460,8 +460,8 @@
 			<div class="div_btn">
 <!-- 		    	<button type="reset" class="btn_reset" onclick="redirectToJourneySelect()">取消</button> -->
 		     	<form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">
-		     		<button type="submit" class="btn_reset">取消</button>
-		     		<input type="hidden" name="action" value="receiveFoodScapeId"/>
+		     		<button type="submit" class="btn_reset">返回</button>
+		     		<input type="hidden" name="action" value="returnJourneySelect"/>
 		     	</form>
 		     	
 		     	
