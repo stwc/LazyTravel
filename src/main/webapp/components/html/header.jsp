@@ -68,10 +68,10 @@
 
 
             <li class="nav-item mx-4 <%= (cu == null) ? "" : "d-none" %>">
-              <a class="nav-link" href="<%=request.getContextPath()%>/customer/login.jsp" style="color: white;">登入</a>
+              <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp" style="color: white;">登入</a>
             </li>
             <li class="nav-item mx-4 <%= (cu != null) ? "" : "d-none" %>">
-              <form method="post" action="<%=request.getContextPath()%>/customer/customer.do">
+              <form method="post" action="<%=request.getContextPath()%>/customer.do">
                 <input type="hidden" name="action" value="logout">
                 <button type="submit" class="nav-link text-light">登出</button>
               </form>
@@ -81,7 +81,7 @@
 <%--            </li>--%>
             
             <li class="nav-item mx-4">
-				<form method="post" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
+				<form method="get" action="<%=request.getContextPath()%>/journey/user/shoppingCart.do" id="shoppingCartForm">
 				    <button type="submit" class="fa-regular fa-heart nav-link" style="color: white; border: none; background: none;"></button>
 				    <input type="hidden" name="action" value="shoppingCart_enter" />
 				</form>

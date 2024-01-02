@@ -59,7 +59,6 @@ public class TourGroupServlet extends HttpServlet {
 			case "tourGroup_modify":
 				forwardPath = toTourGroupModifyPage(req, res);
 				break;
-
 			case "tourGroup_update":
 				forwardPath = tourGroupUpdate(req, res);
 				break;
@@ -170,7 +169,18 @@ public class TourGroupServlet extends HttpServlet {
 		}
 		
 		Integer signupNum = Integer.valueOf(req.getParameter("sign_num"));
-		
+	
+		// 根據報名時間判斷旅行團狀態
+		String groupStatus = null;
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+	    Integer compareSignStart = currentTime.compareTo(signupDate);
+	    Integer compareSignEnd = currentTime.compareTo(dueDate);
+	    if (compareSignStart < 0 || compareSignEnd > 0) {      // 當前時間小於報名開始時間，或大於報名結束時間
+	    	groupStatus = "0";
+	    } else {
+	    	groupStatus = "1";
+	    }
+	    
 		
 		TourGroup tourGroup = new TourGroup();
 		tourGroup.setStartTime(startTime);
@@ -181,6 +191,7 @@ public class TourGroupServlet extends HttpServlet {
 		tourGroup.setSignupDate(signupDate);
 		tourGroup.setDueDate(dueDate);
 		tourGroup.setSignupNum(signupNum);
+		tourGroup.setGroupStatus(groupStatus);
 		
 		Journey journey1 = new Journey();
 		journey1.setJourneyId(journeyId);
@@ -305,6 +316,18 @@ public class TourGroupServlet extends HttpServlet {
 		    errorMsgs.add("請輸入報名開始日");
 		}
 		
+		// 根據報名時間判斷旅行團狀態
+		String groupStatus = null;
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+	    Integer compareSignStart = currentTime.compareTo(signupDate);
+	    Integer compareSignEnd = currentTime.compareTo(dueDate);
+	    if (compareSignStart < 0 || compareSignEnd > 0) {      // 當前時間小於報名開始時間，或大於報名結束時間
+	    	groupStatus = "0";
+	    } else {
+	    	groupStatus = "1";
+	    }
+	    
+		
 		// 下面欄位不能透過後台修改資料	
 		Integer signupNum = Integer.valueOf(req.getParameter("sign_num"));
 		
@@ -340,6 +363,7 @@ public class TourGroupServlet extends HttpServlet {
 		tourGroup.setSignupNum(signupNum);
 		tourGroup.setCreateTime(createTime);
 		tourGroup.setUpdateTime(updateTime);
+		tourGroup.setGroupStatus(groupStatus);
 		
 		Journey journey1 = journeySvc.getOneJourney(journeyId);
 		journey1.setJourneyId(journeyId);

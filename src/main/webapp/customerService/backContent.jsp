@@ -8,10 +8,13 @@
 <%@ page import="com.lazytravel.customerservice.service.*"%>
 <%@ page import="com.lazytravel.customer.entity.Customer"%>
 <%@page import="com.lazytravel.customerservice.entity.CSMail"%>
+<%@ include file="/admin/header.jsp"%>
 
 <%
-	Integer mailId = (Integer) request.getAttribute("mailId");
-	String customerName = (String) request.getAttribute("customerName");
+Customer customer = (Customer) session.getAttribute("customer");
+pageContext.setAttribute("customer", customer);
+
+request.getParameter("customer");
 %>
 
 <!DOCTYPE html>
@@ -27,47 +30,52 @@
 
 </head>
 
+<%
+	Integer mailId = (Integer) request.getAttribute("mailId");
+	System.out.println("jsp----------" + mailId);
+%>
+
 <body>
-    <header id="header"></header>
+<!--     <header id="header"></header> -->
 
     <div class="container mt-4 p-2 mt-2 ">
-        <h3 class="text-center mb-2">客戶回覆</h3>
+        <h3 class="text-center mb-2">後台回覆</h3>
 
 
         <FORM METHOD="post" ACTION="${pageContext.request.contextPath}/customerService/CSMail.do" name="form1">
             <div class="mb-3">
                 <label for="inputName" class="form-label" >會員姓名</label>
-                <input type="text" readonly="readonly" class="form-control" id="inputName"  name="customer_name" value="${customer.customerName}" readonly="readonly">
+                <input type="text" readonly="readonly" class="form-control" id="inputName"  name="customer_name" value="${customer.getCustomerName()}" >
             </div>
 
-          
             <div class="mb-3">
                 <label for="inputComment" class="form-label">問題內容</label>
-                <textarea class="form-control" id="inputComment"  name="mailquestions" rows="5" placeholder="請輸入問題內容" required></textarea>
+                <textarea class="form-control" id="inputComment"  name="mailContent" rows="5" placeholder="請輸入問題內容" required></textarea>
+                <input type="hidden" name="mail_Id" value="${mailId}" />
             </div>
 
-          <br>
-          <input type="hidden" name="messageFrom" value="0">
-	<input type="hidden" name="action" value="frontinsert">
+            <br>
+<%--             <input type="hidden" name="customerId" value="${customer.customerId}" > --%>
+     <input type="hidden" name="messageFrom" value="1">
+	<input type="hidden" name="action" value="backinsert">
 	<input type="submit" value="送出">
 	<table id="table-1">
-
         </form>
     </div>
 
-    <footer id="footer"></footer>
+    
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script>
-        $(function () {
-            $("#header").load("../components/html/header.jsp");
-            $("#footer").load("../components/html/footer.jsp");
-        });
-      
-    </script>
+    <script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(function() {
+// 			$("#header").load("../../admin/header.jsp");
+			new DataTable("#example");
+		});
+	</script>
+
 </body>
 
 </html>

@@ -24,9 +24,18 @@ public class LoginFilter implements Filter {
         HttpSession session = req.getSession();
         Object customer = session.getAttribute("customer");
         if (customer == null) {
-            session.setAttribute("location", req.getRequestURI());
-            res.sendRedirect(req.getContextPath() + "/customer/login.jsp");
-            return;
+            String location = req.getServletPath() + ((req.getPathInfo() == null) ? "" : req.getPathInfo()) +
+                    ((req.getQueryString() == null) ? "" : "?" + req.getQueryString());
+//            if (location.contains(".do"))
+//                location = req.getServletPath();
+//            String location = req.getRequestURI();
+            System.out.println("Location before login: " + location);
+            session.setAttribute("location", location);
+            res.sendRedirect(req.getContextPath() + "/login.jsp");
+
+//            res.setContentType("text/html; charset=UTF-8");
+//            req.getRequestDispatcher("/login.jsp").forward(req, res);
+
         } else {
             chain.doFilter(request, response);
         }

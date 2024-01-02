@@ -31,6 +31,10 @@ public class PassengerService {
 	        return dao.getByOrderId(orderId);
 	}
 	 
+	 public Passenger getByPk(Integer passengerId) {
+		return dao.getByPk(passengerId);
+	 }
+	 
 
    
 		

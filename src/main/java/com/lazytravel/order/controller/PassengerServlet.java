@@ -17,7 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.lazytravel.order.entity.Orders;
 import com.lazytravel.order.entity.Passenger;
+import com.lazytravel.order.service.OrdersService;
 import com.lazytravel.order.service.PassengerService;
 
 @WebServlet(name = "PassengerServlet" , urlPatterns = {"/order/passenger.do" , "/admin/passenger.do"})
@@ -25,10 +27,12 @@ public class PassengerServlet extends HttpServlet{
 	
 	
 	private PassengerService passengerService;
+	private OrdersService orderSvc;
 	
 	@Override
 	public void init() throws ServletException{
 		passengerService = new PassengerService();
+		orderSvc = new OrdersService();
 	}
 	
 	@Override
@@ -52,15 +56,17 @@ public class PassengerServlet extends HttpServlet{
 		case "insertPassengers":
 		    insertPassengers(req, res);
 		    break;
+		    
+		case "passsengerDetail_modify" :
+			forwardPath = passsengerDetail_modify(req, res);
+			break;
+			
 		
 			
-//		case  "update" :
-//			forwardPath = update(req , res);
-//			break;
-//
-//		case "insert":
-//			forwardPath = insert(req, res);
-//			break;
+		case  "update" :
+			update(req , res);
+			return;
+
 			
 
 		default:
@@ -72,6 +78,62 @@ public class PassengerServlet extends HttpServlet{
 		dispatcher.forward(req, res);
 	}
 	
+	private void update(HttpServletRequest req, HttpServletResponse res) {
+			String[] passengers =req.getParameterValues("passengerId");
+		    String[] passengerNames = req.getParameterValues("passengerName");
+		    String[] idNumbers = req.getParameterValues("idno");
+		    String[] birthDates = req.getParameterValues("birth");
+		    String[] phoneNumbers = req.getParameterValues("phone");
+		    Integer orderId = Integer.parseInt(req.getParameter("orderId"));
+		    Orders order= orderSvc.getOneOrder(orderId);
+		    String orderIdstr = String.valueOf(orderId);
+		    String orderNo = order.getOrderNo();
+		    String orderStatus = order.getOrderStatus();
+		    String tourist = String.valueOf(order.getTourist());
+		    
+		
+		    
+			for(int i = 0; i < passengers.length; i++) {
+				Passenger passenger = passengerService.getByPk(Integer.parseInt(passengers[i]));
+				passenger.setPassengerName(passengerNames[i]);
+				passenger.setIdno(idNumbers[i]);
+				passenger.setPhone(phoneNumbers[i]);
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 日期格式
+					java.util.Date utilDate = sdf.parse(birthDates[i]);
+					Date date = new Date(utilDate.getTime());
+					passenger.setBirth(date);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				passengerService.updatePassenger(passenger);
+			}
+			
+			String redirectUrl = "http://localhost:8081/LazyTravel/admin/passengerDetails.jsp";
+			redirectUrl += "?order_id=" + orderIdstr
+	                + "&order_no=" + orderNo
+	                + "&order_status=" + orderStatus
+	                + "&tourist=" + tourist;
+			 try {
+			        res.sendRedirect(redirectUrl);
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			    }
+
+	}
+
+	private String passsengerDetail_modify(HttpServletRequest req, HttpServletResponse res) {
+		Integer orderId = Integer.valueOf(req.getParameter("orderId").trim());
+		System.out.println(orderId);
+		Orders order = orderSvc.getOneOrder(orderId);
+		List<Passenger> passengers = passengerService.getPassengersByOrderId(orderId);
+		
+		req.setAttribute("order", order);
+		req.setAttribute("passengers", passengers);
+		
+		return "/admin/passengerEditor.jsp";
+	}
+
 	private void insertPassengers(HttpServletRequest req, HttpServletResponse res) {
 		
 			Integer orderId = Integer.parseInt(req.getParameter("orderId"));

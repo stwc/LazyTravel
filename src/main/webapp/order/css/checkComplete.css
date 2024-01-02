@@ -17,109 +17,110 @@ html {
   box-sizing: border-box;
 }
 
+
+
 div.container1 {
     
-  margin-top: 50px;
-  padding-top:50px ;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+    margin-top: 50px;
+    padding-top:50px ;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    
+  }
   
-}
+  .progresss-container::before {
+    content: "";
+    background: var(--line-border-empty);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  .progresss-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 30px;
+    max-width: 100%;
+    width: 1000px;
+  }
+  
+  .progresss {
+    background: var(--line-border-fill);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 0%;
+    z-index: -1;
+    transition: 1s ease;
+  }
+  
+  .circle {
+    background: #fff;
+    color: #6B705C;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px solid var(--line-border-empty);
+    transition: 1s ease;
+  }
+  
+  .circle.active {
+    border-color: var(--line-border-fill);
+  }
+  
+  #backtohomeButton {
+        background-color: #9C6644;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+  }
+  
+  #backtohomeButton:hover {
+     background-color: #804C33;
+        background-color: #B07C56;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+  #backtohomeButton:active{
+           background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
+  
 
-.progresss-container::before {
-  content: "";
-  background: var(--line-border-empty);
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  height: 4px;
-  width: 100%;
-  z-index: -1;
-}
+  
 
-.progresss-container {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  margin-bottom: 30px;
-  max-width: 100%;
-  width: 1000px;
-}
+ 
+  
 
-.progresss {
-  background: var(--line-border-fill);
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  height: 4px;
-  width: 0%;
-  z-index: -1;
-  transition: 1s ease;
-}
-
-.circle {
-  background: #fff;
-  color: #6B705C;
-  border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 4px solid var(--line-border-empty);
-  transition: 1s ease;
-}
-
-.circle.active {
-  border-color: var(--line-border-fill);
-}
-
-.btn {
-  background-color: var(--line-border-fill);
-  color: #fff;
-  cursor: pointer;
-  font-family: inherit;
-  border: 0;
-  border-radius: 6px;
-  padding: 8px 30px;
-  margin: 5px;
-  font-size: 14px;
-}
-
-.btn:active {
-  transform: scale(0.98);
-}
-
-.btn:focus {
-  outline: 0;
-}
-
-.btn:disabled {
-  background-color: var(--line-border-empty);
-  cursor: not-allowed;
-}
-
-
-
-    #backtohomeButton {
-      background-color: #ffffff; /* 初始背景色 */
-      color: #9C6644; /* 初始文字與框線色 */
-      border: 2px solid #9C6644; /* 初始邊框色 */
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 10px;
-      width: 120px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    a.carousel-control-next, a.carousel-control-prev {
+      width: 30px;
     }
 
-    #backtohomeButton.clicked {
-      background-color: #9C6644; /* 點擊後背景色 */
-      color: #ffffff; /* 點擊後文字色 */
-      border-radius: 10px;   
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: #fff;
     }
+

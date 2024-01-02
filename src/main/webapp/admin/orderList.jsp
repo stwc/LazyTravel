@@ -114,6 +114,7 @@ button.btn-modify, #filterBtn, a.btn-modify {
 						'<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>'
 					);
 				},
+				
 							
 
 				success: function (data) {
@@ -151,6 +152,8 @@ button.btn-modify, #filterBtn, a.btn-modify {
 						let paidtimeCell = '';
 						if (item.paidTime == null) {
 							paidtimeCell = '<span class="status-unpaid">--</span>';
+						}else{
+							paidtimeCell = formatDateTime(item.paidTime);
 						}
 
 
@@ -167,6 +170,13 @@ button.btn-modify, #filterBtn, a.btn-modify {
 						let contentTimeCell = '';
 						if (item.contentTime == null) {
 							contentTimeCell = '<span>--</span>';
+						}
+						
+						let couponIdCell = '';
+						if(item.couponId == null){
+							couponIdCell = '未使用'
+						}else{
+							couponIdCell = item.couponId;
 						}
 
 
@@ -190,7 +200,7 @@ button.btn-modify, #filterBtn, a.btn-modify {
 						tmpArr.push(item.groupId);
 						tmpArr.push(item.tourist);
 						tmpArr.push(item.customerPoint);
-						tmpArr.push(item.couponId);
+						tmpArr.push(couponIdCell);
 						tmpArr.push(item.totalAmt);
 						tmpArr.push(formatDateTime(item.createTime));
 						tmpArr.push(formatDateTime(item.updateTime));

@@ -1,6 +1,14 @@
 package com.lazytravel.customer.entity;
 
+
 import java.sql.Date;
+
+import javax.persistence.*;
+
+import com.google.gson.annotations.Expose;
+import com.lazytravel.blog.entity.BlogCl;
+
+
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +63,7 @@ public class Customer {
     @Column(name = "update_time", insertable = false, updatable = false)
     private Timestamp updateTime;
 
+
 //    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
 //    private Set<BlogCl> blogCls;
 //    
@@ -64,6 +73,7 @@ public class Customer {
 //    @OneToMany(mappedBy = "customer")
 //    private List<BlogMsg> blogMsgs;
     
+
     
     public Customer() {
         super();
@@ -140,13 +150,13 @@ public class Customer {
         return phone;
     }
 
-    public Set<BlogLike> getBlogLikes() {
-		return blogLikes;
-	}
+//     public Set<BlogLike> getBlogLikes() {
+// 		return blogLikes;
+// 	}
 
-	public void setBlogLikes(Set<BlogLike> blogLikes) {
-		this.blogLikes = blogLikes;
-	}
+// 	public void setBlogLikes(Set<BlogLike> blogLikes) {
+// 		this.blogLikes = blogLikes;
+// 	}
 
 	public void setPhone(String phone) {
         this.phone = phone;
@@ -232,21 +242,21 @@ public class Customer {
         this.updateTime = updateTime;
     }
 
-    public Set<BlogCl> getBlogCls() {
-		return blogCls;
-	}
+//    public Set<BlogCl> getBlogCls() {
+//		return blogCls;
+//	}
 
-	public void setBlogCls(Set<BlogCl> blogCls) {
-		this.blogCls = blogCls;
-	}
+//	public void setBlogCls(Set<BlogCl> blogCls) {
+//		this.blogCls = blogCls;
+//	}
 
-	public List<BlogMsg> getBlogMsgs() {
-		return blogMsgs;
-	}
+// 	public List<BlogMsg> getBlogMsgs() {
+// 		return blogMsgs;
+// 	}
 
-	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
-		this.blogMsgs = blogMsgs;
-	}
+// 	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
+// 		this.blogMsgs = blogMsgs;
+// 	}
 
 	@Override
 	public String toString() {

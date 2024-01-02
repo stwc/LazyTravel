@@ -154,4 +154,36 @@ public class CustomerServiceImpl implements CustomerService {
             return true;
         }
     }
+
+    @Override
+    public void setAutoLogin(Integer customerId, String token) {
+        Jedis jedis = pool.getResource();
+        String key = "TOKEN:" + token;
+        String value = String.valueOf(customerId);
+        jedis.set(key, value);
+//        jedis.expire(key, 60 * 60 * 24 * 7); // 一週內不用重新登入
+        jedis.expire(key, 60 * 60); // 一小時內不用重新登入
+        jedis.close();
+    }
+
+    @Override
+    public Customer getAutoLoginInfo(String token) {
+        Jedis jedis = pool.getResource();
+        String key = "TOKEN:" + token;
+        String id = jedis.get(key);
+        jedis.close();
+        if (id != null) {
+            return getOneCustomer(Integer.valueOf(id));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public void removeAuthToken(String token) {
+        Jedis jedis = pool.getResource();
+        String key = "TOKEN:" + token;
+        jedis.del(key);
+        jedis.close();
+    }
 }

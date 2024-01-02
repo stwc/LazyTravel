@@ -10,17 +10,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "CustomerServlet", urlPatterns = {"/customer/customer.do", "/customerCenter/customer.do", "/admin/customer.do"})
+@WebServlet(name = "CustomerServlet", urlPatterns = {"/customer/customer.do", "/customerCenter/customer.do", "/admin/customer.do", "/customer.do"})
 @MultipartConfig(fileSizeThreshold = 0 * 1024 * 1024, maxFileSize = 1 * 1024 * 1024, maxRequestSize = 10 * 1024 * 1024)
 public class CustomerServlet extends HttpServlet {
     private CustomerService customerService;
@@ -161,8 +158,27 @@ public class CustomerServlet extends HttpServlet {
 
     private String logout(HttpServletRequest req, HttpServletResponse res) {
         HttpSession session = req.getSession();
+        // session移除會員資料
         session.removeAttribute("customer");
-        return "/customer/login.jsp";
+        System.out.println("[會員登出] session移除會員資料");
+        // redis移除登入token
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("AUTH_TOKEN")) {
+                    String token = cookie.getValue();
+                    customerService.removeAuthToken(token);
+                    System.out.println("[會員登出] redis移除登入token");
+                    break;
+                }
+            }
+        }
+        // cookie移除登入token
+        res.addCookie(new Cookie("AUTH_TOKEN", ""));
+        System.out.println("[會員登出] cookie移除登入token");
+
+        System.out.println("[會員] 會員登出");
+        return "/login.jsp";
     }
 
     private String getOneModify(HttpServletRequest req, HttpServletResponse res) {
@@ -207,7 +223,7 @@ public class CustomerServlet extends HttpServlet {
             req.setAttribute("hideResetPw", true);
             return "/customer/resetpw.jsp";
         } else {
-            return "/customer/login.jsp";
+            return "/login.jsp";
         }
     }
 }

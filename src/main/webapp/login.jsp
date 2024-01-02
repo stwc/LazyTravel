@@ -3,7 +3,11 @@
 <%
   // 已經登入過就無法進來登入頁面，重導回首頁
   if (session.getAttribute("customer") != null) {
-    response.sendRedirect(request.getContextPath() + "/index.jsp");
+    String location = (String) session.getAttribute("location");
+    if (location == null)
+      response.sendRedirect(request.getContextPath() + "/index.jsp"); // 回首頁
+    else
+      response.sendRedirect(request.getContextPath() + location); // 回之前的頁面
     return;
   }
 
@@ -47,7 +51,7 @@
   <div class="d-flex flex-column justify-content-center align-items-center">
     <div class="h1 mt-1 mb-3">會員登入</div>
 
-    <form method="post" action="<%=request.getContextPath()%>/customer/login.do" class="w-75">
+    <form method="post" action="<%=request.getContextPath()%>/login.do" class="w-75">
       <div class="alert alert-warning <%= (loginFailed) ? "" : "d-none" %>" role="alert">
         Email信箱或密碼輸入錯誤，請重新輸入！
       </div>
@@ -60,7 +64,8 @@
       </div>
       <div class="mb-3">
         <label for="inputPassword" class="form-label">密碼</label>
-        <input type="password" name="customer_passwd" class="form-control" id="inputPassword" placeholder="請輸入密碼..." required>
+        <input type="password" name="customer_passwd" class="form-control" id="inputPassword"
+               placeholder="請輸入密碼..." required>
       </div>
       <div class="d-grid gap-2 mt-4">
         <button type="submit" id="btn-login" class="btn mb-3" style="background-color: #6B705C;">
@@ -105,6 +110,14 @@
     $(function () {
         $("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
         $("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
+
+        let path = window.location.pathname.split("/");
+        console.log(path)
+        if (path[2] === "customer.do") {
+            <%--window.location.href = "<%=request.getContextPath()%>/login.jsp";--%>
+            let new_url = "<%=request.getContextPath()%>/login.jsp";
+            window.history.pushState(null, "", new_url);
+        }
     });
 
     document.getElementById("btn-login").onclick = () => {

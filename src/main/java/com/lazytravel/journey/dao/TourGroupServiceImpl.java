@@ -1,10 +1,6 @@
 package com.lazytravel.journey.dao;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +23,11 @@ public class TourGroupServiceImpl implements TourGroupService {
 	@Override
 	public void update(TourGroup tourGroup) {
 		dao.update(tourGroup);
+	}
+	
+	@Override
+	public void updateList(List<TourGroup> tourGroupList) {
+		dao.updateList(tourGroupList);
 	}
 	
 	@Override
@@ -66,6 +67,21 @@ public class TourGroupServiceImpl implements TourGroupService {
 	@Override
 	public List<TourGroup> getByJourneyId(Integer journeyId){
 		return dao.findByFK(journeyId);
+	}
+	
+	@Override
+	public List<TourGroup> getMarketedByJourneyId(Integer journeyId){
+		List<TourGroup> tourGroupList = dao.findByFK(journeyId);
+		
+		List<TourGroup> tourGroupIsMarketed = new ArrayList<>();
+		for(TourGroup tourGroup : tourGroupList) {
+			String status = tourGroup.getGroupStatus();
+			if(status.equals("1")) {
+				tourGroupIsMarketed.add(tourGroup);
+			}
+		}
+		
+		return tourGroupIsMarketed;
 	}
 
 	

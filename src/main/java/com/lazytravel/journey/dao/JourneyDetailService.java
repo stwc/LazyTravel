@@ -16,4 +16,5 @@ public interface JourneyDetailService {
 	List<JourneyDetail> addList(List<JourneyDetail> journeyDetail, Integer journeyId);
 	
 	List<FoodScape> findFoodscapeNameAndAddress(Integer journeyId);
+	List<FoodScape> findFoodscapeLngAndLat(Integer journeyId, Integer nthDay);
 }

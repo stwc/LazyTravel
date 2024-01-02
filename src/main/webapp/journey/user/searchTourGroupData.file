@@ -22,16 +22,16 @@
 <script>
 	window.onload = function() {
     	
-    	// 從LocalStorage讀取值，塞入對應欄位
+    	// 從sessionStorage讀取值，塞入對應欄位
     	// 1.select的出發日期
     	var selectDateElement = document.querySelector(".touristDate");
-	    var storedValue_startTime = localStorage.getItem("selectedValue_startTime");	
+	    var storedValue_startTime = sessionStorage.getItem("selectedValue_startTime");	
 		if (storedValue_startTime) {
 		    selectDateElement.value = storedValue_startTime;
 		}
 	   
 	    // 2.form表單的groupId
-	    var storedValue_groupId = localStorage.getItem("selectedValue_groupId");
+	    var storedValue_groupId = sessionStorage.getItem("selectedValue_groupId");
 	    if (storedValue_groupId) {
 			document.getElementById("selectedGroupId_addCart").value = storedValue_groupId;    
 	    	document.getElementById("selectedGroupId_order").value = storedValue_groupId;
@@ -39,7 +39,7 @@
 		
 		// 3.select的旅遊人數、form表單的signupNum
 		var selectNumElement = document.querySelector(".touristNum");
-	    var storedValue_signupNum = localStorage.getItem("selectedValue_signupNum");	
+	    var storedValue_signupNum = sessionStorage.getItem("selectedValue_signupNum");	
 		
 		if (storedValue_signupNum) {
 		    selectNumElement.value = storedValue_signupNum;

@@ -10,24 +10,19 @@
 <%@page import="com.lazytravel.customerservice.entity.CSMail"%>
 
 <%
-CSMailService CSMailSvc = new CSMailServiceImpl();
-List<CSMail>  list = null;
-
 Customer customer = (Customer) session.getAttribute("customer");
-
-if (customer != null) {
-    list = CSMailSvc.getCSMailByCustomerId((Integer)customer.getCustomerId());
-} else {
-    // 如果會員未登入，導向登入頁面
-    response.sendRedirect(request.getContextPath() + "/customer/login.jsp");
+if (customer == null) {
+    response.sendRedirect(request.getContextPath() + "/login.jsp");
     return;
 }
+Integer customerId = (Integer) customer.getCustomerId();
+
+CSMailService CSMailSvc = new CSMailServiceImpl();
+List<CSMail>  list = CSMailSvc.getCSMailByCustomerId(customerId);
+
 pageContext.setAttribute("list", list);
-// CSMail csMail = (CSMail) session.getAttribute("csMail");
-// session.setAttribute("csMailId", csMail.getMailId());
+
 %>
-
-
 
 
 
@@ -37,7 +32,7 @@ pageContext.setAttribute("list", list);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>客服信箱</title>
+    <title>客戶信箱</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
@@ -48,18 +43,17 @@ pageContext.setAttribute("list", list);
 <header id="header"></header>
 
     <div class="container py-5">
-        <h2 class="text-center mb-4">客服信箱</h2>
+        <h2 class="text-center mb-4">信箱</h2>
  
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">信件編號</th>
-                        <th scope="col">發送日期</th>
-                        <th scope="col">發送時間</th>
-                        <th scope="col">信件標題</th>
-                        <th scope="col">內文</th>
-                        
+                        <th scope="col">客戶發送時間</th>
+                        <th scope="col">客戶問題</th>
+                        <th scope="col">客服發送時間</th>
+                        <th scope="col">客服回答</th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -68,22 +62,19 @@ pageContext.setAttribute("list", list);
                     <tr>
                         <td>${csMail.getMailId()}</td>
 				        <td>${csMail.createTime}</td>
-				       <td>${csMail.lastMsgTime}</td>
-				      <td>${csMail.getTitle()}</td>
-				      <td>${csMessage.content}</td>
-                        <td><a href="${pageContext.request.contextPath}/customerService/frontMailContent.jsp?mailId=${csMail.getMailId()}" class="btn btn-secondary" class="btn-modify btn" style="background-color: #6B705C">查看詳情</a>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/customerService/CSMessage.do" style="margin-bottom: 0px;">
-					 <input type="submit" value="查看詳情">
-					 <input type="hidden" name="messageId"  value="${csMail.getMailId()}">
-					 <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-					 </td>
+				        <td>${csMail.questions}</td>
+				        <td>${csMail.RECEIVED_TIME}</td>
+				        <td>${csMail.answer}</td>
                     </tr>
                    </c:forEach>
                     <!-- 可以添加更多類似上面結構的表格行 -->
                 </tbody>
             </table>
              <div class="text-center mt-4">
-                <a href="#" class="btn btn-secondary" onclick="toMyAdd()" style="background-color: #6B705C">回覆</a>
+	             <form method="post" action="<%=request.getContextPath()%>/customerService/CSMail.do" >
+					<button type="submit" class="btn btn-secondary btn-modify" style="background-color: #6B705C">回覆</button> 
+					<input type="hidden" name="action" value="toFrontContent" />             
+				</form>
             </div>
         </div>
     </div>
@@ -96,13 +87,13 @@ pageContext.setAttribute("list", list);
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
         $(function () {
-            $("#header").load("../components/html/header.html");
-            $("#footer").load("../components/html/footer.html");
+            $("#header").load("../components/html/header.jsp");
+            $("#footer").load("../components/html/footer.jsp");
         });
         
-        function toMyAdd(){
-			window.location.href = "frontContent.jsp";
-		}
+//         function toMyAdd(){
+// 			window.location.href = "frontContent.jsp";
+// 		}
     </script>
 </body>
 
