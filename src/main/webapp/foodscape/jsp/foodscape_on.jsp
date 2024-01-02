@@ -123,13 +123,8 @@
         	</ul>
         </c:if>
         
-    	<form method="post" action="FoodScape.do">
-        <div class="div_foodscapeId">
-            <label>美食/景點ID :</label>
+    	<form method="post" action="foodscape.do">
 
-        </div>
-    
-        <br>
     
         <div class="div_foodScape_name">
             <label>美食/景點名稱 :</label>
@@ -207,7 +202,7 @@
 <!--         <br> -->
 
           <label for="large-text">相關介紹：</label>
-			<td><input type="TEXT" name="INTRO" value="<%= (foodscape==null)? "輸入想說的" : foodscape.getIntro()%>" size="45"/></td>
+			<td><input type="TEXT" name="intro" value="<%= (foodscape==null)? "輸入想說的" : foodscape.getIntro()%>" size="45"/></td>
 
 			<div class="div_updatetime">
 			<td><input type="TEXT" name="upDateTime" value="<%= (foodscape==null)? new java.sql.Timestamp(System.currentTimeMillis()) : foodscape.getUpdateTime()%>" size="45"/></td>
@@ -231,7 +226,7 @@
 
             <div class="div_status">
                 <label>狀態 :</label>
-                <select id="div_status" name="div_status">
+                <select id="div_status" name="foodscape_status">
 					<option value="0" ${journey.journeyStatus == 0 ? "selected" : ""} >未上架</option>
 					<option value="1" ${journey.journeyStatus == 1 ? "selected" : ""} >已上架</option>
                 </select>
@@ -239,7 +234,7 @@
             
                     <div class="div_category">
             <label>類別 :</label>
-            <select id="div_category" name="div_category">
+            <select id="div_category" name="category">
 				  <option value="景點" ${(foodscape.category=='景點')? 'selected':'' }>景點
 				  <option value="美食" ${(foodscape.category=='美食')? 'selected':'' }>美食
             </select>
@@ -248,11 +243,13 @@
         <br>
         <div class="div_btn">
 		    <button type="submit" class="btn_submit">送出</button>
-		    <input type="hidden" name="action" value="foodScape_add">
-		    
+		    <input type="hidden" name="action" value="foodscape_add">
             <button type="reset" class="btn_reset" onclick="redirectToFoodScape()">取消</button>
         </div>
 </form>
+
+
+
 
     </main>
 
