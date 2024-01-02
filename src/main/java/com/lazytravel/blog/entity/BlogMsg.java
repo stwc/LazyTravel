@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,11 +26,11 @@ public class BlogMsg {
 	@Column(name= "CONTENT",columnDefinition = "longtext")
 	private String content;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
 	private Blog blog;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
 	private Customer customer;
 	

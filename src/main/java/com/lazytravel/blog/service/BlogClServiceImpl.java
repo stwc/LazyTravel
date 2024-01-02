@@ -9,6 +9,7 @@ import com.lazytravel.blog.dao.BlogClDAOImpl;
 import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.entity.BlogCl;
 import com.lazytravel.blog.entity.BlogLike;
+import com.lazytravel.customer.entity.Customer;
 
 public class BlogClServiceImpl implements BlogClService {
 
@@ -46,24 +47,27 @@ public class BlogClServiceImpl implements BlogClService {
 	}
 
 	@Override
-	public void addFavoriteCl(Integer customerId, Integer blogId) {
-		dao.addFavoriteCl(customerId, blogId);
+	public String addFavoriteCl(Integer customerId, Integer blogId) {
+	return	dao.addFavoriteCl(customerId, blogId);
 		
 	}
 
 	@Override
-	public void unFavoriteCl(Integer customerId, Integer blogId) {
-		dao.unFavoriteCl(customerId, blogId);
+	public String unFavoriteCl(Integer customerId, Integer blogId) {
+	return	dao.unFavoriteCl(customerId, blogId);
 		
 	}
 
 	@Override
-	public void updateFavoriteCl(Integer customerId, Integer blogId) {
-		dao.updateFavoriteCl(customerId, blogId);
+	public String updateFavoriteCl(Integer customerId, Integer blogId) {
+	return	dao.updateFavoriteCl(customerId, blogId);
 		
 	}
 	public List<BlogCl> getBlogClByCustomerId(Integer customerId){
 		return dao.getBlogClByCustomerId(customerId);
 	}
 
+	public String blogClStatus(Blog blog,Customer customer) {
+		return dao.blogClStatus(blog,customer);
+	}
 }

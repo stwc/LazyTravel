@@ -15,5 +15,12 @@ public interface BlogLikeService {
      BlogLike getBlogLikeByBlogLikeId(Integer blogLikeId);
 
      List<BlogLike> getAllBlogLikes();
-
+     
+     String isBlogLike(Integer customerId, Integer blogId);
+     
+     String addLike(Integer customerId,Integer blogId) ;
+	 
+	 String unLike(Integer customerId,Integer blogId) ;
+	 
+	 String onLike(Integer customerId,Integer blogId);
 }

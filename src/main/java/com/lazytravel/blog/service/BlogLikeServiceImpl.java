@@ -35,5 +35,26 @@ public class BlogLikeServiceImpl implements BlogLikeService{
 	public List<BlogLike> getAllBlogLikes() {
 		return dao.getAll();
 	}
+
+	@Override
+	public String isBlogLike(Integer customerId, Integer blogId) {
+		return dao.isBlogLike(customerId, blogId);
+	}
+
+	@Override
+	public String addLike(Integer customerId, Integer blogId) {
+		return dao.addLike(customerId, blogId);
+	}
+
+	@Override
+	public String unLike(Integer customerId, Integer blogId) {
+		return dao.unLike(customerId, blogId);
+	}
+
+	@Override
+	public String onLike(Integer customerId, Integer blogId) {
+		return dao.onLike(customerId, blogId);
+	}
+
 	
 }

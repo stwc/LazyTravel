@@ -1,12 +1,23 @@
 package com.lazytravel.customer.entity;
 
-import javax.persistence.*;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.lazytravel.blog.entity.BlogCl;
-
-import java.sql.Timestamp;
-import java.util.Set;
-import java.sql.Date;
+import com.lazytravel.blog.entity.BlogLike;
+import com.lazytravel.blog.entity.BlogMsg;
 
 @Entity
 @Table(name = "customer")
@@ -44,8 +55,15 @@ public class Customer {
     @Column(name = "update_time", insertable = false, updatable = false)
     private Timestamp updateTime;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
     private Set<BlogCl> blogCls;
+    
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+    private Set<BlogLike> blogLikes;
+    
+    @OneToMany(mappedBy = "customer")
+    private List<BlogMsg> blogMsgs;
+    
     
     public Customer() {
         super();
@@ -122,7 +140,15 @@ public class Customer {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public Set<BlogLike> getBlogLikes() {
+		return blogLikes;
+	}
+
+	public void setBlogLikes(Set<BlogLike> blogLikes) {
+		this.blogLikes = blogLikes;
+	}
+
+	public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -214,22 +240,23 @@ public class Customer {
 		this.blogCls = blogCls;
 	}
 
+	public List<BlogMsg> getBlogMsgs() {
+		return blogMsgs;
+	}
+
+	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
+		this.blogMsgs = blogMsgs;
+	}
+
 	@Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", sex='" + sex + '\'' +
-                ", phone='" + phone + '\'' +
-                ", birth=" + birth +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", customerStatus='" + customerStatus + '\'' +
-                ", idno='" + idno + '\'' +
-                ", customerPoint=" + customerPoint +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                '}';
-    }
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", nickname=" + nickname
+				+ ", sex=" + sex + ", phone=" + phone + ", birth=" + birth + ", address=" + address + ", email=" + email
+				+ ", customerPasswd=" + customerPasswd + ", customerStatus=" + customerStatus + ", idno=" + idno
+				+ ", avatar=" + Arrays.toString(avatar) + ", customerPoint=" + customerPoint + ", createTime="
+				+ createTime + ", updateTime=" + updateTime + "]";
+	}
+
+
+	
 }

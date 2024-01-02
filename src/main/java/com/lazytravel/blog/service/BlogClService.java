@@ -6,6 +6,7 @@ import com.lazytravel.blog.dao.BlogClDAO;
 import com.lazytravel.blog.dao.BlogClDAOImpl;
 import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.entity.BlogCl;
+import com.lazytravel.customer.entity.Customer;
 
 public interface BlogClService {
 
@@ -19,11 +20,13 @@ public interface BlogClService {
 	 
 	 String isBlogCl(Integer customerId,Integer blogId);
 	 
-	 void addFavoriteCl(Integer customerId,Integer blogId) ;
+	 String addFavoriteCl(Integer customerId,Integer blogId) ;
 	 
-	 void unFavoriteCl(Integer customerId,Integer blogId) ;
+	 String unFavoriteCl(Integer customerId,Integer blogId) ;
 	 
-	 void updateFavoriteCl(Integer customerId,Integer blogId);
+	 String updateFavoriteCl(Integer customerId,Integer blogId);
 		 
 	 List<BlogCl> getBlogClByCustomerId(Integer customerId);
+	 
+	  String blogClStatus(Blog blog,Customer customer);
 }
