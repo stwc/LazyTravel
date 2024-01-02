@@ -19,7 +19,7 @@
 <title>會員中心-歷史訂單</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="./css/checkComplete.css">
+<!-- <link rel="stylesheet" href="./css/checkComplete.css"> -->
 <link rel="stylesheet"
 	href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <script src="https://kit.fontawesome.com/cb6bf56872.js"
@@ -123,7 +123,7 @@
 			$.ajax({
 				url: "http://localhost:8081/LazyTravel/order/order.do",
 				type: "GET",
-				data: {"action": "getOrderByCustomerId" , "customerId" : orderId},
+				data: {"action": "getOrderByCustomerId" , "customerId" : customerId},
 				dataType: "json",
 				success: function(data) {
 					let dataSet = [];

@@ -123,7 +123,7 @@
 		$(function() {
 			$("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
 			$("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
-			const customerId = 11001;
+			let customerId = <%= customerId %>;
 			getcustomercoupon ();
 			 $("#couponResponse").text(sessionStorage.successmessage);
 	         $("#couponResponse").text(sessionStorage.errormessage);
@@ -171,7 +171,7 @@
 		}
 		
 		function getcustomercoupon (){
-			const customerId = 11001;
+			let customerId = <%= customerId %>;
 			
 			$.ajax({
 				url: "http://localhost:8081/LazyTravel/customorCenter/customercoupon.do",
