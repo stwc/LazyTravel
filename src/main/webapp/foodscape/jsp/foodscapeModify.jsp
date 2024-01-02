@@ -24,9 +24,78 @@ pageContext.setAttribute("list", list);
 
   <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
-  <style>
+    <style>
+       *{
+            box-sizing: border-box;
+        }
 
-  </style>
+        body{
+            margin: 0;
+        }
+
+        main#main{
+            padding: 50px 80px;
+            margin-left: 50px;
+        }
+
+        input{
+            border: 1px solid #CCD5AE;   
+        }
+
+        input:focus{
+            outline: 2px solid #CCD5AE;
+            box-shadow: 0 0 8px #a1a397
+        }
+
+        select {
+            border: 1px solid #CCD5AE;
+            height: 27px;
+        }
+
+        select:focus {
+            border:2px solid #CCD5AE;
+            box-shadow: 0 0 8px #a1a397;
+        }
+
+
+        button.btn_submit{
+            width: 100px;
+            height: 30px;
+            border-radius: 90px;
+            border-color: transparent;
+            color: white;
+            background: #CCD5AE;
+            
+            margin-right: 15px;
+        }
+
+        button.btn_submit:active {
+            outline: 2px solid #CCD5AE;
+            box-shadow: 0 0 8px #a1a397
+        }
+        
+        button.btn_reset{
+            width: 100px;
+            height: 30px;
+            border-radius: 90px;
+            border-color: transparent;
+            color: white;
+            background: #9C6644;
+        }
+
+        button.btn_reset:active {
+            outline: 2px solid #9C6644;
+            box-shadow: 0 0 8px #a1a397
+        }
+
+        div.div_btn{
+            display: flex;
+            justify-content: flex-end;
+        }
+
+
+
+    </style>
 </head>
 
 <body>
@@ -44,7 +113,7 @@ pageContext.setAttribute("list", list);
 			</c:if>
 
   <div class="container">
-    <form method="post" action="user.do" class="row m-3 p-3">
+    <form method="post" action="foodscape.do" class="row m-3 p-3">
       <h2 class="mb-4">修改美食景點</h2>
       <p style="font-size: 20px;"><a href="foodscape.jsp">回首頁</a></p>
       
@@ -106,7 +175,7 @@ pageContext.setAttribute("list", list);
         <br>
         <div class="div_btn">
 		    <button type="submit" class="btn_submit">送出</button>
-		    <input type="hidden" name="action" value="foodScape_add">
+		    <input type="hidden" name="action" value="foodscape_update">
 		    
             <button type="reset" class="btn_reset" onclick="redirectToFoodScape()">取消</button>
         </div>

@@ -3,6 +3,7 @@ package com.lazytravel.foodscape.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,15 +16,15 @@ import com.lazytravel.foodscape.entity.FoodScape;
 import com.lazytravel.foodscape.service.FoodScapeService;
 import com.lazytravel.foodscape.service.FoodScapeServiceImpl;
 
-@WebServlet(name = "FoodScapeServlet", value = "/foodscape/jsp/FoodScape.do")
+@WebServlet(name = "FoodScapeServlet", value = "/foodscape/jsp/foodscape.do")
 public class FoodScapeServlet extends HttpServlet {
 	private FoodScapeService foodscapeService;
 
 	@Override
-	public void init() throws ServletException{
+	public void init() throws ServletException {
 		foodscapeService = new FoodScapeServiceImpl();
 	}
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);
@@ -32,45 +33,51 @@ public class FoodScapeServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		
+
 		String forwardPath = "";
 		String action = req.getParameter("action");
 		switch (action) {
 		case "getOne_For_Display":
-            forwardPath = getOneDisplay(req, res);
-            break;
+			forwardPath = getOneDisplay(req, res);
+			break;
 		case "foodscape_search":
 			forwardPath = getFoodScapeByFoodScapeId(req, res);
 			break;
-		case "tag_add":
+		case "foodscape_add":
 			forwardPath = addFoodScape(req, res);
-		case "tag_update":
+			break;
+		case "foodscape_update":
 			forwardPath = updateFoodScape(req, res);
-	}
+			break;
+
+
+		}
 		res.setContentType("text/html; charset=UTF-8");
 		RequestDispatcher dispatcher = req.getRequestDispatcher(forwardPath);
 		dispatcher.forward(req, res);
 	}
 
+
+
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
 		List<String> errorMsgs = new ArrayList<>();
-        req.setAttribute("errorMsgs", errorMsgs);
-        Integer foodScapeId =Integer.valueOf(req.getParameter("foodScapeId"));
-        
-        foodscapeService = new FoodScapeServiceImpl();
-        FoodScape foodscape = foodscapeService.getFoodScapeByFoodScapeId(foodScapeId);
-        
-        req.setAttribute("foodscape", foodscape);
-        return "/foodscape/jsp/selectmore.jsp";
+		req.setAttribute("errorMsgs", errorMsgs);
+		Integer foodScapeId = Integer.valueOf(req.getParameter("foodScapeId"));
+
+		foodscapeService = new FoodScapeServiceImpl();
+		FoodScape foodscape = foodscapeService.getFoodScapeByFoodScapeId(foodScapeId);
+
+		req.setAttribute("foodscape", foodscape);
+		return "/foodscape/jsp/selectmore.jsp";
 
 	}
 
 	private String updateFoodScape(HttpServletRequest req, HttpServletResponse res) {
-        List<String> errorMsgs = new ArrayList<>();
-        req.setAttribute("errorMsgs", errorMsgs);
-		
-        Integer foodScapeId = Integer.valueOf(req.getParameter("FOODSCAPE_ID"));
-        String foodScapeName = req.getParameter("foodscape_name").trim();
+		List<String> errorMsgs = new ArrayList<>();
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		Integer foodScapeId = Integer.valueOf(req.getParameter("foodscape_id"));
+		String foodScapeName = req.getParameter("foodscape_name").trim();
 		String foodScapeNameReg = "[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
 		if (foodScapeName == null || foodScapeName.length() == 0) {
 			errorMsgs.add("請輸入美食景點名稱");
@@ -98,7 +105,7 @@ public class FoodScapeServlet extends HttpServlet {
 		} else if (!address.matches(cityReg)) {
 			errorMsgs.add("名稱:格式不符合,僅限輸入中英文和數字共計30字");
 		}
-		
+
 		String phone = req.getParameter("phone").trim();
 		String phoneReg = "^[0-9]{8}([0-9]{2})?$";
 		if (address == null || address.length() == 0) {
@@ -106,11 +113,11 @@ public class FoodScapeServlet extends HttpServlet {
 		} else if (!address.matches(cityReg)) {
 			errorMsgs.add("名稱:格式不符合,請輸入美食景點完整電話或手機號碼(不用-)");
 		}
-		
+
 		String foodscapeStatus = String.valueOf(req.getParameter("foodscape_status").trim());
 		String category = String.valueOf(req.getParameter("CATEGORY").trim());
-//		Double lng = Double.valueOf(req.getParameter("LNG"));
-//		Double lat = Double.valueOf(req.getParameter("LAT"));
+		Double lng = Double.valueOf(req.getParameter("LNG"));
+		Double lat = Double.valueOf(req.getParameter("LAT"));
 //		String updateTimeStr = req.getParameter("UPDATE_TIME");
 
 //	        if (updateTimeStr != null && !updateTimeStr.isEmpty()) {
@@ -125,45 +132,49 @@ public class FoodScapeServlet extends HttpServlet {
 //	        } else {
 //	            // 如果 UPDATE_TIME 參數為空，可能需要處理相應的邏輯
 //	        }
-	 	// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
-    		FoodScape foodscape = new FoodScape();
-    		foodscape.setFoodScapeName(foodScapeName);
-    		foodscape.setIntro(intro);
-    		foodscape.setCity(city);
-    		foodscape.setAddress(address);
-    		foodscape.setPhone(phone);
-    		foodscape.setFoodScapeStatus(foodscapeStatus);
-    		foodscape.setCategory(category);
-    		
-	        if (!errorMsgs.isEmpty()) {
-	        	req.setAttribute("foodscape", foodscape);
-	        	return "/foodscape/jsp/foodscapeModify.jsp";
-	        }
-	        
-	        //修改資料
-	        foodscapeService.updateFoodScape(foodscape);
-	        req.setAttribute("foodscape", foodscapeService.getFoodScapeByFoodScapeId(foodScapeId));
-	        
+		// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
+		FoodScape foodscape = new FoodScape();
+		foodscape.setFoodScapeId(foodScapeId);
+		foodscape.setFoodScapeName(foodScapeName);
+		foodscape.setIntro(intro);
+		foodscape.setCity(city);
+		foodscape.setAddress(address);
+		foodscape.setPhone(phone);
+		foodscape.setLng(lng);
+		foodscape.setLat(lat);
+		foodscape.setFoodScapeStatus(foodscapeStatus);
+		foodscape.setCategory(category);
+
+		if (!errorMsgs.isEmpty()) {
+			req.setAttribute("foodscape", foodscape);
 			return "/foodscape/jsp/foodscapeModify.jsp";
+		}
+
+		// 修改資料
+		foodscapeService.updateFoodScape(foodscape);
+		req.setAttribute("foodscape", foodscapeService.getFoodScapeByFoodScapeId(foodScapeId));
+
+		return "/foodscape/jsp/foodscape.jsp";
 	}
-	
-	
+
 	private String getFoodScapeByFoodScapeId(HttpServletRequest req, HttpServletResponse res) {
 		Integer foodScapeId = Integer.valueOf(req.getParameter("FOODSCAPE_ID"));
-		
+
 		FoodScape foodscape = foodscapeService.getFoodScapeByFoodScapeId(foodScapeId);
-		
+
 		req.setAttribute("foodscape", foodscape);
 		return "/foodscape/jsp/foodscape.jsp";
 
 	}
 
 	private String addFoodScape(HttpServletRequest req, HttpServletResponse res) {
-		//錯誤處理
+		// 錯誤處理
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
-		
+		System.out.println("ddddd");
+
 		String foodscapeName = req.getParameter("foodScapeName").trim();
+		System.out.print(foodscapeName);
 		String foodscapeNameReg = "[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
 		if (foodscapeName == null || foodscapeName.trim().length() == 0) {
 			errorMsgs.add("請輸入美食景點名稱");
@@ -171,6 +182,7 @@ public class FoodScapeServlet extends HttpServlet {
 			errorMsgs.add("名稱:格式不符合,僅限輸入中英文和數字共計20字");
 		}
 		String intro = req.getParameter("intro").trim();
+		System.out.print(intro);
 		if (intro == null || intro.length() == 0) {
 			errorMsgs.add("請輸入美食景點介紹");
 		}
@@ -183,6 +195,8 @@ public class FoodScapeServlet extends HttpServlet {
 			errorMsgs.add("名稱:格式不符合,僅限輸入中英文和數字共計10字");
 		}
 
+		Double lng = Double.valueOf(req.getParameter("lng").trim());
+		Double lat = Double.valueOf(req.getParameter("lat").trim());
 		String address = req.getParameter("address").trim();
 		String addressReg = "[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,30}$";
 		if (address == null || address.length() == 0) {
@@ -190,7 +204,7 @@ public class FoodScapeServlet extends HttpServlet {
 		} else if (!address.matches(cityReg)) {
 			errorMsgs.add("名稱:格式不符合,僅限輸入中英文和數字共計30字");
 		}
-		
+
 		String phone = req.getParameter("phone").trim();
 		String phoneReg = "^[0-9]{8}([0-9]{2})?$";
 		if (address == null || address.length() == 0) {
@@ -198,7 +212,7 @@ public class FoodScapeServlet extends HttpServlet {
 		} else if (!address.matches(cityReg)) {
 			errorMsgs.add("名稱:格式不符合,請輸入美食景點完整電話或手機號碼(不用-)");
 		}
-		
+
 		String foodscapeStatus = String.valueOf(req.getParameter("foodscape_status").trim());
 		String category = req.getParameter("category");
 
@@ -208,15 +222,17 @@ public class FoodScapeServlet extends HttpServlet {
 		foodscape.setCity(city);
 		foodscape.setAddress(address);
 		foodscape.setPhone(phone);
+		foodscape.setLng(lng);
+		foodscape.setLat(lat);
 		foodscape.setFoodScapeStatus(foodscapeStatus);
 		foodscape.setCategory(category);
-		
-		 if (!errorMsgs.isEmpty()) {
-	        	req.setAttribute("foodscape", foodscape);
-	        	return "/foodscape/jsp/foodscape_on.jsp";
-	        }
-	        
-	        foodscapeService.addFoodScape(foodscape);
-	        return "/foodscape/jsp/foodscape.jsp";
-	    }
+
+		if (!errorMsgs.isEmpty()) {
+			req.setAttribute("foodscape", foodscape);
+			return "/foodscape/jsp/foodscape_on.jsp";
+		}
+
+		foodscapeService.addFoodScape(foodscape);
+		return "/foodscape/jsp/foodscape.jsp";
+	}
 }
