@@ -1,4 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.lazytravel.customer.entity.Customer" %>
+
+
+
+
+
+ <% Customer customerObj = (Customer) session.getAttribute("customer");
+  Integer customerId = customerObj.getCustomerId();
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,7 +133,7 @@
 		
 		
 		function addCouponClick() {
-			const customerId = 11001;
+			let customerId = <%= customerId %>;
 			const couponNo = $("input[name='couponNo']").val();
 			
 			
