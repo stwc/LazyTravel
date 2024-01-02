@@ -82,7 +82,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<%=request.getContextPath()%>/customerService/backContentMail.jsp">客服</a>
+            <a class="nav-link" href="<%=request.getContextPath()%>/customerService/backContenMail.jsp">客服</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -5,7 +5,7 @@
 <%@ page import="com.lazytravel.customerservice.entity.*"%>
 <%@ page import="com.lazytravel.customerservice.dao.*"%>
 <%@ page import="com.lazytravel.customerservice.service.*"%>
-<%@ include file="/admin/header.jsp"%>
+
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 
@@ -50,7 +50,7 @@ pageContext.setAttribute("list",list);
 %>
 
 <body>
-<!--     <div id="header"></div> -->
+    <div id="header"></div>
 
     <div id="main" class="p-3">
         <div class="mx-3 mb-4 d-flex align-items-start">
@@ -98,7 +98,7 @@ pageContext.setAttribute("list",list);
     </div>
 
     <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- DataTables JS -->
@@ -106,7 +106,7 @@ pageContext.setAttribute("list",list);
 
     <script>
         $(function() {
-//             $("#header").load("../../admin/header.jsp");
+        	$("#header").load("<%=request.getContextPath()%>/admin/header.jsp");
             new DataTable("#example");
         });
     </script>
