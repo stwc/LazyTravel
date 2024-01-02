@@ -78,7 +78,7 @@ pageContext.setAttribute("list",list);
 </td>
               <td>
                 <form method="post" action="<%=request.getContextPath()%>/blog/blog/blog.do" style="margin-bottom: 0px;">
-                    <button type="submit" name="action" value="getOne_For_Update" class="btn-modify btn">н╫зя</button>
+                    <button type="submit" name="action" value="getOne_For_BackUpdate" class="btn-modify btn">н╫зя</button>
                     <input type="hidden" name="blogId" value="${blog.getBlogId()}">	
                     <button type="submit" name="action" value="updownStatus" class="btn-modify btn" onclick="toggleStatus(${blog.getBlogId()})">
                     <c:if test="${blog.blogStatus eq 0}">дWм[</c:if>

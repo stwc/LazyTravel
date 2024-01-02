@@ -96,10 +96,18 @@ public class BlogServlet extends HttpServlet {
                 // 來自listAllEmp.jsp的請求
                 forwardPath = getOneUpdate(req, res);
                 break;
+            case "getOne_For_BackUpdate":
+            	// 來自listAllEmp.jsp的請求
+            	forwardPath = getOneBackUpdate(req, res);
+            	break;
             case "update":
                 // 來自update_emp_input.jsp的請求
                 forwardPath = update(req, res);
                 break;
+            case "BackUpdate":
+            	// 來自update_emp_input.jsp的請求
+            	forwardPath = BackUpdate(req, res);
+            	break;
             case "insert":
                 // 來自addEmp.jsp的請求
                 forwardPath = insert(req, res);
@@ -154,6 +162,14 @@ public class BlogServlet extends HttpServlet {
 
         req.setAttribute("blog", blog);
         return "/blog/blog/updateblog.jsp";
+    }
+    private String getOneBackUpdate(HttpServletRequest req, HttpServletResponse res) {
+    	Integer blogId = Integer.valueOf(req.getParameter("blogId"));
+    	Blog blog = blogService.getBlogByBlogId(blogId);
+    	
+    	
+    	req.setAttribute("blog", blog);
+    	return "/admin/backUpdate.jsp";
     }
 
     private String update(HttpServletRequest req, HttpServletResponse res) {
@@ -246,6 +262,101 @@ public class BlogServlet extends HttpServlet {
         req.setAttribute("blog", blogService.getBlogByBlogId(blogId));
 
         return "/blog/blog/myblog.jsp";
+    }
+    private String BackUpdate(HttpServletRequest req, HttpServletResponse res) {
+    	// 錯誤處理
+    	List<String> errorMsgs = new ArrayList<>();
+    	req.setAttribute("errorMsgs", errorMsgs);
+    	
+//-------------------1.---------------------------------//
+    	Integer blogId =Integer.parseInt(req.getParameter("blogId"));
+    	String title =String.valueOf(req.getParameter("title"));
+    	Integer customerId = Integer.valueOf(req.getParameter("customer_id"));
+    	String blogDateStr = req.getParameter("blog_date");
+    	String content =String.valueOf(req.getParameter("content"));
+    	Timestamp upDateTime =Timestamp.valueOf(req.getParameter("updateTime"));
+    	SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Timestamp blogDate =Timestamp.valueOf(req.getParameter("blog_date"))
+    	String blogStatus =String.valueOf(req.getParameter("blogStatus"));
+    	Integer viewSum=Integer.valueOf(req.getParameter("viewSum"));
+    	Integer clSum=Integer.valueOf(req.getParameter("clSum"));
+    	Integer likeSum=Integer.valueOf(req.getParameter("likeSum"));
+    	Timestamp blogTimestamp = null;
+    	
+    	try {
+    		// 從 request 中取得 blog_date 參數
+    		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    		// 解析日期
+    		LocalDate localDate = LocalDate.parse(blogDateStr, inputFormatter);
+    		
+    		// 使用當前時間的 LocalTime
+    		LocalTime currentTime = LocalTime.now();
+    		
+    		// 將 LocalDate 和 LocalTime 組合成 LocalDateTime
+    		LocalDateTime localDateTime = LocalDateTime.of(localDate, currentTime);
+    		
+    		// 將 LocalDateTime 轉換為 Timestamp
+    		blogTimestamp = Timestamp.valueOf(localDateTime);
+    		
+    		// 輸出到控制台查看
+    		System.out.println("Formatted Date: " + blogTimestamp);
+    		
+    	} catch (DateTimeParseException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	Timestamp createTime =null;
+    	try {
+    		createTime = java.sql.Timestamp.valueOf(req.getParameter("createTime").trim());
+    	} catch (Exception e) {
+    		createTime =new java.sql.Timestamp(System.currentTimeMillis());
+    		errorMsgs.add("請輸入發布時間");
+    	}
+    	
+    	byte[] blogImg = null;
+    	try {
+    		InputStream in = req.getPart("blogImg").getInputStream();
+    		if (in.available() != 0) {
+    			blogImg = new byte[in.available()];
+    			in.read(blogImg);
+    			in.close();
+    		} else {
+    			errorMsgs.add("文章圖片: 請上傳照片");
+    		}
+    	} catch (IOException | ServletException e) {
+    		errorMsgs.add("圖片上傳失敗: " + e.getMessage());
+    	}
+    	
+    	
+    	// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
+    	Blog blog = new Blog();
+    	blog.setBlogId(blogId);
+    	blog.setTitle(title);
+    	blog.setBlogDate(blogTimestamp);
+    	blog.setContent(content);
+    	blog.setUpDateTime(upDateTime);
+    	blog.setCreateTime(createTime);
+    	blog.setBlogStatus(blogStatus);
+    	blog.setImg(blogImg);
+    	blog.setViewSum(viewSum);
+    	blog.setClSum(clSum);
+    	blog.setLikeSum(likeSum);
+    	
+    	Customer customer = new Customer();
+    	customer.setCustomerId(customerId);
+    	blog.setCustomer(customer);
+    	
+    	if (!errorMsgs.isEmpty()) {
+    		req.setAttribute("blog", blog);
+    		return "/admin/backUpdate.jsp";
+    	}
+    	//-------------------2.---------------------------------//
+    	// 修改資料
+    	blogService.updateBlog(blog);
+    	req.setAttribute("blog", blogService.getBlogByBlogId(blogId));
+    	
+    	return "/admin/backbloglist.jsp";
     }
 //3.新增
     private String insert(HttpServletRequest req, HttpServletResponse res) {
