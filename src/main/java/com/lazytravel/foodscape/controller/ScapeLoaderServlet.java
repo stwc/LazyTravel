@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-@WebServlet("/imageLoader")
-public class ImageLoaderServlet extends HttpServlet {
+@WebServlet("/scapeLoader")
+public class ScapeLoaderServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final String IMAGE_FOLDER_PATH = "C:\\THA104_Workspace\\lazytravel\\src\\main\\webapp\\foodscape\\food";
+    private static final String IMAGE_FOLDER_PATH = "C:\\THA104_Workspace\\lazytravel\\src\\main\\webapp\\foodscape\\scape";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
