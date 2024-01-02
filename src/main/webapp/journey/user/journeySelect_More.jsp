@@ -3,9 +3,15 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 <%@page import="com.lazytravel.foodscape.entity.*"%>
+
+<%@page import="com.google.gson.Gson"%>
+<%@page import="java.lang.reflect.Type"%>
+<%@page import="com.google.gson.reflect.TypeToken"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -164,16 +170,16 @@
 		margin:10px 0px 0px 0px;
 	}
 	
-	div.nth_days i {
-		margin-right: 5px;
-	}
+/* 	div.nth_days i { */
+/* 		margin-right: 5px; */
+/* 	} */
 	
-	div.nth_days i:hover {
-		border-radius: 90px;
-		background-color: #1a1919;
-		color: white;
-		box-shadow: 0 0 8px #a1a397
-	}
+/* 	div.nth_days i:hover { */
+/* 		border-radius: 90px; */
+/* 		background-color: #1a1919; */
+/* 		color: white; */
+/* 		box-shadow: 0 0 8px #a1a397 */
+/* 	} */
 	
 	select.touristNum {
 		width: 135px;
@@ -219,7 +225,41 @@
  		justify-content: flex-end;
  		margin-right: 36px;
  	}
-
+ 	
+	#map {
+		height: 490px;
+		width: 100%;
+		margin-left: 15px;
+	}
+		
+	div.map_day {
+		display: inline-block;
+		margin-bottom: 20px;
+		margin-left: 15px;
+	}
+	
+	div.map_day button {
+		padding-right: 10px;
+		padding-left: 10px;
+		font-size: 20px;
+		font-weight: 600;
+		color: rgb(129, 127, 127);
+		border: 1px dashed;
+   		border-radius: 5px;
+	}
+	
+	div.map_day button:hover {
+	    border: 1px dashed #CB997E;
+	    background-color: #CB997E;
+	    color: white;
+	}
+	
+	div.map_day button.clicked {
+	    border: 1px dashed #CB997E;
+	    background-color: #CB997E;
+	    color: white;
+	}
+	
 </style>
 
 <%	
@@ -240,6 +280,19 @@
 	List<TourGroup> tourGroupList = tourGroupSvc.getMarketedByJourneyId(journeyId);
 	pageContext.setAttribute("tourGroupList", tourGroupList);
 	
+	
+	// 取得 map location
+	String locationsJsonStr = (String) request.getAttribute("locationsJsonStr");
+	System.out.println("-------------------------- locationsJsonStr: " + locationsJsonStr);
+	request.setAttribute("classNotClick", 0);       // 用於JS判斷: 重新設置地圖上面的按鈕的 class
+	
+	if(locationsJsonStr == null){
+		List<FoodScape> foodScapeMapList = journeyDetailSvc.findFoodscapeLngAndLat(journeyId, 1);
+		Gson gson = new Gson();
+		locationsJsonStr = gson.toJson(foodScapeMapList);
+		request.setAttribute("locationsJsonStr", locationsJsonStr);
+		request.setAttribute("classNotClick", 1);   // 用於JS判斷: 重新設置地圖上面的按鈕的 class
+	}
 %>
 
 <body>
@@ -260,7 +313,7 @@
 			<c:set var="lastNthDay" value="${journeyDetailList[lastIndex].nthDay}" />
 
             <c:forEach begin="1" end="${lastNthDay}" varStatus="daysLoop">	
-            	<div class="nth_days">
+            	<div class="nth_days" >
 		        	<b style="font-weight: 600; color: rgb(129, 127, 127);">第 ${daysLoop.count} 天</b>
 <!-- 		    		<i class="fa-solid fa-circle-chevron-left"></i> -->
 <!-- 		    		<i class="fa-solid fa-circle-chevron-right"></i> -->
@@ -292,8 +345,25 @@
             
         </article>
 
+
         <article>
-            地圖
+        	<c:set var="listSize_map" value="${fn:length(journeyDetailList)}" />
+			<c:set var="lastIndex_map" value="${listSize_map - 1}" />
+			<c:set var="lastNthDay_map" value="${journeyDetailList[lastIndex_map].nthDay}" />
+	        
+	        <form method="post" action="<%=request.getContextPath()%>/journey/user/mapLocation.do">
+	            <c:forEach begin="1" end="${lastNthDay_map}" varStatus="mapLoop">
+	            	<div class="map_day">
+			        	<button type="submit" name="mapButton" value="${mapLoop.count}" onclick="buttonSelect(this)">第 ${mapLoop.count} 天</button>
+					</div>
+
+	           		<input type="hidden" name="action" value="map_location"/>
+	           		<input type="hidden" name="nthDay_${mapLoop.count}" value="${mapLoop.count}" />
+					<input type="hidden" name="journeyId" value="${journeyId}" />
+				</c:forEach>
+			</form>            
+            
+            <div id="map"></div>
         </article>
          
 		
@@ -412,14 +482,19 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWlOPn7AIhHCtv7wbRsgqByXQOwx1pZF8&callback=initMap&v=weekly" async defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/2.1.1/markerclusterer.js"></script>
+	
 	<script>
+	
         $(function () {
 // 	        $("#header").load("../components/html/header.html");
 // 	        $("#footer").load("../components/html/footer.html");
 
 
 		    $("form.checkData").submit(function(event) {
-		        var selectedGroupId = $('#selectedGroupId_order').val();
+		        var selectedGroupId = $("#selectedGroupId_order").val();
 		        var selectedSignupNum = $("#selectedSignupNum_order").val();
 		        
 		        var errorMsgStartTime = $(".startTime_errorMessage");
@@ -444,6 +519,23 @@
 		        }
 		    });
 		    
+		    
+		 	// 重新設置地圖上面的按鈕的 class
+			var locations = ${classNotClick};
+    		console.log(locations);
+    		
+			if(locations === 1) {
+				var storedSelectedDay = 1;
+				$(".map_day button").removeClass("clicked");
+				$(".map_day button").eq(storedSelectedDay - 1).addClass("clicked");
+			} else {
+				var storedSelectedDay = sessionStorage.getItem("selectedDay");
+				if (storedSelectedDay !== null) {
+					$(".map_day button").removeClass("clicked");
+					$(".map_day button").eq(storedSelectedDay - 1).addClass("clicked");
+				}
+			}
+			
         });
         
         
@@ -451,7 +543,7 @@
         	var selectedOption = selectElement.options[selectElement.selectedIndex];
         	console.log(selectElement.selectedIndex);
         	
-	        var groupId = selectedOption.getAttribute('data-groupId');
+	        var groupId = selectedOption.getAttribute("data-groupId");
 	        console.log(groupId);
 	        
 	        document.getElementById("selectedGroupId_addCart").value = groupId;
@@ -490,6 +582,37 @@
 	            return;
 	        }
 	        sessionStorage.setItem("selectedValue_signupNum", signupNum);
+	    }
+        
+        
+        // 初始化地圖
+        function initMap() {
+    	 	// 從後端接收位置訊息
+    	    var locations = ${locationsJsonStr};	
+    	    
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,  // 地圖放大倍率
+                center: locations.length > 0 ? locations[0] : { lat: 23.58259486, lng: 120.58552886 }   // 將第一個美食景點位置設為地圖中心，沒有符合則設為台灣中心
+            });
+            
+        
+            // 在地圖上marker
+            locations.forEach(function(location) {
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+            });
+        }
+        
+
+        // click時，重新設置地圖上面的按鈕的 class
+	    function buttonSelect(button) {
+	        $(".map_day button.clicked").removeClass("clicked");
+	        $(button).addClass("clicked");
+
+	        var selectedDay = $(button).val();
+	        sessionStorage.setItem("selectedDay", selectedDay);
 	    }
 
     </script>
