@@ -21,6 +21,7 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 List<BlogMsg> list = blogMsgSvc.getBlogMsgsByBlogId(blog.getBlogId());
 pageContext.setAttribute("list", list);
 
+
 // Blog blog = (Blog) request.getAttribute("blog");
 // BlogService blogSvc = new BlogServiceImpl();
 // List<Blog> list = blogSvc.getAllBlogs();
@@ -256,7 +257,7 @@ pageContext.setAttribute("list", list);
 
 			<div class="row">
 				<div class="col">
-					<button type="submit" onclick="return checkLogin()" class="btn btn-success m-2 float-end" >
+					<button type="submit" id="msgSubmit"  class="btn btn-success m-2 float-end" >
 						送出</button>
 				</div>
 			</div>
@@ -274,11 +275,26 @@ pageContext.setAttribute("list", list);
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 		$(function() {
 			$("#header").load("../../components/html/header.jsp");
 			$("#footer").load("../../components/html/footer.jsp");
 		});
+		
+		$(document).ready(function () {
+			$(document).on('click', '#msgSubmit', function (e){
+				e.stopPropagation();
+		    	var customerId = parseInt("<%=customerId%>", 10);
+			
+		        // 檢查用戶是否已登入
+		        if (customerId === 0 || customerId === "") {
+		        	swal("請先登入才能留言。", "", "warning");
+		            console.log(customerId);
+		            return false;
+		        }
+			})
+		})
 		
 		$(document).ready(function () {
 			$(document).on('click', '.blogClSubmit', function (e){
@@ -288,7 +304,7 @@ pageContext.setAttribute("list", list);
 			
 		        // 檢查用戶是否已登入
 		        if (customerId === 0 || customerId === "") {
-		            alert("請先登入才能收藏。");
+		        	swal("請先登入才能收藏。", "", "warning");
 		            console.log(customerId);
 		        } else {
 		            // 使用 AJAX 將收藏的資訊傳送到後端
@@ -339,7 +355,7 @@ pageContext.setAttribute("list", list);
 			
 		        // 檢查用戶是否已登入
 		        if (customerId === 0 || customerId === "") {
-		            alert("請先登入才能收藏。");
+		        	swal("請先登入才能按讚唷。", "", "warning");
 		            console.log(customerId);
 		        } else {
 		            // 使用 AJAX 將收藏的資訊傳送到後端

@@ -123,7 +123,7 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 								style="width: 22rem; height: 450px; margin: 10px;">
 								<img class="card-img-top"
 									src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}"
-									style="width: 351px; height: 200px;" />
+									style="width: 351px; height: 160px;" />
 								<div class="card-body p">
 									<h5 class="card-title">${blog.title}</h5>
 									<div class="d-inline-flex">
@@ -137,14 +137,14 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 									<p class="h6">${formattedDate}</p>
 									<p class="card-text">${fn:substring(blog.content, 0, 25)}${fn:length(blog.content) > 25 ? '...' : ''}</p>
 									<div class="d-flex justify-content-end align-items-center">
-										<div class="col-md-3 pr-0">
-											<p>${blog.customer.customerName}</p>
+										<div class="col-md-4 p-0">
+											<p>${blog.customer.nickname}</p>
 										</div>
-										<div class="col-md-5 p-0">
+										<div class="col-md-4 p-0 top-50 start-50">
 											<img class="card-img-top"
 												src="<%=request.getContextPath()%>/customer/ImageReader?id=${blog.customer.customerId}"
-												style="width: 50%; height: 70px;"
-												alt="${blog.customer.customerName}" />
+												style="width: 70%; height: 80px;"
+												alt="${blog.customer.nickname}" />
 										</div>
 										<div class="col-md-4 d-inline-flex align-items-center">
 										
@@ -263,6 +263,7 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 		crossorigin="anonymous"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 			$(function() {
 				$("#header").load("../../components/html/header.jsp");
@@ -293,7 +294,8 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 				
 			        // 檢查用戶是否已登入
 			        if (customerId === 0 || customerId === "") {
-			            alert("請先登入才能收藏。");
+			        	swal("請先登入才能收藏。", "", "warning");
+			            
 			            console.log(customerId);
 			        } else {
 			            // 使用 AJAX 將收藏的資訊傳送到後端
@@ -344,7 +346,7 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 				
 			        // 檢查用戶是否已登入
 			        if (customerId === 0 || customerId === "") {
-			            alert("請先登入才能收藏。");
+			        	swal("請先登入才能按讚。", "", "warning");
 			            console.log(customerId);
 			        } else {
 			            // 使用 AJAX 將收藏的資訊傳送到後端

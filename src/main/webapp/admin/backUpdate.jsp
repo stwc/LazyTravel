@@ -23,7 +23,7 @@ String blogImg = request.getContextPath()+ "/blog/blog/BlogImgReader?blogId="+bl
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Document</title>
+<title>後台文章修改</title>
 <!-- CSS only -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -119,7 +119,7 @@ String blogImg = request.getContextPath()+ "/blog/blog/BlogImgReader?blogId="+bl
 							class="form-control" id="inputGroupFile01" />
 					</div>
 				</div>
-				<div style="text-align: center;">
+				<div id="preview"  style="text-align: center;">
 			<img class="top-50 start-50" src="<%=blogImg %>"  style="width: 545px;height:300px"/>
 			</div>
 			</div>
@@ -190,6 +190,26 @@ String blogImg = request.getContextPath()+ "/blog/blog/BlogImgReader?blogId="+bl
 	            var tagName = $(this).data('name');
 	            $('#tagInput').val(tagName);
 	        });
+	    });
+	    
+	    let preview_img = function (file) {
+	        let reader = new FileReader();
+	        reader.readAsDataURL(file);
+	        reader.addEventListener("load", function () {
+	            <%--let img_src = `<img src="${reader.result}" class="preview_img">`;--%>
+	            let img_src = '<img src="' + reader.result + '" class="preview_img" alt="img" style="width: 545px; height: 300px;">';
+	            $("#preview").html(img_src);
+	        })
+	    };
+	    
+	    $("#inputGroupFile01").on("change", function (e) {
+	        // console.log(this);
+	        console.log(this.files);
+
+	        if (this.files.length > 0)
+	            preview_img(this.files[0]);
+	        else
+	            $("#preview").html('<span class="text">預覽圖</span>');
 	    });
 	    
 	    $(document).ready(function() {

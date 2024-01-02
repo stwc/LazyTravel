@@ -112,10 +112,13 @@ BlogService blogSvc = new BlogServiceImpl();
 				</div>
 				<div class="col-7 d-flex align-items-center">
 					<div class="input-group mb-3 h-auto mt-3 m-1" style="width: 545px">
-						<input type="file" name="blogImg"
+						<input type="file" name="blogImg"  
 							class="form-control" id="inputGroupFile01" />
 					</div>
 				</div>
+			</div>
+			<div id="preview" style="text-align: center;">
+			<img class="top-50 start-50" src="../../static/images/logo.png"  style="width: 545px;height:300px "class="preview_img" alt="Img"/>
 			</div>
 		</div>
 		<hr />
@@ -174,6 +177,26 @@ BlogService blogSvc = new BlogServiceImpl();
 			dateFormat : "Y-m-d",
 		// 更多選項可以參考 Flatpickr 文檔
 		});
+		
+		 let preview_img = function (file) {
+		        let reader = new FileReader();
+		        reader.readAsDataURL(file);
+		        reader.addEventListener("load", function () {
+		            <%--let img_src = `<img src="${reader.result}" class="preview_img">`;--%>
+		            let img_src = '<img src="' + reader.result + '" class="preview_img" alt="img" style="width: 545px; height: 300px;">';
+		            $("#preview").html(img_src);
+		        })
+		    };
+		    
+		    $("#inputGroupFile01").on("change", function (e) {
+		        // console.log(this);
+		        console.log(this.files);
+
+		        if (this.files.length > 0)
+		            preview_img(this.files[0]);
+		        else
+		            $("#preview").html('<span class="text">預覽圖</span>');
+		    });
 		
 		function redirectToMyBlog() {
 	        // 使用 window.location.href 將頁面導航到 myblog.jsp
