@@ -189,6 +189,8 @@ public class BlogServlet extends HttpServlet {
 //        Timestamp blogDate =Timestamp.valueOf(req.getParameter("blog_date"))
         String blogStatus =String.valueOf(req.getParameter("blogStatus"));
         Integer viewSum=Integer.valueOf(req.getParameter("viewSum"));
+      	Integer clSum=Integer.valueOf(req.getParameter("clSum"));
+    	Integer likeSum=Integer.valueOf(req.getParameter("likeSum"));
         Timestamp blogTimestamp = null;
         
         try {
@@ -222,18 +224,18 @@ public class BlogServlet extends HttpServlet {
  	}
         
         byte[] blogImg = null;
-        try {
-            InputStream in = req.getPart("blogImg").getInputStream();
-            if (in.available() != 0) {
-            	blogImg = new byte[in.available()];
-                in.read(blogImg);
-                in.close();
-            } else {
-                errorMsgs.add("文章圖片: 請上傳照片");
-            }
-        } catch (IOException | ServletException e) {
-            errorMsgs.add("圖片上傳失敗: " + e.getMessage());
-        }
+    	try {
+    		InputStream in = req.getPart("blogImg").getInputStream();
+    		if (in.available() != 0) {
+    			blogImg = new byte[in.available()];
+    			in.read(blogImg);
+    			in.close();
+    		} else {
+    			blogImg =blogService.getBlogByBlogId(blogId).getImg();
+    		}
+    	} catch (IOException | ServletException e) {
+    		errorMsgs.add("圖片上傳失敗: " + e.getMessage());
+    	}
         
 
         // 假如輸入格式錯誤的，備份選原使用者輸入過的資料
@@ -247,6 +249,8 @@ public class BlogServlet extends HttpServlet {
         blog.setBlogStatus(blogStatus);
         blog.setImg(blogImg);
         blog.setViewSum(viewSum);
+        blog.setClSum(clSum);
+    	blog.setLikeSum(likeSum);
         
         Customer customer = new Customer();
         customer.setCustomerId(customerId);
@@ -322,7 +326,7 @@ public class BlogServlet extends HttpServlet {
     			in.read(blogImg);
     			in.close();
     		} else {
-    			errorMsgs.add("文章圖片: 請上傳照片");
+    			blogImg =blogService.getBlogByBlogId(blogId).getImg();
     		}
     	} catch (IOException | ServletException e) {
     		errorMsgs.add("圖片上傳失敗: " + e.getMessage());
