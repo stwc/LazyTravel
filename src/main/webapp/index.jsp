@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>首頁_進階搜尋</title>
+  <title>首頁</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
@@ -287,12 +287,16 @@ button {
 
 <!--     <hr> -->
 
-    <div class="container">
-      <div class="row align-items-center justify-content-between">
-          <div class="col-3"style="font-size: 20px;">美食廣告大圖</div>
-<!--             <button type="button" class="btn_reset1">查詢更多</button> -->
-          </div>
+<div class="container">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-3" style="font-size: 20px;">美食廣告大圖</div>
+        <div class="col-3">
+            <a href="/LazyTravel/foodscape/jsp/selectpage.jsp">
+                <button type="button" class="btn_reset1">美食/景點</button>
+            </a>
         </div>
+    </div>
+</div>
 
 
     <br>
@@ -321,7 +325,7 @@ button {
     <div class="container">
       <div class="row align-items-center justify-content-between">
           <div class="col-3"style="font-size: 20px;">景點廣告大圖</div>
-<!--             <button type="button" class="btn_reset1">查詢更多</button> -->
+<!--             <button type="button" class="btn_reset1">美食/景點查詢</button> -->
         </div>
       </div>
 
@@ -329,7 +333,7 @@ button {
     <br>
     <br>
     <br>
-	<div id="imageContainer"></div>
+	<div id="imageContainer1"></div>
     
 <!--     <div class="container"> -->
 <!--       <div class="row"> -->
@@ -350,19 +354,19 @@ button {
 
   <footer id="footer"></footer>
 
-  <script>
-    function changeColor(buttonId) {
-        var firstButton = document.querySelector('.first_btn');
-        var secondButton = document.querySelector('.second_btn');
+<!--   <script> -->
+<!-- //     function changeColor(buttonId) { -->
+<!-- //         var firstButton = document.querySelector('.first_btn'); -->
+<!-- //         var secondButton = document.querySelector('.second_btn'); -->
 
-        // 设置按钮的样式
-        firstButton.classList.remove("active");
-        secondButton.classList.remove("active");
+<!-- //         // 设置按钮的样式 -->
+<!-- //         firstButton.classList.remove("active"); -->
+<!-- //         secondButton.classList.remove("active"); -->
 
-        var clickedButton = document.querySelector('.' + buttonId);
-        clickedButton.classList.add("active");
-    }
-</script>
+<!-- //         var clickedButton = document.querySelector('.' + buttonId); -->
+<!-- //         clickedButton.classList.add("active"); -->
+<!-- //     } -->
+<!-- </script> -->
 
 <script>
     function loadRandomImages() {
@@ -376,19 +380,48 @@ button {
 
                 // 将新的图片添加到页面
                 data.forEach(function (imagePath) {
-                    var imageUrl = '/LazyTravel/foodscape/image/' + imagePath; // 替换为实际路径
+                    var imageUrl = '/LazyTravel/foodscape/food/' + imagePath; // 替换为实际路径
                     $('#imageContainer').append('<img src="' + imageUrl + '" alt="Random Image">');
                 });
             }
         });
     }
 
-    // 每隔10秒调用一次loadRandomImages方法
-    setInterval(loadRandomImages, 10000);
+    // 每隔五秒调用一次loadRandomImages方法
+    setInterval(loadRandomImages, 1500);
 
     // 页面加载时初始化一次
     loadRandomImages();
 </script>
+
+<script>
+
+
+    function loadRandomImages() {
+        $.ajax({
+            url: '/LazyTravel/scapeLoader', // 替换为你的Servlet的URL
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // 清空之前的图片
+                $('#imageContainer1').empty();
+
+                // 将新的图片添加到页面
+                data.forEach(function (imagePath) {
+                    var imageUrl = '/LazyTravel/foodscape/scape/' + imagePath; // 替换为实际路径
+                    $('#imageContainer1').append('<img src="' + imageUrl + '" alt="Random Image">');
+                });
+            }
+        });
+    }
+
+    // 每隔五秒调用一次loadRandomImages方法
+    setInterval(loadRandomImages, 1500);
+
+    // 页面加载时初始化一次
+    loadRandomImages();
+</script>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
