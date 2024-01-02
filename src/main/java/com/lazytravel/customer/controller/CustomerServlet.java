@@ -17,7 +17,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "CustomerServlet", urlPatterns = {"/customer/customer.do", "/customerCenter/customer.do", "/admin/customer.do"})
+@WebServlet(name = "CustomerServlet", urlPatterns = {"/customer/customer.do", "/customerCenter/customer.do", "/admin/customer.do", "/customer.do"})
 @MultipartConfig(fileSizeThreshold = 0 * 1024 * 1024, maxFileSize = 1 * 1024 * 1024, maxRequestSize = 10 * 1024 * 1024)
 public class CustomerServlet extends HttpServlet {
     private CustomerService customerService;
@@ -160,6 +160,7 @@ public class CustomerServlet extends HttpServlet {
         HttpSession session = req.getSession();
         // session移除會員資料
         session.removeAttribute("customer");
+        System.out.println("[會員登出] session移除會員資料");
         // redis移除登入token
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
@@ -167,12 +168,14 @@ public class CustomerServlet extends HttpServlet {
                 if (cookie.getName().equals("AUTH_TOKEN")) {
                     String token = cookie.getValue();
                     customerService.removeAuthToken(token);
+                    System.out.println("[會員登出] redis移除登入token");
                     break;
                 }
             }
         }
         // cookie移除登入token
         res.addCookie(new Cookie("AUTH_TOKEN", ""));
+        System.out.println("[會員登出] cookie移除登入token");
 
         System.out.println("[會員] 會員登出");
         return "/login.jsp";

@@ -386,7 +386,7 @@
 		     	</form>
 		     	
 		     	
-		     	<form method="post" class="checkData" action="<%= request.getContextPath() %>/journey/user/shoppingCart.do">
+		     	<form method="get" class="checkData" action="<%= request.getContextPath() %>/journey/user/shoppingCart.do">
 		     		<button type="submit" class="btn_addCart">加入購物車</button>
 		     		<input type="hidden" name="action" value="shoppingCart_add"/>
 		     		<input type="hidden" id="selectedGroupId_addCart" name="groupId" value="" />

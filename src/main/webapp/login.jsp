@@ -113,7 +113,7 @@
 
         let path = window.location.pathname.split("/");
         console.log(path)
-        if (path[3] === "customer.do") {
+        if (path[2] === "customer.do") {
             <%--window.location.href = "<%=request.getContextPath()%>/login.jsp";--%>
             let new_url = "<%=request.getContextPath()%>/login.jsp";
             window.history.pushState(null, "", new_url);
