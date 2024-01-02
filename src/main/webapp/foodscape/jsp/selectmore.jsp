@@ -305,78 +305,78 @@
             <div class="container">
                 <div class="row">
                     <span class="col-8" style="font-size: 20px">店家內文</span>
-                    <div class="col-4 d-flex justify-content-end">
-                        <span class="mr-3">常見問題&nbsp;&nbsp;</span>
-                        <span class="mr-3">|&nbsp;&nbsp;</span>
-                        <span>聯繫客服</span>
-                    </div>
+<!--                     <div class="col-4 d-flex justify-content-end"> -->
+<!--                         <span class="mr-3">常見問題&nbsp;&nbsp;</span> -->
+<!--                         <span class="mr-3">|&nbsp;&nbsp;</span> -->
+<!--                         <span>聯繫客服</span> -->
+<!--                     </div> -->
                 </div>
             </div>
         <br>
         <br>
     
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 d-flex align-items-center">
-                    <!-- 左一大張-->
-                    <img src="image/舒芙蕾.jpg" alt="圖片描述" class="img-fluid mb-4 mt-4 align-self-center" style="height: 100%; object-fit: cover;">
-                </div>
-                <div class="col-md-6">
-                    <!-- 右直立並排-->
-                    <div class="row">
-                        <div class="col-md-12 mb-4 align-self-center"> <!-- 使用 mb-4 增加下方留白 -->
-                            <img src="image/鮭魚卵.jpg" alt="Description of 圖片" class="img-fluid mt-4 mb-4 align-self-center" style="height: 100%; object-fit: cover;">
-                        </div>
-                        <div class="col-md-12 mt-4 align-self-center"> <!-- 使用 mt-4 增加上方留白 -->
-                            <img src="image/螃蟹.jpg" alt="圖片描述" class="img-fluid mt-4 align-self-center" style="height: 100%; object-fit: cover;">
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--         <div class="container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-md-6 d-flex align-items-center"> -->
+<!--                     左一大張 -->
+<!--                     <img src="image/舒芙蕾.jpg" alt="圖片描述" class="img-fluid mb-4 mt-4 align-self-center" style="height: 100%; object-fit: cover;"> -->
+<!--                 </div> -->
+<!--                 <div class="col-md-6"> -->
+<!--                     右直立並排 -->
+<!--                     <div class="row"> -->
+<!--                         <div class="col-md-12 mb-4 align-self-center"> 使用 mb-4 增加下方留白 -->
+<!--                             <img src="image/鮭魚卵.jpg" alt="Description of 圖片" class="img-fluid mt-4 mb-4 align-self-center" style="height: 100%; object-fit: cover;"> -->
+<!--                         </div> -->
+<!--                         <div class="col-md-12 mt-4 align-self-center"> 使用 mt-4 增加上方留白 -->
+<!--                             <img src="image/螃蟹.jpg" alt="圖片描述" class="img-fluid mt-4 align-self-center" style="height: 100%; object-fit: cover;"> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
         
 
-            <div class="flex-container mt-4">
-                <!-- 左邊的區塊 -->
-                <div>
-                    <div>
-                        <span style="font-weight: bold;">店名:</span>
-                        <span>台北101</span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">電話:</span>
-                        <span>2754-3322</span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">地址:</span>
-                        <span>台北市信義區信義路五段336號</span>
-                    </div>
-                    <div>
-                        <span style="font-weight: bold;">介紹:</span>
-                        <span>這裡夜景真的很美</span>
-                    </div>
-                </div>
+<!--             <div class="flex-container mt-4"> -->
+<!--                 左邊的區塊 -->
+<!--                 <div> -->
+<!--                     <div> -->
+<!--                         <span style="font-weight: bold;">店名:</span> -->
+<!--                         <span>台北101</span> -->
+<!--                     </div> -->
+<!--                     <div> -->
+<!--                         <span style="font-weight: bold;">電話:</span> -->
+<!--                         <span>2754-3322</span> -->
+<!--                     </div> -->
+<!--                     <div> -->
+<!--                         <span style="font-weight: bold;">地址:</span> -->
+<!--                         <span>台北市信義區信義路五段336號</span> -->
+<!--                     </div> -->
+<!--                     <div> -->
+<!--                         <span style="font-weight: bold;">介紹:</span> -->
+<!--                         <span>這裡夜景真的很美</span> -->
+<!--                     </div> -->
+<!--                 </div> -->
             
-                <!-- 右邊的區塊 -->
-                <div class="div_business_hours">
-                    <label>營業時間 :</label>
+<!--                 右邊的區塊 -->
+<!--                 <div class="div_business_hours"> -->
+<!--                     <label>營業時間 :</label> -->
             
-                    <br>
+<!--                     <br> -->
             
-                    <span><b>星期一：</b> 09:00 - 18:00</span><br>
-                    <span><b>星期二：</b> 09:00 - 18:00</span><br>
-                    <span><b>星期三：</b> 09:00 - 18:00</span><br>
-                    <span><b>星期四：</b> 09:00 - 18:00</span><br>
-                    <span><b>星期五：</b> 09:00 - 18:00</span><br>
-                    <span><b>星期六：</b> 10:00 - 15:00</span><br>
-                    <span><b>星期日：</b> 休息</span>
+<!--                     <span><b>星期一：</b> 09:00 - 18:00</span><br> -->
+<!--                     <span><b>星期二：</b> 09:00 - 18:00</span><br> -->
+<!--                     <span><b>星期三：</b> 09:00 - 18:00</span><br> -->
+<!--                     <span><b>星期四：</b> 09:00 - 18:00</span><br> -->
+<!--                     <span><b>星期五：</b> 09:00 - 18:00</span><br> -->
+<!--                     <span><b>星期六：</b> 10:00 - 15:00</span><br> -->
+<!--                     <span><b>星期日：</b> 休息</span> -->
 
-                </div>
-            </div>
+<!--                 </div> -->
+<!--             </div> -->
             
             
-                <span style="font-size: 20px">最新部落格</span>
-                <br>
-                <button type="reset" class="btn_reset " style="margin-left: 90%;">重新篩選</button>
+<!--                 <span style="font-size: 20px">最新部落格</span> -->
+<!--                 <br> -->
+<!--                 <button type="reset" class="btn_reset " style="margin-left: 90%;">重新篩選</button> -->
            
 
   
@@ -396,8 +396,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script>
         $(function () {
-        $("#header").load("../components/html/header.html");
-        $("#footer").load("../components/html/footer.html");
+         $("#header").load("../components/html/header.jsp");
+         $("#footer").load("../components/html/footer.jsp");
         });
     </script>
   

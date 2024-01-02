@@ -4,7 +4,6 @@
 <%@page import="com.lazytravel.foodscape.controller.*"%>
 
 <%@ page import="java.util.Random" %>
-<%@ include file="/components/html/header.jsp" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -244,115 +243,54 @@ button {
   <header id="header"></header>
   <main id="main">
 
-    <button class="first_btn" onclick="changeColor('first_btn')" style="border-radius: 20px; border-bottom-right-radius: 0; border-bottom-left-radius: 0; transition: background-color 0.3s;">簡易搜尋</button>
-    <button class="second_btn" onclick="changeColor('second_btn')" style="border-radius: 20px; border-bottom-right-radius: 0; border-bottom-left-radius: 0; transition: background-color 0.3s;">進階搜尋</button>
-    <hr style="margin-top: -2px">
+<!--     <button class="first_btn" onclick="changeColor('first_btn')" style="border-radius: 20px; border-bottom-right-radius: 0; border-bottom-left-radius: 0; transition: background-color 0.3s;">簡易搜尋</button> -->
+<!--     <button class="second_btn" onclick="changeColor('second_btn')" style="border-radius: 20px; border-bottom-right-radius: 0; border-bottom-left-radius: 0; transition: background-color 0.3s;">進階搜尋</button> -->
+<!--     <hr style="margin-top: -2px"> -->
 
-    <br>
-    <div class="container">
-      <div class="row">
-          <div class="col-4  d-flex justify-content-start">
-              <div class="row">
-                  <label class="col-3 d-flex justify-content-end ">地點</label>
-                  <input type="text" class="col-9">
-              </div>
-          </div>
-          <div class="col-4 d-flex justify-content-start">
-              <div class="row">
-                  <label class="col-4">美食/景點</label>
-                  <input type="text" class="col-8">
-              </div>
-          </div>
-          <div class="col-4 d-flex justify-content-end">
-              <div class="row">
-                  <label class="col-3 d-flex justify-content-end">預算</label>
-                  <input type="text" class="col-9">
-              </div>
-          </div>
+<!--     <br> -->
+<!--     <div class="container"> -->
+<!--       <div class="row"> -->
+<!--           <div class="col-4  d-flex justify-content-start"> -->
+<!--               <div class="row"> -->
+<!--                   <label class="col-3 d-flex justify-content-end ">地點</label> -->
+<!--                   <input type="text" class="col-9"> -->
+<!--               </div> -->
+<!--           </div> -->
+<!--           <div class="col-4 d-flex justify-content-start"> -->
+<!--               <div class="row"> -->
+<!--                   <label class="col-4">美食/景點</label> -->
+<!--                   <input type="text" class="col-8"> -->
+<!--               </div> -->
+<!--           </div> -->
+<!--           <div class="col-4 d-flex justify-content-end"> -->
+<!--               <div class="row"> -->
+<!--                   <label class="col-3 d-flex justify-content-end">預算</label> -->
+<!--                   <input type="text" class="col-9"> -->
+<!--               </div> -->
+<!--           </div> -->
 
-      </div>
-  </div>
+<!--       </div> -->
+<!--   </div> -->
 
-  <br>
-  <div class="label">
-      <span>標籤AAAAA<button type="button" class="btn_label_x">x</button></span>
-      <span>標籤BBBBB<button type="button" class="btn_label_x">x</button></span>
-      <span>標籤CCCCC<button type="button" class="btn_label_x">x</button></span>
-      <span>標籤DDDDD<button type="button" class="btn_label_x">x</button></span>
-      <span>標籤EEEEE<button type="button" class="btn_label_x">x</button></span>
-  </div>
-      
-  <br>
-  <div class="div_btn">
-      <button type="reset" class="btn_reset">重新篩選</button>
-      <button type="submit" class="btn_submit">送出</button>
-  </div>
-  <hr>
-  
-  <div class="container">
-    <div class="row align-items-center justify-content-between">
-      <div class="col-3">
-        <span style="font-size: 20px;">熱門行程</span>
-        <span style="font-size: 20px; margin-left: 20px;">排行榜</span>
-      </div>
-      <button type="button" class="btn_reset1">查詢更多</button>
-    </div>
-  </div>
-  
-<br>
-<br>
-<br>
+<!--   <br> -->
 
-    <div class="p-3">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg">
-            <div class="card shadow-lg">
-              <img src="image/綠島行程.jpg" alt="Description of the image" class="card=img-top">
-              <div class="card-body"></div>
-              <span class="card-title" style="position: absolute; bottom: 10px; left: 30px;">綠島行程</span>
-              <button class="btn_reset" style="position: absolute; bottom: 0; right: 0; ">查看詳情</button>
-            </div>  
-          </div>
+<!--   <br> -->
+<!--   <div class="div_btn"> -->
+<!--       <button type="reset" class="btn_reset">重新篩選</button> -->
+<!--       <button type="submit" class="btn_submit">送出</button> -->
+<!--   </div> -->
+<!--   <hr> -->
+   
+<!-- <br> -->
+<!-- <br> -->
+<!-- <br> -->
 
-          <div class="col-lg">
-            <div class="card shadow-lg">
-              <img src="image/綠島行程.jpg" alt="Description of the image" class="card=img-top">
-              <div class="card-body"></div>
-              <span class="card-title" style="position: absolute; bottom: 10px; left: 30px;">綠島行程</span>
-              <button class="btn_reset" style="position: absolute; bottom: 0; right: 0;">查看詳情</button>
-            </div>  
-          </div>
-
-          <div class="col-lg">
-            <div class="card shadow-lg">
-              <img src="image/綠島行程.jpg" alt="Description of the image" class="card=img-top">
-              <div class="card-body"></div>
-              <span class="card-title" style="position: absolute; bottom: 10px; left: 30px;">綠島行程</span>
-              <button class="btn_reset" style="position: absolute; bottom: 0; right: 0;">查看詳情</button>
-            </div>  
-          </div>
-
-          <div class="col-lg">
-            <div class="card shadow-lg" style="position: relative;">
-              <img src="image/綠島行程.jpg" alt="Description of the image" class="card-img-top">
-              <div class="card-body"></div>
-              <span class="card-title" style="position: absolute; bottom: 10px; left: 30px;">綠島行程</span>
-              <button class="btn_reset" style="position: absolute; bottom: 0; right: 0px;">查看詳情</button>
-            </div>  
-          </div>
-          
-
-        </div>
-      </div>
-    </div>
-
-    <hr>
+<!--     <hr> -->
 
     <div class="container">
       <div class="row align-items-center justify-content-between">
           <div class="col-3"style="font-size: 20px;">美食廣告大圖</div>
-            <button type="button" class="btn_reset1">查詢更多</button>
+<!--             <button type="button" class="btn_reset1">查詢更多</button> -->
           </div>
         </div>
 
@@ -383,7 +321,7 @@ button {
     <div class="container">
       <div class="row align-items-center justify-content-between">
           <div class="col-3"style="font-size: 20px;">景點廣告大圖</div>
-            <button type="button" class="btn_reset1">查詢更多</button>
+<!--             <button type="button" class="btn_reset1">查詢更多</button> -->
         </div>
       </div>
 
@@ -459,8 +397,8 @@ button {
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   <script>
     $(function () {
-      $("#header").load("../components/html/header.html");
-      $("#footer").load("../components/html/footer.html");
+		$("#header").load("<%=request.getContextPath()%>/components/html/header.jsp");
+		$("#footer").load("<%=request.getContextPath()%>/components/html/footer.jsp");
     });
   </script>
 </body>

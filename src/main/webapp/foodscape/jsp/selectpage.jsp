@@ -232,39 +232,39 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
 
     <main id="main">
 
-	<form action="FoodScape.do" method="post">
-    <div class="container">
-        <div class="row">
-            <div class="col-4 d-flex justify-content-start">
-                <div class="row">
-                    <label class="col-3 d-flex justify-content-end">地點</label>
-                    <input type="text" name="city" value="<%= (foodscape == null) ? "" : foodscape.getCity() %>" class="col-9">
-                </div>
-            </div>
+<!-- 	<form action="FoodScape.do" method="post"> -->
+<!--     <div class="container"> -->
+<!--         <div class="row"> -->
+<!--             <div class="col-4 d-flex justify-content-start"> -->
+<!--                 <div class="row"> -->
+<!--                     <label class="col-3 d-flex justify-content-end">地點</label> -->
+<%--                     <input type="text" name="city" value="<%= (foodscape == null) ? "" : foodscape.getCity() %>" class="col-9"> --%>
+<!--                 </div> -->
+<!--             </div> -->
 
-            <div class="col-4 d-flex justify-content-start">
-                <div class="row">
-                    <label class="col-4">美食/景點</label>
-                    <input type="text" name="foodScapeName" value="<%= (foodscape == null) ? "" : foodscape.getFoodScapeName() %>" class="col-8">
-                </div>
-            </div>
+<!--             <div class="col-4 d-flex justify-content-start"> -->
+<!--                 <div class="row"> -->
+<!--                     <label class="col-4">美食/景點</label> -->
+<%--                     <input type="text" name="foodScapeName" value="<%= (foodscape == null) ? "" : foodscape.getFoodScapeName() %>" class="col-8"> --%>
+<!--                 </div> -->
+<!--             </div> -->
 
-            <div class="col-4 d-flex justify-content-end">
-                <div class="row">
-                    <label class="col-3 d-flex justify-content-end">預算</label>
-                    <input type="text" name="price" value="<%= (journey == null) ? "" : journey.getPrice() %>" class="col-9">
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+<!--             <div class="col-4 d-flex justify-content-end"> -->
+<!--                 <div class="row"> -->
+<!--                     <label class="col-3 d-flex justify-content-end">預算</label> -->
+<%--                     <input type="text" name="price" value="<%= (journey == null) ? "" : journey.getPrice() %>" class="col-9"> --%>
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+<!-- </form> -->
 
-        <br>
-        <div class="div_btn">
-            <button type="reset" class="btn_reset">重新篩選</button>
-            <button type="submit" class="btn_submit">送出</button>
-        </div>
-        <hr>
+<!--         <br> -->
+<!--         <div class="div_btn"> -->
+<!--             <button type="reset" class="btn_reset">重新篩選</button> -->
+<!--             <button type="submit" class="btn_submit">送出</button> -->
+<!--         </div> -->
+<!--         <hr> -->
         <!-- <div style="border-top: 1px solid red; margin: 16px auto;"></div> -->
 
 
@@ -272,11 +272,11 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
             <div class="container">
                 <div class="row">
                     <span class="col-8">篩選美食/景點</span>
-                    <div class="col-4 d-flex justify-content-end">
-                        <span class="mr-3">常見問題&nbsp;&nbsp;</span>
-                        <span class="mr-3">|&nbsp;&nbsp;</span>
-                        <span>聯繫客服</span>
-                    </div>
+<!--                     <div class="col-4 d-flex justify-content-end"> -->
+<!--                         <span class="mr-3">常見問題&nbsp;&nbsp;</span> -->
+<!--                         <span class="mr-3">|&nbsp;&nbsp;</span> -->
+<!--                         <span>聯繫客服</span> -->
+<!--                     </div> -->
                 </div>
             </div>
             
@@ -322,14 +322,14 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
                             <br>
                             <div class="div_btn">                           
                                 <button type="reset" class="btn_reset">全部取消</button>
-                                <form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                
-                                <button type="submit" class="btn_submit">送出</button>
-                                <input type="hidden" name="action" value="receiveFoodScapeId">
-                                </form>
+<%--                                 <form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                 --%>
+<!--                                 <button type="submit" class="btn_submit">送出</button> -->
+<!--                                 <input type="hidden" name="action" value="receiveFoodScapeId"> -->
+<!--                                 </form> -->
 					<form class="selectfsId" method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                
     				<button type="submit" class="btn_submit">送出</button>
     				<input type="hidden" name="action" value="receiveFoodScapeId" id="selectedFoodScapeIdsInput">
-<!-- 					</form> -->
+					</form>
                             </div>
 
 
