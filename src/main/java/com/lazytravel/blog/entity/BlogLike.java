@@ -23,14 +23,14 @@ public class BlogLike  {
 	@Column(name = "BLOG_LIKE_ID")
 	private Integer blogLikeId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="CUSTOMER_ID",referencedColumnName = "CUSTOMER_ID")
 	private Customer customer;
 	
 	@Column(name = "CREATE_TIME")
 	private Timestamp createTime;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name ="BLOG_ID",referencedColumnName = "BLOG_ID")
 	private Blog blog;
 	

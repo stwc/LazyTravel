@@ -176,11 +176,15 @@ public class BlogDAOImpl implements BlogDAO {
 	}
 	public List<Blog> getBlogClByCustomerId(Integer customerId){
 		Transaction transaction = null;
-		List<Blog> blogs = null;
+		List<Blog> blogs=null;
 		try {
 			Session session = getSession();
 			transaction = session.beginTransaction();
-			blogs= session.createQuery("FROM BlogCl WHERE customerId = :customerId  ORDER BY blogDate DESC", Blog.class)
+			
+			String hql = "SELECT b FROM Blog b " +
+		             "WHERE b.blogId IN (SELECT bc.blog.blogId FROM BlogCl bc " +
+		             "                   WHERE bc.customer.customerId = :customerId)ORDER BY blogDate DESC";
+			blogs= session.createQuery( hql, Blog.class)
 					.setParameter("customerId", customerId)
 					.getResultList();
 			transaction.commit();

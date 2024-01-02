@@ -118,13 +118,15 @@ public class BlogClDAOImpl implements BlogClDAO {
 //		            String blogClStatus = String.valueOf(tmp);
 		            System.out.println(blogClStatus);
 		            transaction.commit(); // 提交事務
-		            
+		            System.out.println("BlogCl Status: " + blogClStatus);
 		            if(blogClStatus == null){
 		            	return "novalue";
+		            	
 		            }else {
 		            	System.out.println(blogClStatus);
 		            	return  blogClStatus;
 		            }
+		            
 		    } catch (Exception e) {
 		        if (transaction != null) {
 		            transaction.rollback(); // 如果發生異常，回滾事務
@@ -133,12 +135,13 @@ public class BlogClDAOImpl implements BlogClDAO {
 		        return "0";
 		    } finally {
 		    	session.close();
+		    	
 		    }
 				
 		}
 
 	@Override
-	public void addFavoriteCl(Integer customerId,Integer blogId) {
+	public String addFavoriteCl(Integer customerId,Integer blogId) {
 		Transaction transaction = null;
 		 Session session = getSession();
 		    try {
@@ -155,16 +158,16 @@ public class BlogClDAOImpl implements BlogClDAO {
 		    finally {
 		    	session.close();
 		    }
-	
+	return "1";
 	}
 
 	@Override
-	public void unFavoriteCl(Integer customerId,Integer blogId) {
+	public String unFavoriteCl(Integer customerId,Integer blogId) {
 		Transaction transaction = null;
 		 Session session = getSession();
 		    try {
 		    	transaction = session.beginTransaction();
-		    	String hql = "FROM blog_cl WHERE customer.customerId = :customerId AND blog.blogId = :blogId";
+		    	String hql = "FROM BlogCl WHERE customer.customerId = :customerId AND blog.blogId = :blogId";
 		        Query query = session.createQuery(hql);
 		        query.setParameter("customerId", customerId);
 		        query.setParameter("blogId", blogId);
@@ -180,11 +183,11 @@ public class BlogClDAOImpl implements BlogClDAO {
 		    finally {
 		    	session.close();
 		    }
-	
+	return "0";
 	}
 
 	@Override
-	public void updateFavoriteCl(Integer customerId, Integer blogId) {
+	public String updateFavoriteCl(Integer customerId, Integer blogId) {
 		Transaction transaction = null;
 		 Session session = getSession();
 		    try {
@@ -205,12 +208,11 @@ public class BlogClDAOImpl implements BlogClDAO {
 		    finally {
 		    	session.close();
 		    }
-	
+	return "1";
 	}
 		
 	public List<BlogCl> getBlogClByCustomerId(Integer customerId){
 		Transaction transaction = null;
-		List<Blog> blog = null;
 		List<BlogCl> blogs = null;
 		try {
 			Session session = getSession();
@@ -219,15 +221,52 @@ public class BlogClDAOImpl implements BlogClDAO {
 					.setParameter("customerId", customerId)
 					.getResultList();
 			
-			blog = session.createQuery("FROM Blog WHERE blog_id = :blogs  ORDER BY blogDate DESC", Blog.class)
-					.setParameter("blogs", blogs)
-					.getResultList();
+			
 					transaction.commit();
+					session.close();
 		} catch (Exception e) {
 			// 處理例外狀況，例如記錄錯誤或拋出新的例外狀況
 			e.printStackTrace();
 			throw new RuntimeException("Error retrieving blogs by customerId", e);
 		}
+		    
 		return blogs;
 	}
-	}
+	public String blogClStatus(Blog blog,Customer customer) {
+		 Transaction transaction = null;
+		 Session session = getSession();
+		   
+		    	try {
+		            transaction = session.beginTransaction();
+		            // 使用 HQL 查詢是否存在對應的 BlogCl 記錄
+		            String hql = "SELECT blogCl.blogClStatus FROM BlogCl blogCl WHERE blogCl.customer.customerId = :customerId AND blogCl.blog.blogId = :blogId";
+		            Query<String> query = session.createQuery(hql, String.class);
+		            query.setParameter("customerId", customer);
+		            query.setParameter("blogId", blog);
+		            String blogClStatus = query.uniqueResult();
+		            System.out.println("在DAO方法ㄉ"+blogClStatus);
+//		            Character tmp = (Character) session.createNativeQuery("select BLOG_CL_STATUS from Blog_Cl where customer_Id = :customerId and blog_Id = :blogId")
+//		            		.setParameter("customerId", customerId)
+//		            		.setParameter("blogId", blogId)
+//		            		.uniqueResult();
+//		            
+//		            String blogClStatus = String.valueOf(tmp);
+		            transaction.commit(); // 提交事務
+		            if(blogClStatus.equals('1')){
+		            	return "1";
+		            }else {
+		            	return  "0";
+		            }
+		            
+		    } catch (Exception e) {
+		        if (transaction != null) {
+		            transaction.rollback(); // 如果發生異常，回滾事務
+		        }
+		        e.printStackTrace();
+		    } finally {
+		    	session.close();
+		    	
+		    }
+				return "0";
+		}
+}

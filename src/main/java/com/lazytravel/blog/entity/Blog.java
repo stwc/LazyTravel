@@ -69,24 +69,37 @@ public class Blog {
 	@Column(name = "BLOG_STATUS",columnDefinition = "char")
 	private String blogStatus;
 	
-	@OneToMany(mappedBy = "blog")
+	@OneToMany(mappedBy = "blog",fetch = FetchType.EAGER)
     private Set<BlogCl> blogCls;
 	
-//	@OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<BlogMsg> blogMsgs = new ArrayList<>();
-
+	@OneToMany(mappedBy = "blog",fetch = FetchType.EAGER)
+	private Set<BlogLike> blogLikes;
+	
+	@OneToMany(mappedBy = "blog")
+    private List<BlogMsg> blogMsgs;
+	
 	public Blog() {
 	}
 
 	
-//	public List<BlogMsg> getBlogMsgs() {
-//		return blogMsgs;
-//	}
-//
-//
-//	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
-//		this.blogMsgs = blogMsgs;
-//	}
+	public List<BlogMsg> getBlogMsgs() {
+		return blogMsgs;
+	}
+
+
+	public void setBlogMsgs(List<BlogMsg> blogMsgs) {
+		this.blogMsgs = blogMsgs;
+	}
+
+
+	public Set<BlogLike> getBlogLikes() {
+		return blogLikes;
+	}
+
+
+	public void setBlogLikes(Set<BlogLike> blogLikes) {
+		this.blogLikes = blogLikes;
+	}
 
 
 	public Integer getBlogId() {
@@ -202,8 +215,13 @@ public class Blog {
 		return "Blog [blogId=" + blogId + ", title=" + title + ", customer=" + customer + ", blogDate=" + blogDate
 				+ ", content=" + content + ", upDateTime=" + upDateTime + ", createTime=" + createTime + ", likeSum="
 				+ likeSum + ", viewSum=" + viewSum + ", clSum=" + clSum + ", img=" + Arrays.toString(img)
-				+ ", blogStatus=" + blogStatus + "]";
+				+ ", blogStatus=" + blogStatus + ", blogCls=" + blogCls + ", blogMsgs=" + blogMsgs + "]";
 	}
+
+
+	
+
+
 
 
 	

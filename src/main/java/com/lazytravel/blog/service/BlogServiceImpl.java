@@ -53,7 +53,9 @@ public class BlogServiceImpl implements BlogService {
 		return dao.getBlogByCustomerId(customerId);
 	}
 	
-	public List<Blog> getBlogClByCustomerId(Integer customerId){
+
+	@Override
+	public List<Blog> getBlogClByCustomerId(Integer customerId) {
 		return dao.getBlogClByCustomerId(customerId);
 	}
 }

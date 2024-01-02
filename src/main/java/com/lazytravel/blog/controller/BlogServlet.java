@@ -31,6 +31,8 @@ import com.lazytravel.blog.entity.Blog;
 import com.lazytravel.blog.entity.BlogMsg;
 import com.lazytravel.blog.service.BlogClService;
 import com.lazytravel.blog.service.BlogClServiceImpl;
+import com.lazytravel.blog.service.BlogLikeService;
+import com.lazytravel.blog.service.BlogLikeServiceImpl;
 import com.lazytravel.blog.service.BlogMsgService;
 import com.lazytravel.blog.service.BlogMsgServiceImpl;
 import com.lazytravel.blog.service.BlogService;
@@ -42,11 +44,13 @@ import com.lazytravel.customer.entity.Customer;
 public class BlogServlet extends HttpServlet {
 	private BlogService blogService;
 	private BlogClService blogClService;
+	private BlogLikeService blogLikeService;
 
 	@Override
 	public void init() throws ServletException {
 		blogService = new BlogServiceImpl();
 		blogClService = new BlogClServiceImpl();
+		blogLikeService = new BlogLikeServiceImpl();
 	}
 
 	@Override
@@ -113,8 +117,11 @@ public class BlogServlet extends HttpServlet {
                 forwardPath =updownStatus(req,res);
                 break;
             case "toggleFavorite":
-                forwardPath = toggleFavorite(json, res);
+                toggleFavorite(json, res);
                 break;
+            case "toggleLike":
+            	toggleLike(json, res);
+            	break;
             default:
                 forwardPath = "/blog/blog/select_page.jsp";
         }
@@ -355,7 +362,7 @@ public class BlogServlet extends HttpServlet {
     }
     
     
-    private String toggleFavorite(JSONObject json, HttpServletResponse res) throws IOException {
+    private void toggleFavorite(JSONObject json, HttpServletResponse res) throws IOException {
 //        Integer blogId =Integer.valueOf(req.getParameter("blogId"));
 //        Integer customerId =Integer.valueOf(req.getParameter("customerId"));
 //        
@@ -401,7 +408,7 @@ public class BlogServlet extends HttpServlet {
              System.out.println("IF外面的"+blogClStatus);
              
              if (! blogClStatus.equals("novalue")) {
-            	 blogClService.updateFavoriteCl(customerId, blogId);
+//            	 blogClService.updateFavoriteCl(customerId, blogId);
             	    // 如果有收藏資料
             	 System.out.println("IF裡面的="+blogClStatus);
             	    if ("0".equals(blogClStatus) ) {
@@ -418,12 +425,13 @@ public class BlogServlet extends HttpServlet {
             	    System.out.println("沒有收藏資料，新增收藏資料，收藏狀態設置為 1");
             	    blogClService.addFavoriteCl(customerId, blogId);
             	}
-
+             
+             System.out.println("IF最後的"+blogClStatus);
              // 回傳 JSON 格式的成功訊息
              res.setContentType("application/json");
              res.setCharacterEncoding("UTF-8");
              PrintWriter out = res.getWriter();
-             out.write("{\"result\": \"success\"}");
+             out.write("{\"result\": \"success\", \"blogclstatus\": \"" + blogClStatus + "\"}");
              out.flush();
          } catch (JSONException e) {
              e.printStackTrace();
@@ -436,9 +444,58 @@ public class BlogServlet extends HttpServlet {
         	 e.printStackTrace();
          }
          res.getWriter().close();
-		return "0";
          
      }
+    private void toggleLike(JSONObject json, HttpServletResponse res) throws IOException {
+    	try {
+    		Integer blogId = json.getInt("blogId");
+    		Integer customerId = json.getInt("customerId");
+    		System.out.println("blogID="+blogId);
+    		System.out.println("customerid="+customerId);
+    		
+    		// 在實際應用中，這裡可以根據需要進行收藏或取消收藏的邏輯
+    		String blogLikeStatus = blogLikeService.isBlogLike(customerId, blogId);
+    		System.out.println("IF外面的"+blogLikeStatus);
+    		
+    		if (! blogLikeStatus.equals("novalue")) {
+//    			blogLikeService.onLike(customerId, blogId);
+    			// 如果有收藏資料
+    			System.out.println("IF裡面的="+blogLikeStatus);
+    			if ("0".equals(blogLikeStatus) ) {
+    				// 如果收藏狀態為 0，將收藏狀態修改為 1
+    				System.out.println("收藏狀態為 0，修改為 1");
+    				blogLikeService.onLike(customerId, blogId);
+    			} else {
+    				// 其他邏輯，例如取消收藏
+    				System.out.println("執行其他邏輯，例如取消收藏");
+    				blogLikeService.unLike(customerId, blogId);
+    			}
+    		} else {
+    			// 如果沒有收藏資料，新增收藏資料，並將收藏狀態設置為 1
+    			System.out.println("沒有收藏資料，新增收藏資料，收藏狀態設置為 1");
+    			blogLikeService.addLike(customerId, blogId);
+    		}
+    		
+    		System.out.println("IF最後的"+blogLikeStatus);
+    		// 回傳 JSON 格式的成功訊息
+    		res.setContentType("application/json");
+    		res.setCharacterEncoding("UTF-8");
+    		PrintWriter out = res.getWriter();
+    		out.write("{\"result\": \"success\", \"blogLikeStatus\": \"" + blogLikeStatus + "\"}");
+    		out.flush();
+    	} catch (JSONException e) {
+    		e.printStackTrace();
+    		// 回傳 JSON 格式的錯誤訊息
+    		res.setContentType("application/json");
+    		res.setCharacterEncoding("UTF-8");
+    		PrintWriter out = res.getWriter();
+    		out.write("{\"error\": \"處理 JSON 資料時發生錯誤。\"}");
+    		out.flush();
+    		e.printStackTrace();
+    	}
+    	res.getWriter().close();
+    	
+    }
     
     
     
