@@ -286,13 +286,22 @@
 	System.out.println("-------------------------- locationsJsonStr: " + locationsJsonStr);
 	request.setAttribute("classNotClick", 0);       // 用於JS判斷: 重新設置地圖上面的按鈕的 class
 	
+	Gson gson = new Gson();
 	if(locationsJsonStr == null){
 		List<FoodScape> foodScapeMapList = journeyDetailSvc.findFoodscapeLngAndLat(journeyId, 1);
-		Gson gson = new Gson();
 		locationsJsonStr = gson.toJson(foodScapeMapList);
 		request.setAttribute("locationsJsonStr", locationsJsonStr);
 		request.setAttribute("classNotClick", 1);   // 用於JS判斷: 重新設置地圖上面的按鈕的 class
 	}
+	
+// 	List<String> foodScapeNameList = new ArrayList<>();
+// 	for(FoodScape foodScape : foodScapeList){
+// 		String foodScapeName = foodScape.getFoodScapeName();
+// 		foodScapeNameList.add(foodScapeName);
+// 	}
+// 	String foodScapeNameJsonStr = gson.toJson(foodScapeNameList);
+// 	request.setAttribute("foodScapeNameJsonStr", foodScapeNameJsonStr);
+	
 %>
 
 <body>
@@ -484,8 +493,8 @@
  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWlOPn7AIhHCtv7wbRsgqByXQOwx1pZF8&callback=initMap&v=weekly" async defer></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/2.1.1/markerclusterer.js"></script>
-	
+	<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+
 	<script>
 	
         $(function () {
@@ -585,24 +594,54 @@
 	    }
         
         
+        
         // 初始化地圖
         function initMap() {
     	 	// 從後端接收位置訊息
     	    var locations = ${locationsJsonStr};	
+//     	    var foodScapeNames = ${foodScapeNameJsonStr};	
     	    
             var map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 12,  // 地圖放大倍率
                 center: locations.length > 0 ? locations[0] : { lat: 23.58259486, lng: 120.58552886 }   // 將第一個美食景點位置設為地圖中心，沒有符合則設為台灣中心
             });
             
-        
-            // 在地圖上marker
-            locations.forEach(function(location) {
+            
+			// 在地圖上marker
+//          var markers = [];
+            locations.forEach(function(location, index) {
                 var marker = new google.maps.Marker({
                     position: location,
-                    map: map
+                    map: map,
                 });
+
+                
+// 				// marker 的泡泡框
+// 				var currentFoodScapeName = foodScapeNames[index];
+// 				var infoContent = `<p>${currentFoodScapeName}</p>`;
+// 				var infowindow = new google.maps.InfoWindow({
+// 					content: infoContent
+// 				});
+				
+//                 marker.infowindow = infowindow;
+//                 markers.push(marker);
+                
+//                 // 點擊時，關閉所有泡泡框，開啟當前點擊的泡泡框
+//                 marker.addListener("click", function() {
+//                     markers.forEach(function(marker) {
+//                         marker.infowindow.close();
+//                     });
+
+//                     infowindow.open(map, marker);
+//                     console.log(currentFoodScapeName);
+//                 });
+
             });
+            
+            
+// 			// 新增標記叢集
+// 			const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
+			
         }
         
 
