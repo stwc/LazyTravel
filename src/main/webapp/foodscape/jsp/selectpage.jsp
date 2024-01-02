@@ -9,7 +9,7 @@
 <%@ page import="com.lazytravel.foodscape.service.*"%>
 <%@ page import="com.lazytravel.journey.entity.*"%>
 <%@ page import="com.lazytravel.journey.dao.*"%>
-<%@ include file="/components/html/header.jsp" %>
+
 
 <%
 	FoodScape foodscape = (FoodScape) request.getAttribute("foodscape");
@@ -59,8 +59,8 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
   
-  <link rel="stylesheet" href="./css/selectpage.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xr3m6W2+K7UreKck7jC+y2BxegjgUoeqgRN8dguLmOfiRSRtK5UeR8xRqjkFR0UW3yHwDvi6PKxdFiKA+Ai7Ow==" crossorigin="anonymous" />
+<!--   <link rel="stylesheet" href="./css/selectpage.css"> -->
+<!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xr3m6W2+K7UreKck7jC+y2BxegjgUoeqgRN8dguLmOfiRSRtK5UeR8xRqjkFR0UW3yHwDvi6PKxdFiKA+Ai7Ow==" crossorigin="anonymous" /> -->
 
   <style>
     *{
@@ -222,6 +222,16 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
         border: 1px solid #ccc; /* 为列表项添加边框 */
         padding: 10px; /* 为列表项添加内边距 */
     }
+    
+        .selectfsId {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .btn_reset, .btn_submit {
+        margin-left: 10px; /* 可以根据需要调整按钮之间的间距 */
+    }
  </style>
 
 </head>
@@ -229,7 +239,7 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
 <body>
     
     <header id="header"></header>
-
+	<%@ include file="/components/html/header.jsp" %>
     <main id="main">
 
 <!-- 	<form action="FoodScape.do" method="post"> -->
@@ -290,7 +300,7 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
                         <!-- 左側圖片區塊 -->
                         <div class="col-md-6 order-md-1">
                             <div class="img_block">
-                                <img src="/LazyTravel/foodscape/image/豬腳店.jpg" class="img-fluid" alt="">
+                                <img src="/LazyTravel/foodscape/image/logo.ico" class="img-fluid" alt="">
                             </div>
                         </div>
 
@@ -320,13 +330,11 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
 </ul>
 
                             <br>
-                            <div class="div_btn">                           
-                                <button type="reset" class="btn_reset">全部取消</button>
-<%--                                 <form method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                 --%>
-<!--                                 <button type="submit" class="btn_submit">送出</button> -->
-<!--                                 <input type="hidden" name="action" value="receiveFoodScapeId"> -->
-<!--                                 </form> -->
-					<form class="selectfsId" method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">                                
+<!--                             <div class="div_btn">                            -->
+<!--                                 <button type="reset" class="btn_reset">全部取消</button> -->
+
+					<form class="selectfsId" method="post" action="<%=request.getContextPath()%>/journey/user/journeySelect.do">
+					 <button type="reset" class="btn_reset">全部取消</button>                                
     				<button type="submit" class="btn_submit">送出</button>
     				<input type="hidden" name="action" value="receiveFoodScapeId" id="selectedFoodScapeIdsInput">
 					</form>
@@ -352,9 +360,17 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
 //         $("#footer").load("../components/html/footer.jsp");
       });
     </script>
+    
   	
   	<script>
   	$(document).ready(function () {
+  	    // 给 "全部取消" 按钮添加点击事件处理程序
+  	    $('button.btn_reset').on('click', function () {
+  	        // 取消所有景点的勾选
+  	        $('li.selected').removeClass('selected');
+  	        $('i.fas.fa-check-circle').removeClass('checked');
+  	    });
+  		
   	    // 给勾号元素添加点击事件处理程序
   	    $('.fas.fa-check-circle').on('click', function () {
   	        // 切换勾号的状态，如果已经被选中则取消选中，反之亦然
