@@ -76,8 +76,8 @@ public class FoodScapeServlet extends HttpServlet {
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
 
-		Integer foodScapeId = Integer.valueOf(req.getParameter("foodscape_id"));
-		String foodScapeName = req.getParameter("foodscape_name").trim();
+		Integer foodScapeId = Integer.valueOf(req.getParameter("foodScapeId"));
+		String foodScapeName = req.getParameter("foodScapeName").trim();
 		String foodScapeNameReg = "[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
 		if (foodScapeName == null || foodScapeName.length() == 0) {
 			errorMsgs.add("請輸入美食景點名稱");
@@ -102,15 +102,15 @@ public class FoodScapeServlet extends HttpServlet {
 		String addressReg = "[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,30}$";
 		if (address == null || address.length() == 0) {
 			errorMsgs.add("請輸入美食景點完整地址");
-		} else if (!address.matches(cityReg)) {
+		} else if (!address.matches(addressReg)) {
 			errorMsgs.add("名稱:格式不符合,僅限輸入中英文和數字共計30字");
 		}
 
 		String phone = req.getParameter("phone").trim();
 		String phoneReg = "^[0-9]{8}([0-9]{2})?$";
-		if (address == null || address.length() == 0) {
+		if (phone == null || phone.length() == 0) {
 			errorMsgs.add("請輸入美食景點完整電話或手機號碼(不用-)");
-		} else if (!address.matches(cityReg)) {
+		} else if (!phone.matches(phoneReg)) {
 			errorMsgs.add("名稱:格式不符合,請輸入美食景點完整電話或手機號碼(不用-)");
 		}
 

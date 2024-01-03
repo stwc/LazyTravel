@@ -227,8 +227,8 @@
             <div class="div_status">
                 <label>狀態 :</label>
                 <select id="div_status" name="foodscape_status">
-					<option value="0" ${journey.journeyStatus == 0 ? "selected" : ""} >未上架</option>
-					<option value="1" ${journey.journeyStatus == 1 ? "selected" : ""} >已上架</option>
+					<option value="0" ${foodscape.foodScapeStatus == 0 ? "selected" : ""} >未上架</option>
+					<option value="1" ${foodscape.foodScapeStatus == 1 ? "selected" : ""} >已上架</option>
                 </select>
             </div>
             
