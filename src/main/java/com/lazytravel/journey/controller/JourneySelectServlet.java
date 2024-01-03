@@ -62,6 +62,9 @@ public class JourneySelectServlet extends HttpServlet{
 			case "journeySelect_order":
 				forwardPath = toOrderPage(req, res);
 				break;
+			case "returnJourneySelect":
+				forwardPath = returnJourneySelectPage(req, res);
+				break;
 		}
 		
 		res.setContentType("text/html; charset=UTF-8");
@@ -135,8 +138,8 @@ public class JourneySelectServlet extends HttpServlet{
 		System.out.println(foodScapeIdList);
 		
 		
-		List<Map.Entry<Journey, Integer>> list = journeySelectRedisSvc.getEntryList(foodScapeIdList);
-		req.setAttribute("list", list);
+		List<Map.Entry<Journey, Integer>> mapList = journeySelectRedisSvc.getEntryList(foodScapeIdList);
+		req.setAttribute("mapList", mapList);
 		
 
 		// 用於顯示已勾選的美食/景點 和 匹配率
@@ -150,6 +153,22 @@ public class JourneySelectServlet extends HttpServlet{
 		}
 		req.setAttribute("foodScapeNameList", foodScapeNameList);
 		req.setAttribute("selectedCount", selectedCount);
+		
+		// 存到session中，作為取消時返回上一頁用
+		HttpSession session = req.getSession();
+		session.setAttribute("mapList", mapList); 
+		session.setAttribute("foodScapeNameList", foodScapeNameList); 
+		session.setAttribute("selectedCount", selectedCount);
+		
+		return "/journey/user/journeySelect.jsp";
+	}
+	
+	
+	private String returnJourneySelectPage(HttpServletRequest req, HttpServletResponse res) {
+		HttpSession session = req.getSession();
+		session.getAttribute("mapList"); 
+		session.getAttribute("foodScapeNameList"); 
+		session.getAttribute("selectedCount");
 		
 		return "/journey/user/journeySelect.jsp";
 	}

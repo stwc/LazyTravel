@@ -252,9 +252,6 @@
 	}
 </style>
 
-<%
-	JourneyDetailService journeyDetailSvc = new JourneyDetailServiceImpl();
-%>
 
 </head>
 <body>
@@ -328,10 +325,10 @@
             </div>
             
     
-            <c:if test="${not empty list}">
+            <c:if test="${not empty mapList}">
 	            <ul>
 	            
-	            	<c:forEach var="mapEntry" items="${list}">
+	            	<c:forEach var="mapEntry" items="${mapList}">
 		                <li class="journey">
 				            <div class="container">
 					            <div class="row">
@@ -379,7 +376,7 @@
 	            </ul>
             </c:if>
             
-            <c:if test="${empty list}">
+            <c:if test="${empty mapList}">
             	<p style="text-align: center; padding-top: 50px; font-size: 24px; font-weight: 600; color: #CB997E;"> 沒有符合的行程&nbsp;QQ </p>
 			</c:if>
         </div>
@@ -387,6 +384,11 @@
         
 
         <br><br>
+		<div class="div_btn">
+			<button type="reset" class="btn_reset" onclick="redirectToFoodscapeSelect()">重新篩選</button>
+		</div>
+
+        
 <!--         <div class="container-fluid"> -->
 <!--             <div class="row"> -->
 <!--                 <div class="col-md-12"> -->
@@ -448,9 +450,13 @@
     	        }
     	    });
     	    
-    	    
         });
-        
+
+	    
+        var contextPath = "${pageContext.request.contextPath}";
+        function redirectToFoodscapeSelect() {
+        	window.location.href = contextPath + "/foodscape/jsp/selectpage.jsp";
+        }
         
     </script>
 </body>
