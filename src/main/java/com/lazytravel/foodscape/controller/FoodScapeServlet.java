@@ -1,12 +1,14 @@
 package com.lazytravel.foodscape.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import com.lazytravel.foodscape.service.FoodScapeService;
 import com.lazytravel.foodscape.service.FoodScapeServiceImpl;
 
 @WebServlet(name = "FoodScapeServlet", value = "/foodscape/jsp/foodscape.do")
+@MultipartConfig
 public class FoodScapeServlet extends HttpServlet {
 	private FoodScapeService foodscapeService;
 
@@ -40,6 +43,9 @@ public class FoodScapeServlet extends HttpServlet {
 		case "getOne_For_Display":
 			forwardPath = getOneDisplay(req, res);
 			break;
+		case "getOneBackUpdate":
+			forwardPath = getOneBackUpdate(req, res);
+			break;
 		case "foodscape_search":
 			forwardPath = getFoodScapeByFoodScapeId(req, res);
 			break;
@@ -62,14 +68,25 @@ public class FoodScapeServlet extends HttpServlet {
 	private String getOneDisplay(HttpServletRequest req, HttpServletResponse res) {
 		List<String> errorMsgs = new ArrayList<>();
 		req.setAttribute("errorMsgs", errorMsgs);
+		
 		Integer foodScapeId = Integer.valueOf(req.getParameter("foodScapeId"));
-
-		foodscapeService = new FoodScapeServiceImpl();
 		FoodScape foodscape = foodscapeService.getFoodScapeByFoodScapeId(foodScapeId);
 
 		req.setAttribute("foodscape", foodscape);
-		return "/foodscape/jsp/selectmore.jsp";
+		return "/foodscape/jsp/foodscapeModify.jsp";
 
+	}
+	private String getOneBackUpdate(HttpServletRequest req, HttpServletResponse res) {
+		List<String> errorMsgs = new ArrayList<>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		Integer foodScapeId = Integer.valueOf(req.getParameter("foodScapeId"));
+		
+		foodscapeService = new FoodScapeServiceImpl();
+		FoodScape foodscape = foodscapeService.getFoodScapeByFoodScapeId(foodScapeId);
+		
+		req.setAttribute("foodscape", foodscape);
+		return "/foodscape/jsp/foodscapeModify.jsp";
+		
 	}
 
 	private String updateFoodScape(HttpServletRequest req, HttpServletResponse res) {
@@ -132,6 +149,23 @@ public class FoodScapeServlet extends HttpServlet {
 //	        } else {
 //	            // 如果 UPDATE_TIME 參數為空，可能需要處理相應的邏輯
 //	        }
+		
+		byte[] foodScapeImg = null;
+    	try {
+    		InputStream in = req.getPart("foodScapeImg").getInputStream();
+    		if (in.available() != 0) {
+    			foodScapeImg = new byte[in.available()];
+    			in.read(foodScapeImg);
+    			in.close();
+    		} else {
+    			foodScapeImg =foodscapeService.getFoodScapeByFoodScapeId(foodScapeId).getImg();
+    		}
+    	} catch (IOException | ServletException e) {
+    		errorMsgs.add("圖片上傳失敗: " + e.getMessage());
+    	}
+		
+		
+		
 		// 假如輸入格式錯誤的，備份選原使用者輸入過的資料
 		FoodScape foodscape = new FoodScape();
 		foodscape.setFoodScapeId(foodScapeId);
@@ -144,6 +178,8 @@ public class FoodScapeServlet extends HttpServlet {
 		foodscape.setLat(lat);
 		foodscape.setFoodScapeStatus(foodscapeStatus);
 		foodscape.setCategory(category);
+		foodscape.setImg(foodScapeImg);
+		
 
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("foodscape", foodscape);
@@ -212,6 +248,8 @@ public class FoodScapeServlet extends HttpServlet {
 		} else if (!address.matches(cityReg)) {
 			errorMsgs.add("名稱:格式不符合,請輸入美食景點完整電話或手機號碼(不用-)");
 		}
+		
+		
 
 		String foodscapeStatus = String.valueOf(req.getParameter("foodscape_status").trim());
 		String category = req.getParameter("category");

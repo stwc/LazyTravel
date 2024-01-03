@@ -1,6 +1,7 @@
 package com.lazytravel.foodscape.entity;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -67,6 +69,18 @@ public class FoodScape  {
 	
 	@Column(name="CATEGORY",columnDefinition ="varchar")
 	private String category;
+	
+	public byte[] getImg() {
+		return img;
+	}
+
+	public void setImg(byte[] img) {
+		this.img = img;
+	}
+
+	@Lob
+	@Column(name = "img" ,columnDefinition = "longblob")
+	private byte[] img;
 	
 //	@ManyToMany
 //	@JoinTable(
@@ -264,16 +278,18 @@ public void setCategory(String category) {
 //	this.tags = tags;
 //}
 
-@Override
-public String toString() {
-	return "FoodScape [foodScapeId=" + foodScapeId + ", foodScapeName=" + foodScapeName + ", phone=" + phone
-			+ ", address=" + address + ", city=" + city + ", lng=" + lng + ", lat=" + lat + ", intro=" + intro
-			+ ", updateTime=" + updateTime + ", foodScapeStatus=" + foodScapeStatus + ", category=" + category + "]";
-}
 
 public static FoodScape valueOf(String parameter) {
 
 	return null;
+}
+
+@Override
+public String toString() {
+	return "FoodScape [foodScapeId=" + foodScapeId + ", foodScapeName=" + foodScapeName + ", phone=" + phone
+			+ ", address=" + address + ", city=" + city + ", lng=" + lng + ", lat=" + lat + ", intro=" + intro
+			+ ", updateTime=" + updateTime + ", foodScapeStatus=" + foodScapeStatus + ", category=" + category
+			+ ", img=" + Arrays.toString(img) + ", nthDay=" + nthDay + "]";
 }
 
 

@@ -99,10 +99,10 @@ pageContext.setAttribute("list",list);
           	<td>${foodscape.foodScapeStatus}</td>
           	<td>${foodscape.category}</td>
             <td>
-              <form method="post" action="<%=request.getContextPath()%>/foodscape/jsp/foodscapeModify.jsp">
+              <form method="post" action="<%=request.getContextPath()%>/foodscape/jsp/foodscape.do">
                 <button type="submit" class="btn-modify btn">修改</button>
-                <input type="hidden" name="FOODSCAPE_ID" value="${foodScape.foodScapeId}">
-                <input type="hidden" name="action" value="modify">
+                <input type="hidden" name="foodScapeId" value="${foodscape.foodScapeId}">
+                <input type="hidden" name="action" value="getOneBackUpdate">
               </form>
             </td>
             </tr>
