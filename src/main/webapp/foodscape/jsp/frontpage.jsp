@@ -378,10 +378,20 @@ button {
                 // 清空之前的图片
                 $('#imageContainer').empty();
 
+                // 设置图片大小和间距
+                var imageWidth = 300; // 设置图片宽度
+                var imageHeight = 200; // 设置图片高度
+                var spacing = 20; // 设置图片之间的留白
+
                 // 将新的图片添加到页面
-                data.forEach(function (imagePath) {
+                data.forEach(function (imagePath, index) {
                     var imageUrl = '/LazyTravel/foodscape/food/' + imagePath; // 替换为实际路径
-                    $('#imageContainer').append('<img src="' + imageUrl + '" alt="Random Image">');
+
+                    // 生成图片标签，并设置宽度、高度、和间距
+                    var imageTag = '<img src="' + imageUrl + '" alt="Random Image" style="width: ' + imageWidth + 'px; height: ' + imageHeight + 'px; margin-right: ' + spacing + 'px;">';
+
+                    // 将图片添加到页面
+                    $('#imageContainer').append(imageTag);
                 });
             }
         });
@@ -394,9 +404,9 @@ button {
     loadRandomImages();
 </script>
 
+
+
 <script>
-
-
     function loadRandomImages() {
         $.ajax({
             url: '/LazyTravel/scapeLoader', // 替换为你的Servlet的URL
@@ -406,10 +416,20 @@ button {
                 // 清空之前的图片
                 $('#imageContainer1').empty();
 
+                // 设置图片大小和间距
+                var imageWidth = 300; // 设置图片宽度
+                var imageHeight = 200; // 设置图片高度
+                var spacing = 20; // 设置图片之间的留白
+
                 // 将新的图片添加到页面
-                data.forEach(function (imagePath) {
+                data.forEach(function (imagePath, index) {
                     var imageUrl = '/LazyTravel/foodscape/scape/' + imagePath; // 替换为实际路径
-                    $('#imageContainer1').append('<img src="' + imageUrl + '" alt="Random Image">');
+
+                    // 生成图片标签，并设置宽度、高度、和间距
+                    var imageTag = '<img src="' + imageUrl + '" alt="Random Image" style="width: ' + imageWidth + 'px; height: ' + imageHeight + 'px; margin-right: ' + spacing + 'px;">';
+
+                    // 将图片添加到页面
+                    $('#imageContainer1').append(imageTag);
                 });
             }
         });
@@ -421,6 +441,7 @@ button {
     // 页面加载时初始化一次
     loadRandomImages();
 </script>
+
 
 
 
