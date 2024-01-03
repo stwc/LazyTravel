@@ -116,7 +116,7 @@ pageContext.setAttribute("list", list);
 	                <div class="card" style="width: 22rem;height: 450px; margin: 10px;">
 	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 351px; height: 200px;" />
 	                    <div class="card-body p">
-	                        <h5 class="card-title">${blog.title}</h5>
+	                       <h5 class="card-title"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${blog.title}</h5>
 	                        <div class="d-inline-flex">
 	                            <p class="h6"></p>
 	                        </div>

@@ -125,7 +125,7 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 									src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}"
 									style="width: 351px; height: 160px;" />
 								<div class="card-body p">
-									<h5 class="card-title">${blog.title}</h5>
+									<h5 class="card-title"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${blog.title}</h5>
 									<div class="d-inline-flex">
 										<p class="h6"></p>
 									</div>
@@ -135,7 +135,7 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 											pattern="yyyy-MM-dd HH:mm" />
 									</c:set>
 									<p class="h6">${formattedDate}</p>
-									<p class="card-text">${fn:substring(blog.content, 0, 25)}${fn:length(blog.content) > 25 ? '...' : ''}</p>
+									<p class="card-text">${fn:substring(blog.content, 0, 20)}${fn:length(blog.content) > 20 ? '...' : ''}</p>
 									<div class="d-flex justify-content-end align-items-center">
 										<div class="col-md-4 p-0">
 											<p>${blog.customer.nickname}</p>
