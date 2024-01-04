@@ -300,7 +300,7 @@ request.getSession().setAttribute("foodScapeIdList_Str", foodScapeIdList_Str);
                         <!-- 左側圖片區塊 -->
                         <div class="col-md-6 order-md-1">
                             <div class="img_block">
-                                <img src="/LazyTravel/foodscape/image/logo.ico" class="img-fluid" alt="">
+                                <img src="<%=request.getContextPath()%>/FoodScapeImgReader?foodScapeId=${foodscape.foodScapeId}"class="img-fluid" alt="${foodscape.foodScapeName}" style="width: 450px; height: 280px;" >
                             </div>
                         </div>
 

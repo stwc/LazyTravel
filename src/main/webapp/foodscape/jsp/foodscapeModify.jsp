@@ -4,7 +4,12 @@
 <%@page import="com.lazytravel.foodscape.dao.*"%>
 <%@page import="com.lazytravel.foodscape.entity.*"%>
 <%@page import="com.lazytravel.foodscape.service.*"%>
-
+<%
+FoodScape foodscape = (FoodScape) request.getAttribute("foodscape");
+FoodScapeService foodscapeService = new FoodScapeServiceImpl();
+List<FoodScape> list = foodscapeService.getAllFoodScapes();
+pageContext.setAttribute("list",list);
+	%>
 
 
 <%-- <% --%>
@@ -97,9 +102,7 @@
 
     </style>
     
-    <%
-	FoodScape foodscape = (FoodScape) request.getAttribute("foodscape");
-	%>
+    
     
 </head>
 
@@ -124,7 +127,7 @@
       <p style="font-size: 20px;"><a href="foodscape.jsp">回首頁</a></p>
       
         <div class="container">
-    <form method="post" action="<%=request.getContextPath()%>/foodscape/jsp/foodscape.do">
+    <form method="post" action="<%=request.getContextPath()%>/foodscape/jsp/foodscape.do" enctype="multipart/form-data">
       
 <!--       <div class="col-12 mb-3"> -->
 <!--         <label for="staticId" class="col-md-6 col-form-label">美食/景點ID</label> -->
@@ -132,11 +135,11 @@
 <!--       </div> -->
       <div class="div_foodScape_name">
         <label for="InputName" class="form-label">美食/景點名稱</label>
-         <td><input type="TEXT" name="foodScapeName" value="<%= (foodscape==null)? "美食/景點名稱..." : foodscape.getFoodScapeName()%>" size="45"/></td>
+         <td><input type="TEXT" name="foodScapeName" value="<%= foodscape.getFoodScapeName()%>" size="45"/></td>
       </div>
       <div class="div_foodscape_phone">
             <label>電話 :</label>
-            <td><input type="TEXT" name="phone" value="<%= (foodscape==null)? "8 or 10碼" : foodscape.getPhone()%>" size="45"/></td>
+            <td><input type="TEXT" name="phone" value="<%= foodscape.getPhone()%>" size="45"/></td>
         </div>
       <br>
         <div class="div_foodscape_place">
@@ -144,30 +147,30 @@
             
             
             <label>縣市 :</label>
-            <input type="TEXT" name="city" value="<%= (foodscape==null)? "縣市名稱" : foodscape.getCity()%>" size="45"/>
+            <input type="TEXT" name="city" value="<%= foodscape.getCity()%>" size="45"/>
             
             <label>地址 :</label>
-            <input type="TEXT" name="address" value="<%= (foodscape==null)? "" : foodscape.getAddress()%>" size="45"/>
+            <input type="TEXT" name="address" value="<%= foodscape.getAddress()%>" size="45"/>
         </div>
         
       <div class="div_foodscape_location">
      		<label>經度 :</label>
-     		<input type="TEXT" name="lng" value="<%= (foodscape==null)? "" : foodscape.getLng()%>" size="45"/>
+     		<input type="TEXT" name="LNG" value="<%= foodscape.getLng()%>" size="45"/>
      		
      		<label>緯度 :</label>
-     		<input type="TEXT" name="lat" value="<%= (foodscape==null)? "" : foodscape.getLat()%>" size="45"/>
+     		<input type="TEXT" name="LAT" value="<%= foodscape.getLat()%>" size="45"/>
      	</div>
      	
      	<label for="large-text">相關介紹：</label>
-			<td><input type="TEXT" name="intro" value="<%= (foodscape==null)? "輸入想說的" : foodscape.getIntro()%>" size="45"/></td>
+			<td><input type="TEXT" name="intro" value="<%= foodscape.getIntro()%>" size="45"/></td>
 
 			<div class="div_updatetime">
-			<td><input type="TEXT" name="upDateTime" value="<%= (foodscape==null)? new java.sql.Timestamp(System.currentTimeMillis()) : foodscape.getUpdateTime()%>" size="45"/></td>
+			<td><input type="TEXT" name="upDateTime" value="<%= new java.sql.Timestamp(System.currentTimeMillis())%>" size="45"/></td>
 			</div>
 			
  <div class="div_status">
                 <label>狀態 :</label>
-                <select id="div_status" name="div_status">
+                <select id="div_status" name="foodscape_status">
 					<option value="0" ${foodscape.foodScapeStatus == 0 ? "selected" : ""} >未上架</option>
 					<option value="1" ${foodscape.foodScapeStatus == 1 ? "selected" : ""} >已上架</option>
                 </select>
@@ -175,15 +178,24 @@
             
                     <div class="div_category">
             <label>類別 :</label>
-            <select id="div_category" name="div_category">
+            <select id="div_category" name="CATEGORY">
 				  <option value="景點" ${(foodscape.category=='景點')? 'selected':'' }>景點
 				  <option value="美食" ${(foodscape.category=='美食')? 'selected':'' }>美食
             </select>
             </div>
-
+		<div class="col-3 d-flex align-items-center">
+					<p class="h6 mb-0">店家圖片上傳:</p>
+				</div>
+				<div class="col-7 d-flex align-items-center">
+					<div class="input-group mb-3 h-auto mt-3 m-1" style="width: 545px">
+						<input type="file" name="foodScapeImg" " 
+							class="form-control" id="inputGroupFile01" />
+					</div>
+				</div>
         <br>
         <div class="div_btn">
 		    <button type="submit" class="btn_submit">送出</button>
+		    <input type="hidden" name="foodScapeId" value="${foodscape.getFoodScapeId()}">
 		    <input type="hidden" name="action" value="foodscape_update">
 		    
             <button type="reset" class="btn_reset" onclick="redirectToFoodScape()">取消</button>
