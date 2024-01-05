@@ -300,7 +300,8 @@
         <p>電話: ${foodScape.phone}</p>
         <p>地址: ${foodScape.address}</p>
         <p>介紹: ${foodScape.intro}</p>
-        <!-- 顯示其他欄位... -->
+        <p>類別: ${foodScape.category}</p>
+        <p>更新時間: ${foodScape.updateTime}</p>
     </c:if>
     <c:if test="${empty foodScape}">
         <p>FoodScape not found.</p>
