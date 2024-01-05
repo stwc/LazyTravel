@@ -137,6 +137,8 @@ pageContext.setAttribute("list",list);
         <label for="InputName" class="form-label">美食/景點名稱</label>
          <td><input type="TEXT" name="foodScapeName" value="<%= foodscape.getFoodScapeName()%>" size="45"/></td>
       </div>
+      
+      <br>
       <div class="div_foodscape_phone">
             <label>電話 :</label>
             <td><input type="TEXT" name="phone" value="<%= foodscape.getPhone()%>" size="45"/></td>
@@ -153,6 +155,8 @@ pageContext.setAttribute("list",list);
             <input type="TEXT" name="address" value="<%= foodscape.getAddress()%>" size="45"/>
         </div>
         
+        <br>
+        
       <div class="div_foodscape_location">
      		<label>經度 :</label>
      		<input type="TEXT" name="LNG" value="<%= foodscape.getLng()%>" size="45"/>
@@ -161,12 +165,17 @@ pageContext.setAttribute("list",list);
      		<input type="TEXT" name="LAT" value="<%= foodscape.getLat()%>" size="45"/>
      	</div>
      	
+     	<br>
+     	
      	<label for="large-text">相關介紹：</label>
 			<td><input type="TEXT" name="intro" value="<%= foodscape.getIntro()%>" size="45"/></td>
 
-			<div class="div_updatetime">
+			<br>
+			<div class="div_updatetime"><label>更新時間 : </label>
 			<td><input type="TEXT" name="upDateTime" value="<%= new java.sql.Timestamp(System.currentTimeMillis())%>" size="45"/></td>
 			</div>
+			
+			<br>
 			
  <div class="div_status">
                 <label>狀態 :</label>
@@ -175,6 +184,7 @@ pageContext.setAttribute("list",list);
 					<option value="1" ${foodscape.foodScapeStatus == 1 ? "selected" : ""} >已上架</option>
                 </select>
             </div>
+            <br>
             
                     <div class="div_category">
             <label>類別 :</label>
@@ -183,6 +193,8 @@ pageContext.setAttribute("list",list);
 				  <option value="美食" ${(foodscape.category=='美食')? 'selected':'' }>美食
             </select>
             </div>
+            
+            <br>
 		<div class="col-3 d-flex align-items-center">
 					<p class="h6 mb-0">店家圖片上傳:</p>
 				</div>
