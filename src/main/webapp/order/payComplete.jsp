@@ -96,7 +96,7 @@
         function backwardClick() {
             var button = document.getElementById('backtohomeButton');
         button.classList.add('clicked');
-        window.location.href = 'http://localhost:8081/LazyTravel/index.jsp';
+        window.location.href = '"<%=request.getContextPath()%>/index.jsp';
         }
         
         
