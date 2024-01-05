@@ -121,7 +121,7 @@
 
 		function init(){
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/order/order.do",
+				url: "<%=request.getContextPath()%>/order/order.do",
 				type: "GET",
 				data: {"action": "getOrderByCustomerId" , "customerId" : customerId},
 				dataType: "json",

@@ -260,7 +260,7 @@
 		 $("#tourist").text(passengerCount+ " 人 ") ;
 		    
 		    $.ajax({
-		    	url: "http://localhost:8081/LazyTravel/order/order.do",
+		    	url: "<%=request.getContextPath()%>/order/order.do",
 				type: "GET",
 				data: {
 					"action" : "getOrderDetails" ,
@@ -338,7 +338,7 @@
 		
 		  // GET Coupon請求
         $.ajax({
-		    	url: "http://localhost:8081/LazyTravel/order/customercoupon.do",
+		    	url: "<%=request.getContextPath()%>/order/customercoupon.do",
 				type: "GET",
 				data: {
 					"action" : "getcustomercouponByCutomerId" , "customerId" : customerId
@@ -425,7 +425,7 @@
 
 		      
 			
-		      window.location.href = 'http://localhost:8081/LazyTravel/order/payCheck.jsp';
+		      window.location.href = "<%=request.getContextPath()%>/order/payCheck.jsp';
 			
 			
 			
@@ -436,7 +436,7 @@
 			
 			
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/customorCenter/customercoupon.do",
+				url: "<%=request.getContextPath()%>/customorCenter/customercoupon.do",
 				type: "POST",
 				data: {
 					"action": "addcustomercoupon" ,

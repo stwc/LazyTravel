@@ -177,7 +177,7 @@
       const orderId = urlParams.get('order_id');
 
       $.ajax({
-        url: "http://localhost:8081/LazyTravel/order/order.do",
+        url: "<%=request.getContextPath()%>/order/order.do",
         type: 'GET',
         data: { "action": "getJourneyNameByOrderId", "orderId": orderId },
         dataType: 'json',
@@ -200,7 +200,7 @@
       const orderId = urlParams.get('order_id');
 
       $.ajax({
-        url: "http://localhost:8081/LazyTravel/order/passenger.do",
+        url: "<%=request.getContextPath()%>/order/passenger.do",
         type: 'GET',
         data: { "action": "getPasDetails", "orderId": orderId },
         dataType: 'json',

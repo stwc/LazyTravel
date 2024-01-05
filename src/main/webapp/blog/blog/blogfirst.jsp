@@ -83,7 +83,7 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 							aria-describedby="button-addon2" /> <input type="hidden"
 							name="action" value="search">
 						<button class="btn btn-outline-secondary my-auto" type="submit"
-							style="background: #CCD5AE; border-color: transparent; color: white; border-radius: 90px;"
+							style="background: #6B705C; border-color: transparent; color: white; border-radius: 90px;"
 							id="button-addon2">搜尋看看吧</button>
 					</form>
 				</div>
@@ -94,18 +94,18 @@ Integer customerId = (customer != null) ? customer.getCustomerId() : 0;
 						<input type="radio" class="btn-check" name="btnradio"
 							id="btnradio1" autocomplete="off" checked /> <label
 							class="btn btn-outline-primary" for="btnradio1"
-							style="background: #CCD5AE; border-color: transparent; color: white; border-radius: 90px;">文章列表</label>
+							style="background: #6B705C;border-color: transparent; color: white; border-radius: 90px;">文章列表</label>
 						<input type="radio" class="btn-check" name="btnradio"
 							id="btnradio2"
-							style="background: #CCD5AE; border-color: transparent; color: white"
+							style="background: #6B705C; #CCD5AE; border-color: transparent; color: white"
 							autocomplete="off" /> <label class="btn btn-outline-primary"
 							for="btnradio2"
-							style="background: #CCD5AE; border-color: transparent; color: white; border-radius: 90px;"
+							style="background: #6B705C; border-color: transparent; color: white; border-radius: 90px;"
 							onclick=" toMyBlog()">我的文章</label> <input type="radio"
 							style="background: #CCD5AE; border-color: transparent; color: white"
 							class="btn-check" name="btnradio" id="btnradio3"
 							autocomplete="off" /> <label class="btn btn-outline-primary"
-							style="background: #CCD5AE; border-color: transparent; color: white; border-radius: 90px;"
+							style="background: #6B705C; border-color: transparent; color: white; border-radius: 90px;"
 							onclick="toMyBlogCl()" for="btnradio3">文章收藏</label>
 					</div>
 				</div>
