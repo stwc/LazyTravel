@@ -132,10 +132,10 @@ String blogImg = request.getContextPath()+ "/blog/blog/BlogImgReader?blogId="+bl
 			<div class="row d-flex">
 				<div class="col-10"></div>
 				<div class="col-1 justify-content-end d-flex">
-					<button type="button" onclick="redirectToMyBlog()" class="btn btn-success">取消</button>
+					<button type="button" onclick="redirectToMyBlog()" class="btn btn-success" style="background: #6B705C;">取消</button>
 				</div>
 				<div class="col-1 justify-content-end d-flex">
-					<input type="submit" id="saveButton" class="btn btn-success" value="送出修改">
+					<input type="submit" id="saveButton" class="btn btn-success" value="送出修改" style="background: #6B705C;">
 					<input type="hidden" name="action" value="BackUpdate"> 
 					<input type="hidden" name="customer_id" value="<%=blog.getCustomer().getCustomerId()%>" size="45"/>
 					<input type="hidden" name="blogId" value="<%=blog.getBlogId()%>">

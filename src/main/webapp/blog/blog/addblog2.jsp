@@ -13,6 +13,7 @@
 Customer customer = (Customer) session.getAttribute("customer");
 String customerId = String.valueOf(customer.getCustomerId());
 BlogService blogSvc = new BlogServiceImpl();
+Blog blog = (Blog) request.getAttribute("blog");
 %>
 
 <html>
@@ -82,7 +83,7 @@ BlogService blogSvc = new BlogServiceImpl();
 				<div class="input-group w-50 m-1">
 					<input type="text" class="form-control" name="title"
 						aria-label="Recipient's username"
-						aria-describedby="button-addon2" />
+						aria-describedby="button-addon2"  />
 				</div>
 			</div>
 			<div class="row">
@@ -124,15 +125,15 @@ BlogService blogSvc = new BlogServiceImpl();
 		<hr />
 		<div class="container-fluid">
 			<div class="row mx-5">
-				<textarea  id="summernote"  name="content" style="height: 100px">
+				<textarea  id="summernote"  name="content" style="height: 100px" >
 			</textarea>
 			<div class="row d-flex">
-				<div class="col-10"></div>
-				<div class="col-1 justify-content-end d-flex">
-					<button type="button" onclick="redirectToMyBlog()" class="btn btn-success">回上頁</button>
+				<div class="col-9"></div>
+				<div class="col-2 justify-content-end d-flex">
+					<button type="button" onclick="redirectToMyBlog()" style="background: #6B705C;" class="btn btn-success">回上頁</button>
 				</div>
 				<div class="col-1 justify-content-end d-flex">
-					<input type="submit" id="saveButton" class="btn btn-success" value="新增文章">
+					<input type="submit" id="saveButton" style="background: #6B705C;" class="btn btn-success" value="新增文章">
 					<input type="hidden" name="action" value="insert"> 
 					<input type="hidden" name="customer_id" value="<%= customer.getCustomerId().toString() %>" size="45"/>
 					<input type="hidden" name="updateTime" value="<%=new java.sql.Timestamp(System.currentTimeMillis())%>">

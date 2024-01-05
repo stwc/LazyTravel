@@ -89,14 +89,14 @@ pageContext.setAttribute("list", list);
 							<input type="radio" class="btn-check" name="btnradio"
 								id="btnradio1" autocomplete="off" checked /> 
 								<label
-								class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"onclick=" ToBlogFirst()">文章列表</label> 
+								class="btn btn-outline-primary" for="btnradio1"style="background: #6B705C;border-color: transparent;color: white;border-radius: 90px;"onclick=" ToBlogFirst()">文章列表</label> 
 								<input
 								type="radio" class="btn-check" name="btnradio" id="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white"
 								autocomplete="off" /> 
-								<label class="btn btn-outline-primary" for="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;" onclick=" ToMyBlog()">我的文章</label> 
+								<label class="btn btn-outline-primary" for="btnradio2" style="background: #6B705C;border-color: transparent;color: white;border-radius: 90px;" onclick=" ToMyBlog()">我的文章</label> 
 								<input type="radio" style="background: #CCD5AE;border-color: transparent;color: white"
 								class="btn-check" name="btnradio" id="btnradio3"
-								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE;border-color: transparent;color: white;border-radius: 90px;"
+								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #6B705C;border-color: transparent;color: white;border-radius: 90px;"
 								for="btnradio3">文章收藏</label>
 						</div>
 			</div>
@@ -114,7 +114,7 @@ pageContext.setAttribute("list", list);
 	        <c:if test="${blogCl.customer.customerId eq customer.customerId and blogCl.blogClStatus eq '1' and foundClStatus eq 'false'}">
 	            <div class="col-md-4" id="blogCard-${blog.blogId}">
 	                <div class="card" style="width: 22rem;height: 450px; margin: 10px;">
-	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 351px; height: 200px;" />
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style="width: 351px; height: 160px;" />
 	                    <div class="card-body p">
 	                       <h5 class="card-title"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${blog.title}</h5>
 	                        <div class="d-inline-flex">
