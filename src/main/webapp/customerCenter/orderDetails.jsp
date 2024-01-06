@@ -166,7 +166,7 @@
 			const orderId = urlParams.get('order_id');
 
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/order/order.do",
+				url: "<%=request.getContextPath()%>/order/order.do",
 				type: 'GET',
 				data: { "action": "getJourneyNameByOrderId", "orderId": orderId },
 				dataType: 'json',
@@ -188,7 +188,7 @@
 			const orderId = urlParams.get('order_id');
 
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/order/passenger.do",
+				url: "<%=request.getContextPath()%>/order/passenger.do",
 				type: 'GET',
 				data: { "action": "getPasDetails", "orderId": orderId },
 				dataType: 'json',
@@ -197,7 +197,7 @@
 					passengers.forEach((item, index) => {
 						tbody += 	
 							'<tr>' +
-	                        '<th scope="row">' + index + 1 + '</th>' + 
+	                        '<th scope="row">' + (index + 1) + '</th>' + 
 	                        '<td>' + item.passengerName + '</td>' +
 	                        '<td>' + item.idno + '</td>' +
 	                        '<td>' + item.birth + '</td>' + 
@@ -217,7 +217,7 @@
 			const orderId = urlParams.get('order_id');
 
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/order/order.do",
+				url: "<%=request.getContextPath()%>/order/order.do",
 				type: 'POST',
 				data: { "action": "cancelorder", "orderId": orderId },
 				dataType: 'json',
@@ -228,7 +228,7 @@
 						alert("訂單已成功取消！");
 
 						// 重新載入訂單明細頁面
-						location.href = "/LazyTravel/customerCenter/orderList.jsp";
+						location.href = "<%=request.getContextPath()%>/customerCenter/orderList.jsp";
 					} else {
 						alert("取消訂單失敗，請稍後再試。");
 					}

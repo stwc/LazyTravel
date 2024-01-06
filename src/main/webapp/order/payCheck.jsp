@@ -85,7 +85,7 @@
                     
                 </div>
 
-			<form id="ecpayform" method="POST" action="http://localhost:8081/LazyTravel/order/ecpay.do">
+			<form id="ecpayform" method="POST" action="<%=request.getContextPath()%>/LazyTravel/order/ecpay.do">
                 <div class="d-flex justify-content-end mx-3 my-3">
                     <button type="submit" class="btnn" id="payButton" onclick="nextClick()">去買單</button>
                     <input id="ecpay" type="hidden" name="orderId" value=" " >
@@ -230,7 +230,7 @@
 			
         	//第一次請求新增訂單
         	$.ajax({
-		    	url: "http://localhost:8081/LazyTravel/order/order.do",
+		    	url: "<%=request.getContextPath()%>/LazyTravel/order/order.do",
 				type: "POST",
 				data: {
 					"action" : "insert" , 
@@ -265,7 +265,7 @@
 		            
 					//第二次請求新增旅客明細
 					$.ajax({
-				    	url: "http://localhost:8081/LazyTravel/order/passenger.do",
+				    	url: "<%=request.getContextPath()%>/LazyTravel/order/passenger.do",
 						type: "POST",
 						data: postData,
 						dataType:"json",

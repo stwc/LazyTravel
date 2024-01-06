@@ -138,7 +138,7 @@
 			
 			
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/customorCenter/customercoupon.do",
+				url: "<%=request.getContextPath()%>/customorCenter/customercoupon.do",
 				type: "POST",
 				data: {
 					"action": "addcustomercoupon" ,
@@ -174,7 +174,7 @@
 			let customerId = <%= customerId %>;
 			
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/customorCenter/customercoupon.do",
+				url: "<%=request.getContextPath()%>/customorCenter/customercoupon.do",
 				type: "GET",
 				data: {
 					"action": "getcustomercouponByCutomerId" ,

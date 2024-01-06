@@ -126,7 +126,7 @@
 
     <script>
         $(function () {
-        	$("#header").load("../admin/header.jsp");
+        	$("#header").load("<%=request.getContextPath()%>/admin/header.jsp");
         });
 		
         function goBack() {

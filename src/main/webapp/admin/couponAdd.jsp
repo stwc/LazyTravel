@@ -53,6 +53,7 @@
                 優惠券新增
             </div>
             <div class="card-body">
+
                 <form method="post" action="coupon.do" id="couponForm">
                     <div class="serialNo my-3">
                         <label>優惠號碼：</label>
@@ -119,6 +120,58 @@
     <script>
         $(function () {
             $("#header").load("../admin/header.jsp");
+            
+        });
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            const startTimeInput = document.querySelector('input[name="startTime"]');
+            const endTimeInput = document.querySelector('input[name="endTime"]');
+            const discountInput = document.querySelector('input[name="discount"]');
+            const thresholdInput = document.querySelector('input[name="threshold"]');
+
+            function clearamtInputs() {
+            	discountInput.value = '';
+            	thresholdInput.value = '';
+            }
+            
+            function cleartimeInputs() {
+                startTimeInput.value = '';
+                endTimeInput.value = '';
+            }
+            
+            function validate() {
+                const startTime = new Date(startTimeInput.value);
+                const endTime = new Date(endTimeInput.value);
+                const now = new Date();
+                const discount = parseFloat(discountInput.value);
+                const threshold = parseFloat(thresholdInput.value);
+
+                if (!isNaN(discount) && !isNaN(threshold) && threshold < discount) {
+                    alert('折扣門檻不能小於折扣金額。');
+                    clearamtInputs();
+                    return false;
+                }
+
+
+                if (startTime > endTime) {
+                    alert('生效日期不能晚於結束日期。');
+                    cleartimeInputs();
+                    return false;
+                }
+
+//                 if (startTime > now || endTime > now) {
+//                     alert('日期不能大於當前時間。');
+//                     cleartimeInputs();
+//                     return false;	
+//                 }
+
+                return true;
+            }
+
+            startTimeInput.addEventListener('change', validate);
+            endTimeInput.addEventListener('change', validate);
+            discountInput.addEventListener('change', validate);
+            thresholdInput.addEventListener('change', validate);
         });
 		
         function goBack() {

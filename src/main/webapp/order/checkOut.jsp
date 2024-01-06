@@ -164,6 +164,7 @@
 	let group_strat_time = 0;
 	let group_end_time = 0;
 	let originalTotal = 0;
+	let couponId = 0;
 
 //=========>  最終用session取得
 // 	let passengerCount = 1;
@@ -203,7 +204,14 @@
 	
 	$('#couponSelect').on('change', function() {
 		var selectedDiscount = $('#couponSelect').val();
-		
+		var selectedOption = $('#couponSelect option:selected');
+		couponIdval = selectedOption.data('couponId'); // 获取选中的option的couponId
+		if(couponIdval != null){
+			couponId = couponIdval;
+		}else{
+			couponId = null;
+		}
+		console.log(couponId);
 		if(selectedDiscount !== undefined){
 			if(selectedDiscount === "0"){
 				$("#DSTotal").text(originalTotal + " 元");
@@ -260,7 +268,7 @@
 		 $("#tourist").text(passengerCount+ " 人 ") ;
 		    
 		    $.ajax({
-		    	url: "http://localhost:8081/LazyTravel/order/order.do",
+		    	url: "<%=request.getContextPath()%>/LazyTravel/order/order.do",
 				type: "GET",
 				data: {
 					"action" : "getOrderDetails" ,
@@ -294,7 +302,12 @@
 		    });
 
            for (var i = 1; i <= passengerCount; i++) {
-           	
+        	   var myDate = new Date;
+	    	   var year = myDate.getFullYear(); //获取当前年
+	    	   var mon = myDate.getMonth()+1 < 10 ? "0"+(myDate.getMonth()+1) : (myDate.getMonth()+1);//
+	    	   var dat = myDate.getDate() < 10 ? "0"+myDate.getDate() : myDate.getDate();
+        	   
+        	   
            	let customerDetails = 
           		'<div class="passenger-form">' +
           		'<p class="ms-4" style="font-size: 18px; font-weight: 600; color: #CB997E;">旅客' + i + '</p>' +
@@ -316,13 +329,14 @@
                 '<p for="inputId" class="form-label  ms-4 my-3">身分證字號(護照號碼)：</p>' +
                 '<input name="inputId" type="text" id="inputId" class="form-control ms-4 w-50 mb-4" required>' +
                 '<p for="inputbirth" class="form-label  ms-4 my-3">出生日期：</p>' +
-                '<input name="inputbirth" type="date" id="inpudate" class="form-control ms-4 w-50 mb-4" name= "birth' + i + '" id="birth' + i + '"  required>' +
+                '<input name="inputbirth" type="date" id="inpudate" class="form-control ms-4 w-50 mb-4" name= "birth' + i + '" id="birth' + i + '" max="' + year + '-' + mon + '-' + dat + '" required>' +
                 '<p for="inputel" class="form-label  ms-4 my-3">連絡電話：</p>' +
                 '<input name="inputel" type="tel" id="inputel" class="form-control ms-4 w-50 mb-4" name= "phone' + i + '" id="phone' + i + '"  required="\d+">' +
                 '<p for="inputMail" class="form-label  ms-4 my-3">Email信箱：</p>' +
                 '<input name="inputMail"  type="email" id="inputMail" class="form-control ms-4 w-50 mb-4" name= "mail' + i + '" id="mail' + i + '"  required>' +
                 '</div>' +
                 '<hr class="mx-4 border-2">';
+                
            	
            	 $("#passenger-form-placeholder").append(customerDetails);
            		
@@ -338,7 +352,7 @@
 		
 		  // GET Coupon請求
         $.ajax({
-		    	url: "http://localhost:8081/LazyTravel/order/customercoupon.do",
+		    	url: "<%=request.getContextPath()%>/order/customercoupon.do",
 				type: "GET",
 				data: {
 					"action" : "getcustomercouponByCutomerId" , "customerId" : customerId
@@ -352,10 +366,16 @@
         		  var $option0 = $('<option></option>').text("無").val(0);
         		  $select.append($option0);
 	
+        		  var now = new Date();
         		  
         		  
 			        data.forEach(function(item) {
-			        	if(globalTotalAmt >= item.threshold  && item.couponStatus != 1){
+			        	var startTimeStr = item.startTime.replace(/(\d{1,2}),/, '$1');
+			        	var endTimestr = item.endTime.replace(/(\d{1,2}),/, '$1');
+			        	var startTime = new Date(startTimeStr);
+			        	var endTime = new Date(endTimestr);
+			        	
+			        	if(now > startTime && now < endTime && globalTotalAmt >= item.threshold  && item.couponStatus != 1){
 			        		var $option = $('<option></option>').val(item.discount)
 				                								.text(item.couponName + "：消費滿 " +　item.threshold + " 折抵 " + item.discount + " 元")
 			        											.data('couponId', item.couponId);
@@ -411,11 +431,12 @@
 		      sessionStorage.setItem('passengerCount', passengerCount);
 		      sessionStorage.setItem('groupId', groupId);
 		      sessionStorage.setItem('customerId', customerId);
-		      sessionStorage.setItem('selectedCouponId', selectedCouponId);
+		      sessionStorage.setItem('selectedCouponId', couponId);
 		      sessionStorage.setItem('globalTotalAmt', globalTotalAmt);
 		      sessionStorage.setItem('journey-name', journey_name);
 		      sessionStorage.setItem('group-strat-time', group_strat_time);
 		      sessionStorage.setItem('group-end-time', group_end_time);
+		      
 		    
 		      
 		      
@@ -425,7 +446,7 @@
 
 		      
 			
-		      window.location.href = 'http://localhost:8081/LazyTravel/order/payCheck.jsp';
+		      window.location.href = '<%=request.getContextPath()%>/LazyTravel/order/payCheck.jsp';
 			
 			
 			
@@ -436,7 +457,7 @@
 			
 			
 			$.ajax({
-				url: "http://localhost:8081/LazyTravel/customorCenter/customercoupon.do",
+				url: "<%=request.getContextPath()%>/customorCenter/customercoupon.do",
 				type: "POST",
 				data: {
 					"action": "addcustomercoupon" ,
