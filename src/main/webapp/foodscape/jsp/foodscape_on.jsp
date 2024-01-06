@@ -148,6 +148,7 @@
             <label>地址 :</label>
             <input type="TEXT" name="address" value="<%= (foodscape==null)? "" : foodscape.getAddress()%>" size="45"/>
         </div>
+        <br>
         
      	<div class="div_foodscape_location">
      		<label>經度 :</label>
@@ -203,8 +204,10 @@
 
           <label for="large-text">相關介紹：</label>
 			<td><input type="TEXT" name="intro" value="<%= (foodscape==null)? "輸入想說的" : foodscape.getIntro()%>" size="45"/></td>
+			
+			<br>
 
-			<div class="div_updatetime">
+			<div class="div_updatetime"><label>更新時間 : </label>
 			<td><input type="TEXT" name="upDateTime" value="<%= (foodscape==null)? new java.sql.Timestamp(System.currentTimeMillis()) : foodscape.getUpdateTime()%>" size="45"/></td>
 			</div>
 			
@@ -222,7 +225,7 @@
 <!--             <input type="file" id="file-upload" name="image" accept="image/*"> -->
 <!--             <input type="submit" value="上傳"> -->
 <!--           </form> -->
-
+				<br>
 
             <div class="div_status">
                 <label>狀態 :</label>
@@ -232,6 +235,8 @@
                 </select>
             </div>
             
+            <br>
+            
                     <div class="div_category">
             <label>類別 :</label>
             <select id="div_category" name="category">
@@ -239,6 +244,18 @@
 				  <option value="美食" ${(foodscape.category=='美食')? 'selected':'' }>美食
             </select>
             </div>
+            
+            <br>
+            
+            		<div class="col-3 d-flex align-items-center">
+					<p class="h6 mb-0">店家圖片上傳:</p>
+				</div>
+				<div class="col-7 d-flex align-items-center">
+					<div class="input-group mb-3 h-auto mt-3 m-1" style="width: 545px">
+						<input type="file" name="foodScapeImg" " 
+							class="form-control" id="inputGroupFile01" />
+					</div>
+				</div>
 
         <br>
         <div class="div_btn">

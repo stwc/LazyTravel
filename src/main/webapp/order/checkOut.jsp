@@ -268,7 +268,8 @@
 		 $("#tourist").text(passengerCount+ " 人 ") ;
 		    
 		    $.ajax({
-		    	url: "<%=request.getContextPath()%>/LazyTravel/order/order.do",
+		    	
+		    	url: "<%=request.getContextPath()%>/order/order.do",
 				type: "GET",
 				data: {
 					"action" : "getOrderDetails" ,
@@ -446,7 +447,9 @@
 
 		      
 			
-		      window.location.href = '<%=request.getContextPath()%>/LazyTravel/order/payCheck.jsp';
+
+		      window.location.href = "<%=request.getContextPath()%>/order/payCheck.jsp';
+
 			
 			
 			

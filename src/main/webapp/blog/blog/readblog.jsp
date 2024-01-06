@@ -250,14 +250,14 @@ pageContext.setAttribute("list", list);
 					<input type="hidden" name="action" value="insert">
 					
 						<input type="text" class="form-control" style="height: 50px"  name="content"
-							id="exampleInput" placeholder="來留個言吧"  required/>
+							    id="exampleInput" placeholder="來留個言吧"  required/>
 					</div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col">
-					<button type="submit" id="msgSubmit"  class="btn btn-success m-2 float-end" >
+					<button type="submit" id="msgSubmit"  class="btn btn-success m-2 float-end"  style="background: #6B705C;">
 						送出</button>
 				</div>
 			</div>

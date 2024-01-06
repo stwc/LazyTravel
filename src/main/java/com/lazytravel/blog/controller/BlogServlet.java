@@ -193,6 +193,12 @@ public class BlogServlet extends HttpServlet {
     	Integer likeSum=Integer.valueOf(req.getParameter("likeSum"));
         Timestamp blogTimestamp = null;
         
+        if (title == null || title.trim().isEmpty())
+            errorMsgs.add("請輸入文章標題");
+        
+        if (content == null || content.trim().isEmpty())
+            errorMsgs.add("請輸入文章內文");
+        
         try {
             // 從 request 中取得 blog_date 參數
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -288,6 +294,12 @@ public class BlogServlet extends HttpServlet {
     	Integer likeSum=Integer.valueOf(req.getParameter("likeSum"));
     	Timestamp blogTimestamp = null;
     	
+    	if (title == null || title.trim().isEmpty())
+            errorMsgs.add("請輸入文章標題");
+        
+        if (content == null || content.trim().isEmpty())
+            errorMsgs.add("請輸入文章內文");
+    	
     	try {
     		// 從 request 中取得 blog_date 參數
     		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -382,6 +394,12 @@ public class BlogServlet extends HttpServlet {
         Integer viewSum=Integer.valueOf(req.getParameter("viewSum"));
         Integer clSum=Integer.valueOf(req.getParameter("clSum"));
         Integer likeSum=Integer.valueOf(req.getParameter("likeSum"));
+        
+        if (title == null || title.trim().isEmpty())
+            errorMsgs.add("請輸入文章標題");
+        
+        if (content == null || content.trim().isEmpty())
+            errorMsgs.add("請輸入文章內文");
         
         try {
             // 從 request 中取得 blog_date 參數

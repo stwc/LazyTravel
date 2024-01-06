@@ -73,40 +73,46 @@ while (rs.next()) {
                 <div class="col my-3">
                     <h1 class="title">搜尋結果</h1>
                     <input type="submit" class="btn btn-primary m-1 p-1" onclick="goToHomePage()" value="回文章列表"
-                                    style="background: #9C6644;border-color: transparent;color: white;width: 100px;height: 30px">
+                                  style="background: #6B705C;border-color: transparent;color: white;width: 100px;height: 30px">
                 </div>
             </div>
             
             <div class="row ">
-					<div class="col-9  d-inline-flex">
-						<form class="input-group w-50 h-auto m-1" METHOD="post" ACTION="blog.do">
-							<input type="text" class="form-control my-lg-auto" name="keyword"
-								placeholder="輸入景點/美食" aria-label="Recipient's username"
-								aria-describedby="button-addon2" />
-								<input type="hidden" name="action" value="search">
-							<button class="btn btn-outline-secondary my-auto" type="submit"
-								id="button-addon2" >搜尋看看吧</button>
-						</form>
-					</div>
+				<div class="col-9  d-inline-flex">
+					<form class="input-group w-50 h-auto m-1" METHOD="post"
+						ACTION="blog.do">
+						<input type="text" class="form-control my-lg-auto" name="keyword"
+							placeholder="輸入景點/美食" aria-label="Recipient's username"
+							aria-describedby="button-addon2" /> <input type="hidden"
+							name="action" value="search">
+						<button class="btn btn-outline-secondary my-auto" type="submit"
+							style="background: #6B705C; border-color: transparent; color: white; border-radius: 90px;"
+							id="button-addon2">搜尋看看吧</button>
+					</form>
+				</div>
 	
 					<div class="col-3 d-flex justify-content-end w-25 p-0">
-						<div class="btn-group" role="group"
-							aria-label="Basic radio toggle button group">
-							<input type="radio" class="btn-check" name="btnradio"
-								id="btnradio1" autocomplete="off" checked /> 
-								<label
-								class="btn btn-outline-primary" for="btnradio1"style="background: #CCD5AE; border-color: transparent; color: white; border-radius: 90px" onclick="goToHomePage()">文章列表</label> 
-								<input
-								type="radio" class="btn-check" name="btnradio" id="btnradio2" style="background: #CCD5AE;border-color: transparent;color: white"
-								autocomplete="off" /> 
-								<label class="btn btn-outline-primary" for="btnradio2" style="background: #CCD5AE; border-color: transparent; color: white; border-radius: 90px"onclick=" toMyBlog()">我的文章</label> 
-								<input type="radio" style="background: #CCD5AE;border-color: transparent;color: white"
-								class="btn-check" name="btnradio" id="btnradio3"
-								autocomplete="off" /> <label class="btn btn-outline-primary" style="background: #CCD5AE; border-color: transparent; color: white; border-radius: 90px"
-								 onclick="toMyBlogCl()"                       for="btnradio3">文章收藏</label>
-						</div>
+					<div class="btn-group" role="group"
+						aria-label="Basic radio toggle button group">
+						<input type="radio" class="btn-check" name="btnradio"
+							id="btnradio1" autocomplete="off" checked /> <label
+							class="btn btn-outline-primary" for="btnradio1" onclick="goToHomePage()"
+							style="background: #6B705C;border-color: transparent; color: white; border-radius: 90px;">文章列表</label>
+						<input type="radio" class="btn-check" name="btnradio"
+							id="btnradio2"
+							style="background: #6B705C; #CCD5AE; border-color: transparent; color: white"
+							autocomplete="off" /> <label class="btn btn-outline-primary"
+							for="btnradio2"
+							style="background: #6B705C; border-color: transparent; color: white; border-radius: 90px;"
+							onclick=" toMyBlog()">我的文章</label> <input type="radio"
+							style="background: #CCD5AE; border-color: transparent; color: white"
+							class="btn-check" name="btnradio" id="btnradio3"
+							autocomplete="off" /> <label class="btn btn-outline-primary"
+							style="background: #6B705C; border-color: transparent; color: white; border-radius: 90px;"
+							onclick="toMyBlogCl()" for="btnradio3">文章收藏</label>
 					</div>
 				</div>
+			</div>
 			</div>
 	
 			<hr />
@@ -117,7 +123,7 @@ while (rs.next()) {
                 <c:if test="${blog.blogStatus ne 0}">
                     <div class="col-md-4" id="blogCard-${blog.blogId}">
 	                <div class="card" style="width: 22rem;height: 450px; margin: 10px;">
-	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style=" width: 351px; height: 160px;" />
+	                <img class="card-img-top" src="<%=request.getContextPath()%>/blog/blog/BlogImgReader?blogId=${blog.blogId}" style="width: 351px; height: 160px;" />
 	                    <div class="card-body p">
 	                        <h5 class="card-title"style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${blog.title}</h5>
 	                        <div class="d-inline-flex">
@@ -134,7 +140,7 @@ while (rs.next()) {
 	                                <p>${blog.customer.nickname}</p>
 	                            </div>
 	                            <div class="col-md-5 p-0">
-	                            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?customerId=${blog.customer.nickname}" style=" width: 50%; height: 50%; "alt="${blog.customer.customerName}" />
+	                            <img class="card-img-top" src="<%=request.getContextPath()%>/customer/ImageReader?id=${blog.customer.customerId}" style="width: 70%; height: 80px;"alt="${blog.customer.customerName}" />
 	                            </div>
 	                            <div class="col-md-4 d-inline-flex align-items-center">
 	                                
@@ -224,6 +230,7 @@ while (rs.next()) {
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         $(function () {
             $("#header").load("../../components/html/header.jsp");

@@ -133,10 +133,10 @@ Customer customer = (Customer) session.getAttribute("customer");
 			<div class="row d-flex">
 				<div class="col-10"></div>
 				<div class="col-1 justify-content-end d-flex">
-					<button type="button" onclick="redirectToMyBlog()" class="btn btn-success">取消</button>
+					<button type="button" style="background: #6B705C;" onclick="redirectToMyBlog()" class="btn btn-success">取消</button>
 				</div>
 				<div class="col-1 justify-content-end d-flex">
-					<input type="submit" id="saveButton" class="btn btn-success" value="送出修改">
+					<input type="submit" id="saveButton" style="background: #6B705C;" class="btn btn-success" value="送出修改">
 					<input type="hidden" name="action" value="update"> 
 					<input type="hidden" name="customer_id" value="<%=blog.getCustomer().getCustomerId()%>" size="45"/>
 					<input type="hidden" name="blogId" value="<%=blog.getBlogId()%>">
