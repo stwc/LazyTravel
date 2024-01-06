@@ -96,7 +96,9 @@
         function backwardClick() {
             var button = document.getElementById('backtohomeButton');
         button.classList.add('clicked');
+
         window.location.href = '"<%=request.getContextPath()%>/index.jsp';
+
         }
         
         

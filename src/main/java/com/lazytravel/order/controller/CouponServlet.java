@@ -126,7 +126,7 @@ public class CouponServlet extends HttpServlet{
 		
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("coupon", coupon);
-			return "/admin/couponAdd.html";
+			return "/admin/couponAdd.jsp";
 		}
 		couponservice.addCoupon(coupon);
 		return "/admin/couponList.jsp";

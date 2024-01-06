@@ -24,7 +24,7 @@
 	href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <script src="https://kit.fontawesome.com/cb6bf56872.js"
 	crossorigin="anonymous"></script>
-<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
+<link rel="icon" href="<%=request.getContextPath()%>/static/images/logo.ico" type="image/x-icon">
 <style>
 
 
@@ -52,6 +52,36 @@
   
   button.btn-modify:active, #filterBtn:active, a.btn-modify:active{
            background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
+  
+    button.btn-unpay {
+        background-color: #bc4749;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+  }
+  
+  button.btn-unpay:hover {
+     background-color: #ef476f;
+        background-color: #ef476f;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+  button.btn-unpay:active{
+           background-color: #ef476f;
         /* Slightly darker shade for click */
         color: white;
         box-shadow: 0 5px #666;
@@ -132,12 +162,16 @@
 
 						let ordersDetail = 
 							'<td>' +
-				            '<a class="customerDetail btn-modify btn" href="orderDetails.jsp?order_id=' + item.orderId + '&order_no=' + item.orderNo + '&order_status=' + item.orderStatus + '&tourist=' + item.tourist + '" class="btn-modify btn" style="white-space: nowrap;">訂單明細</a>'  +
+				            '<a class="customerDetail btn-modify btn" href="<%=request.getContextPath()%>/customerCenter/orderDetails.jsp?order_id=' + item.orderId + '&order_no=' + item.orderNo + '&order_status=' + item.orderStatus + '&tourist=' + item.tourist + '" class="btn-modify btn" style="white-space: nowrap;">訂單明細</a>'  +
 							'</td>';
 											
 						let statusCell = '';
 						if (item.orderStatus == 0) {
-							statusCell = '<span class="status-unpaid">未付款</span>';
+// 							statusCell = '<span class="status-unpaid">未付款</span>';
+							statusCell = '<form method="post" action="ecpay.do">' +
+										 '<button type="submit" class="btn-unpay" id="payButton">未付款</button>' +
+										 '<input id="ecpay" type="hidden" name="orderId" value="'+ item.orderId + '" >' +
+										 '</form>';
 						} else if (item.orderStatus == 1) {
 							statusCell = '<span class="status-paid">已付款</span>';
 						} else if (item.orderStatus == 2) {

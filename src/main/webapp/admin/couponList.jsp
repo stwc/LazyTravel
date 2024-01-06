@@ -16,15 +16,11 @@
 	<link rel="icon" href="../static/images/logo.ico" type="image/x-icon">
 
 	<style>
-		button.btn-modify,
-		#filterBtn, a.btn-modify{
-			background-color: #9C6644;
-			color: white;
-		}
+
 		
 		
 		button.btn-modify,
-		#filterBtn, a.btn-modify, a.couponAdd {
+		#filterBtn, a.couponAdd {
         background-color: #9C6644;
         color: white;
         border: none;
@@ -37,10 +33,11 @@
         transition-duration: 0.4s;
         cursor: pointer;
         border-radius: 8px;
+        
   }
   
   button.btn-modify:hover,
-		#filterBtn:hover, a.btn-modify:hover, a.couponAdd:hover {
+		#filterBtn:hover, a.couponAdd:hover {
      background-color: #804C33;
         background-color: #B07C56;
         /* Slightly lighter shade for hover */
@@ -48,7 +45,38 @@
   }
   
   button.btn-modify:active,
-		#filterBtn:active, a.btn-modify:active, a.couponAdd:active{
+		#filterBtn:active, a.couponAdd:active{
+           background-color: #804C33;
+        /* Slightly darker shade for click */
+        color: white;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+  }
+  
+  		a.btn-modify {
+        background-color: #9C6644;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;  
+        text-decoration: none; 
+         display: inline-block; 
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 8px;
+        
+  }
+  
+   a.btn-modify:hover {
+     background-color: #804C33;
+        background-color: #B07C56;
+        /* Slightly lighter shade for hover */
+        color: white;
+  }
+  
+  a.btn-modify:active{
            background-color: #804C33;
         /* Slightly darker shade for click */
         color: white;
@@ -143,7 +171,7 @@
 						let modifyBtn = 
 							
 						    '<td>' +
-						    '<a href="couponEditor.jsp?coupon_id=' + item.couponID + '&coupon_status=' + item.couponStatus + '" class="btn-modify btn">修改</a>' +
+						    '<a href="couponEditor.jsp?coupon_id=' + item.couponID + '&coupon_status=' + item.couponStatus + '" class="btn-modify">修改</a>' +
 						    '<input type="hidden" name="action" value="update">' +
 						    '</td>';
 						
