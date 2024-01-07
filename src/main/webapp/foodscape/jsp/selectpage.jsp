@@ -9,7 +9,7 @@
 <%@ page import="com.lazytravel.foodscape.service.*"%>
 <%@ page import="com.lazytravel.journey.entity.*"%>
 <%@ page import="com.lazytravel.journey.dao.*"%>
-
+<%@ page import="com.lazytravel.journey.service.*"%>
 
 <%
 	FoodScape foodscape = (FoodScape) request.getAttribute("foodscape");

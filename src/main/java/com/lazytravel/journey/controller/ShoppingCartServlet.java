@@ -15,17 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lazytravel.customer.entity.Customer;
-import com.lazytravel.journey.dao.ShoppingCartService;
-import com.lazytravel.journey.dao.ShoppingCartServiceImpl;
-import com.lazytravel.journey.dao.TourGroupService;
-import com.lazytravel.journey.dao.TourGroupServiceImpl;
-import com.lazytravel.journey.entity.JourneyDetail;
 import com.lazytravel.journey.entity.ShoppingCart;
 import com.lazytravel.journey.entity.TourGroup;
-import com.lazytravel.util.JedisPoolUtil;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
+import com.lazytravel.journey.service.ShoppingCartService;
+import com.lazytravel.journey.service.ShoppingCartServiceImpl;
+import com.lazytravel.journey.service.TourGroupService;
+import com.lazytravel.journey.service.TourGroupServiceImpl;
 
 @WebServlet(name = "ShoppingCartServlet", value = "/journey/user/shoppingCart.do")
 public class ShoppingCartServlet extends HttpServlet {

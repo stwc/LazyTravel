@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.lazytravel.foodscape.entity.FoodScape;
-import com.lazytravel.journey.dao.JourneyDetailService;
-import com.lazytravel.journey.dao.JourneyDetailServiceImpl;
+import com.lazytravel.journey.service.JourneyDetailService;
+import com.lazytravel.journey.service.JourneyDetailServiceImpl;
 
 @WebServlet(name = "LocationServlet", value = "/journey/user/mapLocation.do")
 public class LocationServlet extends HttpServlet {

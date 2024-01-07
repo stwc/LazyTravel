@@ -1,4 +1,4 @@
-package com.lazytravel.journey.dao;
+package com.lazytravel.journey.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.List;
 import com.lazytravel.foodscape.dao.FoodScapeDAO;
 import com.lazytravel.foodscape.dao.FoodScapeDAOImpl;
 import com.lazytravel.foodscape.entity.FoodScape;
+import com.lazytravel.journey.dao.JourneyDetailDAO;
+import com.lazytravel.journey.dao.JourneyDetailDAOImpl;
 import com.lazytravel.journey.entity.JourneyDetail;
 
 public class JourneyDetailServiceImpl implements JourneyDetailService {

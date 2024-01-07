@@ -1,4 +1,4 @@
-package com.lazytravel.journey.dao;
+package com.lazytravel.journey.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.lazytravel.journey.dao.TourGroupDAO;
+import com.lazytravel.journey.dao.TourGroupDAOImpl;
 import com.lazytravel.journey.entity.TourGroup;
 
 public class TourGroupServiceImpl implements TourGroupService {

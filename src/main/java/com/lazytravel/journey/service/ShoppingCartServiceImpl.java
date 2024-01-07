@@ -1,8 +1,10 @@
-package com.lazytravel.journey.dao;
+package com.lazytravel.journey.service;
 
 import java.util.List;
 import java.util.Map;
 
+import com.lazytravel.journey.dao.ShoppingCartDAO;
+import com.lazytravel.journey.dao.ShoppingCartDAOImpl;
 import com.lazytravel.journey.entity.ShoppingCart;
 //import com.lazytravel.journey.entity.TourGroup;
 

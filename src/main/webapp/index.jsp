@@ -12,6 +12,7 @@
 <%@page import="com.lazytravel.foodscape.service.*"%>
 <%@ page import="com.lazytravel.journey.entity.*"%>
 <%@ page import="com.lazytravel.journey.dao.*"%>
+<%@ page import="com.lazytravel.journey.service.*"%>
 <%@ page import="java.util.Random"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Collections"%>

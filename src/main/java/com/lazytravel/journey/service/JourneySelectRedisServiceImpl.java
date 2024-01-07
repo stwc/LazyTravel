@@ -1,4 +1,4 @@
-package com.lazytravel.journey.dao;
+package com.lazytravel.journey.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.lazytravel.journey.dao.JourneyDAO;
+import com.lazytravel.journey.dao.JourneyDAOImpl;
+import com.lazytravel.journey.dao.JourneySelectRedisDAO;
+import com.lazytravel.journey.dao.JourneySelectRedisDAOImpl;
 import com.lazytravel.journey.entity.Journey;
 
 public class JourneySelectRedisServiceImpl implements JourneySelectRedisService {
