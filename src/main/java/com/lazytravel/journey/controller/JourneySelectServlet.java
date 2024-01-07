@@ -16,12 +16,12 @@ import javax.servlet.http.HttpSession;
 import com.lazytravel.foodscape.entity.FoodScape;
 import com.lazytravel.foodscape.service.FoodScapeService;
 import com.lazytravel.foodscape.service.FoodScapeServiceImpl;
-import com.lazytravel.journey.dao.JourneySelectRedisService;
-import com.lazytravel.journey.dao.JourneySelectRedisServiceImpl;
-import com.lazytravel.journey.dao.TourGroupService;
-import com.lazytravel.journey.dao.TourGroupServiceImpl;
 import com.lazytravel.journey.entity.Journey;
 import com.lazytravel.journey.entity.TourGroup;
+import com.lazytravel.journey.service.JourneySelectRedisService;
+import com.lazytravel.journey.service.JourneySelectRedisServiceImpl;
+import com.lazytravel.journey.service.TourGroupService;
+import com.lazytravel.journey.service.TourGroupServiceImpl;
 
 @WebServlet(name = "JourneySelectServlet", value = "/journey/user/journeySelect.do")
 public class JourneySelectServlet extends HttpServlet{

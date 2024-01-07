@@ -4,6 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="com.lazytravel.journey.service.*"%>
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 <%@page import="com.lazytravel.foodscape.entity.*"%>
@@ -492,7 +493,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 	
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWlOPn7AIhHCtv7wbRsgqByXQOwx1pZF8&callback=initMap&v=weekly" async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly" async defer></script>
 	<script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
 
 	<script>

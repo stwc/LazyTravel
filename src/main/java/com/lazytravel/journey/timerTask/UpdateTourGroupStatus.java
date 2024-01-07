@@ -10,9 +10,9 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lazytravel.journey.dao.TourGroupService;
-import com.lazytravel.journey.dao.TourGroupServiceImpl;
 import com.lazytravel.journey.entity.TourGroup;
+import com.lazytravel.journey.service.TourGroupService;
+import com.lazytravel.journey.service.TourGroupServiceImpl;
 
 public class UpdateTourGroupStatus extends TimerTask {
 	private static final Logger logger = LoggerFactory.getLogger(UpdateTourGroupStatus.class);

@@ -1,4 +1,4 @@
-package com.lazytravel.journey.controller;
+package com.lazytravel.journey;
 
 import com.lazytravel.util.JedisPoolUtil;
 

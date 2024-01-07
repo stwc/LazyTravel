@@ -1,8 +1,14 @@
-package com.lazytravel.journey.dao;
+package com.lazytravel.journey.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lazytravel.journey.dao.JourneyDAO;
+import com.lazytravel.journey.dao.JourneyDAOImpl;
+import com.lazytravel.journey.dao.JourneyDetailDAO;
+import com.lazytravel.journey.dao.JourneyDetailDAOImpl;
+import com.lazytravel.journey.dao.JourneySelectRedisDAO;
+import com.lazytravel.journey.dao.JourneySelectRedisDAOImpl;
 import com.lazytravel.journey.entity.Journey;
 import com.lazytravel.journey.entity.JourneyDetail;
 import com.lazytravel.util.JedisPoolUtil;
