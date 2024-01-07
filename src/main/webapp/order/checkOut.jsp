@@ -22,7 +22,7 @@
 <title>填寫旅客資訊</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/order/css/checkOut.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/order/css/checkOut.css">
 
 <script src="https://kit.fontawesome.com/cb6bf56872.js"
 	crossorigin="anonymous"></script>
@@ -186,6 +186,7 @@
             sessionStorage.removeItem('scrollToTop');
         }, 1000); // 延遲 1000 毫秒
     }
+
 });
 	
 	
@@ -448,7 +449,7 @@
 		      
 			
 
-		      window.location.href = "<%=request.getContextPath()%>/order/payCheck.jsp';
+		      window.location.href = "<%=request.getContextPath()%>/order/payCheck.jsp";
 
 			
 			
