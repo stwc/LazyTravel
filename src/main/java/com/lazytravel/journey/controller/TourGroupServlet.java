@@ -165,7 +165,7 @@ public class TourGroupServlet extends HttpServlet {
 	        java.util.Date parsedDueDate = dateFormat.parse(dueDateStr);
 	        dueDate = new Timestamp(parsedDueDate.getTime());
 		} catch (ParseException e) {
-		    errorMsgs.add("請輸入報名開始日");
+		    errorMsgs.add("請輸入報名結束日");
 		}
 		
 		Integer signupNum = Integer.valueOf(req.getParameter("sign_num"));
@@ -173,14 +173,15 @@ public class TourGroupServlet extends HttpServlet {
 		// 根據報名時間判斷旅行團狀態
 		String groupStatus = null;
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-	    Integer compareSignStart = currentTime.compareTo(signupDate);
-	    Integer compareSignEnd = currentTime.compareTo(dueDate);
-	    if (compareSignStart < 0 || compareSignEnd > 0) {      // 當前時間小於報名開始時間，或大於報名結束時間
-	    	groupStatus = "0";
-	    } else {
-	    	groupStatus = "1";
-	    }
-	    
+		if(signupDate !=null && dueDate != null) {
+		    Integer compareSignStart = currentTime.compareTo(signupDate);
+		    Integer compareSignEnd = currentTime.compareTo(dueDate);
+		    if (compareSignStart < 0 || compareSignEnd > 0) {      // 當前時間小於報名開始時間，或大於報名結束時間
+		    	groupStatus = "0";
+		    } else {
+		    	groupStatus = "1";
+		    }
+		}
 		
 		TourGroup tourGroup = new TourGroup();
 		tourGroup.setStartTime(startTime);
