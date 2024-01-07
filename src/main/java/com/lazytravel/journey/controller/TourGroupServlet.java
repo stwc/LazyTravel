@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lazytravel.journey.dao.JourneyService;
-import com.lazytravel.journey.dao.JourneyServiceImpl;
-import com.lazytravel.journey.dao.TourGroupService;
-import com.lazytravel.journey.dao.TourGroupServiceImpl;
 import com.lazytravel.journey.entity.Journey;
 import com.lazytravel.journey.entity.TourGroup;
+import com.lazytravel.journey.service.JourneyService;
+import com.lazytravel.journey.service.JourneyServiceImpl;
+import com.lazytravel.journey.service.TourGroupService;
+import com.lazytravel.journey.service.TourGroupServiceImpl;
 
 @WebServlet(name = "TourGroupServlet", value = "/journey/admin/tourGroup.do")
 public class TourGroupServlet extends HttpServlet {

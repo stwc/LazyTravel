@@ -1,4 +1,4 @@
-package com.lazytravel.journey.dao;
+package com.lazytravel.journey.service;
 
 import java.util.List;
 

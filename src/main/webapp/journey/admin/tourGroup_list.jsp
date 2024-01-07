@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
+<%@page import="com.lazytravel.journey.service.*"%>
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 

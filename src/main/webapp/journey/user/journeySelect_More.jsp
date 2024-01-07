@@ -4,6 +4,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="com.lazytravel.journey.service.*"%>
 <%@page import="com.lazytravel.journey.dao.*"%>
 <%@page import="com.lazytravel.journey.entity.*"%>
 <%@page import="com.lazytravel.foodscape.entity.*"%>
